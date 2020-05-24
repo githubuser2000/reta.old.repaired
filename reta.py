@@ -65,18 +65,20 @@ if True:
                 cell2 += (rest,)
                 #print(str(len(cell2)))
                 for k,cellInCells in enumerate(cell2):
-                    #print(str(cellInCells))
+                    print(str(cellInCells))
+                    break
                     if k < len(newLines):
                         newLines[k] += [cellInCells]
                     else:
                         pass
                         #print("Fehler A")
+            break
 
                     #if not cell2 == None:
                     #    for cell3 in cell2:
                     #        print(cell3+'\n')
                 #print(str(line))
-    print(newLines[0][0])
+    print(str(newLines[0]))
     #for line in newLines:
     #    partLines = ''
     #    for partLine in line:
