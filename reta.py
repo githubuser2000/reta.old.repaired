@@ -14,9 +14,13 @@ def wortumbruch(text,maxlen):
         wordAmountPerLine += 1
         if wordLens > maxlen:
             if wordAmountPerLine == 1:
-                newtext3 += [word[:maxlen]]
-                newtext3 += ['\n']
-                newtext3 += [word[maxlen:]]
+                restword = word
+                while restword != word and len(restword) > maxlen:
+                    newtext3 += [restword[:maxlen]]
+                    newtext3 += ['\n']
+                    restword = word[maxlen:]
+                if wordAmountPerLine == 1 and len(restword) <= maxlen:
+                    newtext3 += [restword[maxlen:]]
             else:
                 newtext3 += ['\n']
                 newtext3 += [word]
@@ -24,13 +28,7 @@ def wortumbruch(text,maxlen):
             wordAmountPerLine = 0
         else:
             newtext3 += [word]
-
-        #if i == 0 :
-        #    newtext4 += '_'.join(newtext3)
-        #elif newtext3[i-1] == '\n':
-        #    newtext4 += '_'.join(newtext3)
-        #else:
-        newtext4 += (' '.join(newtext3))
+        newtext4 += '_'.join(newtext3) + '_'
         newtext3 = []
     return str(newtext4)
 
