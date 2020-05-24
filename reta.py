@@ -40,11 +40,11 @@ if True:
         for row in list(csv.reader(csv_file, delimiter=';')):
             relitable += [row]
     headingsAmount = len(relitable[0])
-    for line in relitable:
-        newLines = [[]]*headingsAmount
-        print(str(line))
+    for u, line in enumerate(relitable):
+        new2Lines = []
         #newLines[20] += ['a']
-        for cell in line:
+        for t, cell in enumerate(line):
+            newLines = [[]]*headingsAmount
             isItNone = dic.wrap(cell, 21)
             cell2 = tuple()
             rest = cell
@@ -66,26 +66,35 @@ if True:
                 cell2 += (rest,)
                 #print(str(len(cell2)))
                 for k,cellInCells in enumerate(cell2):
-                    print(str(cellInCells))
-                    break
+                    #print(str(cellInCells))
                     if k < len(newLines):
                         newLines[k] += [cellInCells]
                     else:
                         pass
                         #print("Fehler A")
-            break
-
+                #print(str(newLines[t]))
+                #exit()
                     #if not cell2 == None:
                     #    for cell3 in cell2:
                     #        print(cell3+'\n')
                 #print(str(line))
-    print(str(newLines[0]))
-    #for line in newLines:
-    #    partLines = ''
-    #    for partLine in line:
-    #        partLine.ljust(21)
-    #        partLines += partLine+' '
-    #    print(partLines)
+        #print(str(newLines[0]))
+        #exit()
+            new2Lines += [newLines[t]]
+        #print(str((new2Lines)))
+        #exit()
+        new4Line = ''
+        for k,new2Line in enumerate(new2Lines):
+            new3line = ''
+            for i,line in enumerate(new2Line):
+                #partLines = ''
+                #for partLine in line:
+                new3line += line+'\n'
+            new4Line += new3line.ljust(50)+' '
+            if k > 1:
+                break
+        print(new4Line)
+ #1                   exit()
 
 
 
