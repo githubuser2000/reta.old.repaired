@@ -84,18 +84,19 @@ if True:
             new2Lines += [newLines[t]]
         #print(str((new2Lines)))
         #exit()
+        new2Lines = zip(*new2Lines)
         new4Line = ''
-        new3line = ''
         for k,new2Line in enumerate(new2Lines):
+            new3Line = ''
             for i,line in enumerate(new2Line):
                 #partLines = ''
                 #for partLine in line:
                 line.ljust(textwidth)
-                new3line += line+'_'
-            new4Line = new3line.ljust(textwidth)+'|'
+                new3Line += line.ljust(textwidth)+' '
+                if i > 3:
+                    break
+            new4Line += new3Line.ljust(textwidth)
             print(new4Line)
-            if k > 1:
-                exit()
 #                break
  #1                   exit()
 
