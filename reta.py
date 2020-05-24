@@ -44,7 +44,7 @@ if True:
             isItNone = dic.wrap(cell, 21)
             cell2 = tuple(isItNone)
             while not isItNone is None:
-                cell2 += (cell2[0],) + isItNone
+                cell2 += isItNone
                 isItNone = dic.wrap(cell2[-1], 21)
             else:
                 cell2 += (cell,)
