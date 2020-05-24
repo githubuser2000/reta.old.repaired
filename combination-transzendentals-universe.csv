@@ -1,0 +1,29 @@
+7+10;Schönheit;Hässlichkeit
+8+10;die Idee;
+3+8+10;das Objekt;
+6+7;das Wohl;das Übel
+5+9;das Allgemeine;
+5+6;das Besondere;
+5+11;das Sonderbare;
+9+10;Vollkommenheit;
+10+5;die Ausnahme;
+7+9;die Reinheit, Naivität, Konstruktivität;
+7+5;vielleicht das Heldentum, wahrscheinlich aber eher der Antiheld;
+6+8;die Verdorbenheit in Form von Anti-naivität, Destruktivität;
+5+5;Einzigartigkeit;
+9+9;jegliches Alles;
+7+8;Realität;
+7+7;das Gutes selbst;
+8+9;Phantasie;
+7+8+10;Realismus;
+5+8+9;vielleicht Erhaltung;
+5+6+7+8+9;vielleicht Ethik;
+5+6+7+8+9+2;vielleicht universelle Ethik;
+5+6+7+8+9+10;vielleicht Recht;
+8+9+7 ;Vielleicht Utopie und Dystopie;
+5+6+7+8+9+2+10 ;Villeicht universelles Recht, wie z.B. universelle Menschenrechte;
+14+15;beliebig verzweigte Datenstruktur, z.B. Graph;
+10+14;Prädikate aus Prädikatenlogik und Relationen aus der Computerwissenschaft;
+10+14+15;möglicherweise kontextfreie Sprache und Grammatik, ggf. 11,12,16 noch nötig, aber was ist die 16?;
+13;Komplementbildung bei der Berechnung;
+10+11+12+13+14+15+(?16?);Vielleicht Turingvollständigkeit;

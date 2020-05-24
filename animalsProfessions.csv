@@ -1,0 +1,14 @@
+;Lebewesen;Beruf
+3,8,10;Mensch;
+7;Hund, Wolf, Fuchs;Tischler
+6;Elefant, Bär;Kaufmann
+5,9;Katze;Arzt
+10;Rabe;Mathematiker, Informatiker, Systemtheoretiker, Strukturwissenschaftler
+10,7;Delphin;Philosoph. Model, Architekt, 3D-Software-Künstler
+11;Kanarienvogel;
+2,4,7, +mehr;Hundeaußerirdische;
+5,9,19 +mehr;Katzenaußerirdische;
+5;Reptil;
+3,6 und mehr;Elefantenaußerirdische;
+7,9;wahrscheinlich Schafe oder Ziegen oder Kühe;
+3;;Handwerker, Wissen-Verwalter
