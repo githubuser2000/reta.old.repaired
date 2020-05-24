@@ -35,6 +35,7 @@ dic = pyphen.Pyphen(lang='de_DE')
 #    return str(newtext4)
 
 if True:
+    textwidth = 21
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
         for row in list(csv.reader(csv_file, delimiter=';')):
@@ -45,12 +46,12 @@ if True:
         #newLines[20] += ['a']
         for t, cell in enumerate(line):
             newLines = [[]]*headingsAmount
-            isItNone = dic.wrap(cell, 21)
+            isItNone = dic.wrap(cell, textwidth)
             cell2 = tuple()
             rest = cell
             while not isItNone is None:
                 cell2 += isItNone
-                isItNone = dic.wrap(cell2[-1], 21)
+                isItNone = dic.wrap(cell2[-1], textwidth)
                 rest = cell2[-1]
                 cell2 = cell2[:-1]
 #                print(str(cell2))
@@ -84,16 +85,18 @@ if True:
         #print(str((new2Lines)))
         #exit()
         new4Line = ''
+        new3line = ''
         for k,new2Line in enumerate(new2Lines):
-            new3line = ''
             for i,line in enumerate(new2Line):
                 #partLines = ''
                 #for partLine in line:
-                new3line += line+'\n'
-            new4Line += new3line.ljust(50)+' '
+                line.ljust(textwidth)
+                new3line += line+'_'
+            new4Line = new3line.ljust(textwidth)+'|'
+            print(new4Line)
             if k > 1:
-                break
-        print(new4Line)
+                exit()
+#                break
  #1                   exit()
 
 
