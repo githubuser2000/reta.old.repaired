@@ -76,12 +76,13 @@ if True:
                     #    for cell3 in cell2:
                     #        print(cell3+'\n')
                 #print(str(line))
-    for line in newLines:
-        partLines = ''
-        for partLine in line:
-            partLine.ljust(21)
-            partLines += partLine+' '
-        print(partLines)
+    print(newLines[0][0])
+    #for line in newLines:
+    #    partLines = ''
+    #    for partLine in line:
+    #        partLine.ljust(21)
+    #        partLines += partLine+' '
+    #    print(partLines)
 
 
 
