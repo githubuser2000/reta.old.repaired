@@ -41,6 +41,7 @@ if True:
         for row in list(csv.reader(csv_file, delimiter=';')):
             relitable += [row]
     headingsAmount = len(relitable[0])
+    newRows = []
     for u, line in enumerate(relitable):
         new2Lines = []
         #newLines[20] += ['a']
@@ -82,21 +83,24 @@ if True:
         #print(str(newLines[0]))
         #exit()
             new2Lines += [newLines[t]]
+        newRows += [new2Lines]
         #print(str((new2Lines)))
         #exit()
-        new2Lines = zip(*new2Lines)
-        new4Line = ''
-        for k,new2Line in enumerate(new2Lines):
-            new3Line = ''
-            for i,line in enumerate(new2Line):
-                #partLines = ''
-                #for partLine in line:
-                line.ljust(textwidth)
-                new3Line += line.ljust(textwidth)+' '
-                if i > 3:
-                    break
-            new4Line += new3Line.ljust(textwidth)
-            print(new4Line)
+    new2Lines = zip(*newRows)
+    print(str(list(new2Lines[0])))
+    exit()
+    new4Line = ''
+    for k,new2Line in enumerate(new2Lines):
+        new3Line = ''
+        for i,line in enumerate(new2Line):
+            #partLines = ''
+            #for partLine in line:
+            line.ljust(textwidth)
+            new3Line += line.ljust(textwidth)+' '
+            if i > 3:
+                break
+        new4Line += new3Line.ljust(textwidth)
+        print(new4Line)
 #                break
  #1                   exit()
 
