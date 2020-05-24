@@ -42,6 +42,7 @@ if True:
     headingsAmount = len(relitable[0])
     for line in relitable:
         newLines = [[]]*headingsAmount
+        print(str(line))
         #newLines[20] += ['a']
         for cell in line:
             isItNone = dic.wrap(cell, 21)
