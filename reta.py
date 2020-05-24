@@ -42,12 +42,24 @@ if True:
     for line in relitable:
         for cell in line:
             isItNone = dic.wrap(cell, 21)
-            cell2 = tuple(isItNone)
+            cell2 = tuple()
+            rest = cell
             while not isItNone is None:
                 cell2 += isItNone
                 isItNone = dic.wrap(cell2[-1], 21)
+                rest = cell2[-1]
+                cell2 = cell2[:-1]
+#                print(str(cell2))
+#                exit()
+                # 2 sind da, wir wollen 4
+                # 1 + 2 unvollständig
+                # 1 + 2 + rest
+                #
+                # 1 + neues 2 + neues 3
+                #
+                # 1 + 2 + neues 3 + neues 4
             else:
-                cell2 += (cell,)
+                cell2 += (rest,)
                 print(str(cell2))
                     #if not cell2 == None:
                     #    for cell3 in cell2:
