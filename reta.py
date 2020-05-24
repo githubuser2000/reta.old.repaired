@@ -41,17 +41,17 @@ if True:
             relitable += [row]
     for line in relitable:
         for cell in line:
-            cell2 = dic.wrap(cell, 21)
-            if len(cell2) > 1:
-                second = dic.wrap(cell2[1], 21)
-                if not second is None:
-                    cell2 = (cell2[0],) + dic.wrap(cell2[1], 21)
-                else:
-                    cell2 = (cell2[0],) + (cell2[1],)
+            isItNone = dic.wrap(cell, 21)
+            cell2 = tuple(isItNone)
+            while not isItNone is None:
+                cell2 += (cell2[0],) + isItNone
+                isItNone = dic.wrap(cell2[-1], 21)
+            else:
+                cell2 += (cell,)
                 print(str(cell2))
-                #if not cell2 == None:
-                #    for cell3 in cell2:
-                #        print(cell3+'\n')
+                    #if not cell2 == None:
+                    #    for cell3 in cell2:
+                    #        print(cell3+'\n')
 
 
 
