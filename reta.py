@@ -86,8 +86,8 @@ if True:
         newRows += [new2Lines]
         #print(str((new2Lines)))
         #exit()
-    new2Lines = zip(*newRows)
-    print(str(list(new2Lines[0])))
+    new2Lines = list(zip(*newRows))
+    print(str(list(new2Lines[1])))
     exit()
     new4Line = ''
     for k,new2Line in enumerate(new2Lines):
