@@ -39,7 +39,10 @@ if True:
         relitable = []
         for row in list(csv.reader(csv_file, delimiter=';')):
             relitable += [row]
+    headingsAmount = len(relitable[0])
     for line in relitable:
+        newLines = [[]]*headingsAmount
+        #newLines[20] += ['a']
         for cell in line:
             isItNone = dic.wrap(cell, 21)
             cell2 = tuple()
@@ -60,11 +63,25 @@ if True:
                 # 1 + 2 + neues 3 + neues 4
             else:
                 cell2 += (rest,)
-                print(str(cell2))
+                #print(str(len(cell2)))
+                for k,cellInCells in enumerate(cell2):
+                    #print(str(cellInCells))
+                    if k < len(newLines):
+                        newLines[k] += [cellInCells]
+                    else:
+                        pass
+                        #print("Fehler A")
+
                     #if not cell2 == None:
                     #    for cell3 in cell2:
                     #        print(cell3+'\n')
-
+                #print(str(line))
+    for line in newLines:
+        partLines = ''
+        for partLine in line:
+            partLine.ljust(21)
+            partLines += partLine+' '
+        print(partLines)
 
 
 
