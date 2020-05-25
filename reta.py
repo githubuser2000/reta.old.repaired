@@ -29,7 +29,7 @@ def parameters(argv):
                             displayLines.add('>')
                 elif arg[2:11]=='zaehlung=':
                     for maybedigit in arg[11:].split(','):
-                        if maybedigit.isdecimal():
+                        if maybedigit.isdecimal() and int(maybedigit) != 0:
                             displayLines.add(maybedigit+'z')
                 elif arg[2:6]=='typ=':
                     for word in arg[6:].split(','):
