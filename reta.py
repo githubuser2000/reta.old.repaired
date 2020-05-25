@@ -22,6 +22,18 @@ def colorize(text,num):
     else:
         return '\033[40m'+'\033[37m'+text+'\033[0m'+'\033[0m'
 
+def moonNumber(num):
+    results=[]
+    exponent=[]
+    for i in range(2,num):
+        oneResult = math.pow(num, 1/i)
+        if math.floor(oneResult) == oneResult:
+            results += [oneResult]
+            exponent += [i-2]
+    return results, exponent
+
+#for i in range(100):
+#    print(str(i)+'. '+str(moonNumber(i)))
 
 if True:
     textwidth = 21
