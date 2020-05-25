@@ -15,6 +15,14 @@ def wrapping(text,length):
         isItNone = None
     return isItNone
 
+def colorize(text,num):
+    #\033[0;34mblaues Huhn\033[0m.
+    if num % 2 == 0:
+        return '\033[47m'+'\033[30m'+text+'\033[0m'+'\033[0m'
+    else:
+        return '\033[40m'+'\033[37m'+text+'\033[0m'+'\033[0m'
+
+
 if True:
     textwidth = 21
     with open('religion.csv', mode='r') as csv_file:
@@ -66,5 +74,6 @@ if True:
                     except:
                         line += ''.ljust(textwidth)+' '
             if k < 4:
-                print(line)
+                #\033[0;34mblaues Huhn\033[0m.
+                print(colorize(line, k))
     exit()
