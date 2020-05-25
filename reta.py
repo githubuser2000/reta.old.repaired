@@ -8,6 +8,35 @@ import math
 dic = pyphen.Pyphen(lang='de_DE')
 ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
 
+def primfak(n):
+
+    """ zerlegt eine Zahl in ihre Primfaktoren
+
+    >>> primfaktoren(24)
+    [2, 2, 2, 3]
+
+    """
+
+    faktoren = []
+    z = n
+    while z > 1:
+        # bestimme den kleinsten Primfaktor p von z
+        i = 2
+        gefunden = False
+        while i*i <= n and not gefunden:
+            if z % i == 0:
+                gefunden = True
+                p = i
+            else:
+                i = i + 1
+        if not gefunden:
+            p = z
+        # füge p in die Liste der Faktoren ein
+        faktoren = faktoren + [p]
+        z = z // p
+    return faktoren
+#print(str(primfak(7)))
+
 def wrapping(text,length):
     if len(text) > length:
         isItNone = dic.wrap(text, length)
@@ -15,14 +44,17 @@ def wrapping(text,length):
         isItNone = None
     return isItNone
 
-def colorize(text,num):
+def colorize(text,num, row):
     #\033[0;34mblaues Huhn\033[0m.
+    num = int(num)
     if moonNumber(num)[1] != []:
         #00;33
+        return '\033[46m'+'\033[30m'+text+'\033[0m'+'\033[0m'
+    elif len(primfak(num)) == 1:
         return '\033[43m'+'\033[30m'+text+'\033[0m'+'\033[0m'
-    if num % 2 == 0:
+    elif num % 2 == 0:
         if num == 0:
-            return '\033[46m'+'\033[30m'+'\033[1m'+text+'\033[0m'
+            return '\033[41m'+'\033[30m'+'\033[1m'+text+'\033[0m'
         else:
             return '\033[47m'+'\033[30m'+text+'\033[0m'+'\033[0m'
     else:
@@ -94,12 +126,12 @@ if True:
                 maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth))
                 if i < maxRowsPossible and k < 6:
                     try:
-                        line += newRows[k][i][m].ljust(textwidth)+' ' # neben-Einander
+                        line += colorize(newRows[k][i][m].ljust(textwidth),k,i)+' ' # neben-Einander
                     except:
                         linesEmpty += 1
                         line += ''.ljust(textwidth)+' ' # neben-Einander
             if k < 6 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
-                print(colorize(line, k))
+                print(line)
                 #print(colorize(str(linesEmpty)+' '+str(maxRowsPossible), k))
         if actualPartLineLen > maxPartLineLen:
             maxPartLineLen = actualPartLineLen
