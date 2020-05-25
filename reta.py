@@ -65,5 +65,6 @@ if True:
                         line += newRows[k][i][m].ljust(textwidth)+' '
                     except:
                         line += ''.ljust(textwidth)+' '
-            print(line)
-        exit()
+            if k < 4:
+                print(line)
+    exit()
