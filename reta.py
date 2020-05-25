@@ -17,8 +17,14 @@ def wrapping(text,length):
 
 def colorize(text,num):
     #\033[0;34mblaues Huhn\033[0m.
+    if moonNumber(num)[1] != []:
+        #00;33
+        return '\033[43m'+'\033[30m'+text+'\033[0m'+'\033[0m'
     if num % 2 == 0:
-        return '\033[47m'+'\033[30m'+text+'\033[0m'+'\033[0m'
+        if num == 0:
+            return '\033[46m'+'\033[30m'+'\033[1m'+text+'\033[0m'
+        else:
+            return '\033[47m'+'\033[30m'+text+'\033[0m'+'\033[0m'
     else:
         return '\033[40m'+'\033[37m'+text+'\033[0m'+'\033[0m'
 
@@ -92,7 +98,7 @@ if True:
                     except:
                         linesEmpty += 1
                         line += ''.ljust(textwidth)+' ' # neben-Einander
-            if k < 4 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
+            if k < 6 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
                 print(colorize(line, k))
                 #print(colorize(str(linesEmpty)+' '+str(maxRowsPossible), k))
         if actualPartLineLen > maxPartLineLen:
