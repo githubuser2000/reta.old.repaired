@@ -88,15 +88,6 @@ if True:
         newRows += [new2Lines]
         #print(str((new2Lines)))
         #exit()
-    #new2Lines = list(zip(*newRows))
-    #for line in new2Lines:
-    #    print(str(line[0]))
-    #exit()
-    #new4Line = ''
-    #print(str(new2Lines))
-    #print(new2Lines[0][0])
-    #print(str(newRows[0][0][0]))
-    # newRows: [a][b][c]
     # c nächste silbe
     # b nächste Spalte
     # a nächste Zeile
@@ -114,36 +105,9 @@ if True:
                 iterRealLinesAmount = math.floor( int(shellRowsAmount) / int(textwidth))
                 if i < iterRealLinesAmount and k < 6:
                     #print(newRows[k][i][m])
-                    line += newRows[k][i][m].ljust(textwidth)+' '
+                    try:
+                        line += newRows[k][i][m].ljust(textwidth)+' '
+                    except:
+                        pass
             print(line)
         exit()
-    for k,new2Line in enumerate(newRows): # nächste Zeile
-        #new3Line = ''
-        for i,line in enumerate(new2Line): # nächste Spalte
-            for m, partline in enumerate(line): # nächste silbe
-                # Ich brauche zuerst nächste Spalte, dann nächste Silbentrannung
-                # und dann nächste Zeile
-                print(partline)
-                exit()
-            #partLines = ''
-            #for partLine in line:
-            #line.ljust(textwidth)
-            #new3Line += line.ljust(textwidth)+' '
-            #if i > 3:
-            #    break
-        #new4Line += new3Line.ljust(textwidth)
-        #print(new4Line)
-#                break
- #1                   exit()
-
-
-
-
-
-
-
-
-
-
-
-
