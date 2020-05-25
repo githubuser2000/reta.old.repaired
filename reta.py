@@ -68,9 +68,12 @@ if True:
     # b nächste Spalte
     # a nächste Zeile
     #exit()
-    originalLinesRange = range(len(newRows))
-    realLinesRange = range(len(newRows[0]))
-    rowsRange = range(len(newRows[0][0]))
+    #originalLinesRange = range(len(newRows))
+    originalLinesRange = range(120)
+    #realLinesRange = range(len(newRows[0]))
+    realLinesRange = range(50)
+    #rowsRange = range(len(newRows[0][0]))
+    rowsRange = range(50)
 
     #print(newRows[0][1][0])
     #exit()
