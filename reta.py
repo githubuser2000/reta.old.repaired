@@ -130,7 +130,7 @@ if True:
             line=''
             linesEmpty = 0
             for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
-                maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth))
+                maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
                 if i < maxRowsPossible and k < 6:
                     try:
                         line += colorize(newRows[k][i][m].ljust(textwidth), k, i)+' ' # neben-Einander
