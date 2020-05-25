@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 import csv
 import pyphen
+import os
+import math
 
 dic = pyphen.Pyphen(lang='de_DE')
-
+shellRowsAmount, ColumnsRowsAmount = os.popen('stty size', 'r').read().split()
 #def wortumbruch(text,maxlen):
 #    text = text.split()
 #    wordLens = 0
@@ -103,14 +105,18 @@ if True:
     realLinesRange = range(len(newRows[0]))
     rowsRange = range(len(newRows[0][0]))
 
-    for m in rowsRange:
-        for k in originalLinesRange:
+    #print(newRows[0][1][0])
+    #exit()
+    for k in originalLinesRange:
+        for m in rowsRange:
             line=''
             for i in realLinesRange:
-                if i < 4:
+                iterRealLinesAmount = math.floor( int(shellRowsAmount) / int(textwidth))
+                if i < iterRealLinesAmount and k < 6:
+                    #print(newRows[k][i][m])
                     line += newRows[k][i][m].ljust(textwidth)+' '
             print(line)
-    exit()
+        exit()
     for k,new2Line in enumerate(newRows): # nächste Zeile
         #new3Line = ''
         for i,line in enumerate(new2Line): # nächste Spalte
