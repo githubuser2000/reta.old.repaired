@@ -46,6 +46,15 @@ def parameters(argv):
                     for word in arg[20:].split(','):
                         if word.isdecimal():
                             displayLines.add(word+'p')
+                elif arg[2:9]=='anzahl=':
+                    maybeAmounts=arg[9:].split('-')
+                    if len(maybeAmounts) == 1:
+                        if maybeAmounts[0].isdecimal():
+                            displayLines.add('0-'+str(int(maybeAmounts[0])-1))
+                    elif len(maybeAmounts) == 2:
+                        if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
+                            print(maybeAmounts)
+                            displayLines.add(str(int(maybeAmounts[0])-1)+'-'+str(int(maybeAmounts[1])-1))
             else: # oberes Kommando
                 if arg[1:]=='zeilen':
                     bigParamaeter += ['zeilen']
