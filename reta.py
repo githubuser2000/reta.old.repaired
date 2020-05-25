@@ -6,7 +6,7 @@ import os
 import math
 
 dic = pyphen.Pyphen(lang='de_DE')
-shellRowsAmount, ColumnsRowsAmount = os.popen('stty size', 'r').read().split()
+ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
 #def wortumbruch(text,maxlen):
 #    text = text.split()
 #    wordLens = 0
@@ -108,6 +108,6 @@ if True:
                     try:
                         line += newRows[k][i][m].ljust(textwidth)+' '
                     except:
-                        pass
+                        line += ''.ljust(textwidth)+' '
             print(line)
         exit()
