@@ -77,25 +77,26 @@ if True:
 
     #print(newRows[0][1][0])
     #exit()
-    for k in originalLinesRange:
-        maxPartLineLen = 0
-        for m in rowsRange:
+    maxPartLineLen = 0
+    for k in originalLinesRange: # n Linien einer Zelle, d.h. 1 EL = n Zellen
+        actualPartLineLen = 0
+        for m in rowsRange: # eine Zeile immer
+            actualPartLineLen += 1
             line=''
-            actualPartLineLen = 0
-            for i in realLinesRange:
-                iterRealLinesAmount = math.floor( int(shellRowsAmount) / int(textwidth))
-                if i < iterRealLinesAmount and k < 6:
-                    #print(newRows[k][i][m])
+            linesEmpty = 0
+            for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
+                maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth))
+                if i < maxRowsPossible and k < 6:
                     try:
-                        line += newRows[k][i][m].ljust(textwidth)+' '
-                        actualPartLineLen += 1
+                        line += newRows[k][i][m].ljust(textwidth)+' ' # neben-Einander
                     except:
-                        line += ''.ljust(textwidth)+' '
-            if actualPartLineLen > maxPartLineLen:
-                maxPartLineLen = actualPartLineLen
-            if k < 4 and m < maxPartLineLen + 3:
-                #\033[0;34mblaues Huhn\033[0m.
+                        linesEmpty += 1
+                        line += ''.ljust(textwidth)+' ' # neben-Einander
+            if k < 4 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
                 print(colorize(line, k))
+                #print(colorize(str(linesEmpty)+' '+str(maxRowsPossible), k))
+        if actualPartLineLen > maxPartLineLen:
+            maxPartLineLen = actualPartLineLen
 
 
 
