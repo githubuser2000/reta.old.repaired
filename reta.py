@@ -78,17 +78,27 @@ if True:
     #print(newRows[0][1][0])
     #exit()
     for k in originalLinesRange:
+        maxPartLineLen = 0
         for m in rowsRange:
             line=''
+            actualPartLineLen = 0
             for i in realLinesRange:
                 iterRealLinesAmount = math.floor( int(shellRowsAmount) / int(textwidth))
                 if i < iterRealLinesAmount and k < 6:
                     #print(newRows[k][i][m])
                     try:
                         line += newRows[k][i][m].ljust(textwidth)+' '
+                        actualPartLineLen += 1
                     except:
                         line += ''.ljust(textwidth)+' '
-            if k < 4:
+            if actualPartLineLen > maxPartLineLen:
+                maxPartLineLen = actualPartLineLen
+            if k < 4 and m < maxPartLineLen + 3:
                 #\033[0;34mblaues Huhn\033[0m.
                 print(colorize(line, k))
-    exit()
+
+
+
+
+
+
