@@ -4,9 +4,53 @@ import csv
 import pyphen
 import os
 import math
+import sys
 
 dic = pyphen.Pyphen(lang='de_DE')
 ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
+displayLines = set()
+displayRows = set()
+
+
+def parameters(argv):
+    global displayLines, displayRows
+    bigParamaeter=[]
+    for arg in argv[1:]:
+        if len(arg) > 0 and  arg[0] == '-':
+            if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
+                print(str(arg[2:6]))
+                if arg[2:7]=='zeit=':
+                    for subpara in arg[7:]:
+                        if '=' in subpara:
+                            displayLines.add('=')
+                        elif '<' in subpara:
+                            displayLines.add('<')
+                        elif '>' in subpara:
+                            displayLines.add('>')
+                elif arg[2:11]=='zaehlung=':
+                    for maybedigit in arg[11:].split(','):
+                        if maybedigit.isdecimal():
+                            displayLines.add(maybedigit+'z')
+                elif arg[2:6]=='typ=':
+                    for word in arg[6:].split(','):
+                        print(word)
+                        if word == 'sonne':
+                            displayLines.add('sonne')
+                        elif word == 'schwarzesonne':
+                            displayLines.add('schwarzesonne')
+                        elif word == 'planet':
+                            displayLines.add('planet')
+                        elif word == 'mond':
+                            displayLines.add('mond')
+                elif arg[2:20]=='primzahlvielfache=':
+                    for word in arg[20:].split(','):
+                        if word.isdecimal():
+                            displayLines.add(word+'p')
+            else: # oberes Kommando
+                if arg[1:]=='zeilen':
+                    bigParamaeter += ['zeilen']
+                elif arg[1:]=='spalten':
+                    bigParamaeter += ['spalten']
 
 def primfak(n):
 
@@ -80,7 +124,7 @@ def moonNumber(num):
 #for i in range(100):
 #    print(str(i)+'. '+str(moonNumber(i)))
 
-if True:
+if False:
     textwidth = 21
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
@@ -143,8 +187,5 @@ if True:
         if actualPartLineLen > maxPartLineLen:
             maxPartLineLen = actualPartLineLen
 
-
-
-
-
-
+parameters(sys.argv)
+print(str(displayLines))
