@@ -12,6 +12,8 @@ paramLines = set()
 paramRows = set()
 toYesDisplayLines = set()
 toYesdisplayRows = set()
+toNotDisplayLines = set()
+toNotDisplayRows = set()
 # c nächste silbe
 # b nächste Spalte
 # a nächste Zeile
@@ -99,12 +101,13 @@ def fromUntil(a):
 
 
 def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
-    global toYesDisplayLines, toYesdisplayRows, zaehlungen, paramLines, paramRows
-    def bereinigen(wether, a : set, b):
+    global toYesDisplayLines, toYesdisplayRows, zaehlungen, paramLines, paramRows, toNotDisplayLines
+    def bereinigen(wether, a : set, b : set):
         if wether:
-            for n in a.copy():
-                if not n in b:
-                    a.remove(n)
+            a.difference(b)
+#            for n in a.copy():
+#                if not n in b:
+#                    a.remove(n)
 
     for condition in paramLines:
         if '-a-' in condition:
@@ -113,6 +116,7 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
             for n in numRange.copy():
                 if a[0] > n or a[1] < n:
                     numRange.remove(n)
+                    toNotDisplayLines.add(n)
     print('ö '+str(numRange))
 
     numRangeYesZ = set()
@@ -134,6 +138,7 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
                     numRangeYesZ.add(n)
 
     bereinigen(ifZeitAtAll, numRange, numRangeYesZ)
+    print('ö2 '+str(numRange))
 
     numRangeYesZ = set()
     ifZaehlungenAtAll = False
