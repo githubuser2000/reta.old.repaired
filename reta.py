@@ -63,16 +63,16 @@ def parameters(argv):
                     maybeAmounts=arg[22:].split('-')
                     if len(maybeAmounts) == 1 and maybeAmounts[0] != '0':
                         if maybeAmounts[0].isdecimal():
-                            paramLines.add('1-'+str(int(maybeAmounts[0])-1))
-                    elif len(maybeAmounts) == 2 and maybeAmounts[1] != '0':
+                            paramLines.add('1-a-'+str(int(maybeAmounts[0])))
+                    elif len(maybeAmounts) == 2 and maybeAmounts[1] != '0' and maybeAmounts[0] != '0':
                         if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
                             paramLines.add(maybeAmounts[0]+'-a-'+maybeAmounts[1])
                 elif arg[2:21]=='nachtraeglichdavon=':
                     maybeAmounts=arg[21:].split('-')
-                    if len(maybeAmounts) == 1and maybeAmounts[0] != '0':
+                    if len(maybeAmounts) == 1 and maybeAmounts[0] != '0':
                         if maybeAmounts[0].isdecimal():
-                            paramLines.add('1-'+maybeAmounts[0])
-                    elif len(maybeAmounts) == 2 and maybeAmounts[1] != '0':
+                            paramLines.add('1-z-'+maybeAmounts[0])
+                    elif len(maybeAmounts) == 2 and maybeAmounts[1] != '0' and maybeAmounts[0] != '0':
                         if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
                             paramLines.add(maybeAmounts[0]+'-z-'+maybeAmounts[1])
             else: # oberes Kommando
@@ -83,19 +83,19 @@ def parameters(argv):
 
 def fromUntil(a):
     if a[0].isdecimal():
-        a[0] = int(a[0]) - 1
+        a[0] = int(a[0])
         if len(a) == 2 and a[1].isdecimal():
-            a[1] = int(a[1]) - 1
+            a[1] = int(a[1])
         elif len(a) == 1:
             swap = a[0]
-            a[0] = 0
+            a[0] = 1
             a += [swap]
-            a[0] = 0
+            a[0] = 1
         else:
-            return (0,0)
+            return (1,1)
         return a
     else:
-        return (0,0)
+        return (1,1)
 
 
 def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
@@ -111,7 +111,7 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
             a = fromUntil(condition.split('-a-'))
             print('ä '+str(a))
             for n in numRange.copy():
-                if a[0] > n - 2 or a[1] < n - 2:
+                if a[0] > n or a[1] < n:
                     numRange.remove(n)
     print('ö '+str(numRange))
 
