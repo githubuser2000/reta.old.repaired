@@ -276,6 +276,10 @@ if True:
                 isItNone = wrapping(cell2[-1], textwidth)
                 rest = cell2[-1]
                 cell2 = cell2[:-1]
+                if len(rest) > textwidth
+                    #cell2 = cell2[:-1]
+                    #cell2 += (rest[-textwidth:],)
+                    isItNone = False
             else:
                 cell2 += (rest,)
                 for k,cellInCells in enumerate(cell2):
