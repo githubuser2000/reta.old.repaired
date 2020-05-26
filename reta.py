@@ -100,15 +100,23 @@ def fromUntil(a):
         return (1,1)
 
 
-def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
+def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
     global toYesDisplayLines, toYesdisplayRows, zaehlungen, paramLines, paramRows, toNotDisplayLines
-    def diffset(wether, a : set, b : set):
+    def diffset(wether, a : set, b : set) -> set:
         if wether:
-            return a.difference(b)
+            result = a.difference(b)
+            if result is None:
+                return set()
+            else:
+                return result
         return a
-    def cutset(wether, a : set, b : set):
+    def cutset(wether, a : set, b : set) -> set:
         if wether:
-            return a.intersection(b)
+            result = a.intersection(b)
+            if result is None:
+                return set()
+            else:
+                return result
         return a
 
     for condition in paramLines:
@@ -139,8 +147,8 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
 
     numRange = cutset(ifZeitAtAll, numRange, numRangeYesZ)
 
+    print("x0 "+str(numRange))
     print("y0 "+str(paramLines))
-    numRangeYesZ = set()
     ifZaehlungenAtAll = False
     for condition in paramLines:
         if len(condition) > 1 and condition[-1] == 'z' and condition[0:-1].isdecimal(): # ist eine von mehreren Zählungen
@@ -148,13 +156,12 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
                 setZaehlungen(originalLinesRange[-1])
                 ifZaehlungenAtAll = True
             zaehlungGesucht = int(condition[0:-1]) # eine zählung = eine zahl, beginnend minimal ab 1
-            for n in numRange: # nur die nummern, die noch infrage kommen
+            for n in numRange.copy(): # nur die nummern, die noch infrage kommen
                 #zaehlungen = [0,{},{},{}]
                 wouldBeZaehlungNum = zaehlungen[3][n]
-                if int(wouldBeZaehlungNum) == int(zaehlungGesucht): # nummer der zählung
-                    numRangeYesZ.add(n)
-    print("x "+str(numRange))
-    numRange = cutset(ifZaehlungenAtAll, numRange, numRangeYesZ)
+                if int(wouldBeZaehlungNum) != int(zaehlungGesucht): # nummer der zählung
+                    numRange.remove(n)
+    print("x1 "+str(numRange))
 
     for condition in paramLines:
         if '-z-' in condition:
@@ -281,8 +288,12 @@ if True:
 
     parameters(sys.argv)
     finallyDisplayLines = FilterOriginalLines(set(originalLinesRange))
+    print('2 '+str(finallyDisplayLines))
+    finallyDisplayLines.add(0)
+    finallyDisplayLines= list(finallyDisplayLines)
+    finallyDisplayLines.sort()
     maxPartLineLen = 0
-    print('1 '+str(set(originalLinesRange)))
+    #print('1 '+str(set(originalLinesRange)))
     print('2 '+str(finallyDisplayLines))
 
     for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
