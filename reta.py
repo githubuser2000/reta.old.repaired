@@ -104,7 +104,8 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
     global toYesDisplayLines, toYesdisplayRows, zaehlungen, paramLines, paramRows, toNotDisplayLines
     def bereinigen(wether, a : set, b : set):
         if wether:
-            a.difference(b)
+            return a.difference(b)
+            return a
 #            for n in a.copy():
 #                if not n in b:
 #                    a.remove(n)
@@ -137,8 +138,10 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
                 if n > 9:
                     numRangeYesZ.add(n)
 
-    bereinigen(ifZeitAtAll, numRange, numRangeYesZ)
-    print('ö2 '+str(numRange))
+#    numRange = numRangeYesZ
+    print('ö2 '+str(numRangeYesZ))
+    numRange = bereinigen(ifZeitAtAll, numRange, numRangeYesZ)
+    print('ö3 '+str(numRange))
 
     numRangeYesZ = set()
     ifZaehlungenAtAll = False
@@ -154,7 +157,7 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
                 if wouldBeZwahlungNum.isdecimal() and wouldBeZwahlungNum == zaehlungGesucht: # nummer der zählung
                     numRangeYesZ.add(n)
 
-    bereinigen(ifZaehlungenAtAll, numRange, numRangeYesZ)
+    #numRange = bereinigen(ifZaehlungenAtAll, numRange, numRangeYesZ)
 
     for condition in paramLines:
         if '-z-' in condition:
@@ -292,7 +295,6 @@ if True:
     parameters(sys.argv)
     toYesDisplayLines = FilterOriginalLines(set(originalLinesRange))
     maxPartLineLen = 0
-    print('0 '+str(toYesDisplayLines))
     print('1 '+str(set(originalLinesRange)))
     print('2 '+str(toYesDisplayLines))
 
