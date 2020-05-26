@@ -110,9 +110,11 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
             else:
                 return result
         return a
+    numRange.remove(0)
     def cutset(wether, a : set, b : set) -> set:
         if wether:
             result = a.intersection(b)
+            #print("x "+str(result))
             if result is None:
                 return set()
             else:
@@ -149,19 +151,27 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
 
     print("x0 "+str(numRange))
     print("y0 "+str(paramLines))
+    numRangeYesZ = set()
     ifZaehlungenAtAll = False
     for condition in paramLines:
         if len(condition) > 1 and condition[-1] == 'z' and condition[0:-1].isdecimal(): # ist eine von mehreren Zählungen
             if not ifZaehlungenAtAll:
+                print("_")
                 setZaehlungen(originalLinesRange[-1])
+                print(str(zaehlungen[3]))
                 ifZaehlungenAtAll = True
             zaehlungGesucht = int(condition[0:-1]) # eine zählung = eine zahl, beginnend minimal ab 1
             for n in numRange.copy(): # nur die nummern, die noch infrage kommen
                 #zaehlungen = [0,{},{},{}]
-                wouldBeZaehlungNum = zaehlungen[3][n]
-                if int(wouldBeZaehlungNum) != int(zaehlungGesucht): # nummer der zählung
-                    numRange.remove(n)
+                if zaehlungen[3][n] == int(zaehlungGesucht): # 1-4:1,5-9:2 == jetzt ?
+                    numRangeYesZ.add(n)
+                    #numRange.remove(n)
+    #print("xi "+str(numRangeYesZ))
+    #print("xt "+str(numRange))
+    numRange = cutset(ifZaehlungenAtAll, numRange, numRangeYesZ)
+   # set().add
     print("x1 "+str(numRange))
+    #exit()
 
     for condition in paramLines:
         if '-z-' in condition:
