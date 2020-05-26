@@ -31,7 +31,6 @@ def parameters(argv):
     for arg in argv[1:]:
         if len(arg) > 0 and  arg[0] == '-':
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
-                print(str(arg[2:6]))
                 if arg[2:7]=='zeit=':
                     for subpara in arg[7:]:
                         if '=' in subpara:
@@ -46,7 +45,6 @@ def parameters(argv):
                             toYesDisplayLines.add(maybedigit+'z')
                 elif arg[2:6]=='typ=':
                     for word in arg[6:].split(','):
-                        print(word)
                         if word == 'sonne':
                             toYesDisplayLines.add('sonne')
                         elif word == 'schwarzesonne':
@@ -66,7 +64,6 @@ def parameters(argv):
                             toYesDisplayLines.add('0-'+str(int(maybeAmounts[0])-1))
                     elif len(maybeAmounts) == 2:
                         if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
-                            print(maybeAmounts)
                             toYesDisplayLines.add(str(int(maybeAmounts[0])-1)+'-a-'+str(int(maybeAmounts[1])-1))
                 elif arg[2:21]=='nachtraeglichdavon=':
                     maybeAmounts=arg[21:].split('-')
@@ -75,7 +72,6 @@ def parameters(argv):
                             toYesDisplayLines.add('0-'+str(int(maybeAmounts[0])-1))
                     elif len(maybeAmounts) == 2:
                         if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
-                            print(maybeAmounts)
                             toYesDisplayLines.add(str(int(maybeAmounts[0])-1)+'-z-'+str(int(maybeAmounts[1])-1))
             else: # oberes Kommando
                 if arg[1:]=='zeilen':
@@ -99,11 +95,16 @@ def fromUntil(a):
     else:
         return (0,0)
 
-def PrepareForifDisplayLinePerNumber(): # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
+
+def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
     global toYesDisplayLines, toYesdisplayRows, zaehlungen
+    def bereinigen(wether, a : set, b):
+        if wether:
+            for n in a.copy():
+                if not n in b:
+                    a.remove(n)
     newCoordinates=(0,0)
-    numRange = set(range(1, originalLinesRange[-1] + 1))
-    numRangeYesZ = set()
+#    numRange = set(range(1, originalLinesRange[-1] + 1))
 
     for condition in toYesDisplayLines:
         if '-a-' in condition:
@@ -111,34 +112,33 @@ def PrepareForifDisplayLinePerNumber(): # ich wollte je pro extra num, nun nicht
             newCoordinates = (0,a[1]-a[0])
             for n in numRange.copy():
                 if newCoordinates[0] < n or newCoordinates[1] > n:
-                    set(numRange).remove(n)
-    for condition in toYesDisplayLines:
-        if '=' == condition and not '<' == condition and not '>' == condition:
-            if 9 in numRange:
-                numRange = set(9,)
-        elif '<' == condition and not '>' == condition and not '=' == condition:
-            for n in numRange:
-                if n >= 9:
-                    numRange.remove(n)
-        elif '>' == condition and not '<' == condition and not '=' == condition:
-            for n in numRange:
-                if n <= 9:
-                    numRange.remove(n)
-        elif '>' == condition and '<' == condition and not '=' == condition:
-            for n in numRange:
-                if n == 9:
-                    numRange.remove(n)
-        elif '>' == condition and '<' == condition and '=' == condition:
-            pass
-        elif '>' == condition and not '<' == condition and '=' == condition:
-            for n in numRange:
-                if n < 9:
-                    numRange.remove(n)
-        elif not '>' == condition and '<' == condition and '=' == condition:
-            for n in numRange:
-                if n > 9:
                     numRange.remove(n)
 
+    numRangeYesZ = set()
+    ifZeitAtAll = False
+
+    for condition in toYesDisplayLines:
+        if '=' == condition:
+            ifZeitAtAll = True
+            numRangeYesZ.add(9)
+        elif '<' == condition:
+            ifZeitAtAll = True
+            for n in numRange.copy():
+                if n < 9:
+                    numRangeYesZ.add(n)
+        elif '>' == condition:
+            ifZeitAtAll = True
+            for n in numRange.copy():
+                if n > 9:
+                    numRangeYesZ.add(n)
+
+    bereinigen(ifZeitAtAll, numRange, numRangeYesZ)
+#    if ifZeitAtAll:
+#        for n in numRange.copy():
+#            if not n in numRangeYesZ:
+#                numRange.remove(n)
+
+    numRangeYesZ = set()
     ifZaehlungenAtAll = False
     for condition in toYesDisplayLines:
         if len(condition) > 2 and condition[-1] == 'z' and condition[0:-1].isdecimal(): # ist eine von mehreren Zählungen
@@ -149,7 +149,7 @@ def PrepareForifDisplayLinePerNumber(): # ich wollte je pro extra num, nun nicht
             for n in numRange: # nur die nummern, die noch infrage kommen
                 #zaehlungen = [0,{},{},{}]
                 wouldBeZwahlungNum = zaehlungen[3][n]
-                if wouldBeZwahlungNum.isdecimal() and wouldBeZwahlungNum == zaehlungGesucht # nummer der zählung
+                if wouldBeZwahlungNum.isdecimal() and wouldBeZwahlungNum == zaehlungGesucht: # nummer der zählung
                     numRangeYesZ.add(n)
     if ifZaehlungenAtAll:
         for n in numRange.copy():
@@ -160,6 +160,7 @@ def PrepareForifDisplayLinePerNumber(): # ich wollte je pro extra num, nun nicht
     for condition in toYesDisplayLines:
         if '-z-' in condition:
             z = fromUntil(condition.split('-z-'))
+    return numRange
 
 
 def primfak(n : int):
@@ -289,13 +290,12 @@ if True:
             new2Lines += [newLines[t]]
         newRows += [new2Lines]
 
-    PrepareForifDisplayLinePerNumber()
-    NewLinesRangeSet = set(originalLinesRange)
-    for z in originalLinesRange:
-        if not z in toYesDisplayLines:
-            NewLinesRangeSet.remove(z)
+    parameters(sys.argv)
+    toYesDisplayLines = FilterOriginalLines(set(originalLinesRange))
     maxPartLineLen = 0
-
+    print('_ '+str(set(originalLinesRange)))
+    print('_ '+str(toYesDisplayLines))
+if False:
     for k in toYesDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
         actualPartLineLen = 0
         for m in rowsRange: # eine Zeile immer
@@ -311,11 +311,8 @@ if True:
                         linesEmpty += 1
                         line += colorize(''.ljust(textwidth), k,i ,True)+' ' # neben-Einander
             if k < 6 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
-                if ifDisplayLinePerNumber(k):
-                    print(line)
+                print(line)
                 #print(colorize(str(linesEmpty)+' '+str(maxRowsPossible), k))
         if actualPartLineLen > maxPartLineLen:
             maxPartLineLen = actualPartLineLen
 
-parameters(sys.argv)
-print(str(toYesDisplayLines))
