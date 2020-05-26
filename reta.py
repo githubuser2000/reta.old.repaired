@@ -307,7 +307,8 @@ if True:
                 #if i < maxRowsPossible and k < 6:
                 if i < maxRowsPossible:
                     try:
-                        line += colorize(newRows[k][i][m].ljust(textwidth), k, i)+' ' # neben-Einander
+                        #line += colorize(newRows[k][i][m].ljust(textwidth), k, i)+' ' # neben-Einander
+                        line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth), k, i)+' ' # neben-Einander
                     except:
                         linesEmpty += 1
                         line += colorize(''.ljust(textwidth), k,i ,True)+' ' # neben-Einander
