@@ -102,9 +102,13 @@ def fromUntil(a):
 
 def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
     global toYesDisplayLines, toYesdisplayRows, zaehlungen, paramLines, paramRows, toNotDisplayLines
-    def bereinigen(wether, a : set, b : set):
+    def diffset(wether, a : set, b : set):
         if wether:
             return a.difference(b)
+            return a
+    def cutset(wether, a : set, b : set):
+        if wether:
+            return a.intersection(b)
             return a
 #            for n in a.copy():
 #                if not n in b:
@@ -126,21 +130,21 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
     for condition in paramLines:
         if '=' == condition:
             ifZeitAtAll = True
-            numRangeYesZ.add(9)
+            numRangeYesZ.add(10)
         elif '<' == condition:
             ifZeitAtAll = True
-            for n in numRange.copy():
-                if n < 9:
+            for n in numRange:
+                if n < 10:
                     numRangeYesZ.add(n)
         elif '>' == condition:
             ifZeitAtAll = True
-            for n in numRange.copy():
-                if n > 9:
+            for n in numRange:
+                if n > 10:
                     numRangeYesZ.add(n)
 
-#    numRange = numRangeYesZ
     print('ö2 '+str(numRangeYesZ))
-    numRange = bereinigen(ifZeitAtAll, numRange, numRangeYesZ)
+    numRange = cutset(ifZeitAtAll, numRange, numRangeYesZ)
+#    numRange = numRangeYesZ
     print('ö3 '+str(numRange))
 
     numRangeYesZ = set()
