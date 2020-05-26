@@ -10,6 +10,19 @@ dic = pyphen.Pyphen(lang='de_DE')
 ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
 displayLines = set()
 displayRows = set()
+# c nächste silbe
+# b nächste Spalte
+# a nächste Zeile
+#exit()
+#originalLinesRange = range(len(newRows))
+originalLinesRange = range(120)
+#realLinesRange = range(len(newRows[0]))
+realLinesRange = range(50)
+#rowsRange = range(len(newRows[0][0]))
+rowsRange = range(50)
+#print(newRows[0][1][0])
+
+zaehlungen = [0,{},{},{}]
 
 
 def parameters(argv):
@@ -70,7 +83,86 @@ def parameters(argv):
                 elif arg[1:]=='spalten':
                     bigParamaeter += ['spalten']
 
-def primfak(n):
+def fromUntil(a):
+    if a[0].isdecimal():
+        a[0] = int(a[0]) - 1
+        if len(a) == 2 and a[1].isdecimal():
+            a[1] = int(a[1]) - 1
+        elif len(a) == 1:
+            swap = a[0]
+            a[0] = 0
+            a += [swap]
+            a[0] = 0
+        else:
+            return (0,0)
+        return a
+    else:
+        return (0,0)
+
+def PrepareForifDisplayLinePerNumber(num : int): # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
+    global displayLines, displayRows, zaehlungen
+    newCoordinates=(0,0)
+    numRange = set(range(1, num + 1))
+    numRangeYesZ = set()
+
+    for condition in displayLines:
+        if '-a-' in condition:
+            a = fromUntil(condition.split('-a-'))
+            newCoordinates = (0,a[1]-a[0])
+            for n in numRange.copy():
+                if newCoordinates[0] < n or newCoordinates[1] > n:
+                    set(numRange).remove(n)
+    for condition in displayLines:
+        if '=' == condition and not '<' == condition and not '>' == condition:
+            if 9 in numRange:
+                numRange = set(9,)
+        elif '<' == condition and not '>' == condition and not '=' == condition:
+            for n in numRange:
+                if n >= 9:
+                    numRange.remove(n)
+        elif '>' == condition and not '<' == condition and not '=' == condition:
+            for n in numRange:
+                if n <= 9:
+                    numRange.remove(n)
+        elif '>' == condition and '<' == condition and not '=' == condition:
+            for n in numRange:
+                if n == 9:
+                    numRange.remove(n)
+        elif '>' == condition and '<' == condition and '=' == condition:
+            pass
+        elif '>' == condition and not '<' == condition and '=' == condition:
+            for n in numRange:
+                if n < 9:
+                    numRange.remove(n)
+        elif not '>' == condition and '<' == condition and '=' == condition:
+            for n in numRange:
+                if n > 9:
+                    numRange.remove(n)
+
+    ifZaehlungenAtAll = False
+    for condition in displayLines:
+        if len(condition) > 2 and condition[-1] == 'z' and condition[0:-1].isdecimal(): # ist eine von mehreren Zählungen
+            if not ifZaehlungenAtAll:
+                setZaehlungen(originalLinesRange[-1])
+                ifZaehlungenAtAll = True
+            zaehlungGesucht = int(condition[0:-1]) # eine zählung = eine zahl, beginnend minimal ab 1
+            for n in numRange: # nur die nummern, die noch infrage kommen
+                #zaehlungen = [0,{},{},{}]
+                wouldBeZwahlungNum = zaehlungen[3][n]
+                if wouldBeZwahlungNum.isdecimal() and wouldBeZwahlungNum == zaehlungGesucht # nummer der zählung
+                    numRangeYesZ.add(n)
+    if ifZaehlungenAtAll:
+        for n in numRange.copy():
+            if not n in numRangeYesZ:
+                numRange.remove(n)
+
+
+    for condition in displayLines:
+        if '-z-' in condition:
+            z = fromUntil(condition.split('-z-'))
+
+
+def primfak(n : int):
 
     """ zerlegt eine Zahl in ihre Primfaktoren
 
@@ -99,14 +191,14 @@ def primfak(n):
     return faktoren
 #print(str(primfak(7)))
 
-def wrapping(text,length):
+def wrapping(text,length : int):
     if len(text) > length:
         isItNone = dic.wrap(text, length)
     else:
         isItNone = None
     return isItNone
 
-def colorize(text,num, row, rest=False):
+def colorize(text,num : int, row, rest=False):
     #\033[0;34mblaues Huhn\033[0m.
     num = int(num)
     if rest:
@@ -129,7 +221,7 @@ def colorize(text,num, row, rest=False):
     else:
         return '\033[40m'+'\033[37m'+text+'\033[0m'+'\033[0m'
 
-def moonNumber(num):
+def moonNumber(num : int):
     results=[]
     exponent=[]
     for i in range(2,num):
@@ -139,10 +231,35 @@ def moonNumber(num):
             exponent += [i-2]
     return results, exponent
 
+
+def setZaehlungen(num : int): # mehrere Zählungen finden festlegen zum später auslesen
+    global zaehlungen
+    wasMoon = True
+    if zaehlungen[0] == 0:
+        wasMoon = True
+    else:
+        ifIsMoon = moonNumber(zaehlungen[0])
+        if ifIsMoon[1] != []:
+            wasMoon = False
+        else:
+            wasMoon = True
+
+    for i in range(zaehlungen[0]+1, num+1):
+        ifIsMoon = moonNumber(i)
+        if ifIsMoon[1] != []:
+            if wasMoon:
+                wasMoon = False
+                zaehlungen[1][len(zaehlungen[1]) + 1 ] = i
+                zaehlungen[2][i] = len(zaehlungen[2]) + 1
+        else:
+            if not wasMoon:
+                wasMoon = True
+        zaehlungen[3][i] = len(zaehlungen[2])
+
 #for i in range(100):
 #    print(str(i)+'. '+str(moonNumber(i)))
 
-if False:
+if True:
     textwidth = 21
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
@@ -171,18 +288,6 @@ if False:
                         pass
             new2Lines += [newLines[t]]
         newRows += [new2Lines]
-    # c nächste silbe
-    # b nächste Spalte
-    # a nächste Zeile
-    #exit()
-    #originalLinesRange = range(len(newRows))
-    originalLinesRange = range(120)
-    #realLinesRange = range(len(newRows[0]))
-    realLinesRange = range(50)
-    #rowsRange = range(len(newRows[0][0]))
-    rowsRange = range(50)
-
-    #print(newRows[0][1][0])
     #exit()
     maxPartLineLen = 0
     for k in originalLinesRange: # n Linien einer Zelle, d.h. 1 EL = n Zellen
@@ -200,7 +305,8 @@ if False:
                         linesEmpty += 1
                         line += colorize(''.ljust(textwidth), k,i ,True)+' ' # neben-Einander
             if k < 6 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
-                print(line)
+                if ifDisplayLinePerNumber(k):
+                    print(line)
                 #print(colorize(str(linesEmpty)+' '+str(maxRowsPossible), k))
         if actualPartLineLen > maxPartLineLen:
             maxPartLineLen = actualPartLineLen
