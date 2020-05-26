@@ -105,24 +105,19 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
     def diffset(wether, a : set, b : set):
         if wether:
             return a.difference(b)
-            return a
+        return a
     def cutset(wether, a : set, b : set):
         if wether:
             return a.intersection(b)
-            return a
-#            for n in a.copy():
-#                if not n in b:
-#                    a.remove(n)
+        return a
 
     for condition in paramLines:
         if '-a-' in condition:
             a = fromUntil(condition.split('-a-'))
-            print('ä '+str(a))
             for n in numRange.copy():
                 if a[0] > n or a[1] < n:
                     numRange.remove(n)
                     toNotDisplayLines.add(n)
-    print('ö '+str(numRange))
 
     numRangeYesZ = set()
     ifZeitAtAll = False
@@ -142,26 +137,24 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
                 if n > 10:
                     numRangeYesZ.add(n)
 
-    print('ö2 '+str(numRangeYesZ))
     numRange = cutset(ifZeitAtAll, numRange, numRangeYesZ)
-#    numRange = numRangeYesZ
-    print('ö3 '+str(numRange))
 
+    print("y0 "+str(paramLines))
     numRangeYesZ = set()
     ifZaehlungenAtAll = False
     for condition in paramLines:
-        if len(condition) > 2 and condition[-1] == 'z' and condition[0:-1].isdecimal(): # ist eine von mehreren Zählungen
+        if len(condition) > 1 and condition[-1] == 'z' and condition[0:-1].isdecimal(): # ist eine von mehreren Zählungen
             if not ifZaehlungenAtAll:
                 setZaehlungen(originalLinesRange[-1])
                 ifZaehlungenAtAll = True
             zaehlungGesucht = int(condition[0:-1]) # eine zählung = eine zahl, beginnend minimal ab 1
             for n in numRange: # nur die nummern, die noch infrage kommen
                 #zaehlungen = [0,{},{},{}]
-                wouldBeZwahlungNum = zaehlungen[3][n]
-                if wouldBeZwahlungNum.isdecimal() and wouldBeZwahlungNum == zaehlungGesucht: # nummer der zählung
+                wouldBeZaehlungNum = zaehlungen[3][n]
+                if int(wouldBeZaehlungNum) == int(zaehlungGesucht): # nummer der zählung
                     numRangeYesZ.add(n)
-
-    #numRange = bereinigen(ifZaehlungenAtAll, numRange, numRangeYesZ)
+    print("x "+str(numRange))
+    numRange = cutset(ifZaehlungenAtAll, numRange, numRangeYesZ)
 
     for condition in paramLines:
         if '-z-' in condition:
@@ -240,31 +233,21 @@ def moonNumber(num : int):
 
 
 def setZaehlungen(num : int): # mehrere Zählungen finden festlegen zum später auslesen
-    global zaehlungen
+    global zaehlungen # [bis zu welcher zahl, {zaehlung:zahl},{zahl:zaehlung},{jede zahl,zugehoerigeZaehlung}]
     wasMoon = True
     if zaehlungen[0] == 0:
-        wasMoon = True
+        isMoon = True
     else:
-        ifIsMoon = moonNumber(zaehlungen[0])
-        if ifIsMoon[1] != []:
-            wasMoon = False
-        else:
-            wasMoon = True
+        isMoon = moonNumber(zaehlungen[0])
 
     for i in range(zaehlungen[0]+1, num+1):
-        ifIsMoon = moonNumber(i)
-        if ifIsMoon[1] != []:
-            if wasMoon:
-                wasMoon = False
-                zaehlungen[1][len(zaehlungen[1]) + 1 ] = i
-                zaehlungen[2][i] = len(zaehlungen[2]) + 1
-        else:
-            if not wasMoon:
-                wasMoon = True
+        wasMoon = isMoon
+        isMoon = moonNumber(i)[0] != []
+        if wasMoon and not isMoon:
+            isMoon = False
+            zaehlungen[1][len(zaehlungen[1]) + 1 ] = i
+            zaehlungen[2][i] = len(zaehlungen[2]) + 1
         zaehlungen[3][i] = len(zaehlungen[2])
-
-#for i in range(100):
-#    print(str(i)+'. '+str(moonNumber(i)))
 
 if True:
     textwidth = 21
@@ -297,12 +280,12 @@ if True:
         newRows += [new2Lines]
 
     parameters(sys.argv)
-    toYesDisplayLines = FilterOriginalLines(set(originalLinesRange))
+    finallyDisplayLines = FilterOriginalLines(set(originalLinesRange))
     maxPartLineLen = 0
     print('1 '+str(set(originalLinesRange)))
-    print('2 '+str(toYesDisplayLines))
+    print('2 '+str(finallyDisplayLines))
 
-    for k in toYesDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
+    for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
         actualPartLineLen = 0
         for m in rowsRange: # eine Zeile immer
             actualPartLineLen += 1
