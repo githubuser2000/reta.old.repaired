@@ -276,12 +276,11 @@ if True:
                 isItNone = wrapping(cell2[-1], textwidth)
                 rest = cell2[-1]
                 cell2 = cell2[:-1]
-                if len(rest) > textwidth
-                    #cell2 = cell2[:-1]
-                    #cell2 += (rest[-textwidth:],)
-                    isItNone = False
+                if len(rest) > textwidth and isItNone is None:
+                    cell2 += (rest[0:textwidth-1],)
+                    isItNone = (rest[textwidth:],)
             else:
-                cell2 += (rest,)
+                cell2 += (rest[0:textwidth-1],)
                 for k,cellInCells in enumerate(cell2):
                     if k < len(newLines):
                         newLines[k] += [cellInCells]
