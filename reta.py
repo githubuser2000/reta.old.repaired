@@ -8,6 +8,8 @@ import sys
 
 dic = pyphen.Pyphen(lang='de_DE')
 ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
+paramLines = set()
+paramRows = set()
 toYesDisplayLines = set()
 toYesdisplayRows = set()
 # c nächste silbe
@@ -26,7 +28,7 @@ zaehlungen = [0,{},{},{}]
 
 
 def parameters(argv):
-    global toYesDisplayLines, toYesdisplayRows
+    global paramLines, paramRows
     bigParamaeter=[]
     for arg in argv[1:]:
         if len(arg) > 0 and  arg[0] == '-':
@@ -34,45 +36,45 @@ def parameters(argv):
                 if arg[2:7]=='zeit=':
                     for subpara in arg[7:]:
                         if '=' in subpara:
-                            toYesDisplayLines.add('=')
+                            paramLines.add('=')
                         elif '<' in subpara:
-                            toYesDisplayLines.add('<')
+                            paramLines.add('<')
                         elif '>' in subpara:
-                            toYesDisplayLines.add('>')
+                            paramLines.add('>')
                 elif arg[2:11]=='zaehlung=':
                     for maybedigit in arg[11:].split(','):
                         if maybedigit.isdecimal() and int(maybedigit) != 0:
-                            toYesDisplayLines.add(maybedigit+'z')
+                            paramLines.add(maybedigit+'z')
                 elif arg[2:6]=='typ=':
                     for word in arg[6:].split(','):
                         if word == 'sonne':
-                            toYesDisplayLines.add('sonne')
+                            paramLines.add('sonne')
                         elif word == 'schwarzesonne':
-                            toYesDisplayLines.add('schwarzesonne')
+                            paramLines.add('schwarzesonne')
                         elif word == 'planet':
-                            toYesDisplayLines.add('planet')
+                            paramLines.add('planet')
                         elif word == 'mond':
-                            toYesDisplayLines.add('mond')
+                            paramLines.add('mond')
                 elif arg[2:20]=='primzahlvielfache=':
                     for word in arg[20:].split(','):
                         if word.isdecimal():
-                            toYesDisplayLines.add(word+'p')
+                            paramLines.add(word+'p')
                 elif arg[2:22]=='vorhervonausschnitt=':
                     maybeAmounts=arg[22:].split('-')
-                    if len(maybeAmounts) == 1:
+                    if len(maybeAmounts) == 1 and maybeAmounts[0] != '0':
                         if maybeAmounts[0].isdecimal():
-                            toYesDisplayLines.add('0-'+str(int(maybeAmounts[0])-1))
-                    elif len(maybeAmounts) == 2:
+                            paramLines.add('1-'+str(int(maybeAmounts[0])-1))
+                    elif len(maybeAmounts) == 2 and maybeAmounts[1] != '0':
                         if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
-                            toYesDisplayLines.add(str(int(maybeAmounts[0])-1)+'-a-'+str(int(maybeAmounts[1])-1))
+                            paramLines.add(maybeAmounts[0]+'-a-'+maybeAmounts[1])
                 elif arg[2:21]=='nachtraeglichdavon=':
                     maybeAmounts=arg[21:].split('-')
-                    if len(maybeAmounts) == 1:
+                    if len(maybeAmounts) == 1and maybeAmounts[0] != '0':
                         if maybeAmounts[0].isdecimal():
-                            toYesDisplayLines.add('0-'+str(int(maybeAmounts[0])-1))
-                    elif len(maybeAmounts) == 2:
+                            paramLines.add('1-'+maybeAmounts[0])
+                    elif len(maybeAmounts) == 2 and maybeAmounts[1] != '0':
                         if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
-                            toYesDisplayLines.add(str(int(maybeAmounts[0])-1)+'-z-'+str(int(maybeAmounts[1])-1))
+                            paramLines.add(maybeAmounts[0]+'-z-'+maybeAmounts[1])
             else: # oberes Kommando
                 if arg[1:]=='zeilen':
                     bigParamaeter += ['zeilen']
@@ -97,27 +99,26 @@ def fromUntil(a):
 
 
 def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
-    global toYesDisplayLines, toYesdisplayRows, zaehlungen
+    global toYesDisplayLines, toYesdisplayRows, zaehlungen, paramLines, paramRows
     def bereinigen(wether, a : set, b):
         if wether:
             for n in a.copy():
                 if not n in b:
                     a.remove(n)
-    newCoordinates=(0,0)
-#    numRange = set(range(1, originalLinesRange[-1] + 1))
 
-    for condition in toYesDisplayLines:
+    for condition in paramLines:
         if '-a-' in condition:
             a = fromUntil(condition.split('-a-'))
-            newCoordinates = (0,a[1]-a[0])
+            print('ä '+str(a))
             for n in numRange.copy():
-                if newCoordinates[0] < n or newCoordinates[1] > n:
+                if a[0] > n - 2 or a[1] < n - 2:
                     numRange.remove(n)
+    print('ö '+str(numRange))
 
     numRangeYesZ = set()
     ifZeitAtAll = False
 
-    for condition in toYesDisplayLines:
+    for condition in paramLines:
         if '=' == condition:
             ifZeitAtAll = True
             numRangeYesZ.add(9)
@@ -133,14 +134,10 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
                     numRangeYesZ.add(n)
 
     bereinigen(ifZeitAtAll, numRange, numRangeYesZ)
-#    if ifZeitAtAll:
-#        for n in numRange.copy():
-#            if not n in numRangeYesZ:
-#                numRange.remove(n)
 
     numRangeYesZ = set()
     ifZaehlungenAtAll = False
-    for condition in toYesDisplayLines:
+    for condition in paramLines:
         if len(condition) > 2 and condition[-1] == 'z' and condition[0:-1].isdecimal(): # ist eine von mehreren Zählungen
             if not ifZaehlungenAtAll:
                 setZaehlungen(originalLinesRange[-1])
@@ -151,13 +148,10 @@ def FilterOriginalLines(numRange : set): # ich wollte je pro extra num, nun nich
                 wouldBeZwahlungNum = zaehlungen[3][n]
                 if wouldBeZwahlungNum.isdecimal() and wouldBeZwahlungNum == zaehlungGesucht: # nummer der zählung
                     numRangeYesZ.add(n)
-    if ifZaehlungenAtAll:
-        for n in numRange.copy():
-            if not n in numRangeYesZ:
-                numRange.remove(n)
 
+    bereinigen(ifZaehlungenAtAll, numRange, numRangeYesZ)
 
-    for condition in toYesDisplayLines:
+    for condition in paramLines:
         if '-z-' in condition:
             z = fromUntil(condition.split('-z-'))
     return numRange
@@ -293,9 +287,10 @@ if True:
     parameters(sys.argv)
     toYesDisplayLines = FilterOriginalLines(set(originalLinesRange))
     maxPartLineLen = 0
-    print('_ '+str(set(originalLinesRange)))
-    print('_ '+str(toYesDisplayLines))
-if False:
+    print('0 '+str(toYesDisplayLines))
+    print('1 '+str(set(originalLinesRange)))
+    print('2 '+str(toYesDisplayLines))
+
     for k in toYesDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
         actualPartLineLen = 0
         for m in rowsRange: # eine Zeile immer
@@ -304,13 +299,15 @@ if False:
             linesEmpty = 0
             for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
                 maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
-                if i < maxRowsPossible and k < 6:
+                #if i < maxRowsPossible and k < 6:
+                if i < maxRowsPossible:
                     try:
                         line += colorize(newRows[k][i][m].ljust(textwidth), k, i)+' ' # neben-Einander
                     except:
                         linesEmpty += 1
                         line += colorize(''.ljust(textwidth), k,i ,True)+' ' # neben-Einander
-            if k < 6 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
+            #if k < 6 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
+            if linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
                 print(line)
                 #print(colorize(str(linesEmpty)+' '+str(maxRowsPossible), k))
         if actualPartLineLen > maxPartLineLen:
