@@ -245,10 +245,10 @@ def primRepeat(n):
         b = e
 
     return f
-def primMultiple(n : int) -> list[list]:
+def primMultiple(n : int) -> list:
     multiples = []
     for prim in primRepeat(primFak(n)):
-        multiples += [[prim[0],round(n / prim[0])]]
+        multiples += [(prim[0],round(n / prim[0]))]
     return multiples
 
 def isPrimMultiple(isIt : int, multiples1 : list) -> bool:
