@@ -26,7 +26,7 @@ realLinesRange = range(50)
 rowsRange = range(50)
 #print(newRows[0][1][0])
 
-zaehlungen = [0,{},{},{}]
+zaehlungen = [0,{},{},{},{}]
 
 
 def parameters(argv):
@@ -149,8 +149,8 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
 
     numRange = cutset(ifZeitAtAll, numRange, numRangeYesZ)
 
-    print("x0 "+str(numRange))
-    print("y0 "+str(paramLines))
+    #print("x0 "+str(numRange))
+    #print("y0 "+str(paramLines))
     numRangeYesZ = set()
     ifZaehlungenAtAll = False
     for condition in paramLines:
@@ -161,7 +161,7 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
                 print(str(zaehlungen[3]))
                 ifZaehlungenAtAll = True
             zaehlungGesucht = int(condition[0:-1]) # eine zählung = eine zahl, beginnend minimal ab 1
-            for n in numRange.copy(): # nur die nummern, die noch infrage kommen
+            for n in numRange: # nur die nummern, die noch infrage kommen
                 #zaehlungen = [0,{},{},{}]
                 if zaehlungen[3][n] == int(zaehlungGesucht): # 1-4:1,5-9:2 == jetzt ?
                     numRangeYesZ.add(n)
@@ -172,6 +172,31 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
    # set().add
     print("x1 "+str(numRange))
     #exit()
+    ifTypAtAll = False
+    numRangeYesZ = set()
+    def moonsun(MoonNotSun : bool):
+        numRangeYesZ = set()
+        if not ifZaehlungenAtAll:
+            setZaehlungen(originalLinesRange[-1])
+        for n in numRange:
+            if ( zaehlungen[4][n][0] != [] ) == MoonNotSun:
+                numRangeYesZ.add(n)
+        return numRangeYesZ
+
+    for condition in paramLines:
+        if 'mond' in condition:
+            numRangeYesZ, ifTypAtAll = moonsun(True), True
+        elif 'sonne' in condition:
+            numRangeYesZ, ifTypAtAll = moonsun(False), True
+        elif 'planet' in condition:
+            ifTypAtAll = True
+            for n in numRange:
+                if n % 2 == 0:
+                    numRangeYesZ.add(n)
+
+    print("x2 "+str(ifTypAtAll))
+    numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
+    print("x3 "+str(numRange))
 
     for condition in paramLines:
         if '-z-' in condition:
@@ -255,16 +280,18 @@ def setZaehlungen(num : int): # mehrere Zählungen finden festlegen zum später 
     if zaehlungen[0] == 0:
         isMoon = True
     else:
-        isMoon = moonNumber(zaehlungen[0])
+        isMoon = moonNumber(zaehlungen[0])[0] != []
 
     for i in range(zaehlungen[0]+1, num+1):
         wasMoon = isMoon
-        isMoon = moonNumber(i)[0] != []
+        moonType = moonNumber(i)
+        isMoon = moonType[0] != []
         if wasMoon and not isMoon:
             isMoon = False
             zaehlungen[1][len(zaehlungen[1]) + 1 ] = i
             zaehlungen[2][i] = len(zaehlungen[2]) + 1
         zaehlungen[3][i] = len(zaehlungen[2])
+        zaehlungen[4][i] = moonType
 
 if True:
     textwidth = 21
