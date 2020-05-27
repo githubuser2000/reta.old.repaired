@@ -299,7 +299,7 @@ def isPrimMultiple(isIt : int, multiples1 : list, dontReturnList = True):
 #for e in range(1,11):
 #    print("w "+str(isPrimMultiple(e, [2])))
 
-def wrapping(text,length : int):
+def wrapping(text : str, length : int):
     if len(text) > length:
         isItNone = dic.wrap(text, length)
     else:
@@ -360,6 +360,7 @@ def setZaehlungen(num : int): # mehrere Zählungen finden festlegen zum später 
         zaehlungen[4][i] = moonType
 
 if True:
+    parameters(sys.argv)
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
         for row in list(csv.reader(csv_file, delimiter=';')):
@@ -391,7 +392,6 @@ if True:
             new2Lines += [newLines[t]]
         newRows += [new2Lines]
 
-    parameters(sys.argv)
     finallyDisplayLines = FilterOriginalLines(set(originalLinesRange))
     print('2 '+str(finallyDisplayLines))
     finallyDisplayLines.add(0)
