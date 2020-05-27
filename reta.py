@@ -30,9 +30,11 @@ zaehlungen = [0,{},{},{},{}]
 textwidth = 21
 textheight = 0
 numerierung = True
+spalten =  set()
+#spalten.add(1)
 
 def parameters(argv):
-    global paramLines, paramRows, textwidth, textheight, numerierung
+    global paramLines, paramRows, textwidth, textheight, numerierung, spalten
     bigParamaeter=[]
     for arg in argv[1:]:
         if len(arg) > 0 and  arg[0] == '-':
@@ -40,8 +42,18 @@ def parameters(argv):
                 if arg[2:9]=='breite=':
                     if arg[9:].isdecimal():
                         textwidth = abs(int(arg[9:]))
-                elif arg[2:14]=='keinenummerierung':
+                elif arg[2:20]=='keinenummerierung':
                     numerierung = False
+                elif arg[2:13]=='religionen=':
+                    for religion in arg[13:].split(','):
+                        if religion == 'sternpolygon':
+                            spalten.add(0)
+                            spalten.add(6)
+                        elif religion in ['babylon','dertierkreiszeichen']:
+                            spalten.add(0)
+                        elif religion in ['gleichfoermigespolygon','nichtsternpolygon','polygon']:
+                            spalten.add(16)
+
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
                 if arg[2:7]=='zeit=':
                     for subpara in arg[7:]:
@@ -428,14 +440,17 @@ if True:
 
     for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
         actualPartLineLen = 0
-        for iterWholeLine, m in enumerate(rowsRange): # eine Zeile immer
+        for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
             actualPartLineLen += 1
             line='' if not numerierung else ( ''.rjust(numlen + 1) if iterWholeLine != 0 else (str(k)+' ').rjust(numlen + 1) )
             linesEmpty = 0
-            for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
-                maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
+            #for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
+            maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
+            for i in spalten: # Teil-Linien nebeneinander als Teil-Spalten
+                #maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
                 #if i < maxRowsPossible and k < 6:
-                if i < maxRowsPossible:
+                #if i < maxRowsPossible:
+                if True:
                     try:
                         #line += colorize(newRows[k][i][m].ljust(textwidth), k, i)+' ' # neben-Einander
                         line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth), k, i)+' ' # neben-Einander
