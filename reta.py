@@ -447,36 +447,22 @@ if True:
     print('2 '+str(finallyDisplayLines))
 
     maxCellTextLen = {}
-    for k in finallyDisplayLines[1:]: # n Linien einer Zelle, d.h. 1 EL = n Zellen
+    for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
-            maxCellTextLen2 = {}
             for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                if not (i in maxCellTextLen and k in maxCellTextLen[i]):
+                if not i in maxCellTextLen:
                     try:
-                        maxCellTextLen2[k] = len(newRows[k][i][m])
-                        print("_sedftg "+str(i)+' '+str(k))
-#                        print('e'+str(len(newRows[k][i][m]))+' '+str(newRows[k][i][m]))
-                    except:
-                        maxCellTextLen2[k] = 0
-                    if not i in maxCellTextLen:
-                        maxCellTextLen[i] = maxCellTextLen2
-                    else:
-                        maxCellTextLen[i] = {**maxCellTextLen[i], **maxCellTextLen2}
-#                    print('f'+str(k))
-                else:
-#                    print('g'+str(maxCellTextLen[i][k]))
-                    try:
-                        textLen = len(newRows[k][i][m])
-#                        print('h'+str(k))
-                        if textLen > int(maxCellTextLen[i][k]):
-                            print("sedftg "+str(maxCellTextLen[i][k])+' '+str(i)+' '+str(k))
-                            maxCellTextLen[i][k] = textLen
+                        maxCellTextLen[i] = len(newRows[k][i][m])
                     except:
                         pass
-    print(str(maxCellTextLen))
-#    maxPartLineLen = 0
+                else:
+                    try:
+                        textLen = len(newRows[k][i][m])
+                        if textLen > int(maxCellTextLen[i]):
+                            maxCellTextLen[i] = textLen
+                    except:
+                        pass
 
-if False:
     for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
 #        actualPartLineLen = 0
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
@@ -485,20 +471,21 @@ if False:
             linesEmpty = 0
             #for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
             maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
-            maxCellTextLen = 0
+            #maxCellTextLen = 0
             for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                 #maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
                 #if i < maxRowsPossible and k < 6:
                 #if i < maxRowsPossible:
-                if True:
-                    try:
-                        #line += colorize(newRows[k][i][m].ljust(textwidth), k, i)+' ' # neben-Einander
-                        #print(str(maxCellTextLen[i][k]))
-                        #line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth if True else maxCellTextLen[i][k]), k, i)+' ' # neben-Einander
-                        line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth), k, i)+' ' # neben-Einander
-                    except:
-                        linesEmpty += 1
-                        line += colorize(''.ljust(textwidth), k,i ,True)+' ' # neben-Einander
+                if textwidth > maxCellTextLen[i]:
+                    i_textwidth = maxCellTextLen[i]
+                else:
+                    i_textwidth = textwidth
+                try:
+                    #line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
+                    line += colorize(newRows[k][i][m].replace('\n', '').ljust(i_textwidth), k, i)+' ' # neben-Einander
+                except:
+                    linesEmpty += 1
+                    line += colorize(''.ljust(i_textwidth), k,i ,True)+' ' # neben-Einander
             #if k < 6 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
             if linesEmpty != maxRowsPossible and ( iterWholeLine < textheight or textheight == 0): #and m < actualPartLineLen:
                 print(line)
