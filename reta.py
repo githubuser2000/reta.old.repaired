@@ -27,13 +27,19 @@ rowsRange = range(50)
 #print(newRows[0][1][0])
 
 zaehlungen = [0,{},{},{},{}]
+textwidth = 21
+textheight = 0
 
 
 def parameters(argv):
-    global paramLines, paramRows
+    global paramLines, paramRows, textwidth, textheight
     bigParamaeter=[]
     for arg in argv[1:]:
         if len(arg) > 0 and  arg[0] == '-':
+            if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'spalten': # unteres Kommando
+                if arg[2:9]=='breite=':
+                    if arg[9:].isdecimal():
+                        textwidth = abs(int(arg[9:]))
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
                 if arg[2:7]=='zeit=':
                     for subpara in arg[7:]:
@@ -47,6 +53,9 @@ def parameters(argv):
                     for maybedigit in arg[11:].split(','):
                         if maybedigit.isdecimal() and int(maybedigit) != 0:
                             paramLines.add(maybedigit+'z')
+                elif arg[2:15]=='hoehemaximal=':
+                    if arg[15:].isdecimal():
+                        textheight = abs(int(arg[15:]))
                 elif arg[2:6]=='typ=':
                     for word in arg[6:].split(','):
                         if word == 'sonne':
@@ -351,7 +360,6 @@ def setZaehlungen(num : int): # mehrere Zählungen finden festlegen zum später 
         zaehlungen[4][i] = moonType
 
 if True:
-    textwidth = 21
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
         for row in list(csv.reader(csv_file, delimiter=';')):
@@ -395,7 +403,7 @@ if True:
 
     for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
         actualPartLineLen = 0
-        for m in rowsRange: # eine Zeile immer
+        for iterWholeLine, m in enumerate(rowsRange): # eine Zeile immer
             actualPartLineLen += 1
             line=''
             linesEmpty = 0
@@ -410,7 +418,7 @@ if True:
                         linesEmpty += 1
                         line += colorize(''.ljust(textwidth), k,i ,True)+' ' # neben-Einander
             #if k < 6 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
-            if linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
+            if linesEmpty != maxRowsPossible and ( iterWholeLine < textheight or textheight == 0): #and m < actualPartLineLen:
                 print(line)
                 #print(colorize(str(linesEmpty)+' '+str(maxRowsPossible), k))
         if actualPartLineLen > maxPartLineLen:
