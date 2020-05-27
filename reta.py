@@ -29,10 +29,10 @@ rowsRange = range(50)
 zaehlungen = [0,{},{},{},{}]
 textwidth = 21
 textheight = 0
-
+numerierung = True
 
 def parameters(argv):
-    global paramLines, paramRows, textwidth, textheight
+    global paramLines, paramRows, textwidth, textheight, numerierung
     bigParamaeter=[]
     for arg in argv[1:]:
         if len(arg) > 0 and  arg[0] == '-':
@@ -40,6 +40,8 @@ def parameters(argv):
                 if arg[2:9]=='breite=':
                     if arg[9:].isdecimal():
                         textwidth = abs(int(arg[9:]))
+                elif arg[2:14]=='keinenummerierung':
+                    numerierung = False
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
                 if arg[2:7]=='zeit=':
                     for subpara in arg[7:]:
@@ -420,6 +422,7 @@ if True:
     finallyDisplayLines= list(finallyDisplayLines)
     finallyDisplayLines.sort()
     maxPartLineLen = 0
+    numlen = len(str(finallyDisplayLines[-1]))
     #print('1 '+str(set(originalLinesRange)))
     print('2 '+str(finallyDisplayLines))
 
@@ -427,7 +430,7 @@ if True:
         actualPartLineLen = 0
         for iterWholeLine, m in enumerate(rowsRange): # eine Zeile immer
             actualPartLineLen += 1
-            line=''
+            line='' if not numerierung else ( ''.rjust(numlen + 1) if iterWholeLine != 0 else (str(k)+' ').rjust(numlen + 1) )
             linesEmpty = 0
             for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
                 maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
