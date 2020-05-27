@@ -61,6 +61,10 @@ def parameters(argv):
                             spalten.add(2)
                         elif thing in ['thomas','thomasevangelium']:
                             spalten.add(3)
+                elif arg[2:] in ['groessenordnung','strukturgroesse','groesse','stufe']:
+                    spalten.add(4)
+                elif arg[2:] in ['universum','transzendentalien','strukturalien']:
+                    spalten.add(5)
 
 
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
