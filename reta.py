@@ -203,20 +203,10 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
             z = fromUntil(condition.split('-z-'))
     return numRange
 
-
-def primfak(n : int):
-
-    """ zerlegt eine Zahl in ihre Primfaktoren
-
-    >>> primfaktoren(24)
-    [2, 2, 2, 3]
-
-    """
-
+def primFak(n : int):
     faktoren = []
     z = n
     while z > 1:
-        # bestimme den kleinsten Primfaktor p von z
         i = 2
         gefunden = False
         while i*i <= n and not gefunden:
@@ -227,11 +217,50 @@ def primfak(n : int):
                 i = i + 1
         if not gefunden:
             p = z
-        # füge p in die Liste der Faktoren ein
-        faktoren = faktoren + [p]
+        faktoren += [p]
         z = z // p
     return faktoren
-#print(str(primfak(7)))
+
+def primRepeat(n):
+    n.reverse()
+    c = 1
+    b = None
+    d = []
+    for a in n:
+        if b == a:
+            c += 1
+        else:
+            c = 1
+        d += [[a,c]]
+        b = a
+    d.reverse()
+    b = None
+    f = []
+    for e,g in d:
+        if b != e:
+            if g == 1:
+                f += [(e,1)]
+            else:
+                f += [(e,g)]
+        b = e
+
+    return f
+def primMultiple(n : int) -> list:
+    multiples = []
+    for prim in primRepeat(primFak(n)):
+        multiples += [(prim[0],round(n / prim[0]))]
+    return multiples
+
+def isPrimMultiple(isIt : int, multiples1 : list) -> bool:
+    areThey = []
+    multiples2 = primMultiple(isIt)
+    for multiple1 in multiples1:
+        for multiple2 in multiples2:
+            areThey += [True if multiple1 == multiple2[1] else False]
+    return areThey
+
+for e in range(1,10):
+    print("w "+str(isPrimMultiple(e, [2])))
 
 def wrapping(text,length : int):
     if len(text) > length:
