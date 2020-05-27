@@ -459,6 +459,11 @@ if True:
             linesEmpty = 0
             #for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
             maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
+            maxCellTextLen = 0
+            for i in spalten: # Teil-Linien nebeneinander als Teil-Spalten
+                textLen = len(newRows[k][i][m])
+                if textLen > maxCellTextLen:
+                    maxCellTextLen = textLen
             for i in spalten: # Teil-Linien nebeneinander als Teil-Spalten
                 #maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
                 #if i < maxRowsPossible and k < 6:
