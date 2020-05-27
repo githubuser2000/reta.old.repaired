@@ -243,24 +243,27 @@ def primRepeat(n):
             else:
                 f += [(e,g)]
         b = e
-
     return f
 def primMultiple(n : int) -> list:
-    multiples = []
+    multiples = [(1,n)]
     for prim in primRepeat(primFak(n)):
         multiples += [(prim[0],round(n / prim[0]))]
     return multiples
 
-def isPrimMultiple(isIt : int, multiples1 : list) -> bool:
+def isPrimMultiple(isIt : int, multiples1 : list, dontReturnList = True):
     areThey = []
     multiples2 = primMultiple(isIt)
     for multiple1 in multiples1:
         for multiple2 in multiples2:
             areThey += [True if multiple1 == multiple2[1] else False]
+            if dontReturnList and areThey[-1]:
+                return True
+    if dontReturnList:
+        return False
     return areThey
 
-for e in range(1,10):
-    print("w "+str(isPrimMultiple(e, [2])))
+#for e in range(1,11):
+#    print("w "+str(isPrimMultiple(e, [2])))
 
 def wrapping(text,length : int):
     if len(text) > length:
