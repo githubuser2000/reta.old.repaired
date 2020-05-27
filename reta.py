@@ -53,6 +53,15 @@ def parameters(argv):
                             spalten.add(0)
                         elif religion in ['gleichfoermigespolygon','nichtsternpolygon','polygon']:
                             spalten.add(16)
+                elif arg[2:11]=='galaxien=' or arg[2:16]=='alteschriften=' or arg[2:9]=='kreise=':
+                    for thing in arg[(arg.find('=')+1):].split(','):
+                        print(str(thing))
+                        if thing in ['babylon','tierkreiszeichen']:
+                            spalten.add(1)
+                            spalten.add(2)
+                        elif thing in ['thomas','thomasevangelium']:
+                            spalten.add(3)
+
 
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
                 if arg[2:7]=='zeit=':
