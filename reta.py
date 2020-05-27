@@ -66,8 +66,8 @@ def parameters(argv):
                             paramLines.add('planet')
                         elif word == 'mond':
                             paramLines.add('mond')
-                elif arg[2:20]=='vielfachevonzahlen=':
-                    for word in arg[20:].split(','):
+                elif arg[2:21]=='vielfachevonzahlen=':
+                    for word in arg[21:].split(','):
                         if word.isdecimal():
                             paramLines.add(word+'v')
                 elif arg[2:20]=='primzahlvielfache=':
@@ -227,21 +227,21 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
 
     ifMultiplesFromAnyAtAll = False
     anyMultiples = []
-    print("x_ "+str(numRange))
     for condition in paramLines:
         if len(condition) > 1 and condition[-1] == 'v' and condition[:-1].isdecimal():
-            MultiplesFromAnyAtAll = True
+            ifMultiplesFromAnyAtAll = True
             anyMultiples += [int(condition[:-1])]
-            print("x_ "+str(condition))
+            print("x__ "+str(anyMultiples))
 
     if ifMultiplesFromAnyAtAll:
         numRangeYesZ = set()
         for n in numRange:
+            print(str(n))
             for divisor in anyMultiples:
+                print("x__ "+str(divisor)+' '+str(n))
                 if n % divisor == 0:
                     numRangeYesZ.add(n)
-        numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
-    print("x5 "+str(numRange))
+        numRange = cutset(ifMultiplesFromAnyAtAll, numRange, numRangeYesZ)
 
 
     ifNachtraeglichAtAll = False
