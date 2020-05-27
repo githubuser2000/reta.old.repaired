@@ -156,9 +156,7 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
     for condition in paramLines:
         if len(condition) > 1 and condition[-1] == 'z' and condition[0:-1].isdecimal(): # ist eine von mehreren Zählungen
             if not ifZaehlungenAtAll:
-                print("_")
                 setZaehlungen(originalLinesRange[-1])
-                print(str(zaehlungen[3]))
                 ifZaehlungenAtAll = True
             zaehlungGesucht = int(condition[0:-1]) # eine zählung = eine zahl, beginnend minimal ab 1
             for n in numRange: # nur die nummern, die noch infrage kommen
@@ -170,7 +168,6 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
     #print("xt "+str(numRange))
     numRange = cutset(ifZaehlungenAtAll, numRange, numRangeYesZ)
    # set().add
-    print("x1 "+str(numRange))
     #exit()
     ifTypAtAll = False
     numRangeYesZ = set()
@@ -216,9 +213,20 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
     print("x4 "+str(numRangeYesZ))
     print("x5 "+str(numRange))
 
+
+    ifNachtraeglichAtAll = False
     for condition in paramLines:
         if '-z-' in condition:
-            z = fromUntil(condition.split('-z-'))
+            if not ifNachtraeglichAtAll:
+                numRange = list(numRange)
+                numRange.sort()
+                ifNachtraeglichAtAll = True
+            a = fromUntil(condition.split('-z-'))
+            for i, n in enumerate(numRange.copy()):
+                if a[0] - 1 > i or a[1] - 1 < i:
+                    numRange.remove(n)
+    if ifNachtraeglichAtAll:
+        numRange = set(numRange)
     return numRange
 
 def primFak(n : int):
