@@ -468,7 +468,7 @@ if True:
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
 #            actualPartLineLen += 1
             line='' if not numerierung else ( ''.rjust(numlen + 1) if iterWholeLine != 0 else (str(k)+' ').rjust(numlen + 1) )
-            linesEmpty = 0
+            rowsEmpty = 0
             #for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
             maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
             #maxCellTextLen = 0
@@ -484,12 +484,13 @@ if True:
                     #line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
                     line += colorize(newRows[k][i][m].replace('\n', '').ljust(i_textwidth), k, i)+' ' # neben-Einander
                 except:
-                    linesEmpty += 1
+                    rowsEmpty += 1
                     line += colorize(''.ljust(i_textwidth), k,i ,True)+' ' # neben-Einander
-            #if k < 6 and linesEmpty != maxRowsPossible: #and m < actualPartLineLen:
-            if linesEmpty != maxRowsPossible and ( iterWholeLine < textheight or textheight == 0): #and m < actualPartLineLen:
+            #if k < 6 and rowsEmpty != maxRowsPossible: #and m < actualPartLineLen:
+#            print("sdf "+str(len(spalten))+' '+str(rowsEmpty))
+            if rowsEmpty != len(spalten) and ( iterWholeLine < textheight or textheight == 0): #and m < actualPartLineLen:
                 print(line)
-                #print(colorize(str(linesEmpty)+' '+str(maxRowsPossible), k))
+                #print(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
 #        if actualPartLineLen > maxPartLineLen:
 #            maxPartLineLen = actualPartLineLen
 
