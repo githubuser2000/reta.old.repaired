@@ -171,8 +171,7 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
     #exit()
     ifTypAtAll = False
     numRangeYesZ = set()
-    def moonsun(MoonNotSun : bool):
-        numRangeYesZ = set()
+    def moonsun(MoonNotSun : bool, numRangeYesZ : set):
         if not ifZaehlungenAtAll:
             setZaehlungen(originalLinesRange[-1])
         for n in numRange:
@@ -182,18 +181,18 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
 
     for condition in paramLines:
         if 'mond' in condition:
-            numRangeYesZ, ifTypAtAll = moonsun(True), True
+            numRangeYesZ, ifTypAtAll = moonsun(True, numRangeYesZ), True
         elif 'sonne' in condition:
-            numRangeYesZ, ifTypAtAll = moonsun(False), True
+            numRangeYesZ, ifTypAtAll = moonsun(False, numRangeYesZ), True
         elif 'planet' in condition:
             ifTypAtAll = True
             for n in numRange:
                 if n % 2 == 0:
                     numRangeYesZ.add(n)
 
-    #print("x2 "+str(ifTypAtAll))
+    print("x2 "+str(numRangeYesZ))
     numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
-    #print("x3 "+str(numRange))
+    print("x3 "+str(numRange))
 
     primMultiples = []
     ifPrimAtAll = False
