@@ -143,7 +143,8 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
     global toYesDisplayLines, toYesdisplayRows, zaehlungen, paramLines, paramRows, toNotDisplayLines
     def diffset(wether, a : set, b : set) -> set:
         if wether:
-            result = a.difference(b)
+            #result = a.difference(b)
+            result = a - b
             if result is None:
                 return set()
             else:
@@ -152,7 +153,8 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
     numRange.remove(0)
     def cutset(wether, a : set, b : set) -> set:
         if wether:
-            result = a.intersection(b)
+            #result = a.intersection(b)
+            result = a & b
             #print("x "+str(result))
             if result is None:
                 return set()
