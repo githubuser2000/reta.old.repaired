@@ -454,18 +454,18 @@ if True:
                 if not i in maxCellTextLen or not k in maxCellTextLen[i]:
                     try:
                         maxCellTextLen2[k] = len(newRows[k][i][m])
-                        print('e'+str(len(newRows[k][i][m]))+' '+str(newRows[k][i][m]))
+#                        print('e'+str(len(newRows[k][i][m]))+' '+str(newRows[k][i][m]))
                     except:
                         maxCellTextLen2[k] = 0
                     maxCellTextLen[i] = maxCellTextLen2
-                    print('f'+str(k))
+#                    print('f'+str(k))
                 else:
-                    print('g'+str(maxCellTextLen[i][k]))
+#                    print('g'+str(maxCellTextLen[i][k]))
                     try:
                         textLen = len(newRows[k][i][m])
-                        print('h'+str(k))
+#                        print('h'+str(k))
                         if textLen > int(maxCellTextLen[i][k]):
-                            print("sedftg "+str(maxCellTextLen[i][k])+' '+str(textLen))
+                            print("sedftg "+str(maxCellTextLen[i][k])+' '+str(i)+' '+str(k))
                             maxCellTextLen[i][k] = textLen
                     except:
                         pass
