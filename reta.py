@@ -451,7 +451,7 @@ if True:
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
             maxCellTextLen2 = {}
             for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                if not (i in maxCellTextLen and not k in maxCellTextLen[i]):
+                if not (i in maxCellTextLen and k in maxCellTextLen[i]):
                     try:
                         maxCellTextLen2[k] = len(newRows[k][i][m])
                         print("_sedftg "+str(i)+' '+str(k))
