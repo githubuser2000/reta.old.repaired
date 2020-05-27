@@ -194,9 +194,27 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
                 if n % 2 == 0:
                     numRangeYesZ.add(n)
 
-    print("x2 "+str(ifTypAtAll))
+    #print("x2 "+str(ifTypAtAll))
     numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
+    #print("x3 "+str(numRange))
+
+    primMultiples = []
+    ifPrimAtAll = False
+    for condition in paramLines:
+        if len(condition) > 1 and condition[-1] == 'p' and condition[:-1].isdecimal():
+            ifPrimAtAll = True
+            primMultiples += [int(condition[:-1])]
+
     print("x3 "+str(numRange))
+    if ifPrimAtAll:
+        numRangeYesZ = set()
+        for n in numRange:
+            print(str(n)+' '+str(primMultiples)+' '+str(isPrimMultiple(int(n), primMultiples)))
+            if isPrimMultiple(n, primMultiples):
+                numRangeYesZ.add(n)
+        numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
+    print("x4 "+str(numRangeYesZ))
+    print("x5 "+str(numRange))
 
     for condition in paramLines:
         if '-z-' in condition:
