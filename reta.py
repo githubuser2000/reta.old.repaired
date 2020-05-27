@@ -285,7 +285,7 @@ def colorize(text,num : int, row, rest=False):
     elif moonNumber(num)[1] != []:
         #00;33
         return '\033[46m'+'\033[30m'+text+'\033[0m'+'\033[0m'
-    elif len(primfak(num)) == 1:
+    elif len(primFak(num)) == 1:
         return '\033[43m'+'\033[30m'+text+'\033[0m'+'\033[0m'
     elif num % 2 == 0:
         if num == 0:
