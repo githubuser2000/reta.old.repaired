@@ -66,6 +66,10 @@ def parameters(argv):
                             paramLines.add('planet')
                         elif word == 'mond':
                             paramLines.add('mond')
+                elif arg[2:20]=='vielfachevonzahlen=':
+                    for word in arg[20:].split(','):
+                        if word.isdecimal():
+                            paramLines.add(word+'v')
                 elif arg[2:20]=='primzahlvielfache=':
                     for word in arg[20:].split(','):
                         if word.isdecimal():
@@ -199,9 +203,9 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
                 if n % 2 == 0:
                     numRangeYesZ.add(n)
 
-    print("x2 "+str(numRangeYesZ))
+    #print("x2 "+str(numRangeYesZ))
     numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
-    print("x3 "+str(numRange))
+    #print("x3 "+str(numRange))
 
     primMultiples = []
     ifPrimAtAll = False
@@ -210,15 +214,33 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
             ifPrimAtAll = True
             primMultiples += [int(condition[:-1])]
 
-    print("x3 "+str(numRange))
+    #print("x3 "+str(numRange))
     if ifPrimAtAll:
         numRangeYesZ = set()
         for n in numRange:
-            print(str(n)+' '+str(primMultiples)+' '+str(isPrimMultiple(int(n), primMultiples)))
             if isPrimMultiple(n, primMultiples):
                 numRangeYesZ.add(n)
         numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
-    print("x4 "+str(numRangeYesZ))
+    #print("x4 "+str(numRangeYesZ))
+    #print("x5 "+str(numRange))
+
+
+    ifMultiplesFromAnyAtAll = False
+    anyMultiples = []
+    print("x_ "+str(numRange))
+    for condition in paramLines:
+        if len(condition) > 1 and condition[-1] == 'v' and condition[:-1].isdecimal():
+            MultiplesFromAnyAtAll = True
+            anyMultiples += [int(condition[:-1])]
+            print("x_ "+str(condition))
+
+    if ifMultiplesFromAnyAtAll:
+        numRangeYesZ = set()
+        for n in numRange:
+            for divisor in anyMultiples:
+                if n % divisor == 0:
+                    numRangeYesZ.add(n)
+        numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
     print("x5 "+str(numRange))
 
 
