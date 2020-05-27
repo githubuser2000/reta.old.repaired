@@ -451,13 +451,17 @@ if True:
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
             maxCellTextLen2 = {}
             for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                if not i in maxCellTextLen or not k in maxCellTextLen[i]:
+                if not (i in maxCellTextLen and not k in maxCellTextLen[i]):
                     try:
                         maxCellTextLen2[k] = len(newRows[k][i][m])
+                        print("_sedftg "+str(i)+' '+str(k))
 #                        print('e'+str(len(newRows[k][i][m]))+' '+str(newRows[k][i][m]))
                     except:
                         maxCellTextLen2[k] = 0
-                    maxCellTextLen[i] = maxCellTextLen2
+                    if not i in maxCellTextLen:
+                        maxCellTextLen[i] = maxCellTextLen2
+                    else:
+                        maxCellTextLen[i] = {**maxCellTextLen[i], **maxCellTextLen2}
 #                    print('f'+str(k))
                 else:
 #                    print('g'+str(maxCellTextLen[i][k]))
@@ -469,9 +473,10 @@ if True:
                             maxCellTextLen[i][k] = textLen
                     except:
                         pass
-#    print(str(maxCellTextLen))
+    print(str(maxCellTextLen))
 #    maxPartLineLen = 0
 
+if False:
     for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
 #        actualPartLineLen = 0
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
