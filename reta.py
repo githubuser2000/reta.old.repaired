@@ -505,6 +505,14 @@ if True:
     headingsAmount = RowsLen
     onlyShowRowAmount = len(spalten)
     onlyShowRowNum = 0
+    finallyDisplayLines = FilterOriginalLines(set(originalLinesRange))
+    finallyDisplayLines.add(0)
+    finallyDisplayLines= list(finallyDisplayLines)
+    finallyDisplayLines.sort()
+#    maxPartLineLen = 0
+    numlen = len(str(finallyDisplayLines[-1]))
+    print('2 '+str(finallyDisplayLines))
+
     for u, line in enumerate(relitable):
         new2Lines = []
         rowsToDisplay = 0
@@ -512,7 +520,7 @@ if True:
             if t in spalten:
                 rowsToDisplay += 1
                 newLines = [[]]*headingsAmount
-                print(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
+                #print(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
                 if rowsToDisplay+(1 if nummerierung else 0) <= len(breiten) + 1:
                     certaintextwidth = breiten[rowsToDisplay+(-1 if nummerierung else -2)]
                 else:
@@ -537,14 +545,6 @@ if True:
                             pass
                 new2Lines += [newLines[t]]
         newRows += [new2Lines]
-
-    finallyDisplayLines = FilterOriginalLines(set(originalLinesRange))
-    finallyDisplayLines.add(0)
-    finallyDisplayLines= list(finallyDisplayLines)
-    finallyDisplayLines.sort()
-#    maxPartLineLen = 0
-    numlen = len(str(finallyDisplayLines[-1]))
-    print('2 '+str(finallyDisplayLines))
 
     maxCellTextLen = {}
     for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
