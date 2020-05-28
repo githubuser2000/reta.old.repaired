@@ -32,13 +32,14 @@ rowsRange = None
 zaehlungen = [0,{},{},{},{}]
 textwidth = 21
 textheight = 0
-numerierung = True
+nummerierung = True
 spalten =  set()
 spaltegestirn = False
+breiten = []
 #spalten.add(1)
 
 def parameters(argv):
-    global paramLines, paramRows, textwidth, textheight, numerierung, spalten, spaltegestirn
+    global paramLines, paramRows, textwidth, textheight, nummerierung, spalten, spaltegestirn, breiten
     bigParamaeter=[]
     for arg in argv[1:]:
         if len(arg) > 0 and  arg[0] == '-':
@@ -46,8 +47,12 @@ def parameters(argv):
                 if arg[2:9]=='breite=':
                     if arg[9:].isdecimal():
                         textwidth = abs(int(arg[9:]))
+                elif arg[2:10]=='breiten=':
+                    for breite in arg[10:].split(','):
+                        if breite.isdecimal():
+                            breiten += [int(breite)]
                 elif arg[2:20]=='keinenummerierung':
-                    numerierung = False
+                    nummerierung = False
                 elif arg[2:13]=='religionen=':
                     for religion in arg[13:].split(','):
                         if religion == 'sternpolygon':
@@ -498,29 +503,36 @@ if True:
                     line += [text]
     #    print(str(relitable))
     headingsAmount = RowsLen
+    onlyShowRowAmount = len(spalten)
+    onlyShowRowNum = 0
     for u, line in enumerate(relitable):
         new2Lines = []
         for t, cell in enumerate(line):
-            newLines = [[]]*headingsAmount
-            isItNone = wrapping(cell, textwidth)
-            cell2 = tuple()
-            rest = cell
-            while not isItNone is None:
-                cell2 += isItNone
-                isItNone = wrapping(cell2[-1], textwidth)
-                rest = cell2[-1]
-                cell2 = cell2[:-1]
-                if len(rest) > textwidth and isItNone is None:
-                    cell2 += (rest[0:textwidth-1],)
-                    isItNone = (rest[textwidth:],)
-            else:
-                cell2 += (rest[0:textwidth-1],)
-                for k,cellInCells in enumerate(cell2):
-                    if k < len(newLines):
-                        newLines[k] += [cellInCells]
-                    else:
-                        pass
-            new2Lines += [newLines[t]]
+            if t in spalten:
+                newLines = [[]]*headingsAmount
+                if t+(1 if nummerierung else 0) < len(breiten):
+                    certaintextwidth = breiten[t+(1 if nummerierung else 0)]
+                else:
+                    certaintextwidth = textwidth
+                isItNone = wrapping(cell, certaintextwidth)
+                cell2 = tuple()
+                rest = cell
+                while not isItNone is None:
+                    cell2 += isItNone
+                    isItNone = wrapping(cell2[-1], certaintextwidth)
+                    rest = cell2[-1]
+                    cell2 = cell2[:-1]
+                    if len(rest) > certaintextwidth and isItNone is None:
+                        cell2 += (rest[0:certaintextwidth-1],)
+                        isItNone = (rest[certaintextwidth:],)
+                else:
+                    cell2 += (rest[0:certaintextwidth-1],)
+                    for k,cellInCells in enumerate(cell2):
+                        if k < len(newLines):
+                            newLines[k] += [cellInCells]
+                        else:
+                            pass
+                new2Lines += [newLines[t]]
         newRows += [new2Lines]
 
     finallyDisplayLines = FilterOriginalLines(set(originalLinesRange))
@@ -534,7 +546,8 @@ if True:
     maxCellTextLen = {}
     for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
-            for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+            #for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+            for i, c in enumerate(newRows[k]): # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                 if not i in maxCellTextLen:
                     try:
                         maxCellTextLen[i] = len(newRows[k][i][m])
@@ -552,12 +565,13 @@ if True:
 #        actualPartLineLen = 0
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
 #            actualPartLineLen += 1
-            line='' if not numerierung else ( ''.rjust(numlen + 1) if iterWholeLine != 0 else (str(k)+' ').rjust(numlen + 1) )
+            line='' if not nummerierung else ( ''.rjust(numlen + 1) if iterWholeLine != 0 else (str(k)+' ').rjust(numlen + 1) )
             rowsEmpty = 0
             #for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
             maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
             #maxCellTextLen = 0
-            for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+            #for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+            for i, c in enumerate(newRows[k]): # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                 #maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
                 #if i < maxRowsPossible and k < 6:
                 #if i < maxRowsPossible:
