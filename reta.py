@@ -53,6 +53,8 @@ def parameters(argv):
                             spalten.add(0)
                         elif religion in ['gleichfoermigespolygon','nichtsternpolygon','polygon']:
                             spalten.add(16)
+                        elif religion in ['galaxien','galaxie','schwarzesonne','schwarzesonnen','universum','universen','kreis','kreise','kugel','kugeln']:
+                            spalten.add(23)
                 elif arg[2:11]=='galaxien=' or arg[2:16]=='alteschriften=' or arg[2:9]=='kreise=':
                     for thing in arg[(arg.find('=')+1):].split(','):
                         if thing in ['babylon','tierkreiszeichen']:
@@ -62,8 +64,61 @@ def parameters(argv):
                             spalten.add(3)
                 elif arg[2:] in ['groessenordnung','strukturgroesse','groesse','stufe']:
                     spalten.add(4)
+                    spalten.add(21)
                 elif arg[2:] in ['universum','transzendentalien','strukturalien']:
                     spalten.add(5)
+                elif arg[2:15] in ['menschliches=']:
+                    for thing in arg[(arg.find('=')+1):].split(','):
+                        if thing in ['liebe','ethik']:
+                            spalten.add(8)
+                            spalten.add(9)
+                            spalten.add(28)
+                        elif thing in ['motive','motivation','motiv']:
+                            spalten.add(10)
+                            spalten.add(18)
+                        elif thing in ['errungenschaften','ziele','erhalten']:
+                            spalten.add(11)
+                        elif thing in ['erwerben','erlernen','lernen','evolutionaer']:
+                            spalten.add(12)
+                        elif thing in ['brauchen','benoetigen','notwendig']:
+                            spalten.add(13)
+                            spalten.add(14)
+                        elif thing in ['krankheit','pathologisch','pathologie','psychiatrisch']:
+                            spalten.add(24)
+                        elif thing in ['kreativ','kreativitaet']:
+                            spalten.add(27)
+                        elif thing in ['anfuehrer','chef']:
+                            spalten.add(29)
+                        elif thing in ['beruf','berufe']:
+                            spalten.add(30)
+                        elif thing in ['loesungen','loesung']:
+                            spalten.add(31)
+                        elif thing in ['musik']:
+                            spalten.add(33)
+                elif arg[2:12] == 'procontra=' or arg[2:15] == 'dagegendafuer':
+                    for thing in arg[(arg.find('=')+1):].split(','):
+                        if thing in ['pro','dafeuer']:
+                            spalten.add(17)
+                        elif thing in ['contra','dagegen']:
+                            spalten.add(15)
+                elif arg[2:7] == 'licht':
+                            spalten.add(20)
+                elif arg[2:12] == 'bedeutung=':
+                    for thing in arg[(arg.find('=')+1):].split(','):
+                        if thing in ['primzahlen','vielfache','vielfacher']:
+                            spalten.add(19)
+                        elif thing in ['anwendungdersonnen','anwendungenfuermonde']:
+                            spalten.add(22)
+                        elif thing in ['zaehlung','zaehlungen']:
+                            spalten.add(25)
+                        elif thing in ['liebe','ethik']:
+                            spalten.add(26)
+                        elif thing in ['jura','gesetzeslehre','recht']:
+                            spalten.add(34)
+                        elif thing in ['vollkommenheit','geist']:
+                            spalten.add(35)
+
+
 
 
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
