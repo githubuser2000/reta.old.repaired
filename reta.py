@@ -512,9 +512,9 @@ if True:
             if t in spalten:
                 rowsToDisplay += 1
                 newLines = [[]]*headingsAmount
-                print(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
+                #print(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
                 if rowsToDisplay+(1 if nummerierung else 0) <= len(breiten):
-                    certaintextwidth = breiten[rowsToDisplay+(1 if nummerierung else 0)]
+                    certaintextwidth = breiten[rowsToDisplay+(-1 if nummerierung else -2)]
                 else:
                     certaintextwidth = textwidth
                 isItNone = wrapping(cell, certaintextwidth)
@@ -578,10 +578,15 @@ if True:
                 #maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
                 #if i < maxRowsPossible and k < 6:
                 #if i < maxRowsPossible:
-                if textwidth > maxCellTextLen[i]:
-                    i_textwidth = maxCellTextLen[i]
+                if i+(1 if nummerierung else 0) <= len(breiten):
+                    certaintextwidth = breiten[i+(0 if nummerierung else -1)]
                 else:
-                    i_textwidth = textwidth
+                    certaintextwidth = textwidth
+               # if certaintextwidth > maxCellTextLen[i]:
+               #     i_textwidth = maxCellTextLen[i]
+               # else:
+               #     i_textwidth = certaintextwidth
+                i_textwidth = certaintextwidth
                 try:
                     #line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
                     line += colorize(newRows[k][i][m].replace('\n', '').ljust(i_textwidth), k, i)+' ' # neben-Einander
