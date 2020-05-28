@@ -546,7 +546,7 @@ if True:
                             pass
                 new2Lines += [newLines[t]]
         newRows += [new2Lines]
-    #print(str(newRows))
+    print(str(newRows))
     maxCellTextLen = {}
     for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
     #for k, (f, r) in enumerate(zip(newRows,finallyDisplayLines)): # n Linien einer Zelle, d.h. 1 EL = n Zellen
