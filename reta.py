@@ -8,6 +8,7 @@ import sys
 
 dic = pyphen.Pyphen(lang='de_DE')
 ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
+relitable = None
 paramLines = set()
 paramRows = set()
 toYesDisplayLines = set()
@@ -23,7 +24,9 @@ originalLinesRange = range(120)
 #realLinesRange = range(len(newRows[0]))
 realLinesRange = range(50)
 #rowsRange = range(len(newRows[0][0]))
-rowsRange = range(50)
+RowsLen = None
+#rowsRange = range(50)
+rowsRange = None
 #print(newRows[0][1][0])
 
 zaehlungen = [0,{},{},{},{}]
@@ -31,10 +34,11 @@ textwidth = 21
 textheight = 0
 numerierung = True
 spalten =  set()
+spaltegestirn = False
 #spalten.add(1)
 
 def parameters(argv):
-    global paramLines, paramRows, textwidth, textheight, numerierung, spalten
+    global paramLines, paramRows, textwidth, textheight, numerierung, spalten, spaltegestirn
     bigParamaeter=[]
     for arg in argv[1:]:
         if len(arg) > 0 and  arg[0] == '-':
@@ -117,6 +121,9 @@ def parameters(argv):
                             spalten.add(34)
                         elif thing in ['vollkommenheit','geist']:
                             spalten.add(35)
+                        elif thing in ['gestirn','mond','sonne','planet']:
+                            spaltegestirn = True
+                            spalten.add(RowsLen)
 
 
 
@@ -463,6 +470,10 @@ def setZaehlungen(num : int): # mehrere Zählungen finden festlegen zum später 
         zaehlungen[4][i] = moonType
 
 if True:
+    with open('religion.csv', mode='r') as csv_file:
+        for row in csv.reader(csv_file, delimiter=';'):
+            RowsLen = len(row)
+            rowsRange  = range(RowsLen)
     parameters(sys.argv)
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
@@ -470,6 +481,12 @@ if True:
             relitable += [row]
     headingsAmount = len(relitable[0])
     newRows = []
+    if spaltegestirn:
+        RowsLen += 1
+        for i,line in enumerate(relitable.copy()):
+            relitable[i] += ['test']
+    #    print(str(relitable))
+    headingsAmount = RowsLen
     for u, line in enumerate(relitable):
         new2Lines = []
         for t, cell in enumerate(line):
