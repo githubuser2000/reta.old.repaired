@@ -483,8 +483,19 @@ if True:
     newRows = []
     if spaltegestirn:
         RowsLen += 1
-        for i,line in enumerate(relitable.copy()):
-            relitable[i] += ['test']
+        #moonNumber
+        for i, line in enumerate(relitable):
+            if i == 0:
+                line += ['Gestirn']
+            else:
+                if moonNumber(i)[1] != []:
+                    text = 'Mond'
+                else:
+                    text = 'Sonne'
+                if i %  2 == 0:
+                    line += [text+', Planet']
+                else:
+                    line += [text]
     #    print(str(relitable))
     headingsAmount = RowsLen
     for u, line in enumerate(relitable):
