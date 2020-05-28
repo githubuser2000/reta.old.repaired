@@ -512,8 +512,8 @@ if True:
             if t in spalten:
                 rowsToDisplay += 1
                 newLines = [[]]*headingsAmount
-                #print(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
-                if rowsToDisplay+(1 if nummerierung else 0) <= len(breiten):
+                print(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
+                if rowsToDisplay+(1 if nummerierung else 0) <= len(breiten) + 1:
                     certaintextwidth = breiten[rowsToDisplay+(-1 if nummerierung else -2)]
                 else:
                     certaintextwidth = textwidth
@@ -582,11 +582,10 @@ if True:
                     certaintextwidth = breiten[i+(0 if nummerierung else -1)]
                 else:
                     certaintextwidth = textwidth
-               # if certaintextwidth > maxCellTextLen[i]:
-               #     i_textwidth = maxCellTextLen[i]
-               # else:
-               #     i_textwidth = certaintextwidth
-                i_textwidth = certaintextwidth
+                if certaintextwidth > maxCellTextLen[i]:
+                    i_textwidth = maxCellTextLen[i]
+                else:
+                    i_textwidth = certaintextwidth
                 try:
                     #line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
                     line += colorize(newRows[k][i][m].replace('\n', '').ljust(i_textwidth), k, i)+' ' # neben-Einander
