@@ -517,7 +517,8 @@ if True:
         new2Lines = []
         rowsToDisplay = 0
         for t, cell in enumerate(line):
-            if t in spalten:
+            if t in spalten and u in finallyDisplayLines:
+                #print(str(u)+' '+str(t)+' '+str(relitable[u][t]))
                 rowsToDisplay += 1
                 newLines = [[]]*headingsAmount
                 #print(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
@@ -545,9 +546,10 @@ if True:
                             pass
                 new2Lines += [newLines[t]]
         newRows += [new2Lines]
-
+    #print(str(newRows))
     maxCellTextLen = {}
     for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
+    #for k, (f, r) in enumerate(zip(newRows,finallyDisplayLines)): # n Linien einer Zelle, d.h. 1 EL = n Zellen
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
             #for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
             for i, c in enumerate(newRows[k]): # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
@@ -565,6 +567,8 @@ if True:
                         pass
 
     for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
+    #print("sdfsad"+str(len(newRows)))
+    #for k, (f, r) in enumerate(zip(newRows,finallyDisplayLines)): # n Linien einer Zelle, d.h. 1 EL = n Zellen
 #        actualPartLineLen = 0
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
 #            actualPartLineLen += 1
