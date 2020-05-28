@@ -507,11 +507,14 @@ if True:
     onlyShowRowNum = 0
     for u, line in enumerate(relitable):
         new2Lines = []
+        rowsToDisplay = 0
         for t, cell in enumerate(line):
             if t in spalten:
+                rowsToDisplay += 1
                 newLines = [[]]*headingsAmount
-                if t+(1 if nummerierung else 0) < len(breiten):
-                    certaintextwidth = breiten[t+(1 if nummerierung else 0)]
+                print(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
+                if rowsToDisplay+(1 if nummerierung else 0) <= len(breiten):
+                    certaintextwidth = breiten[rowsToDisplay+(1 if nummerierung else 0)]
                 else:
                     certaintextwidth = textwidth
                 isItNone = wrapping(cell, certaintextwidth)
