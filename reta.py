@@ -415,8 +415,8 @@ def isPrimMultiple(isIt : int, multiples1 : list, dontReturnList = True):
 #    print("w "+str(isPrimMultiple(e, [2])))
 
 def wrapping(text : str, length : int):
-    if len(text) > length:
-        isItNone = dic.wrap(text, length)
+    if len(text) > length-1:
+        isItNone = dic.wrap(text, length-1)
     else:
         isItNone = None
     return isItNone
