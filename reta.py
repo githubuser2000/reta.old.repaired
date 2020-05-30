@@ -9,7 +9,6 @@ import sys
 dic = pyphen.Pyphen(lang='de_DE')
 ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
 relitable = None
-paramLines = set()
 toYesDisplayLines = set()
 toYesdisplayRows = set()
 toNotDisplayLines = set()
@@ -32,28 +31,27 @@ zaehlungen = [0,{},{},{},{}]
 textwidth = 21
 textheight = 0
 nummerierung = True
-rowsAsNumbers =  set()
 spaltegestirn = False
 breiten = []
 #rowsAsNumbers.add(1)
-paramLinesNot = set()
-paramRowsNot = set()
 
 
-def parameters(argv, rowsAsNumbers, paramLines, neg=''):
+def parameters(argv, neg=''):
     global textwidth, textheight, nummerierung, spaltegestirn, breiten
+    rowsAsNumbers =  set()
+    paramLines = set()
     bigParamaeter=[]
     for arg in argv[1:]:
         if len(arg) > 0 and  arg[0] == '-':
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'spalten': # unteres Kommando
-                if arg[2:9]=='breite=' and neg == '':
+                if arg[2:9]=='breite=':
                     if arg[9:].isdecimal():
                         textwidth = abs(int(arg[9:]))
-                elif arg[2:10]=='breiten=' and neg == '':
+                elif arg[2:10]=='breiten=':
                     for breite in arg[10:].split(','):
                         if breite.isdecimal():
                             breiten += [int(breite)]
-                elif arg[2:20]=='keinenummerierung' and neg == '':
+                elif arg[2:20]=='keinenummerierung':
                     nummerierung = False
                 elif arg[2:13]=='religionen=':
                     for religion in arg[13:].split(','):
@@ -112,7 +110,7 @@ def parameters(argv, rowsAsNumbers, paramLines, neg=''):
                             rowsAsNumbers.add(17)
                         elif thing in [neg+'contra',neg+'dagegen']:
                             rowsAsNumbers.add(15)
-                elif arg[2:7] == 'licht'+neg:
+                elif arg[2:7+len(neg)] == 'licht'+neg:
                             rowsAsNumbers.add(20)
                 elif arg[2:12] == 'bedeutung=':
                     for thing in arg[(arg.find('=')+1):].split(','):
@@ -139,52 +137,50 @@ def parameters(argv, rowsAsNumbers, paramLines, neg=''):
                 if arg[2:7]=='zeit=':
                     for subpara in arg[7:]:
                         if neg+'=' in subpara:
-                            paramLines.add('=')
+                            paramLines.add(neg+'=')
                         elif neg+'<' in subpara:
-                            paramLines.add('<')
+                            paramLines.add(neg+'<')
                         elif neg+'>' in subpara:
-                            paramLines.add('>')
-                elif arg[2:11]=='zaehlung=' and neg == '':
-                    for maybedigit in arg[11:].split(','):
-                        if maybedigit.isdecimal() and int(maybedigit) > 0:
-                            paramLines.add(maybedigit+'z')
-                elif arg[2:15]=='hoehemaximal=' and neg == '':
+                            paramLines.add(neg+'>')
+                elif arg[2:11]=='zaehlung=':
+                    for word in arg[11:].split(','):
+                        if word.isdecimal() and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
+                            paramLines.add(neg+word+'z')
+                elif arg[2:15]=='hoehemaximal=':
                     if arg[15:].isdecimal():
                         textheight = abs(int(arg[15:]))
                 elif arg[2:6]=='typ=':
                     for word in arg[6:].split(','):
                         if word == neg+'sonne':
-                            paramLines.add('sonne')
+                            paramLines.add(neg+'sonne')
                         elif word == neg+'schwarzesonne':
-                            paramLines.add('schwarzesonne')
+                            paramLines.add(neg+'schwarzesonne')
                         elif word == neg+'planet':
-                            paramLines.add('planet')
+                            paramLines.add(neg+'planet')
                         elif word == neg+'mond':
-                            paramLines.add('mond')
+                            paramLines.add(neg+'mond')
                 elif arg[2:21]=='vielfachevonzahlen=':
                     for word in arg[21:].split(','):
-                        if word.isdecimal() and word != '0':
-                            paramLines.add(word+'v')
+                        if word.isdecimal():
+                            print("asdfasdf"+str(word))
+                        if word.isdecimal() and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
+                            paramLines.add(neg+word+'v')
                 elif arg[2:20]=='primzahlvielfache=':
                     for word in arg[20:].split(','):
-                        if word.isdecimal() and word != '0':
+                        if word.isdecimal() and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
                             paramLines.add(word+'p')
                 elif arg[2:22]=='vorhervonausschnitt=':
                     maybeAmounts=arg[22:].split('-')
-                    if len(maybeAmounts) == 1 and maybeAmounts[0] != '0':
-                        if maybeAmounts[0].isdecimal():
-                            paramLines.add('1-a-'+str(int(maybeAmounts[0])))
-                    elif len(maybeAmounts) == 2 and ( ( maybeAmounts[1] < '0' and maybeAmounts[0] < '0' ) or ( maybeAmounts[1] > '0' and maybeAmounts[0] > '0' ) ):
-                        if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
-                            paramLines.add(maybeAmounts[0]+'-a-'+maybeAmounts[1])
+                    if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and ( ( int(maybeAmounts[0]) > 0 and neg == '' ) or ( int(maybeAmounts[0]) < 0 and neg != '' ) ):
+                        paramLines.add(neg+'1-a-'+neg+str(int(maybeAmounts[0])))
+                    elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal() and ( ( int(maybeAmounts[1]) < 0 and int(maybeAmounts[0]) < 0 and neg != '' ) or ( int(maybeAmounts[1]) > 0 and int(maybeAmounts[0]) > 0 and neg == "" ) ):
+                        paramLines.add(neg+maybeAmounts[0]+'-a-'+neg+maybeAmounts[1])
                 elif arg[2:21]=='nachtraeglichdavon=':
                     maybeAmounts=arg[21:].split('-')
-                    if len(maybeAmounts) == 1 and maybeAmounts[0] != '0':
-                        if maybeAmounts[0].isdecimal():
-                            paramLines.add('1-z-'+maybeAmounts[0])
-                    elif len(maybeAmounts) == 2 and ( ( maybeAmounts[1] < '0' and maybeAmounts[0] < '0' ) or ( maybeAmounts[1] > '0' and maybeAmounts[0] > '0' ) ):
-                        if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
-                            paramLines.add(maybeAmounts[0]+'-z-'+maybeAmounts[1])
+                    if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and ( ( int(maybeAmounts[0]) > 0 and neg == '' ) or ( int(maybeAmounts[0]) < 0 and neg != '' ) ):
+                        paramLines.add(neg+'1-z-'+neg+str(int(maybeAmounts[0])))
+                    elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal() and ( ( int(maybeAmounts[1]) < 0 and int(maybeAmounts[0]) < 0 and neg != '' ) or ( int(maybeAmounts[1]) > 0 and int(maybeAmounts[0]) > 0 and neg == "" ) ):
+                        paramLines.add(neg+maybeAmounts[0]+'-z-'+neg+maybeAmounts[1])
             else: # oberes Kommando
                 if arg[1:] in ['zeilen','spalten']:
                     bigParamaeter += [arg[1:]]
@@ -480,8 +476,10 @@ if True:
         for row in csv.reader(csv_file, delimiter=';'):
             RowsLen = len(row)
             rowsRange  = range(RowsLen)
-    paramLines, rowsAsNumbers = parameters(sys.argv,rowsAsNumbers,paramLines)
-    print(str(parameters(sys.argv, paramRowsNot, paramLinesNot,'-')))
+    paramLines, rowsAsNumbers = parameters(sys.argv)
+    paramLinesNot, rowsAsNumbersNot = parameters(sys.argv, '-')
+    print(str(paramLines)+' '+str(rowsAsNumbers))
+    print(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
         for row in list(csv.reader(csv_file, delimiter=';')):
