@@ -9,9 +9,7 @@ import sys
 dic = pyphen.Pyphen(lang='de_DE')
 ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
 relitable = None
-toYesDisplayLines = set()
 toYesdisplayRows = set()
-toNotDisplayLines = set()
 toNotDisplayRows = set()
 # c nächste silbe
 # b nächste Spalte
@@ -208,8 +206,9 @@ def fromUntil(a):
         return (1,1)
 
 
-def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
-    global toYesDisplayLines, toYesdisplayRows, zaehlungen, paramLines, toNotDisplayLines
+def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
+    global zaehlungen
+
     def diffset(wether, a : set, b : set) -> set:
         if wether:
             #result = a.difference(b)
@@ -237,7 +236,6 @@ def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, n
             for n in numRange.copy():
                 if a[0] > n or a[1] < n:
                     numRange.remove(n)
-                    toNotDisplayLines.add(n)
 
     numRangeYesZ = set()
     ifZeitAtAll = False
@@ -518,7 +516,8 @@ if True:
     headingsAmount = RowsLen
     onlyShowRowAmount = len(rowsAsNumbers)
     onlyShowRowNum = 0
-    finallyDisplayLines = FilterOriginalLines(set(originalLinesRange))
+    finallyDisplayLines = FilterOriginalLines(set(originalLinesRange),paramLines)
+#    finallyDisplayLines -= FilterOriginalLines(set(originalLinesRange),paramLinesNot)
     finallyDisplayLines.add(0)
     finallyDisplayLines= list(finallyDisplayLines)
     finallyDisplayLines.sort()
