@@ -186,6 +186,11 @@ def parameters(argv, neg=''):
                     bigParamaeter += [arg[1:]]
     return paramLines, rowsAsNumbers
 
+
+def deleteDoublesInSets(set1 : set, set2 : set) -> tuple:
+    intersection = set1 & set2
+    return set1 - intersection, set2 - intersection
+
 def fromUntil(a):
     if a[0].isdecimal():
         a[0] = int(a[0])
@@ -476,10 +481,18 @@ if True:
         for row in csv.reader(csv_file, delimiter=';'):
             RowsLen = len(row)
             rowsRange  = range(RowsLen)
+
     paramLines, rowsAsNumbers = parameters(sys.argv)
     paramLinesNot, rowsAsNumbersNot = parameters(sys.argv, '-')
     print(str(paramLines)+' '+str(rowsAsNumbers))
     print(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
+
+    paramLines, paramLinesNot = deleteDoublesInSets(paramLines, paramLinesNot)
+    rowsAsNumbers, rowsAsNumbersNot = deleteDoublesInSets(rowsAsNumbers, rowsAsNumbersNot)
+    print(str(paramLines)+' '+str(rowsAsNumbers))
+    print(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
+
+
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
         for row in list(csv.reader(csv_file, delimiter=';')):
