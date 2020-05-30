@@ -111,6 +111,7 @@ def parameters(argv, neg=''):
                         elif thing in [neg+'contra',neg+'dagegen']:
                             rowsAsNumbers.add(15)
                 elif arg[2:7+len(neg)] == 'licht'+neg:
+                            print("licht")
                             rowsAsNumbers.add(20)
                 elif arg[2:12] == 'bedeutung=':
                     for thing in arg[(arg.find('=')+1):].split(','):
