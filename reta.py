@@ -517,7 +517,9 @@ if True:
     onlyShowRowAmount = len(rowsAsNumbers)
     onlyShowRowNum = 0
     finallyDisplayLines = FilterOriginalLines(set(originalLinesRange),paramLines)
-#    finallyDisplayLines -= FilterOriginalLines(set(originalLinesRange),paramLinesNot)
+    print('2 '+str(finallyDisplayLines))
+    finallyDisplayLines2 = FilterOriginalLines(set(originalLinesRange),paramLinesNot)
+    print('2 '+str(finallyDisplayLines2))
     finallyDisplayLines.add(0)
     finallyDisplayLines= list(finallyDisplayLines)
     finallyDisplayLines.sort()
