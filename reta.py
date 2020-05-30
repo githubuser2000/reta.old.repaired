@@ -104,7 +104,7 @@ def parameters(argv, neg=''):
                             rowsAsNumbers.add(31)
                         elif thing in [neg+'musik']:
                             rowsAsNumbers.add(33)
-                elif arg[2:12] == 'procontra=' or arg[2:15] == 'dagegendafuer':
+                elif arg[2:12] == 'procontra=' or arg[2:16] == 'dagegendafuer=':
                     for thing in arg[(arg.find('=')+1):].split(','):
                         if thing in [neg+'pro',neg+'dafeuer']:
                             rowsAsNumbers.add(17)
@@ -136,11 +136,11 @@ def parameters(argv, neg=''):
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
                 if arg[2:7]=='zeit=':
                     for subpara in arg[7:].split(','):
-                        if neg+'=' in subpara:
+                        if neg+'=' == subpara:
                             paramLines.add('=')
-                        elif neg+'<' in subpara:
+                        elif neg+'<' == subpara:
                             paramLines.add('<')
-                        elif neg+'>' in subpara:
+                        elif neg+'>' == subpara:
                             paramLines.add('>')
                 elif arg[2:11]=='zaehlung=':
                     for word in arg[11:].split(','):
