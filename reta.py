@@ -487,12 +487,8 @@ if True:
     print(str(paramLines)+' '+str(rowsAsNumbers))
     print(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
 
-    #paramLines, paramLinesNot = deleteDoublesInSets(paramLines, paramLinesNot)
-    #rowsAsNumbers, rowsAsNumbersNot = deleteDoublesInSets(rowsAsNumbers, rowsAsNumbersNot)
-    paramLines = paramLines ^ paramLinesNot
-    rowsAsNumbersNot = rowsAsNumbersNot ^ rowsAsNumbers
-    rowsAsNumbers = rowsAsNumbers ^ rowsAsNumbersNot
-    rowsAsNumbersNot = rowsAsNumbersNot ^ rowsAsNumbers
+    paramLines, paramLinesNot = deleteDoublesInSets(paramLines, paramLinesNot)
+    rowsAsNumbers, rowsAsNumbersNot = deleteDoublesInSets(rowsAsNumbers, rowsAsNumbersNot)
     print(str(paramLines)+' '+str(rowsAsNumbers))
     print(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
 
