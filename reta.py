@@ -111,7 +111,6 @@ def parameters(argv, neg=''):
                         elif thing in [neg+'contra',neg+'dagegen']:
                             rowsAsNumbers.add(15)
                 elif arg[2:7+len(neg)] == 'licht'+neg:
-                            print("licht")
                             rowsAsNumbers.add(20)
                 elif arg[2:12] == 'bedeutung=':
                     for thing in arg[(arg.find('=')+1):].split(','):
@@ -138,48 +137,48 @@ def parameters(argv, neg=''):
                 if arg[2:7]=='zeit=':
                     for subpara in arg[7:].split(','):
                         if neg+'=' in subpara:
-                            paramLines.add(neg+'=')
+                            paramLines.add('=')
                         elif neg+'<' in subpara:
-                            paramLines.add(neg+'<')
+                            paramLines.add('<')
                         elif neg+'>' in subpara:
-                            paramLines.add(neg+'>')
+                            paramLines.add('>')
                 elif arg[2:11]=='zaehlung=':
                     for word in arg[11:].split(','):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
-                            paramLines.add(neg+word+'z')
+                            paramLines.add(str(abs(int(word)))+'z')
                 elif arg[2:15]=='hoehemaximal=':
                     if arg[15:].isdecimal():
                         textheight = abs(int(arg[15:]))
                 elif arg[2:6]=='typ=':
                     for word in arg[6:].split(','):
                         if word == neg+'sonne':
-                            paramLines.add(neg+'sonne')
+                            paramLines.add('sonne')
                         elif word == neg+'schwarzesonne':
-                            paramLines.add(neg+'schwarzesonne')
+                            paramLines.add('schwarzesonne')
                         elif word == neg+'planet':
-                            paramLines.add(neg+'planet')
+                            paramLines.add('planet')
                         elif word == neg+'mond':
-                            paramLines.add(neg+'mond')
+                            paramLines.add('mond')
                 elif arg[2:21]=='vielfachevonzahlen=':
                     for word in arg[21:].split(','):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
-                            paramLines.add(neg+word+'v')
+                            paramLines.add(str(abs(int(word)))+'v')
                 elif arg[2:20]=='primzahlvielfache=':
                     for word in arg[20:].split(','):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
-                            paramLines.add(word+'p')
+                            paramLines.add(str(abs(int(word)))+'p')
                 elif arg[2:22]=='vorhervonausschnitt=':
                     maybeAmounts=arg[22:].split('-')
                     if len(maybeAmounts) == 1 and ( maybeAmounts[0].isdecimal() or (maybeAmounts[0][1:].isdecimal() and neg != '')) and ( ( int(maybeAmounts[0]) > 0 and neg == '' ) or ( int(maybeAmounts[0]) < 0 and neg != '' ) ):
-                        paramLines.add(neg+'1-a-'+neg+str(int(maybeAmounts[0])))
+                        paramLines.add('1-a-'+str(abs(int(maybeAmounts[0]))))
                     elif len(maybeAmounts) == 2 and ( maybeAmounts[0].isdecimal() or (maybeAmounts[0][1:].isdecimal() and neg != '')) and ( maybeAmounts[1].isdecimal() or (maybeAmounts[1][1:].isdecimal() and neg != '')) and ( ( int(maybeAmounts[1]) < 0 and int(maybeAmounts[0]) < 0 and neg != '' ) or ( int(maybeAmounts[1]) > 0 and int(maybeAmounts[0]) > 0 and neg == "" ) ):
-                        paramLines.add(neg+maybeAmounts[0]+'-a-'+neg+maybeAmounts[1])
+                        paramLines.add(str(abs(int(maybeAmounts[0])))+'-a-'+str(abs(int(maybeAmounts[1]))))
                 elif arg[2:21]=='nachtraeglichdavon=':
                     maybeAmounts=arg[21:].split('-')
                     if len(maybeAmounts) == 1 and ( maybeAmounts[0].isdecimal() or (maybeAmounts[0][1:].isdecimal() and neg != '')) and ( ( int(maybeAmounts[0]) > 0 and neg == '' ) or ( int(maybeAmounts[0]) < 0 and neg != '' ) ):
-                        paramLines.add(neg+'1-z-'+neg+str(int(maybeAmounts[0])))
+                        paramLines.add('1-z-'+str(abs(maybeAmounts[0])))
                     elif len(maybeAmounts) == 2 and ( maybeAmounts[0].isdecimal() or (maybeAmounts[0][1:].isdecimal() and neg != '')) and ( maybeAmounts[1].isdecimal() or (maybeAmounts[1][1:].isdecimal() and neg != '')) and ( ( int(maybeAmounts[1]) < 0 and int(maybeAmounts[0]) < 0 and neg != '' ) or ( int(maybeAmounts[1]) > 0 and int(maybeAmounts[0]) > 0 and neg == "" ) ):
-                        paramLines.add(neg+maybeAmounts[0]+'-z-'+neg+maybeAmounts[1])
+                        paramLines.add(str(abs(int(maybeAmounts[0])))+'-z-'+str(abs(int(maybeAmounts[1]))))
             else: # oberes Kommando
                 if arg[1:] in ['zeilen','spalten']:
                     bigParamaeter += [arg[1:]]
