@@ -516,10 +516,11 @@ if True:
     headingsAmount = RowsLen
     onlyShowRowAmount = len(rowsAsNumbers)
     onlyShowRowNum = 0
-    finallyDisplayLines = FilterOriginalLines(set(originalLinesRange),paramLines)
-    print('2 '+str(finallyDisplayLines))
-    finallyDisplayLines2 = FilterOriginalLines(set(originalLinesRange),paramLinesNot)
-    print('2 '+str(finallyDisplayLines2))
+    finallyDisplayLines = FilterOriginalLines(set(originalLinesRange), paramLines)
+    #print('s1 '+str(finallyDisplayLines))
+    if not len(paramLinesNot) == 0:
+        finallyDisplayLines -= FilterOriginalLines(set(originalLinesRange), paramLinesNot)
+    #print('s2 '+str(finallyDisplayLines))
     finallyDisplayLines.add(0)
     finallyDisplayLines= list(finallyDisplayLines)
     finallyDisplayLines.sort()
