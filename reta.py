@@ -144,7 +144,7 @@ def parameters(argv, neg=''):
                             paramLines.add(neg+'>')
                 elif arg[2:11]=='zaehlung=':
                     for word in arg[11:].split(','):
-                        if word.isdecimal() and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
+                        if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
                             paramLines.add(neg+word+'z')
                 elif arg[2:15]=='hoehemaximal=':
                     if arg[15:].isdecimal():
@@ -161,25 +161,23 @@ def parameters(argv, neg=''):
                             paramLines.add(neg+'mond')
                 elif arg[2:21]=='vielfachevonzahlen=':
                     for word in arg[21:].split(','):
-                        if word.isdecimal():
-                            print("asdfasdf"+str(word))
-                        if word.isdecimal() and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
+                        if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
                             paramLines.add(neg+word+'v')
                 elif arg[2:20]=='primzahlvielfache=':
                     for word in arg[20:].split(','):
-                        if word.isdecimal() and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
+                        if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
                             paramLines.add(word+'p')
                 elif arg[2:22]=='vorhervonausschnitt=':
                     maybeAmounts=arg[22:].split('-')
-                    if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and ( ( int(maybeAmounts[0]) > 0 and neg == '' ) or ( int(maybeAmounts[0]) < 0 and neg != '' ) ):
+                    if len(maybeAmounts) == 1 and ( maybeAmounts[0].isdecimal() or (maybeAmounts[0][1:].isdecimal() and neg != '')) and ( ( int(maybeAmounts[0]) > 0 and neg == '' ) or ( int(maybeAmounts[0]) < 0 and neg != '' ) ):
                         paramLines.add(neg+'1-a-'+neg+str(int(maybeAmounts[0])))
-                    elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal() and ( ( int(maybeAmounts[1]) < 0 and int(maybeAmounts[0]) < 0 and neg != '' ) or ( int(maybeAmounts[1]) > 0 and int(maybeAmounts[0]) > 0 and neg == "" ) ):
+                    elif len(maybeAmounts) == 2 and ( maybeAmounts[0].isdecimal() or (maybeAmounts[0][1:].isdecimal() and neg != '')) and ( maybeAmounts[1].isdecimal() or (maybeAmounts[1][1:].isdecimal() and neg != '')) and ( ( int(maybeAmounts[1]) < 0 and int(maybeAmounts[0]) < 0 and neg != '' ) or ( int(maybeAmounts[1]) > 0 and int(maybeAmounts[0]) > 0 and neg == "" ) ):
                         paramLines.add(neg+maybeAmounts[0]+'-a-'+neg+maybeAmounts[1])
                 elif arg[2:21]=='nachtraeglichdavon=':
                     maybeAmounts=arg[21:].split('-')
-                    if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and ( ( int(maybeAmounts[0]) > 0 and neg == '' ) or ( int(maybeAmounts[0]) < 0 and neg != '' ) ):
+                    if len(maybeAmounts) == 1 and ( maybeAmounts[0].isdecimal() or (maybeAmounts[0][1:].isdecimal() and neg != '')) and ( ( int(maybeAmounts[0]) > 0 and neg == '' ) or ( int(maybeAmounts[0]) < 0 and neg != '' ) ):
                         paramLines.add(neg+'1-z-'+neg+str(int(maybeAmounts[0])))
-                    elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal() and ( ( int(maybeAmounts[1]) < 0 and int(maybeAmounts[0]) < 0 and neg != '' ) or ( int(maybeAmounts[1]) > 0 and int(maybeAmounts[0]) > 0 and neg == "" ) ):
+                    elif len(maybeAmounts) == 2 and ( maybeAmounts[0].isdecimal() or (maybeAmounts[0][1:].isdecimal() and neg != '')) and ( maybeAmounts[1].isdecimal() or (maybeAmounts[1][1:].isdecimal() and neg != '')) and ( ( int(maybeAmounts[1]) < 0 and int(maybeAmounts[0]) < 0 and neg != '' ) or ( int(maybeAmounts[1]) > 0 and int(maybeAmounts[0]) > 0 and neg == "" ) ):
                         paramLines.add(neg+maybeAmounts[0]+'-z-'+neg+maybeAmounts[1])
             else: # oberes Kommando
                 if arg[1:] in ['zeilen','spalten']:
