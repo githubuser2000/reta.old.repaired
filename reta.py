@@ -135,7 +135,7 @@ def parameters(argv, neg=''):
 
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
                 if arg[2:7]=='zeit=':
-                    for subpara in arg[7:]:
+                    for subpara in arg[7:].split(','):
                         if neg+'=' in subpara:
                             paramLines.add(neg+'=')
                         elif neg+'<' in subpara:
