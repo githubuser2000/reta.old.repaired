@@ -10,7 +10,6 @@ dic = pyphen.Pyphen(lang='de_DE')
 ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
 relitable = None
 paramLines = set()
-paramRows = set()
 toYesDisplayLines = set()
 toYesdisplayRows = set()
 toNotDisplayLines = set()
@@ -33,102 +32,105 @@ zaehlungen = [0,{},{},{},{}]
 textwidth = 21
 textheight = 0
 nummerierung = True
-spalten =  set()
+rowsAsNumbers =  set()
 spaltegestirn = False
 breiten = []
-#spalten.add(1)
+#rowsAsNumbers.add(1)
+paramLinesNot = set()
+paramRowsNot = set()
 
-def parameters(argv):
-    global paramLines, paramRows, textwidth, textheight, nummerierung, spalten, spaltegestirn, breiten
+
+def parameters(argv, rowsAsNumbers, paramLines, neg=''):
+    global textwidth, textheight, nummerierung, spaltegestirn, breiten
     bigParamaeter=[]
     for arg in argv[1:]:
         if len(arg) > 0 and  arg[0] == '-':
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'spalten': # unteres Kommando
-                if arg[2:9]=='breite=':
+                if arg[2:9]=='breite=' and neg == '':
                     if arg[9:].isdecimal():
                         textwidth = abs(int(arg[9:]))
-                elif arg[2:10]=='breiten=':
+                elif arg[2:10]=='breiten=' and neg == '':
                     for breite in arg[10:].split(','):
                         if breite.isdecimal():
                             breiten += [int(breite)]
-                elif arg[2:20]=='keinenummerierung':
+                elif arg[2:20]=='keinenummerierung' and neg == '':
                     nummerierung = False
                 elif arg[2:13]=='religionen=':
                     for religion in arg[13:].split(','):
-                        if religion == 'sternpolygon':
-                            spalten.add(0)
-                            spalten.add(6)
-                        elif religion in ['babylon','dertierkreiszeichen']:
-                            spalten.add(0)
-                        elif religion in ['gleichfoermigespolygon','nichtsternpolygon','polygon']:
-                            spalten.add(16)
-                        elif religion in ['galaxien','galaxie','schwarzesonne','schwarzesonnen','universum','universen','kreis','kreise','kugel','kugeln']:
-                            spalten.add(23)
+                        if religion == neg+'sternpolygon':
+                            rowsAsNumbers.add(0)
+                            rowsAsNumbers.add(6)
+                        elif religion in [neg+'babylon',neg+'dertierkreiszeichen']:
+                            rowsAsNumbers.add(0)
+                        elif religion in [neg+'gleichfoermigespolygon',neg+'nichtsternpolygon',neg+'polygon']:
+                            rowsAsNumbers.add(16)
+                        elif religion in [neg+'galaxien',neg+'galaxie',neg+'schwarzesonne',neg+'schwarzesonnen',neg+'universum',neg+'universen',neg+'kreis',neg+'kreise',neg+'kugel',neg+'kugeln']:
+                            rowsAsNumbers.add(23)
                 elif arg[2:11]=='galaxien=' or arg[2:16]=='alteschriften=' or arg[2:9]=='kreise=':
                     for thing in arg[(arg.find('=')+1):].split(','):
-                        if thing in ['babylon','tierkreiszeichen']:
-                            spalten.add(1)
-                            spalten.add(2)
-                        elif thing in ['thomas','thomasevangelium']:
-                            spalten.add(3)
-                elif arg[2:] in ['groessenordnung','strukturgroesse','groesse','stufe']:
-                    spalten.add(4)
-                    spalten.add(21)
-                elif arg[2:] in ['universum','transzendentalien','strukturalien']:
-                    spalten.add(5)
+                        if thing in [neg+'babylon', neg+'tierkreiszeichen']:
+                            rowsAsNumbers.add(1)
+                            rowsAsNumbers.add(2)
+                        elif thing in [neg+'thomas', neg+'thomasevangelium']:
+                            rowsAsNumbers.add(3)
+                elif arg[2:] in ['groessenordnung'+neg, 'strukturgroesse'+neg, 'groesse'+neg, 'stufe'+neg]:
+                    rowsAsNumbers.add(4)
+                    rowsAsNumbers.add(21)
+                elif arg[2:] in ['universum'+neg,'transzendentalien'+neg,'strukturalien'+neg]:
+                    rowsAsNumbers.add(5)
                 elif arg[2:15] in ['menschliches=']:
                     for thing in arg[(arg.find('=')+1):].split(','):
-                        if thing in ['liebe','ethik']:
-                            spalten.add(8)
-                            spalten.add(9)
-                            spalten.add(28)
-                        elif thing in ['motive','motivation','motiv']:
-                            spalten.add(10)
-                            spalten.add(18)
-                        elif thing in ['errungenschaften','ziele','erhalten']:
-                            spalten.add(11)
-                        elif thing in ['erwerben','erlernen','lernen','evolutionaer']:
-                            spalten.add(12)
-                        elif thing in ['brauchen','benoetigen','notwendig']:
-                            spalten.add(13)
-                            spalten.add(14)
-                        elif thing in ['krankheit','pathologisch','pathologie','psychiatrisch']:
-                            spalten.add(24)
-                        elif thing in ['kreativ','kreativitaet']:
-                            spalten.add(27)
-                        elif thing in ['anfuehrer','chef']:
-                            spalten.add(29)
-                        elif thing in ['beruf','berufe']:
-                            spalten.add(30)
-                        elif thing in ['loesungen','loesung']:
-                            spalten.add(31)
-                        elif thing in ['musik']:
-                            spalten.add(33)
+                        if thing in [neg+'liebe',neg+'ethik']:
+                            rowsAsNumbers.add(8)
+                            rowsAsNumbers.add(9)
+                            rowsAsNumbers.add(28)
+                        elif thing in [neg+'motive',neg+'motivation',neg+'motiv']:
+                            rowsAsNumbers.add(10)
+                            rowsAsNumbers.add(18)
+                        elif thing in [neg+'errungenschaften',neg+'ziele',neg+'erhalten']:
+                            rowsAsNumbers.add(11)
+                        elif thing in [neg+'erwerben',neg+'erlernen',neg+'lernen',neg+'evolutionaer']:
+                            rowsAsNumbers.add(12)
+                        elif thing in [neg+'brauchen',neg+'benoetigen',neg+'notwendig']:
+                            rowsAsNumbers.add(13)
+                            rowsAsNumbers.add(14)
+                        elif thing in [neg+'krankheit',neg+'pathologisch',neg+'pathologie',neg+'psychiatrisch']:
+                            rowsAsNumbers.add(24)
+                        elif thing in [neg+'kreativ',neg+'kreativitaet']:
+                            rowsAsNumbers.add(27)
+                        elif thing in [neg+'anfuehrer',neg+'chef']:
+                            rowsAsNumbers.add(29)
+                        elif thing in [neg+'beruf',neg+'berufe']:
+                            rowsAsNumbers.add(30)
+                        elif thing in [neg+'loesungen',neg+'loesung']:
+                            rowsAsNumbers.add(31)
+                        elif thing in [neg+'musik']:
+                            rowsAsNumbers.add(33)
                 elif arg[2:12] == 'procontra=' or arg[2:15] == 'dagegendafuer':
                     for thing in arg[(arg.find('=')+1):].split(','):
-                        if thing in ['pro','dafeuer']:
-                            spalten.add(17)
-                        elif thing in ['contra','dagegen']:
-                            spalten.add(15)
-                elif arg[2:7] == 'licht':
-                            spalten.add(20)
+                        if thing in [neg+'pro',neg+'dafeuer']:
+                            rowsAsNumbers.add(17)
+                        elif thing in [neg+'contra',neg+'dagegen']:
+                            rowsAsNumbers.add(15)
+                elif arg[2:7] == 'licht'+neg:
+                            rowsAsNumbers.add(20)
                 elif arg[2:12] == 'bedeutung=':
                     for thing in arg[(arg.find('=')+1):].split(','):
-                        if thing in ['primzahlen','vielfache','vielfacher']:
-                            spalten.add(19)
-                        elif thing in ['anwendungdersonnen','anwendungenfuermonde']:
-                            spalten.add(22)
-                        elif thing in ['zaehlung','zaehlungen']:
-                            spalten.add(25)
-                        elif thing in ['liebe','ethik']:
-                            spalten.add(26)
-                        elif thing in ['jura','gesetzeslehre','recht']:
-                            spalten.add(34)
-                        elif thing in ['vollkommenheit','geist']:
-                            spalten.add(35)
-                        elif thing in ['gestirn','mond','sonne','planet']:
+                        if thing in [neg+'primzahlen',neg+'vielfache',neg+'vielfacher']:
+                            rowsAsNumbers.add(19)
+                        elif thing in [neg+'anwendungdersonnen',neg+'anwendungenfuermonde']:
+                            rowsAsNumbers.add(22)
+                        elif thing in [neg+'zaehlung',neg+'zaehlungen']:
+                            rowsAsNumbers.add(25)
+                        elif thing in [neg+'liebe',neg+'ethik']:
+                            rowsAsNumbers.add(26)
+                        elif thing in [neg+'jura', neg+'gesetzeslehre', neg+'recht']:
+                            rowsAsNumbers.add(34)
+                        elif thing in [neg+'vollkommenheit', neg+'geist']:
+                            rowsAsNumbers.add(35)
+                        elif thing in [neg+'gestirn', neg+'mond', neg+'sonne', neg+'planet']:
                             spaltegestirn = True
-                            spalten.add(RowsLen)
+                            rowsAsNumbers.add(RowsLen)
 
 
 
@@ -136,43 +138,43 @@ def parameters(argv):
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'zeilen': # unteres Kommando
                 if arg[2:7]=='zeit=':
                     for subpara in arg[7:]:
-                        if '=' in subpara:
+                        if neg+'=' in subpara:
                             paramLines.add('=')
-                        elif '<' in subpara:
+                        elif neg+'<' in subpara:
                             paramLines.add('<')
-                        elif '>' in subpara:
+                        elif neg+'>' in subpara:
                             paramLines.add('>')
-                elif arg[2:11]=='zaehlung=':
+                elif arg[2:11]=='zaehlung=' and neg == '':
                     for maybedigit in arg[11:].split(','):
-                        if maybedigit.isdecimal() and int(maybedigit) != 0:
+                        if maybedigit.isdecimal() and int(maybedigit) > 0:
                             paramLines.add(maybedigit+'z')
-                elif arg[2:15]=='hoehemaximal=':
+                elif arg[2:15]=='hoehemaximal=' and neg == '':
                     if arg[15:].isdecimal():
                         textheight = abs(int(arg[15:]))
                 elif arg[2:6]=='typ=':
                     for word in arg[6:].split(','):
-                        if word == 'sonne':
+                        if word == neg+'sonne':
                             paramLines.add('sonne')
-                        elif word == 'schwarzesonne':
+                        elif word == neg+'schwarzesonne':
                             paramLines.add('schwarzesonne')
-                        elif word == 'planet':
+                        elif word == neg+'planet':
                             paramLines.add('planet')
-                        elif word == 'mond':
+                        elif word == neg+'mond':
                             paramLines.add('mond')
                 elif arg[2:21]=='vielfachevonzahlen=':
                     for word in arg[21:].split(','):
-                        if word.isdecimal():
+                        if word.isdecimal() and word != '0':
                             paramLines.add(word+'v')
                 elif arg[2:20]=='primzahlvielfache=':
                     for word in arg[20:].split(','):
-                        if word.isdecimal():
+                        if word.isdecimal() and word != '0':
                             paramLines.add(word+'p')
                 elif arg[2:22]=='vorhervonausschnitt=':
                     maybeAmounts=arg[22:].split('-')
                     if len(maybeAmounts) == 1 and maybeAmounts[0] != '0':
                         if maybeAmounts[0].isdecimal():
                             paramLines.add('1-a-'+str(int(maybeAmounts[0])))
-                    elif len(maybeAmounts) == 2 and maybeAmounts[1] != '0' and maybeAmounts[0] != '0':
+                    elif len(maybeAmounts) == 2 and ( ( maybeAmounts[1] < '0' and maybeAmounts[0] < '0' ) or ( maybeAmounts[1] > '0' and maybeAmounts[0] > '0' ) ):
                         if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
                             paramLines.add(maybeAmounts[0]+'-a-'+maybeAmounts[1])
                 elif arg[2:21]=='nachtraeglichdavon=':
@@ -180,14 +182,13 @@ def parameters(argv):
                     if len(maybeAmounts) == 1 and maybeAmounts[0] != '0':
                         if maybeAmounts[0].isdecimal():
                             paramLines.add('1-z-'+maybeAmounts[0])
-                    elif len(maybeAmounts) == 2 and maybeAmounts[1] != '0' and maybeAmounts[0] != '0':
+                    elif len(maybeAmounts) == 2 and ( ( maybeAmounts[1] < '0' and maybeAmounts[0] < '0' ) or ( maybeAmounts[1] > '0' and maybeAmounts[0] > '0' ) ):
                         if maybeAmounts[0].isdecimal() and maybeAmounts[1].isdecimal():
                             paramLines.add(maybeAmounts[0]+'-z-'+maybeAmounts[1])
             else: # oberes Kommando
-                if arg[1:]=='zeilen':
-                    bigParamaeter += ['zeilen']
-                elif arg[1:]=='spalten':
-                    bigParamaeter += ['spalten']
+                if arg[1:] in ['zeilen','spalten']:
+                    bigParamaeter += [arg[1:]]
+    return paramLines, rowsAsNumbers
 
 def fromUntil(a):
     if a[0].isdecimal():
@@ -207,7 +208,7 @@ def fromUntil(a):
 
 
 def FilterOriginalLines(numRange : set) -> set: # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
-    global toYesDisplayLines, toYesdisplayRows, zaehlungen, paramLines, paramRows, toNotDisplayLines
+    global toYesDisplayLines, toYesdisplayRows, zaehlungen, paramLines, toNotDisplayLines
     def diffset(wether, a : set, b : set) -> set:
         if wether:
             #result = a.difference(b)
@@ -479,7 +480,8 @@ if True:
         for row in csv.reader(csv_file, delimiter=';'):
             RowsLen = len(row)
             rowsRange  = range(RowsLen)
-    parameters(sys.argv)
+    paramLines, rowsAsNumbers = parameters(sys.argv,rowsAsNumbers,paramLines)
+    print(str(parameters(sys.argv, paramRowsNot, paramLinesNot,'-')))
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
         for row in list(csv.reader(csv_file, delimiter=';')):
@@ -503,7 +505,7 @@ if True:
                     line += [text]
     #    print(str(relitable))
     headingsAmount = RowsLen
-    onlyShowRowAmount = len(spalten)
+    onlyShowRowAmount = len(rowsAsNumbers)
     onlyShowRowNum = 0
     finallyDisplayLines = FilterOriginalLines(set(originalLinesRange))
     finallyDisplayLines.add(0)
@@ -517,7 +519,7 @@ if True:
         new2Lines = []
         rowsToDisplay = 0
         for t, cell in enumerate(line):
-            if t in spalten and u in finallyDisplayLines:
+            if t in rowsAsNumbers and u in finallyDisplayLines:
                 #print(str(u)+' '+str(t)+' '+str(relitable[u][t]))
                 rowsToDisplay += 1
                 newLines = [[]]*headingsAmount
@@ -552,7 +554,7 @@ if True:
     #for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
     for k, (f, r) in enumerate(zip(newRows,finallyDisplayLines)): # n Linien einer Zelle, d.h. 1 EL = n Zellen
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
-            #for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+            #for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
             for i, c in enumerate(newRows[k]): # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                 if not i in maxCellTextLen:
                     try:
@@ -578,7 +580,7 @@ if True:
             #for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
             maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
             #maxCellTextLen = 0
-            #for i in spalten: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+            #for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
             for i, c in enumerate(newRows[k]): # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                 #maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
                 #if i < maxRowsPossible and k < 6:
@@ -598,8 +600,8 @@ if True:
                     rowsEmpty += 1
                     line += colorize(''.ljust(i_textwidth), r,i ,True)+' ' # neben-Einander
             #if k < 6 and rowsEmpty != maxRowsPossible: #and m < actualPartLineLen:
-#            print("sdf "+str(len(spalten))+' '+str(rowsEmpty))
-            if rowsEmpty != len(spalten) and ( iterWholeLine < textheight or textheight == 0): #and m < actualPartLineLen:
+#            print("sdf "+str(len(rowsAsNumbers))+' '+str(rowsEmpty))
+            if rowsEmpty != len(rowsAsNumbers) and ( iterWholeLine < textheight or textheight == 0): #and m < actualPartLineLen:
                 print(line)
                 #print(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
 #        if actualPartLineLen > maxPartLineLen:
