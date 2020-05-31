@@ -544,7 +544,7 @@ if True:
                 lastlen = len(primcol)
                 if lastlen > maxlen:
                     maxlen = lastlen
-                relitable[i] += primcol #+ [] * (maxlen-len(primcol))
+                relitable[i] += list(primcol) + [''] * (maxlen-len(primcol))
                 print(str((relitable[i])))
     headingsAmount = len(relitable[0])
     newRows = []
