@@ -529,6 +529,29 @@ def fillBoth(liste1,liste2):
         liste2 += ['']
     return liste1, liste2
 
+def cellWork(cell : str, certaintextwidth : int, t : int) -> list:
+    if True:
+        if True:
+            if True:
+                isItNone = wrapping(cell, certaintextwidth)
+                cell2 = tuple()
+                rest = cell
+                while not isItNone is None:
+                    cell2 += isItNone
+                    isItNone = wrapping(cell2[-1], certaintextwidth)
+                    rest = cell2[-1]
+                    cell2 = cell2[:-1]
+                    if len(rest) > certaintextwidth and isItNone is None:
+                        cell2 += (rest[0:certaintextwidth-1],)
+                        isItNone = (rest[certaintextwidth:],)
+                else:
+                    cell2 += (rest[0:certaintextwidth-1],)
+                    for k,cellInCells in enumerate(cell2):
+                        if k < len(newLines):
+                            newLines[k] += [cellInCells]
+                        else:
+                            pass
+                return newLines[t]
 
 if True:
     with open('religion.csv', mode='r') as csv_file:
@@ -592,7 +615,7 @@ if True:
                         if u >= headingsAmount and u < headingsAmount + len(animalsProfessionsCol[0]):
                             printalx(str(heading)+'ö'+str(puniverseprims))
                             rowsAsNumbers.add(int(u))
-    printalx(str(animalsProfessionsTable))
+    #printalx(str(animalsProfessionsTable))
     printalx(str(paramLines)+' '+str(rowsAsNumbers))
     headingsAmount = len(relitable[0])
     newRows = []
@@ -644,25 +667,8 @@ if True:
                     certaintextwidth = breiten[rowsToDisplay+(-1 if nummerierung else -2)]
                 else:
                     certaintextwidth = textwidth
-                isItNone = wrapping(cell, certaintextwidth)
-                cell2 = tuple()
-                rest = cell
-                while not isItNone is None:
-                    cell2 += isItNone
-                    isItNone = wrapping(cell2[-1], certaintextwidth)
-                    rest = cell2[-1]
-                    cell2 = cell2[:-1]
-                    if len(rest) > certaintextwidth and isItNone is None:
-                        cell2 += (rest[0:certaintextwidth-1],)
-                        isItNone = (rest[certaintextwidth:],)
-                else:
-                    cell2 += (rest[0:certaintextwidth-1],)
-                    for k,cellInCells in enumerate(cell2):
-                        if k < len(newLines):
-                            newLines[k] += [cellInCells]
-                        else:
-                            pass
-                new2Lines += [newLines[t]]
+
+                new2Lines += [cellWork(cell, certaintextwidth, t)]
         if new2Lines != []:
             newRows += [new2Lines]
     #printalx(str(newRows))
