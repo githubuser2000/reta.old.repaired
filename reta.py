@@ -11,7 +11,7 @@ ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
 relitable = None
 toYesdisplayRows = set()
 toNotDisplayRows = set()
-infoLog = False
+infoLog = True
 # c nächste silbe
 # b nächste Spalte
 # a nächste Zeile
@@ -191,8 +191,17 @@ def parameters(argv, neg=''):
 #                            paramLines.add('1-z-'+maybeAmounts[0])
 #                        elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0" and maybeAmounts[1].isdecimal() and maybeAmounts[1] != "0":
 #                            paramLines.add(maybeAmounts[0]+'-z-'+maybeAmounts[1])
+            if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'kombination': # unteres Kommando
+                if arg[2:6]=='und=':
+                    for subpara in arg[6:].split(','):
+                        if subpara[len(neg):].isdecimal():
+                            pass
+                if arg[2:7]=='oder=':
+                    for subpara in arg[7:].split(','):
+                        if neg+'=' == subpara:
+                            pass
             else: # oberes Kommando
-                if arg[1:] in ['zeilen','spalten']:
+                if arg[1:] in ['zeilen','spalten','kombination']:
                     bigParamaeter += [arg[1:]]
     return paramLines, rowsAsNumbers
 
@@ -344,12 +353,12 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
             primMultiples += [int(condition[:-1])]
 
     #printalx("x3 "+str(numRange))
-    if ifPrimAtAll:
-        numRangeYesZ = set()
-        for n in numRange:
-            if isPrimMultiple(n, primMultiples):
-                numRangeYesZ.add(n)
-        numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
+    numRangeYesZ = set()
+    for n in numRange:
+        if isPrimMultiple(n, primMultiples):
+            printalx("fjfjkjfdkjkfljkdfls"+str(n))
+            numRangeYesZ.add(n)
+    numRange = cutset(ifPrimAtAll, numRange, numRangeYesZ)
     #printalx("x4 "+str(numRangeYesZ))
     #printalx("x5 "+str(numRange))
 
