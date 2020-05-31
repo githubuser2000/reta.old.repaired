@@ -139,7 +139,7 @@ def parameters(argv, neg=''):
                     for word in arg[30:].split(','):
                         if word.isdecimal():
                             primuniverse = True
-                            puniverseprims.add(word)
+                            puniverseprims.add(int(word))
 
 
 
@@ -532,13 +532,9 @@ if True:
 
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
-        for col in list(csv.reader(csv_file, delimiter=';')):
+        for col in csv.reader(csv_file, delimiter=';'):
             relitable += [col]
     if primuniverse:
-        if len(relitable) > 0:
-            #print(str(len(relitable[0])))
-            rowsAsNumbers.add(40)
-            #rowsAsNumbers.add(len(relitable[0])+1)
         with open('primenumbers.csv', mode='r') as csv_file:
             relitable, primuniversetable = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
             lastlen = 0
@@ -550,9 +546,10 @@ if True:
                 if len(primcol) > 0 and primcol[0].isdecimal():
                     relitable[i] += list(primcol) + [''] * (maxlen-len(primcol))
                     if i == 0:
-                        for u, heading in enumerate(primcol[0]):
-                            if heading in puniverseprims:
-                                rowsAsNumbers.add(u)
+                        for u, heading in enumerate(relitable[0]):
+                            if heading.isdecimal() and int(heading) in puniverseprims:
+                                print(str(heading)+'ö'+str(puniverseprims))
+                                rowsAsNumbers.add(int(u))
 
                # print(str(len(primuniversetable[i]))+' '+str(len(relitable[i])))
                 #print(str((relitable[i])))
