@@ -583,17 +583,16 @@ if True:
                     lastlen = len(animcol)
                     if lastlen > maxlen:
                         maxlen = lastlen
-                    relitable[i] += list(animcol) + [''] * (maxlen-len(animcol))
+                    relitable[i] += list(animcol[1:]) + [''] * (maxlen-len(animcol))
                 else:
-                    relitable[i] += len(animcol) * [''] + [''] * (maxlen-len(animcol))
-                animalsProfessionsTable += list(animcol)
-                printalx(str(list(animcol)))
+                    relitable[i] += len(animcol[1:]) * [''] + [''] * (maxlen-len(animcol))
+                animalsProfessionsTable += [list(animcol)]
                 if i == 0:
                     for u, heading in enumerate(relitable[0]):
                         if u >= headingsAmount and u < headingsAmount + len(animalsProfessionsCol[0]):
                             printalx(str(heading)+'ö'+str(puniverseprims))
                             rowsAsNumbers.add(int(u))
-
+    printalx(str(animalsProfessionsTable))
     printalx(str(paramLines)+' '+str(rowsAsNumbers))
     headingsAmount = len(relitable[0])
     newRows = []
