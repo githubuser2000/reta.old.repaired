@@ -578,11 +578,12 @@ if True:
             lastlen = 0
             maxlen = 0
             for i, (animcol, relicol) in enumerate(zip(animalsProfessionstable, relitable)):
-                lastlen = len(animcol)
-                if lastlen > maxlen:
-                    maxlen = lastlen
-                relitable[i] += list(animcol) + [''] * (maxlen-len(animcol))
-                printalx(str(list(animcol)))
+                    if i == 0:
+                    lastlen = len(animcol)
+                    if lastlen > maxlen:
+                        maxlen = lastlen
+                    relitable[i] += list(animcol) + [''] * (maxlen-len(animcol))
+                    printalx(str(list(animcol)))
                 if i == 0:
                     for u, heading in enumerate(relitable[0]):
                         if u >= headingsAmount and u < headingsAmount + len(animalsProfessionstable[0]):
