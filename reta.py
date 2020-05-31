@@ -552,6 +552,17 @@ def cellWork(cell : str, certaintextwidth : int, t : int) -> list:
                         else:
                             pass
                 return newLines[t]
+def cursorOf_2Tables(table1 : list, table2 : list, key : str):
+    def perTable(table : list, key : str):
+        result = []
+        if len(table) > 0:
+            for i, row in enumerate(table[0]):
+                if key == row:
+                    result += [i]
+        return result
+    return perTable(table1, key), perTable(table2, key)
+
+
 
 if True:
     with open('religion.csv', mode='r') as csv_file:
