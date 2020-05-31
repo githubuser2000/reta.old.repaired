@@ -551,6 +551,7 @@ if True:
         relitable = []
         for col in csv.reader(csv_file, delimiter=';'):
             relitable += [col]
+    headingsAmount = len(relitable[0])
     if primuniverse:
         with open('primenumbers.csv', mode='r') as csv_file:
             relitable, primuniversetable = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
@@ -564,12 +565,13 @@ if True:
                 #printalx(str(list(primcol)))
                 if i == 0:
                     for u, heading in enumerate(relitable[0]):
-                        if heading.isdecimal() and int(heading) in puniverseprims:
+                        if heading.isdecimal() and int(heading) in puniverseprims and u >= headingsAmount:
                             printalx(str(heading)+'ö'+str(puniverseprims))
                             rowsAsNumbers.add(int(u))
 
                # print(str(len(primuniversetable[i]))+' '+str(len(relitable[i])))
                 #print(str((relitable[i])))
+    headingsAmount = len(relitable[0])
     if animalsProfessions:
         with open('animalsProfessions.csv', mode='r') as csv_file:
             relitable, animalsProfessionstable = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
@@ -583,9 +585,9 @@ if True:
                 printalx(str(list(animcol)))
                 if i == 0:
                     for u, heading in enumerate(relitable[0]):
-                        #if heading.isdecimal() and int(heading) in puniverseprims:
-                        printalx(str(heading)+'ö'+str(puniverseprims))
-                        rowsAsNumbers.add(int(u))
+                        if u >= headingsAmount and u < headingsAmount + len(animalsProfessionstable[0]):
+                            printalx(str(heading)+'ö'+str(puniverseprims))
+                            rowsAsNumbers.add(int(u))
 
     printalx(str(paramLines)+' '+str(rowsAsNumbers))
     headingsAmount = len(relitable[0])
