@@ -11,7 +11,7 @@ ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
 relitable = None
 toYesdisplayRows = set()
 toNotDisplayRows = set()
-infoLog = False
+infoLog = True
 # c nächste silbe
 # b nächste Spalte
 # a nächste Zeile
@@ -32,6 +32,7 @@ textheight = 0
 nummerierung = True
 spaltegestirn = False
 breiten = []
+primuniverse = False
 #rowsAsNumbers.add(1)
 
 def printalx(text):
@@ -39,7 +40,7 @@ def printalx(text):
         print(text)
 
 def parameters(argv, neg=''):
-    global textwidth, textheight, nummerierung, spaltegestirn, breiten
+    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse
     rowsAsNumbers =  set()
     paramLines = set()
     bigParamaeter=[]
@@ -130,10 +131,12 @@ def parameters(argv, neg=''):
                             rowsAsNumbers.add(35)
                         elif thing in [neg+'gestirn', neg+'mond', neg+'sonne', neg+'planet']:
                             spaltegestirn = True
-                            rowsAsNumbers.add(RowsLen)
                 elif arg[2:11+len(neg)] == 'symbole'+neg:
                     rowsAsNumbers.add(36)
                     rowsAsNumbers.add(37)
+                elif arg[2:29+len(neg)] == 'primzahlvielfachesuniversum'+neg:
+                    if len(neg) == 0:
+                        primuniverse = True
 
 
 
@@ -173,7 +176,7 @@ def parameters(argv, neg=''):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
                             paramLines.add(str(abs(int(word)))+'p')
                 elif arg[2:22]=='vorhervonausschnitt=':
-                    paramLines|= parametersBereich(arg[22:],'a',neg)
+                    paramLines |= parametersBereich(arg[22:],'a',neg)
                 elif arg[2:21]=='nachtraeglichdavon=':
                     paramLines |= parametersBereich(arg[21:],'z',neg)
 #                    if arg[21:21+len(neg)] == neg:
@@ -499,10 +502,18 @@ def setZaehlungen(num : int): # mehrere Zählungen finden festlegen zum später 
         zaehlungen[3][i] = len(zaehlungen[2])
         zaehlungen[4][i] = moonType
 
+def fillBoth(liste1,liste2):
+    while len(liste1) < len(liste2):
+        liste1 += ['']
+    while len(liste2) < len(liste1):
+        liste2 += ['']
+    return liste1, liste2
+
+
 if True:
     with open('religion.csv', mode='r') as csv_file:
-        for row in csv.reader(csv_file, delimiter=';'):
-            RowsLen = len(row)
+        for col in csv.reader(csv_file, delimiter=';'):
+            RowsLen = len(col)
             rowsRange  = range(RowsLen)
 
     paramLines, rowsAsNumbers = parameters(sys.argv)
@@ -518,12 +529,29 @@ if True:
 
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
-        for row in list(csv.reader(csv_file, delimiter=';')):
-            relitable += [row]
+        for col in list(csv.reader(csv_file, delimiter=';')):
+            relitable += [col]
+    if primuniverse:
+        if len(relitable) > 0:
+            #print(str(len(relitable[0])))
+            rowsAsNumbers.add(40)
+            #rowsAsNumbers.add(len(relitable[0])+1)
+        with open('primenumbers.csv', mode='r') as csv_file:
+            relitable, primuniversetable = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
+            lastlen = 0
+            maxlen = 0
+            for i, (primcol, relicol) in enumerate(zip(primuniversetable, relitable)):
+                lastlen = len(primcol)
+                if lastlen > maxlen:
+                    maxlen = lastlen
+                relitable[i] += primcol + [] * (maxlen-len(primcol))
+                print(str(len(relitable[i])))
     headingsAmount = len(relitable[0])
     newRows = []
     if spaltegestirn:
         RowsLen += 1
+        if len(relitable) > 0:
+            rowsAsNumbers.add(len(relitable[0]))
         #moonNumber
         for i, line in enumerate(relitable):
             if i == 0:
