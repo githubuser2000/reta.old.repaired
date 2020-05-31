@@ -554,10 +554,10 @@ if True:
     headingsAmount = len(relitable[0])
     if primuniverse:
         with open('primenumbers.csv', mode='r') as csv_file:
-            relitable, primuniversetable = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
+            relitable, primUniverseLine = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
             lastlen = 0
             maxlen = 0
-            for i, (primcol, relicol) in enumerate(zip(primuniversetable, relitable)):
+            for i, (primcol, relicol) in enumerate(zip(primUniverseLine, relitable)):
                 lastlen = len(primcol)
                 if lastlen > maxlen:
                     maxlen = lastlen
@@ -569,27 +569,28 @@ if True:
                             printalx(str(heading)+'ö'+str(puniverseprims))
                             rowsAsNumbers.add(int(u))
 
-               # print(str(len(primuniversetable[i]))+' '+str(len(relitable[i])))
+               # print(str(len(primUniverseLine[i]))+' '+str(len(relitable[i])))
                 #print(str((relitable[i])))
     headingsAmount = len(relitable[0])
     if animalsProfessions:
         with open('animalsProfessions.csv', mode='r') as csv_file:
-            relitable, animalsProfessionstable = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
+            relitable, animalsProfessionsCol = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
             lastlen = 0
             maxlen = 0
-            for i, (animcol, relicol) in enumerate(zip(animalsProfessionstable, relitable)):
+            animalsProfessionsTable = []
+            for i, (animcol, relicol) in enumerate(zip(animalsProfessionsCol, relitable)):
                 if i == 0:
                     lastlen = len(animcol)
                     if lastlen > maxlen:
                         maxlen = lastlen
                     relitable[i] += list(animcol) + [''] * (maxlen-len(animcol))
-                    printalx(str(list(animcol)))
                 else:
                     relitable[i] += len(animcol) * [''] + [''] * (maxlen-len(animcol))
-                    printalx(str(list(animcol)))
+                animalsProfessionsTable += list(animcol)
+                printalx(str(list(animcol)))
                 if i == 0:
                     for u, heading in enumerate(relitable[0]):
-                        if u >= headingsAmount and u < headingsAmount + len(animalsProfessionstable[0]):
+                        if u >= headingsAmount and u < headingsAmount + len(animalsProfessionsCol[0]):
                             printalx(str(heading)+'ö'+str(puniverseprims))
                             rowsAsNumbers.add(int(u))
 
