@@ -33,6 +33,7 @@ nummerierung = True
 spaltegestirn = False
 breiten = []
 primuniverse = False
+puniverseprims = set()
 #rowsAsNumbers.add(1)
 
 def printalx(text):
@@ -40,7 +41,7 @@ def printalx(text):
         print(text)
 
 def parameters(argv, neg=''):
-    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse
+    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims
     rowsAsNumbers =  set()
     paramLines = set()
     bigParamaeter=[]
@@ -134,9 +135,11 @@ def parameters(argv, neg=''):
                 elif arg[2:11+len(neg)] == 'symbole'+neg:
                     rowsAsNumbers.add(36)
                     rowsAsNumbers.add(37)
-                elif arg[2:29+len(neg)] == 'primzahlvielfachesuniversum'+neg:
-                    if len(neg) == 0:
-                        primuniverse = True
+                elif arg[2:30] == 'primzahlvielfachesuniversum=':
+                    for word in arg[30:].split(','):
+                        if word.isdecimal():
+                            primuniverse = True
+                            puniverseprims.add(word)
 
 
 
@@ -544,9 +547,16 @@ if True:
                 lastlen = len(primcol)
                 if lastlen > maxlen:
                     maxlen = lastlen
-                relitable[i] += list(primcol) + [''] * (maxlen-len(primcol))
+                if len(primcol) > 0 and primcol[0].isdecimal():
+                    relitable[i] += list(primcol) + [''] * (maxlen-len(primcol))
+                    if i == 0:
+                        for u, heading in enumerate(primcol[0]):
+                            if heading in puniverseprims:
+                                rowsAsNumbers.add(u)
+
                # print(str(len(primuniversetable[i]))+' '+str(len(relitable[i])))
-                print(str((relitable[i])))
+                #print(str((relitable[i])))
+    printalx(str(paramLines)+' '+str(rowsAsNumbers))
     headingsAmount = len(relitable[0])
     newRows = []
     if spaltegestirn:
