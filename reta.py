@@ -545,11 +545,11 @@ if True:
                 if lastlen > maxlen:
                     maxlen = lastlen
                 relitable[i] += list(primcol) + [''] * (maxlen-len(primcol))
+               # print(str(len(primuniversetable[i]))+' '+str(len(relitable[i])))
                 print(str((relitable[i])))
     headingsAmount = len(relitable[0])
     newRows = []
     if spaltegestirn:
-        RowsLen += 1
         if len(relitable) > 0:
             rowsAsNumbers.add(len(relitable[0]))
         #moonNumber
@@ -566,6 +566,9 @@ if True:
                 else:
                     line += [text]
     #    printalx(str(relitable))
+    if len(relitable) > 0:
+        RowsLen = len(relitable[0])
+        rowsRange  = range(RowsLen)
     headingsAmount = RowsLen
     onlyShowRowAmount = len(rowsAsNumbers)
     onlyShowRowNum = 0
