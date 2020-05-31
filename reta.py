@@ -35,13 +35,14 @@ breiten = []
 primuniverse = False
 puniverseprims = set()
 #rowsAsNumbers.add(1)
+animalProfessions = False
 
 def printalx(text):
     if infoLog:
         print(text)
 
 def parameters(argv, neg=''):
-    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims
+    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, animalProfessions
     rowsAsNumbers =  set()
     paramLines = set()
     bigParamaeter=[]
@@ -195,12 +196,15 @@ def parameters(argv, neg=''):
                 if arg[2:6]=='und=':
                     for word in arg[6:].split(','):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
+                            animalProfessions = True
                             paramLines.add(str(abs(int(word)))+'ku')
                 elif arg[2:7]=='oder=':
                     for word in arg[7:].split(','):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
+                            animalProfessions = True
                             paramLines.add(str(abs(int(word)))+'ko')
                 elif arg[2:]=='vonangezeigten'+neg:
+                    animalProfessions = True
                     paramLines.add("ka")
             else: # oberes Kommando
                 if arg[1:] in ['zeilen','spalten','kombination']:
