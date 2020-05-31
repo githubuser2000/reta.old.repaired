@@ -193,13 +193,15 @@ def parameters(argv, neg=''):
 #                            paramLines.add(maybeAmounts[0]+'-z-'+maybeAmounts[1])
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'kombination': # unteres Kommando
                 if arg[2:6]=='und=':
-                    for subpara in arg[6:].split(','):
-                        if subpara[len(neg):].isdecimal():
-                            pass
-                if arg[2:7]=='oder=':
-                    for subpara in arg[7:].split(','):
-                        if neg+'=' == subpara:
-                            pass
+                    for word in arg[6:].split(','):
+                        if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
+                            paramLines.add(str(abs(int(word)))+'ku')
+                elif arg[2:7]=='oder=':
+                    for word in arg[7:].split(','):
+                        if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
+                            paramLines.add(str(abs(int(word)))+'ko')
+                elif arg[2:]=='vonangezeigten'+neg:
+                    paramLines.add("ka")
             else: # oberes Kommando
                 if arg[1:] in ['zeilen','spalten','kombination']:
                     bigParamaeter += [arg[1:]]
