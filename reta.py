@@ -11,6 +11,7 @@ ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
 relitable = None
 toYesdisplayRows = set()
 toNotDisplayRows = set()
+infoLog = False
 # c nächste silbe
 # b nächste Spalte
 # a nächste Zeile
@@ -23,7 +24,7 @@ realLinesRange = range(50)
 RowsLen = None
 #rowsRange = range(50)
 rowsRange = None
-#print(newRows[0][1][0])
+#printalx(newRows[0][1][0])
 
 zaehlungen = [0,{},{},{},{}]
 textwidth = 21
@@ -33,6 +34,9 @@ spaltegestirn = False
 breiten = []
 #rowsAsNumbers.add(1)
 
+def printalx(text):
+    if infoLog:
+        print(text)
 
 def parameters(argv, neg=''):
     global textwidth, textheight, nummerierung, spaltegestirn, breiten
@@ -127,6 +131,9 @@ def parameters(argv, neg=''):
                         elif thing in [neg+'gestirn', neg+'mond', neg+'sonne', neg+'planet']:
                             spaltegestirn = True
                             rowsAsNumbers.add(RowsLen)
+                elif arg[2:11+len(neg)] == 'symbole'+neg:
+                    rowsAsNumbers.add(36)
+                    rowsAsNumbers.add(37)
 
 
 
@@ -187,11 +194,11 @@ def parametersBereich( bereiche1 : str, symbol : str, neg : str):
 #    else:
 #        bereiche2 = bereiche1[len(neg):].split(',')
     for bereiche3 in (bereiche1[len(neg):].split(',') if bereiche1[:len(neg)] == neg else bereiche1.split(',')):
-        print("aa "+bereiche3)
+        printalx("aa "+bereiche3)
         if ( len(bereiche3) > len(neg) and bereiche3 == neg+bereiche3[len(neg):] and len(neg) > 0) or (len(bereiche3)>0 and (neg+bereiche3[0]).isdigit()):
-            print(bereiche3+' '+str(len(neg)))
+            printalx(bereiche3+' '+str(len(neg)))
             maybeAmounts = bereiche3[len(neg):].split('-')
-            print(str(maybeAmounts)+' '+str(neg))
+            printalx(str(maybeAmounts)+' '+str(neg))
             if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0":
                 results.add('1-'+symbol+'-'+maybeAmounts[0])
             elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0" and maybeAmounts[1].isdecimal() and maybeAmounts[1] != "0":
@@ -236,7 +243,7 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
         if wether:
             #result = a.intersection(b)
             result = a & b
-            #print("x "+str(result))
+            #printalx("x "+str(result))
             if result is None:
                 return set()
             else:
@@ -275,8 +282,8 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
 
     numRange = cutset(ifZeitAtAll, numRange, numRangeYesZ)
 
-    #print("x0 "+str(numRange))
-    #print("y0 "+str(paramLines))
+    #printalx("x0 "+str(numRange))
+    #printalx("y0 "+str(paramLines))
     numRangeYesZ = set()
     ifZaehlungenAtAll = False
     for condition in paramLines:
@@ -290,8 +297,8 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
                 if zaehlungen[3][n] == int(zaehlungGesucht): # 1-4:1,5-9:2 == jetzt ?
                     numRangeYesZ.add(n)
                     #numRange.remove(n)
-    #print("xi "+str(numRangeYesZ))
-    #print("xt "+str(numRange))
+    #printalx("xi "+str(numRangeYesZ))
+    #printalx("xt "+str(numRange))
     numRange = cutset(ifZaehlungenAtAll, numRange, numRangeYesZ)
    # set().add
     #exit()
@@ -316,9 +323,9 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
                 if n % 2 == 0:
                     numRangeYesZ.add(n)
 
-    #print("x2 "+str(numRangeYesZ))
+    #printalx("x2 "+str(numRangeYesZ))
     numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
-    #print("x3 "+str(numRange))
+    #printalx("x3 "+str(numRange))
 
     primMultiples = []
     ifPrimAtAll = False
@@ -327,15 +334,15 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
             ifPrimAtAll = True
             primMultiples += [int(condition[:-1])]
 
-    #print("x3 "+str(numRange))
+    #printalx("x3 "+str(numRange))
     if ifPrimAtAll:
         numRangeYesZ = set()
         for n in numRange:
             if isPrimMultiple(n, primMultiples):
                 numRangeYesZ.add(n)
         numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
-    #print("x4 "+str(numRangeYesZ))
-    #print("x5 "+str(numRange))
+    #printalx("x4 "+str(numRangeYesZ))
+    #printalx("x5 "+str(numRange))
 
 
     ifMultiplesFromAnyAtAll = False
@@ -348,7 +355,7 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
     if ifMultiplesFromAnyAtAll:
         numRangeYesZ = set()
         for n in numRange:
-            #print(str(n))
+            #printalx(str(n))
             for divisor in anyMultiples:
                 if n % divisor == 0:
                     numRangeYesZ.add(n)
@@ -430,7 +437,7 @@ def isPrimMultiple(isIt : int, multiples1 : list, dontReturnList = True):
     return areThey
 
 #for e in range(1,11):
-#    print("w "+str(isPrimMultiple(e, [2])))
+#    printalx("w "+str(isPrimMultiple(e, [2])))
 
 def wrapping(text : str, length : int):
     if len(text) > length-1:
@@ -500,13 +507,13 @@ if True:
 
     paramLines, rowsAsNumbers = parameters(sys.argv)
     paramLinesNot, rowsAsNumbersNot = parameters(sys.argv, '-')
-    print(str(paramLines)+' '+str(rowsAsNumbers))
-    print(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
+    printalx(str(paramLines)+' '+str(rowsAsNumbers))
+    printalx(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
 
     paramLines, paramLinesNot = deleteDoublesInSets(paramLines, paramLinesNot)
     rowsAsNumbers, rowsAsNumbersNot = deleteDoublesInSets(rowsAsNumbers, rowsAsNumbersNot)
-    print(str(paramLines)+' '+str(rowsAsNumbers))
-    print(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
+    printalx(str(paramLines)+' '+str(rowsAsNumbers))
+    printalx(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
 
 
     with open('religion.csv', mode='r') as csv_file:
@@ -530,31 +537,31 @@ if True:
                     line += [text+', Planet']
                 else:
                     line += [text]
-    #    print(str(relitable))
+    #    printalx(str(relitable))
     headingsAmount = RowsLen
     onlyShowRowAmount = len(rowsAsNumbers)
     onlyShowRowNum = 0
     finallyDisplayLines = FilterOriginalLines(set(originalLinesRange), paramLines)
-    #print('s1 '+str(finallyDisplayLines))
+    #printalx('s1 '+str(finallyDisplayLines))
     if not len(paramLinesNot) == 0:
         finallyDisplayLines -= FilterOriginalLines(set(originalLinesRange), paramLinesNot)
-    #print('s2 '+str(finallyDisplayLines))
+    #printalx('s2 '+str(finallyDisplayLines))
     finallyDisplayLines.add(0)
     finallyDisplayLines= list(finallyDisplayLines)
     finallyDisplayLines.sort()
 #    maxPartLineLen = 0
     numlen = len(str(finallyDisplayLines[-1]))
-    print('2 '+str(finallyDisplayLines))
+    printalx('2 '+str(finallyDisplayLines))
 
     for u, line in enumerate(relitable):
         new2Lines = []
         rowsToDisplay = 0
         for t, cell in enumerate(line):
             if t in rowsAsNumbers and u in finallyDisplayLines:
-                #print(str(u)+' '+str(t)+' '+str(relitable[u][t]))
+                #printalx(str(u)+' '+str(t)+' '+str(relitable[u][t]))
                 rowsToDisplay += 1
                 newLines = [[]]*headingsAmount
-                #print(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
+                #printalx(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
                 if rowsToDisplay+(1 if nummerierung else 0) <= len(breiten) + 1:
                     certaintextwidth = breiten[rowsToDisplay+(-1 if nummerierung else -2)]
                 else:
@@ -580,7 +587,7 @@ if True:
                 new2Lines += [newLines[t]]
         if new2Lines != []:
             newRows += [new2Lines]
-    #print(str(newRows))
+    #printalx(str(newRows))
     maxCellTextLen = {}
     #for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
     for k, (f, r) in enumerate(zip(newRows,finallyDisplayLines)): # n Linien einer Zelle, d.h. 1 EL = n Zellen
@@ -601,7 +608,7 @@ if True:
                         pass
 
     #for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
-    #print("sdfsad"+str(len(newRows)))
+    #printalx("sdfsad"+str(len(newRows)))
     for k, (f, r) in enumerate(zip(newRows,finallyDisplayLines)): # n Linien einer Zelle, d.h. 1 EL = n Zellen
 #        actualPartLineLen = 0
         for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
@@ -631,10 +638,10 @@ if True:
                     rowsEmpty += 1
                     line += colorize(''.ljust(i_textwidth), r,i ,True)+' ' # neben-Einander
             #if k < 6 and rowsEmpty != maxRowsPossible: #and m < actualPartLineLen:
-#            print("sdf "+str(len(rowsAsNumbers))+' '+str(rowsEmpty))
+#            printalx("sdf "+str(len(rowsAsNumbers))+' '+str(rowsEmpty))
             if rowsEmpty != len(rowsAsNumbers) and ( iterWholeLine < textheight or textheight == 0): #and m < actualPartLineLen:
                 print(line)
-                #print(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
+                #printalx(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
 #        if actualPartLineLen > maxPartLineLen:
 #            maxPartLineLen = actualPartLineLen
 
