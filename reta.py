@@ -356,7 +356,6 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
     numRangeYesZ = set()
     for n in numRange:
         if isPrimMultiple(n, primMultiples):
-            printalx("fjfjkjfdkjkfljkdfls"+str(n))
             numRangeYesZ.add(n)
     numRange = cutset(ifPrimAtAll, numRange, numRangeYesZ)
     #printalx("x4 "+str(numRangeYesZ))
