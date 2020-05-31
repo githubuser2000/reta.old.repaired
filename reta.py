@@ -166,24 +166,32 @@ def parameters(argv, neg=''):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
                             paramLines.add(str(abs(int(word)))+'p')
                 elif arg[2:22]=='vorhervonausschnitt=':
-                    if arg[22:22+len(neg)] == neg:
-                        maybeAmounts=arg[22+len(neg):].split('-')
-                        if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0":
-                            paramLines.add('1-a-'+maybeAmounts[0])
-                        elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0" and maybeAmounts[1].isdecimal() and maybeAmounts[1] != "0":
-                            paramLines.add(maybeAmounts[0]+'-a-'+maybeAmounts[1])
+                    paramLines|= parametersBereich(arg[22:],'a',neg)
                 elif arg[2:21]=='nachtraeglichdavon=':
-                    if arg[21:21+len(neg)] == neg:
-                        maybeAmounts=arg[21+len(neg):].split('-')
-                        if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0":
-                            paramLines.add('1-z-'+maybeAmounts[0])
-                        elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0" and maybeAmounts[1].isdecimal() and maybeAmounts[1] != "0":
-                            paramLines.add(maybeAmounts[0]+'-z-'+maybeAmounts[1])
+                    paramLines |= parametersBereich(arg[21:],'z',neg)
+#                    if arg[21:21+len(neg)] == neg:
+#                        maybeAmounts=arg[21+len(neg):].split('-')
+#                        if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0":
+#                            paramLines.add('1-z-'+maybeAmounts[0])
+#                        elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0" and maybeAmounts[1].isdecimal() and maybeAmounts[1] != "0":
+#                            paramLines.add(maybeAmounts[0]+'-z-'+maybeAmounts[1])
             else: # oberes Kommando
                 if arg[1:] in ['zeilen','spalten']:
                     bigParamaeter += [arg[1:]]
     return paramLines, rowsAsNumbers
 
+def parametersBereich( bereiche1 : str, symbol : str, neg : str):
+    results = set()
+    if bereiche1[:len(neg)] == neg:
+        bereiche2 = bereiche1[len(neg):].split(',')
+        for bereiche3 in bereiche2:
+            print(str(bereiche3))
+            maybeAmounts = bereiche3.split('-')
+            if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0":
+                results.add('1-'+symbol+'-'+maybeAmounts[0])
+            elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0" and maybeAmounts[1].isdecimal() and maybeAmounts[1] != "0":
+                results.add(maybeAmounts[0]+'-'+symbol+'-'+maybeAmounts[1])
+    return results
 
 def deleteDoublesInSets(set1 : set, set2 : set) -> tuple:
     intersection = set1 & set2
@@ -230,13 +238,18 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
                 return result
         return a
 
+    numRangeYesZ = set()
+    if_a_AtAll = False
     for condition in paramLines:
         if '-a-' in condition:
+            if_a_AtAll = True
             a = fromUntil(condition.split('-a-'))
             for n in numRange.copy():
-                if a[0] > n or a[1] < n:
-                    numRange.remove(n)
+                if a[0] <= n and a[1] >= n:
+                    #numRange.remove(n)
+                    numRangeYesZ.add(n)
 
+    numRange = cutset(if_a_AtAll, numRange, numRangeYesZ)
     numRangeYesZ = set()
     ifZeitAtAll = False
 
