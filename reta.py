@@ -182,11 +182,16 @@ def parameters(argv, neg=''):
 
 def parametersBereich( bereiche1 : str, symbol : str, neg : str):
     results = set()
-    if bereiche1[:len(neg)] == neg:
-        bereiche2 = bereiche1[len(neg):].split(',')
-        for bereiche3 in bereiche2:
-            print(str(bereiche3))
-            maybeAmounts = bereiche3.split('-')
+#    if bereiche1[:len(neg)] == neg:
+#        bereiche2 = bereiche1[len(neg):].split(',')
+#    else:
+#        bereiche2 = bereiche1[len(neg):].split(',')
+    for bereiche3 in (bereiche1[len(neg):].split(',') if bereiche1[:len(neg)] == neg else bereiche1.split(',')):
+        print("aa "+bereiche3)
+        if ( len(bereiche3) > len(neg) and bereiche3 == neg+bereiche3[len(neg):] and len(neg) > 0) or (len(bereiche3)>0 and (neg+bereiche3[0]).isdigit()):
+            print(bereiche3+' '+str(len(neg)))
+            maybeAmounts = bereiche3[len(neg):].split('-')
+            print(str(maybeAmounts)+' '+str(neg))
             if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0":
                 results.add('1-'+symbol+'-'+maybeAmounts[0])
             elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0" and maybeAmounts[1].isdecimal() and maybeAmounts[1] != "0":
