@@ -11,7 +11,7 @@ ColumnsRowsAmount, shellRowsAmount = os.popen('stty size', 'r').read().split()
 relitable = None
 toYesdisplayRows = set()
 toNotDisplayRows = set()
-infoLog = True
+infoLog = False
 # c nächste silbe
 # b nächste Spalte
 # a nächste Zeile
@@ -62,10 +62,13 @@ def parameters(argv, neg=''):
                         if religion == neg+'sternpolygon':
                             rowsAsNumbers.add(0)
                             rowsAsNumbers.add(6)
+                            rowsAsNumbers.add(36)
                         elif religion in [neg+'babylon',neg+'dertierkreiszeichen']:
                             rowsAsNumbers.add(0)
+                            rowsAsNumbers.add(36)
                         elif religion in [neg+'gleichfoermigespolygon',neg+'nichtsternpolygon',neg+'polygon']:
                             rowsAsNumbers.add(16)
+                            rowsAsNumbers.add(36)
                         elif religion in [neg+'galaxien',neg+'galaxie',neg+'schwarzesonne',neg+'schwarzesonnen',neg+'universum',neg+'universen',neg+'kreis',neg+'kreise',neg+'kugel',neg+'kugeln']:
                             rowsAsNumbers.add(23)
                 elif arg[2:11]=='galaxien=' or arg[2:16]=='alteschriften=' or arg[2:9]=='kreise=':
