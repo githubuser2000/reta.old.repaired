@@ -35,14 +35,14 @@ breiten = []
 primuniverse = False
 puniverseprims = set()
 #rowsAsNumbers.add(1)
-animalProfessions = False
+animalsProfessions = False
 
 def printalx(text):
     if infoLog:
         print(text)
 
 def parameters(argv, neg=''):
-    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, animalProfessions
+    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, animalsProfessions
     rowsAsNumbers =  set()
     paramLines = set()
     bigParamaeter=[]
@@ -196,15 +196,15 @@ def parameters(argv, neg=''):
                 if arg[2:6]=='und=':
                     for word in arg[6:].split(','):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
-                            animalProfessions = True
+                            animalsProfessions = True
                             paramLines.add(str(abs(int(word)))+'ku')
                 elif arg[2:7]=='oder=':
                     for word in arg[7:].split(','):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
-                            animalProfessions = True
+                            animalsProfessions = True
                             paramLines.add(str(abs(int(word)))+'ko')
                 elif arg[2:]=='vonangezeigten'+neg:
-                    animalProfessions = True
+                    animalsProfessions = True
                     paramLines.add("ka")
             else: # oberes Kommando
                 if arg[1:] in ['zeilen','spalten','kombination']:
@@ -561,7 +561,7 @@ if True:
                 if lastlen > maxlen:
                     maxlen = lastlen
                 relitable[i] += list(primcol) + [''] * (maxlen-len(primcol))
-                printalx(str(list(primcol)))
+                #printalx(str(list(primcol)))
                 if i == 0:
                     for u, heading in enumerate(relitable[0]):
                         if heading.isdecimal() and int(heading) in puniverseprims:
@@ -570,6 +570,23 @@ if True:
 
                # print(str(len(primuniversetable[i]))+' '+str(len(relitable[i])))
                 #print(str((relitable[i])))
+    if animalsProfessions:
+        with open('animalsProfessions.csv', mode='r') as csv_file:
+            relitable, animalsProfessionstable = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
+            lastlen = 0
+            maxlen = 0
+            for i, (animcol, relicol) in enumerate(zip(animalsProfessionstable, relitable)):
+                lastlen = len(animcol)
+                if lastlen > maxlen:
+                    maxlen = lastlen
+                relitable[i] += list(animcol) + [''] * (maxlen-len(animcol))
+                printalx(str(list(animcol)))
+                if i == 0:
+                    for u, heading in enumerate(relitable[0]):
+                        #if heading.isdecimal() and int(heading) in puniverseprims:
+                        printalx(str(heading)+'ö'+str(puniverseprims))
+                        rowsAsNumbers.add(int(u))
+
     printalx(str(paramLines)+' '+str(rowsAsNumbers))
     headingsAmount = len(relitable[0])
     newRows = []
