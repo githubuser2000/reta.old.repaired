@@ -544,8 +544,8 @@ if True:
                 lastlen = len(primcol)
                 if lastlen > maxlen:
                     maxlen = lastlen
-                relitable[i] += primcol + [] * (maxlen-len(primcol))
-                print(str(len(relitable[i])))
+                relitable[i] += primcol #+ [] * (maxlen-len(primcol))
+                print(str((relitable[i])))
     headingsAmount = len(relitable[0])
     newRows = []
     if spaltegestirn:
