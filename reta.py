@@ -543,13 +543,13 @@ if True:
                 lastlen = len(primcol)
                 if lastlen > maxlen:
                     maxlen = lastlen
-                if len(primcol) > 0 and primcol[0].isdecimal():
-                    relitable[i] += list(primcol) + [''] * (maxlen-len(primcol))
-                    if i == 0:
-                        for u, heading in enumerate(relitable[0]):
-                            if heading.isdecimal() and int(heading) in puniverseprims:
-                                print(str(heading)+'ö'+str(puniverseprims))
-                                rowsAsNumbers.add(int(u))
+                relitable[i] += list(primcol) + [''] * (maxlen-len(primcol))
+                printalx(str(list(primcol)))
+                if i == 0:
+                    for u, heading in enumerate(relitable[0]):
+                        if heading.isdecimal() and int(heading) in puniverseprims:
+                            printalx(str(heading)+'ö'+str(puniverseprims))
+                            rowsAsNumbers.add(int(u))
 
                # print(str(len(primuniversetable[i]))+' '+str(len(relitable[i])))
                 #print(str((relitable[i])))
