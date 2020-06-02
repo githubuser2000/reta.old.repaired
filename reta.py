@@ -824,7 +824,7 @@ if True:
         for kombiLineNumber in value:
             printalx(str(kombiLineNumber))
             cliOut({0,kombiLineNumber}, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1)
-        printalx("")
+        printalx("-----------------------")
     printalx(str(finallyDisplayLines_kombi_1))
     printalx(str(newRows_kombi_1))
     printalx("")
