@@ -805,6 +805,14 @@ def prepare_kombi(finallyDisplayLines_kombi_1 : set, kombiTable : list, paramLin
                                 ChosenKombiLines[MainLineNum] = {kombiLineNumber+1}
     return ChosenKombiLines
 
+def tableReducedInLinesByTypeSet(table : list, linesAllowed :set):
+    newTable = []
+    for i, line in enumerate(table):
+        if i in linesAllowed:
+            newTable += [line]
+    return newTable
+
+
 if True:
     RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi, kombiTable_Kombis = start()
     #printalx(str(animalsProfessionsTable))
@@ -823,7 +831,8 @@ if True:
     for key, value in finallyDisplayLines_kombi_1.items():
         for kombiLineNumber in value:
             printalx(str(kombiLineNumber))
-            cliOut({0,kombiLineNumber}, newRows_kombi_1, 2, rowsRange_kombi_1)
+            oneTable = tableReducedInLinesByTypeSet(newRows_kombi_1,{kombiLineNumber})
+            cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
         printalx("-----------------------")
     printalx(str(finallyDisplayLines_kombi_1))
     printalx(str(newRows_kombi_1))
