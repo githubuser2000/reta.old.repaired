@@ -35,17 +35,17 @@ breiten = []
 primuniverse = False
 puniverseprims = set()
 #rowsAsNumbers.add(1)
-animalsProfessions = False
 
 def printalx(text):
     if infoLog:
         print(text)
 
 def parameters(argv, neg=''):
-    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, animalsProfessions
+    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims
     rowsAsNumbers =  set()
     paramLines = set()
     bigParamaeter=[]
+    rowsOfcombi = set()
     for arg in argv[1:]:
         if len(arg) > 0 and  arg[0] == '-':
             if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'spalten': # unteres Kommando
@@ -192,24 +192,27 @@ def parameters(argv, neg=''):
 #                            paramLines.add('1-z-'+maybeAmounts[0])
 #                        elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0" and maybeAmounts[1].isdecimal() and maybeAmounts[1] != "0":
 #                            paramLines.add(maybeAmounts[0]+'-z-'+maybeAmounts[1])
-            if len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'kombination': # unteres Kommando
+            elif len(arg) > 1 and arg[1] == '-' and len(bigParamaeter) > 0 and bigParamaeter[-1] == 'kombination': # unteres Kommando
                 if arg[2:6]=='und=':
                     for word in arg[6:].split(','):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
-                            animalsProfessions = True
                             paramLines.add(str(abs(int(word)))+'ku')
                 elif arg[2:7]=='oder=':
                     for word in arg[7:].split(','):
                         if (word.isdecimal() or (word[1:].isdecimal() and word[0] == neg)) and ((int(word) > 0 and neg == '' ) or (int(word) < 0 and neg != '' )):
-                            animalsProfessions = True
                             paramLines.add(str(abs(int(word)))+'ko')
                 elif arg[2:]=='vonangezeigten'+neg:
-                    animalsProfessions = True
                     paramLines.add("ka")
+                elif arg[2:6] == 'was=':
+                    for thing in arg[(arg.find('=')+1):].split(','):
+                        if thing in [neg+'tiere',neg+'tier',neg+'lebewesen']:
+                            rowsOfcombi |= {1}
+                        elif thing in [neg+'berufe',neg+'beruf']:
+                            rowsOfcombi |= {2}
             else: # oberes Kommando
                 if arg[1:] in ['zeilen','spalten','kombination']:
                     bigParamaeter += [arg[1:]]
-    return paramLines, rowsAsNumbers
+    return paramLines, rowsAsNumbers, rowsOfcombi
 
 def parametersBereich( bereiche1 : str, symbol : str, neg : str):
     results = set()
@@ -570,13 +573,14 @@ if True:
             RowsLen = len(col)
             rowsRange  = range(RowsLen)
 
-    paramLines, rowsAsNumbers = parameters(sys.argv)
-    paramLinesNot, rowsAsNumbersNot = parameters(sys.argv, '-')
+    paramLines, rowsAsNumbers, rowsOfcombi = parameters(sys.argv)
+    paramLinesNot, rowsAsNumbersNot, rowsOfcombiNot = parameters(sys.argv, '-')
     printalx(str(paramLines)+' '+str(rowsAsNumbers))
     printalx(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
 
     paramLines, paramLinesNot = deleteDoublesInSets(paramLines, paramLinesNot)
     rowsAsNumbers, rowsAsNumbersNot = deleteDoublesInSets(rowsAsNumbers, rowsAsNumbersNot)
+    rowsOfcombi, rowsOfcombiNot = deleteDoublesInSets(rowsOfcombi, rowsOfcombiNot)
     printalx(str(paramLines)+' '+str(rowsAsNumbers))
     printalx(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
 
@@ -606,7 +610,7 @@ if True:
                # print(str(len(primUniverseLine[i]))+' '+str(len(relitable[i])))
                 #print(str((relitable[i])))
     headingsAmount = len(relitable[0])
-    if animalsProfessions:
+    if 1 in rowsOfcombi or 2 in rowsOfcombi:
         with open('animalsProfessions.csv', mode='r') as csv_file:
             relitable, animalsProfessionsCol = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
             lastlen = 0
@@ -620,7 +624,9 @@ if True:
                     relitable[i] += list(animcol[1:]) + [''] * (maxlen-len(animcol))
                 else:
                     relitable[i] += len(animcol[1:]) * [''] + [''] * (maxlen-len(animcol))
-                animalsProfessionsTable += [list(animcol)]
+                for row in animalsProfessionsCol:
+                    col += [row]
+                animalsProfessionsTable += [col]
                 if i == 0:
                     for u, heading in enumerate(relitable[0]):
                         if u >= headingsAmount and u < headingsAmount + len(animalsProfessionsCol[0]):
