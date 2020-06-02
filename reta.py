@@ -630,7 +630,7 @@ def start():
                         for a in rowsOfcombi:
                             if u >= headingsAmount and u == headingsAmount + a - 1:
                                 rowsAsNumbers.add(int(u))
-    return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable
+    return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi
 
 
 def createSpalteGestirn(relitable, rowsAsNumbers):
@@ -759,7 +759,7 @@ def findMaxCellTextLen(finallyDisplayLines, newRows, rowsRange):
 #        if actualPartLineLen > maxPartLineLen:
 #            maxPartLineLen = actualPartLineLen
 if True:
-    RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable = start()
+    RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi = start()
     #printalx(str(animalsProfessionsTable))
     printalx(str(paramLines)+' '+str(rowsAsNumbers))
     headingsAmount = len(relitable[0])
@@ -767,7 +767,7 @@ if True:
     #    printalx(str(relitable))
     finallyDisplayLines, newRows, numlen, rowsRange = prepare4out(paramLines, paramLinesNot,
                                                                   relitable, rowsAsNumbers)
-#    finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1 = prepare4out(RowsLen_kombi_1, paramLines_kombi_1, paramLinesNot_kombi_1,
-#                                                                  animalsProfessionsTable, rowsAsNumbers_kombi_1, rowsRange_kombi_1)
+    finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1 = prepare4out(paramLines, paramLinesNot,
+                                                                  animalsProfessionsTable, rowsOfcombi)
     #printalx(str(newRows))
     cliOut(finallyDisplayLines, newRows, numlen, rowsAsNumbers, rowsRange)
