@@ -796,16 +796,14 @@ def prepare_kombi(finallyDisplayLines_kombi_1 : set, kombiTable : list, paramLin
             kombitypes['displaying'] = True
             for MainLineNum in displayingMainLines:
                 for kombiLineNumber, kombiLine in enumerate(kombiTable_Kombis):
-                    printalx('ka '+str(displayingMainLines)+' '+str(kombiLine)+' '+str(finallyDisplayLines_kombi_1))
+                    #printalx('ka '+str(displayingMainLines)+' '+str(kombiLine)+' '+str(finallyDisplayLines_kombi_1))
                     for kombiNumber in kombiLine:
-                        printalx(str(kombiNumber))
                         if kombiNumber in displayingMainLines and kombiNumber == MainLineNum:
                             if MainLineNum in ChosenKombiLines:
                                 ChosenKombiLines[MainLineNum] |= {kombiLineNumber}
                             else:
                                 ChosenKombiLines[MainLineNum] = {kombiLineNumber}
-    print('asdfg '+str(ChosenKombiLines))
-    return finallyDisplayLines_kombi_1
+    return ChosenKombiLines
 
 if True:
     RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi, kombiTable_Kombis = start()
@@ -818,8 +816,14 @@ if True:
                                                                   relitable, rowsAsNumbers)
     finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1 = prepare4out(paramLines, paramLinesNot,
                                                                   animalsProfessionsTable, rowsOfcombi)
-    finallyDisplayLines_kombi_1 = prepare_kombi(finallyDisplayLines_kombi_1, animalsProfessionsTable, paramLines, finallyDisplayLines, kombiTable_Kombis)
     #printalx(str(newRows))
     cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
-    print(str(rowsRange))
-    cliOut(finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1)
+    finallyDisplayLines_kombi_1 = prepare_kombi(finallyDisplayLines_kombi_1, animalsProfessionsTable, paramLines, finallyDisplayLines, kombiTable_Kombis)
+    for key, value in finallyDisplayLines_kombi_1.items():
+        for kombiLineNumber in value:
+            printalx(str(kombiLineNumber))
+        printalx("")
+    printalx(str(finallyDisplayLines_kombi_1))
+    printalx(str(newRows_kombi_1))
+    cliOut({0,1,2,3,4,5,6,7,8,9,10,11}, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1)
+
