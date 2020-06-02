@@ -276,6 +276,7 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
                 return result
         return a
 
+
     numRangeYesZ = set()
     if_a_AtAll = False
     for condition in paramLines:
@@ -400,6 +401,7 @@ def FilterOriginalLines(numRange : set, paramLines : set) -> set: # ich wollte j
                     numRange.remove(n)
     if ifNachtraeglichAtAll:
         numRange = set(numRange)
+    #printalx(str(ifNachtraeglichAtAll)+' '+str(ifMultiplesFromAnyAtAll)+' '+str(ifPrimAtAll)+' '+str(ifTypAtAll)+' '+str(ifZeitAtAll)+' '+str(numRange))
     return numRange
 
 def primFak(n : int):
@@ -691,7 +693,9 @@ def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
     # printalx('s1 '+str(finallyDisplayLines))
     if not len(paramLinesNot) == 0:
         finallyDisplayLines2 = FilterOriginalLines(set(originalLinesRange), paramLinesNot)
-        if len(set(originalLinesRange) - finallyDisplayLines2) > 0:
+        printalx('34567 '+str(set(originalLinesRange) - finallyDisplayLines2))
+        hasAnythingCanged = set(originalLinesRange) - finallyDisplayLines2 - {0}
+        if len(hasAnythingCanged) > 0:
             finallyDisplayLines -= finallyDisplayLines2
     # printalx('s2 '+str(finallyDisplayLines))
     finallyDisplayLines.add(0)
