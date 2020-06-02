@@ -532,7 +532,7 @@ def fillBoth(liste1,liste2):
         liste2 += ['']
     return liste1, liste2
 
-def cellWork(cell : str, certaintextwidth : int, t : int) -> list:
+def cellWork(cell : str, newLines, certaintextwidth : int, t : int) -> list:
     if True:
         if True:
             if True:
@@ -567,24 +567,23 @@ def cursorOf_2Tables(table1 : list, table2 : list, key : str):
 
 
 
-if True:
+
+
+
+def start():
     with open('religion.csv', mode='r') as csv_file:
         for col in csv.reader(csv_file, delimiter=';'):
             RowsLen = len(col)
-            rowsRange  = range(RowsLen)
-
+            rowsRange = range(RowsLen)
     paramLines, rowsAsNumbers, rowsOfcombi = parameters(sys.argv)
     paramLinesNot, rowsAsNumbersNot, rowsOfcombiNot = parameters(sys.argv, '-')
-    printalx(str(paramLines)+' '+str(rowsAsNumbers))
-    printalx(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
-
+    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
+    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
     paramLines, paramLinesNot = deleteDoublesInSets(paramLines, paramLinesNot)
     rowsAsNumbers, rowsAsNumbersNot = deleteDoublesInSets(rowsAsNumbers, rowsAsNumbersNot)
     rowsOfcombi, rowsOfcombiNot = deleteDoublesInSets(rowsOfcombi, rowsOfcombiNot)
-    printalx(str(paramLines)+' '+str(rowsAsNumbers))
-    printalx(str(paramLinesNot)+' '+str(rowsAsNumbersNot))
-
-
+    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
+    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
     with open('religion.csv', mode='r') as csv_file:
         relitable = []
         for col in csv.reader(csv_file, delimiter=';'):
@@ -599,16 +598,16 @@ if True:
                 lastlen = len(primcol)
                 if lastlen > maxlen:
                     maxlen = lastlen
-                relitable[i] += list(primcol) + [''] * (maxlen-len(primcol))
-                #printalx(str(list(primcol)))
+                relitable[i] += list(primcol) + [''] * (maxlen - len(primcol))
+                # printalx(str(list(primcol)))
                 if i == 0:
                     for u, heading in enumerate(relitable[0]):
                         if heading.isdecimal() and int(heading) in puniverseprims and u >= headingsAmount:
-                            printalx(str(heading)+'ö'+str(puniverseprims))
+                            printalx(str(heading) + 'ö' + str(puniverseprims))
                             rowsAsNumbers.add(int(u))
 
-               # print(str(len(primUniverseLine[i]))+' '+str(len(relitable[i])))
-                #print(str((relitable[i])))
+            # print(str(len(primUniverseLine[i]))+' '+str(len(relitable[i])))
+            # print(str((relitable[i])))
     headingsAmount = len(relitable[0])
     if 1 in rowsOfcombi or 2 in rowsOfcombi:
         with open('animalsProfessions.csv', mode='r') as csv_file:
@@ -621,9 +620,9 @@ if True:
                     lastlen = len(animcol)
                     if lastlen > maxlen:
                         maxlen = lastlen
-                    relitable[i] += list(animcol[1:]) + [''] * (maxlen-len(animcol))
+                    relitable[i] += list(animcol[1:]) + [''] * (maxlen - len(animcol))
                 else:
-                    relitable[i] += len(animcol[1:]) * [''] + [''] * (maxlen-len(animcol))
+                    relitable[i] += len(animcol[1:]) * [''] + [''] * (maxlen - len(animcol))
                 for row in animalsProfessionsCol:
                     col += [row]
                 animalsProfessionsTable += [col]
@@ -631,16 +630,15 @@ if True:
                     for u, heading in enumerate(relitable[0]):
                         for a in rowsOfcombi:
                             if u >= headingsAmount and u == headingsAmount + a - 1:
-                                printalx(str(heading)+'ö'+str(puniverseprims))
                                 rowsAsNumbers.add(int(u))
-    #printalx(str(animalsProfessionsTable))
-    printalx(str(paramLines)+' '+str(rowsAsNumbers))
-    headingsAmount = len(relitable[0])
-    newRows = []
+    return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, rowsRange
+
+
+def createSpalteGestirn(relitable, rowsAsNumbers):
     if spaltegestirn:
         if len(relitable) > 0:
             rowsAsNumbers.add(len(relitable[0]))
-        #moonNumber
+        # moonNumber
         for i, line in enumerate(relitable):
             if i == 0:
                 line += ['Gestirn']
@@ -649,53 +647,100 @@ if True:
                     text = 'Mond'
                 else:
                     text = 'Sonne'
-                if i %  2 == 0:
-                    line += [text+', Planet']
+                if i % 2 == 0:
+                    line += [text + ', Planet']
                 else:
                     line += [text]
-    #    printalx(str(relitable))
+
+
+def prepare4out(RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, rowsRange):
+    newRows = []
     if len(relitable) > 0:
         RowsLen = len(relitable[0])
-        rowsRange  = range(RowsLen)
+        rowsRange = range(RowsLen)
     headingsAmount = RowsLen
     onlyShowRowAmount = len(rowsAsNumbers)
     onlyShowRowNum = 0
     finallyDisplayLines = FilterOriginalLines(set(originalLinesRange), paramLines)
-    #printalx('s1 '+str(finallyDisplayLines))
+    # printalx('s1 '+str(finallyDisplayLines))
     if not len(paramLinesNot) == 0:
         finallyDisplayLines -= FilterOriginalLines(set(originalLinesRange), paramLinesNot)
-    #printalx('s2 '+str(finallyDisplayLines))
+    # printalx('s2 '+str(finallyDisplayLines))
     finallyDisplayLines.add(0)
-    finallyDisplayLines= list(finallyDisplayLines)
+    finallyDisplayLines = list(finallyDisplayLines)
     finallyDisplayLines.sort()
-#    maxPartLineLen = 0
+    #    maxPartLineLen = 0
     numlen = len(str(finallyDisplayLines[-1]))
-    printalx('2 '+str(finallyDisplayLines))
-
+    printalx('2 ' + str(finallyDisplayLines))
     for u, line in enumerate(relitable):
         new2Lines = []
         rowsToDisplay = 0
         for t, cell in enumerate(line):
             if t in rowsAsNumbers and u in finallyDisplayLines:
-                #printalx(str(u)+' '+str(t)+' '+str(relitable[u][t]))
+                # printalx(str(u)+' '+str(t)+' '+str(relitable[u][t]))
                 rowsToDisplay += 1
-                newLines = [[]]*headingsAmount
-                #printalx(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
-                if rowsToDisplay+(1 if nummerierung else 0) <= len(breiten) + 1:
-                    certaintextwidth = breiten[rowsToDisplay+(-1 if nummerierung else -2)]
+                newLines = [[]] * headingsAmount
+                # printalx(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
+                if rowsToDisplay + (1 if nummerierung else 0) <= len(breiten) + 1:
+                    certaintextwidth = breiten[rowsToDisplay + (-1 if nummerierung else -2)]
                 else:
                     certaintextwidth = textwidth
 
-                new2Lines += [cellWork(cell, certaintextwidth, t)]
+                new2Lines += [cellWork(cell, newLines, certaintextwidth, t)]
         if new2Lines != []:
             newRows += [new2Lines]
-    #printalx(str(newRows))
+    return finallyDisplayLines, newRows, numlen, rowsRange
+
+
+def cliOut(finallyDisplayLines, newRows, numlen, rowsAsNumbers, rowsRange):
+    maxCellTextLen = findMaxCellTextLen(finallyDisplayLines, newRows, rowsRange)
+    # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
+    # printalx("sdfsad"+str(len(newRows)))
+    for k, (f, r) in enumerate(zip(newRows, finallyDisplayLines)):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
+        #        actualPartLineLen = 0
+        for iterWholeLine, m in enumerate(rowsRange):  # eine Bildhschirm-Zeile immer
+            #            actualPartLineLen += 1
+            line = '' if not nummerierung else (
+                ''.rjust(numlen + 1) if iterWholeLine != 0 else (str(r) + ' ').rjust(numlen + 1))
+            rowsEmpty = 0
+            # for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
+            maxRowsPossible = math.floor(int(shellRowsAmount) / int(textwidth + 1))
+            # maxCellTextLen = 0
+            # for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+            for i, c in enumerate(newRows[k]):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+                # maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
+                # if i < maxRowsPossible and k < 6:
+                # if i < maxRowsPossible:
+                if i + (1 if nummerierung else 0) <= len(breiten):
+                    certaintextwidth = breiten[i + (0 if nummerierung else -1)]
+                else:
+                    certaintextwidth = textwidth
+                if certaintextwidth > maxCellTextLen[i]:
+                    i_textwidth = maxCellTextLen[i]
+                else:
+                    i_textwidth = certaintextwidth
+                try:
+                    # line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
+                    line += colorize(newRows[k][i][m].replace('\n', '').ljust(i_textwidth), r,
+                                     i) + ' '  # neben-Einander
+                except:
+                    rowsEmpty += 1
+                    line += colorize(''.ljust(i_textwidth), r, i, True) + ' '  # neben-Einander
+            # if k < 6 and rowsEmpty != maxRowsPossible: #and m < actualPartLineLen:
+            #            printalx("sdf "+str(len(rowsAsNumbers))+' '+str(rowsEmpty))
+            if rowsEmpty != len(rowsAsNumbers) and (
+                    iterWholeLine < textheight or textheight == 0):  # and m < actualPartLineLen:
+                print(line)
+                # printalx(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
+
+
+def findMaxCellTextLen(finallyDisplayLines, newRows, rowsRange):
     maxCellTextLen = {}
-    #for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
-    for k, (f, r) in enumerate(zip(newRows,finallyDisplayLines)): # n Linien einer Zelle, d.h. 1 EL = n Zellen
-        for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
-            #for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-            for i, c in enumerate(newRows[k]): # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+    # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
+    for k, (f, r) in enumerate(zip(newRows, finallyDisplayLines)):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
+        for iterWholeLine, m in enumerate(rowsRange):  # eine Bildhschirm-Zeile immer
+            # for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+            for i, c in enumerate(newRows[k]):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                 if not i in maxCellTextLen:
                     try:
                         maxCellTextLen[i] = len(newRows[k][i][m])
@@ -708,42 +753,17 @@ if True:
                             maxCellTextLen[i] = textLen
                     except:
                         pass
-
-    #for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
-    #printalx("sdfsad"+str(len(newRows)))
-    for k, (f, r) in enumerate(zip(newRows,finallyDisplayLines)): # n Linien einer Zelle, d.h. 1 EL = n Zellen
-#        actualPartLineLen = 0
-        for iterWholeLine, m in enumerate(rowsRange): # eine Bildhschirm-Zeile immer
-#            actualPartLineLen += 1
-            line='' if not nummerierung else ( ''.rjust(numlen + 1) if iterWholeLine != 0 else (str(r)+' ').rjust(numlen + 1) )
-            rowsEmpty = 0
-            #for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
-            maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
-            #maxCellTextLen = 0
-            #for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-            for i, c in enumerate(newRows[k]): # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                #maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
-                #if i < maxRowsPossible and k < 6:
-                #if i < maxRowsPossible:
-                if i+(1 if nummerierung else 0) <= len(breiten):
-                    certaintextwidth = breiten[i+(0 if nummerierung else -1)]
-                else:
-                    certaintextwidth = textwidth
-                if certaintextwidth > maxCellTextLen[i]:
-                    i_textwidth = maxCellTextLen[i]
-                else:
-                    i_textwidth = certaintextwidth
-                try:
-                    #line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
-                    line += colorize(newRows[k][i][m].replace('\n', '').ljust(i_textwidth), r, i)+' ' # neben-Einander
-                except:
-                    rowsEmpty += 1
-                    line += colorize(''.ljust(i_textwidth), r,i ,True)+' ' # neben-Einander
-            #if k < 6 and rowsEmpty != maxRowsPossible: #and m < actualPartLineLen:
-#            printalx("sdf "+str(len(rowsAsNumbers))+' '+str(rowsEmpty))
-            if rowsEmpty != len(rowsAsNumbers) and ( iterWholeLine < textheight or textheight == 0): #and m < actualPartLineLen:
-                print(line)
-                #printalx(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
+    return maxCellTextLen
 #        if actualPartLineLen > maxPartLineLen:
 #            maxPartLineLen = actualPartLineLen
-
+if True:
+    RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, rowsRange = start()
+    #printalx(str(animalsProfessionsTable))
+    printalx(str(paramLines)+' '+str(rowsAsNumbers))
+    headingsAmount = len(relitable[0])
+    createSpalteGestirn(relitable, rowsAsNumbers)
+    #    printalx(str(relitable))
+    finallyDisplayLines, newRows, numlen, rowsRange = prepare4out(RowsLen, paramLines, paramLinesNot,
+                                                                  relitable, rowsAsNumbers, rowsRange)
+    #printalx(str(newRows))
+    cliOut(finallyDisplayLines, newRows, numlen, rowsAsNumbers, rowsRange)
