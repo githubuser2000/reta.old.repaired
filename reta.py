@@ -629,9 +629,10 @@ if True:
                 animalsProfessionsTable += [col]
                 if i == 0:
                     for u, heading in enumerate(relitable[0]):
-                        if u >= headingsAmount and u < headingsAmount + len(animalsProfessionsCol[0]):
-                            printalx(str(heading)+'ö'+str(puniverseprims))
-                            rowsAsNumbers.add(int(u))
+                        for a in rowsOfcombi:
+                            if u >= headingsAmount and u == headingsAmount + a - 1:
+                                printalx(str(heading)+'ö'+str(puniverseprims))
+                                rowsAsNumbers.add(int(u))
     #printalx(str(animalsProfessionsTable))
     printalx(str(paramLines)+' '+str(rowsAsNumbers))
     headingsAmount = len(relitable[0])
