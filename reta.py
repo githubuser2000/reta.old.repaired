@@ -791,16 +791,24 @@ def prepare_kombi(finallyDisplayLines_kombi_1 : set, kombiTable : list, paramLin
 
     kombitypes = {'displaying': False, 'or': False, 'and' : False}
     ChosenKombiLines = set()
+    ChosenKombiLines2 = {}
     for condition in paramLines:
         if 'ka' == condition:
             kombitypes['displaying'] = True
             for MainLineNum in displayingMainLines:
-                for kombiLineNumber, kombiLine in enumerate(kombiTable):
-                    print('ka '+str(displayingMainLines)+' '+str(kombiLine))
+                for kombiLineNumber, kombiLine in enumerate(kombiTable_Kombis):
+                    printalx('ka '+str(displayingMainLines)+' '+str(kombiLine)+' '+str(finallyDisplayLines_kombi_1))
                     for kombiNumber in kombiLine:
-                        if kombiNumber in finallyDisplayLines_kombi_1:
+                        printalx(str(kombiNumber))
+                        if kombiNumber in displayingMainLines:
                             ChosenKombiLines |= {kombiLineNumber}
+                            if MainLineNum in ChosenKombiLines2:
+                                ChosenKombiLines2[MainLineNum] |= {kombiLineNumber}
+                            else:
+                                ChosenKombiLines2[MainLineNum] = {kombiLineNumber}
+    print('asdfg '+str(kombiTable))
     print('asdfg '+str(ChosenKombiLines))
+    print('asdfg '+str(ChosenKombiLines2))
     return finallyDisplayLines_kombi_1
 
 if True:
