@@ -630,6 +630,8 @@ def start():
                         for a in rowsOfcombi:
                             if u >= headingsAmount and u == headingsAmount + a - 1:
                                 rowsAsNumbers.add(int(u))
+    else:
+        animalsProfessionsTable = [[]]
     return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi
 
 
@@ -694,7 +696,7 @@ def prepare4out(paramLines, paramLinesNot, relitable, rowsAsNumbers):
     return finallyDisplayLines, newRows, numlen, rowsRange
 
 
-def cliOut(finallyDisplayLines, newRows, numlen, rowsAsNumbers, rowsRange):
+def cliOut(finallyDisplayLines, newRows, numlen, rowsRange):
     maxCellTextLen = findMaxCellTextLen(finallyDisplayLines, newRows, rowsRange)
     # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
     # printalx("sdfsad"+str(len(newRows)))
@@ -770,4 +772,5 @@ if True:
     finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1 = prepare4out(paramLines, paramLinesNot,
                                                                   animalsProfessionsTable, rowsOfcombi)
     #printalx(str(newRows))
-    cliOut(finallyDisplayLines, newRows, numlen, rowsAsNumbers, rowsRange)
+    cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
+    cliOut(finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1)
