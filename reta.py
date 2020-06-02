@@ -579,22 +579,21 @@ def start():
                 rowsRange = range(RowsLen)
     paramLines, rowsAsNumbers, rowsOfcombi = parameters(sys.argv)
     paramLinesNot, rowsAsNumbersNot, rowsOfcombiNot = parameters(sys.argv, '-')
-    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
-    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
+#    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
+#    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
     paramLines, paramLinesNot = deleteDoublesInSets(paramLines, paramLinesNot)
     rowsAsNumbers, rowsAsNumbersNot = deleteDoublesInSets(rowsAsNumbers, rowsAsNumbersNot)
     rowsOfcombi, rowsOfcombiNot = deleteDoublesInSets(rowsOfcombi, rowsOfcombiNot)
-    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
-    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
-    headingsAmount = len(relitable[0])
-    relitable = readConcatCsv(headingsAmount, relitable, rowsAsNumbers)
-    headingsAmount = len(relitable[0])
+#    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
+#    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
+    relitable = readConcatCsv(relitable, rowsAsNumbers)
 
-    animalsProfessionsTable, relitable = readKombiCsv(headingsAmount, relitable, rowsAsNumbers, rowsOfcombi)
+    animalsProfessionsTable, relitable = readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi)
     return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi
 
 
-def readConcatCsv(headingsAmount, relitable, rowsAsNumbers):
+def readConcatCsv(relitable, rowsAsNumbers):
+    headingsAmount = len(relitable[0])
     if primuniverse:
         with open('primenumbers.csv', mode='r') as csv_file:
             relitable, primUniverseLine = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
@@ -617,7 +616,8 @@ def readConcatCsv(headingsAmount, relitable, rowsAsNumbers):
     return relitable
 
 
-def readKombiCsv(headingsAmount, relitable, rowsAsNumbers, rowsOfcombi):
+def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
+    headingsAmount = len(relitable[0])
     if not rowsOfcombi.isdisjoint({1, 2}):
         with open('animalsProfessions.csv', mode='r') as csv_file:
             animalsProfessionsTable = []
