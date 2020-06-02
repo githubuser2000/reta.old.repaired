@@ -23,7 +23,6 @@ realLinesRange = range(50)
 #rowsRange = range(len(newRows[0][0]))
 RowsLen = None
 #rowsRange = range(50)
-rowsRange = None
 #printalx(newRows[0][1][0])
 
 zaehlungen = [0,{},{},{},{}]
@@ -631,7 +630,7 @@ def start():
                         for a in rowsOfcombi:
                             if u >= headingsAmount and u == headingsAmount + a - 1:
                                 rowsAsNumbers.add(int(u))
-    return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, rowsRange
+    return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable
 
 
 def createSpalteGestirn(relitable, rowsAsNumbers):
@@ -653,11 +652,14 @@ def createSpalteGestirn(relitable, rowsAsNumbers):
                     line += [text]
 
 
-def prepare4out(RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, rowsRange):
+def prepare4out(paramLines, paramLinesNot, relitable, rowsAsNumbers):
     newRows = []
     if len(relitable) > 0:
         RowsLen = len(relitable[0])
         rowsRange = range(RowsLen)
+    else:
+        RowsLen = 0
+        RowsRange = range(0)
     headingsAmount = RowsLen
     onlyShowRowAmount = len(rowsAsNumbers)
     onlyShowRowNum = 0
@@ -757,13 +759,15 @@ def findMaxCellTextLen(finallyDisplayLines, newRows, rowsRange):
 #        if actualPartLineLen > maxPartLineLen:
 #            maxPartLineLen = actualPartLineLen
 if True:
-    RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, rowsRange = start()
+    RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable = start()
     #printalx(str(animalsProfessionsTable))
     printalx(str(paramLines)+' '+str(rowsAsNumbers))
     headingsAmount = len(relitable[0])
     createSpalteGestirn(relitable, rowsAsNumbers)
     #    printalx(str(relitable))
-    finallyDisplayLines, newRows, numlen, rowsRange = prepare4out(RowsLen, paramLines, paramLinesNot,
-                                                                  relitable, rowsAsNumbers, rowsRange)
+    finallyDisplayLines, newRows, numlen, rowsRange = prepare4out(paramLines, paramLinesNot,
+                                                                  relitable, rowsAsNumbers)
+#    finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1 = prepare4out(RowsLen_kombi_1, paramLines_kombi_1, paramLinesNot_kombi_1,
+#                                                                  animalsProfessionsTable, rowsAsNumbers_kombi_1, rowsRange_kombi_1)
     #printalx(str(newRows))
     cliOut(finallyDisplayLines, newRows, numlen, rowsAsNumbers, rowsRange)
