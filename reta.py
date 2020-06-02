@@ -571,9 +571,12 @@ def cursorOf_2Tables(table1 : list, table2 : list, key : str):
 
 def start():
     with open('religion.csv', mode='r') as csv_file:
-        for col in csv.reader(csv_file, delimiter=';'):
-            RowsLen = len(col)
-            rowsRange = range(RowsLen)
+        relitable = []
+        for i, col in enumerate(csv.reader(csv_file, delimiter=';')):
+            relitable += [col]
+            if i == 0:
+                RowsLen = len(col)
+                rowsRange = range(RowsLen)
     paramLines, rowsAsNumbers, rowsOfcombi = parameters(sys.argv)
     paramLinesNot, rowsAsNumbersNot, rowsOfcombiNot = parameters(sys.argv, '-')
     printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
@@ -583,11 +586,15 @@ def start():
     rowsOfcombi, rowsOfcombiNot = deleteDoublesInSets(rowsOfcombi, rowsOfcombiNot)
     printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
     printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
-    with open('religion.csv', mode='r') as csv_file:
-        relitable = []
-        for col in csv.reader(csv_file, delimiter=';'):
-            relitable += [col]
     headingsAmount = len(relitable[0])
+    relitable = readConcatCsv(headingsAmount, relitable, rowsAsNumbers)
+    headingsAmount = len(relitable[0])
+
+    animalsProfessionsTable, relitable = readKombiCsv(headingsAmount, relitable, rowsAsNumbers, rowsOfcombi)
+    return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi
+
+
+def readConcatCsv(headingsAmount, relitable, rowsAsNumbers):
     if primuniverse:
         with open('primenumbers.csv', mode='r') as csv_file:
             relitable, primUniverseLine = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
@@ -607,9 +614,11 @@ def start():
 
             # print(str(len(primUniverseLine[i]))+' '+str(len(relitable[i])))
             # print(str((relitable[i])))
-    headingsAmount = len(relitable[0])
+    return relitable
 
-    if not rowsOfcombi.isdisjoint({1,2}):
+
+def readKombiCsv(headingsAmount, relitable, rowsAsNumbers, rowsOfcombi):
+    if not rowsOfcombi.isdisjoint({1, 2}):
         with open('animalsProfessions.csv', mode='r') as csv_file:
             animalsProfessionsTable = []
             for col in csv.reader(csv_file, delimiter=';'):
@@ -632,7 +641,7 @@ def start():
                                 rowsAsNumbers.add(int(u))
     else:
         animalsProfessionsTable = [[]]
-    return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi
+    return animalsProfessionsTable, relitable
 
 
 def createSpalteGestirn(relitable, rowsAsNumbers):
