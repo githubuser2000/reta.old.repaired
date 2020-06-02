@@ -620,10 +620,21 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
     headingsAmount = len(relitable[0])
     if not rowsOfcombi.isdisjoint({1, 2}):
         with open('animalsProfessions.csv', mode='r') as csv_file:
-            animalsProfessionsTable = []
-            for col in csv.reader(csv_file, delimiter=';'):
-                animalsProfessionsTable += [col]
-            relitable, animalsProfessionsCol = fillBoth(relitable, list(animalsProfessionsTable))
+            kombiTable = []
+            kombiTable_Kombis = []
+            for z, col in enumerate(csv.reader(csv_file, delimiter=';')):
+                kombiTable += [col]
+                kombiTable_Kombis_Col = []
+                if len(col) > 0 and z > 0:
+                    for num in col[0].split(','):
+                        print(str(num))
+                        if num.isdecimal():
+                            kombiTable_Kombis_Col += [int(num)]
+                        else:
+                            raise("not NUM !!!!! ")
+                    kombiTable_Kombis += [kombiTable_Kombis_Col]
+            #printalx(str(kombiTable_Kombis))
+            relitable, animalsProfessionsCol = fillBoth(relitable, list(kombiTable))
             lastlen = 0
             maxlen = 0
             for i, (animcol, relicol) in enumerate(zip(animalsProfessionsCol, relitable)):
@@ -640,8 +651,8 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
                             if u >= headingsAmount and u == headingsAmount + a - 1:
                                 rowsAsNumbers.add(int(u))
     else:
-        animalsProfessionsTable = [[]]
-    return animalsProfessionsTable, relitable
+        kombiTable = [[]]
+    return kombiTable, relitable
 
 
 def createSpalteGestirn(relitable, rowsAsNumbers):
