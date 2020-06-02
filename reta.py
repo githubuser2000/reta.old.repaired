@@ -652,6 +652,7 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
                                 rowsAsNumbers.add(int(u))
     else:
         kombiTable = [[]]
+        kombiTable_Kombis = [[]]
     return kombiTable, relitable, kombiTable_Kombis
 
 
@@ -676,6 +677,7 @@ def createSpalteGestirn(relitable, rowsAsNumbers):
 
 def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
     newRows = []
+    printalx('1 ' + str(originalLinesRange))
     if len(contentTable) > 0:
         headingsAmount = len(contentTable[0])
         rowsRange = range(headingsAmount)
@@ -685,9 +687,12 @@ def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
     onlyShowRowAmount = len(rowsAsNumbers)
     onlyShowRowNum = 0
     finallyDisplayLines = FilterOriginalLines(set(originalLinesRange), paramLines)
+    printalx('1,5 ' + str(finallyDisplayLines))
     # printalx('s1 '+str(finallyDisplayLines))
     if not len(paramLinesNot) == 0:
-        finallyDisplayLines -= FilterOriginalLines(set(originalLinesRange), paramLinesNot)
+        finallyDisplayLines2 = FilterOriginalLines(set(originalLinesRange), paramLinesNot)
+        if len(set(originalLinesRange) - finallyDisplayLines2) > 0:
+            finallyDisplayLines -= finallyDisplayLines2
     # printalx('s2 '+str(finallyDisplayLines))
     finallyDisplayLines.add(0)
     finallyDisplayLines = list(finallyDisplayLines)
@@ -786,11 +791,12 @@ def prepare_kombi(finallyDisplayLines_kombi_1 : set, kombiTable : list, paramLin
         if 'ka' == condition:
             kombitypes['displaying'] = True
             for MainLineNum in displayingMainLines:
-                for kombiLine in kombiTable:
+                for kombiLineNumber, kombiLine in enumerate(kombiTable):
+                    print('ka '+str(displayingMainLines)+' '+str(kombiLine))
                     for kombiNumber in kombiLine:
                         if kombiNumber in finallyDisplayLines_kombi_1:
-                            ChosenKombiLines |= {kombiNumber}
-
+                            ChosenKombiLines |= {kombiLineNumber}
+    print('asdfg '+str(ChosenKombiLines))
     return finallyDisplayLines_kombi_1
 
 if True:
