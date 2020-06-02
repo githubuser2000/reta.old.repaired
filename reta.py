@@ -790,8 +790,7 @@ def cliOut(finallyDisplayLines, newRows, numlen, rowsRange):
 def prepare_kombi(finallyDisplayLines_kombi_1 : set, kombiTable : list, paramLines, displayingMainLines : set, kombiTable_Kombis : list):
 
     kombitypes = {'displaying': False, 'or': False, 'and' : False}
-    ChosenKombiLines = set()
-    ChosenKombiLines2 = {}
+    ChosenKombiLines = {}
     for condition in paramLines:
         if 'ka' == condition:
             kombitypes['displaying'] = True
@@ -800,15 +799,12 @@ def prepare_kombi(finallyDisplayLines_kombi_1 : set, kombiTable : list, paramLin
                     printalx('ka '+str(displayingMainLines)+' '+str(kombiLine)+' '+str(finallyDisplayLines_kombi_1))
                     for kombiNumber in kombiLine:
                         printalx(str(kombiNumber))
-                        if kombiNumber in displayingMainLines:
-                            ChosenKombiLines |= {kombiLineNumber}
-                            if MainLineNum in ChosenKombiLines2:
-                                ChosenKombiLines2[MainLineNum] |= {kombiLineNumber}
+                        if kombiNumber in displayingMainLines and kombiNumber == MainLineNum:
+                            if MainLineNum in ChosenKombiLines:
+                                ChosenKombiLines[MainLineNum] |= {kombiLineNumber}
                             else:
-                                ChosenKombiLines2[MainLineNum] = {kombiLineNumber}
-    print('asdfg '+str(kombiTable))
+                                ChosenKombiLines[MainLineNum] = {kombiLineNumber}
     print('asdfg '+str(ChosenKombiLines))
-    print('asdfg '+str(ChosenKombiLines2))
     return finallyDisplayLines_kombi_1
 
 if True:
