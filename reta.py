@@ -608,12 +608,15 @@ def start():
             # print(str(len(primUniverseLine[i]))+' '+str(len(relitable[i])))
             # print(str((relitable[i])))
     headingsAmount = len(relitable[0])
-    if 1 in rowsOfcombi or 2 in rowsOfcombi:
+
+    if not rowsOfcombi.isdisjoint({1,2}):
         with open('animalsProfessions.csv', mode='r') as csv_file:
-            relitable, animalsProfessionsCol = fillBoth(relitable, list(csv.reader(csv_file, delimiter=';')))
+            animalsProfessionsTable = []
+            for col in csv.reader(csv_file, delimiter=';'):
+                animalsProfessionsTable += [col]
+            relitable, animalsProfessionsCol = fillBoth(relitable, list(animalsProfessionsTable))
             lastlen = 0
             maxlen = 0
-            animalsProfessionsTable = []
             for i, (animcol, relicol) in enumerate(zip(animalsProfessionsCol, relitable)):
                 if i == 0:
                     lastlen = len(animcol)
@@ -622,9 +625,6 @@ def start():
                     relitable[i] += list(animcol[1:]) + [''] * (maxlen - len(animcol))
                 else:
                     relitable[i] += len(animcol[1:]) * [''] + [''] * (maxlen - len(animcol))
-                for row in animalsProfessionsCol:
-                    col += [row]
-                animalsProfessionsTable += [col]
                 if i == 0:
                     for u, heading in enumerate(relitable[0]):
                         for a in rowsOfcombi:
@@ -654,15 +654,14 @@ def createSpalteGestirn(relitable, rowsAsNumbers):
                     line += [text]
 
 
-def prepare4out(paramLines, paramLinesNot, relitable, rowsAsNumbers):
+def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
     newRows = []
-    if len(relitable) > 0:
-        RowsLen = len(relitable[0])
-        rowsRange = range(RowsLen)
+    if len(contentTable) > 0:
+        headingsAmount = len(contentTable[0])
+        rowsRange = range(headingsAmount)
     else:
-        RowsLen = 0
-        RowsRange = range(0)
-    headingsAmount = RowsLen
+        headingsAmount = 0
+        rowsRange = range(0)
     onlyShowRowAmount = len(rowsAsNumbers)
     onlyShowRowNum = 0
     finallyDisplayLines = FilterOriginalLines(set(originalLinesRange), paramLines)
@@ -676,12 +675,12 @@ def prepare4out(paramLines, paramLinesNot, relitable, rowsAsNumbers):
     #    maxPartLineLen = 0
     numlen = len(str(finallyDisplayLines[-1]))
     printalx('2 ' + str(finallyDisplayLines))
-    for u, line in enumerate(relitable):
+    for u, line in enumerate(contentTable):
         new2Lines = []
         rowsToDisplay = 0
         for t, cell in enumerate(line):
             if t in rowsAsNumbers and u in finallyDisplayLines:
-                # printalx(str(u)+' '+str(t)+' '+str(relitable[u][t]))
+                # printalx(str(u)+' '+str(t)+' '+str(contentTable[u][t]))
                 rowsToDisplay += 1
                 newLines = [[]] * headingsAmount
                 # printalx(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
@@ -773,4 +772,6 @@ if True:
                                                                   animalsProfessionsTable, rowsOfcombi)
     #printalx(str(newRows))
     cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
+    print(str(rowsRange))
+    print(str(len(animalsProfessionsTable)))
     cliOut(finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1)
