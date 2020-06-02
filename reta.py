@@ -800,9 +800,9 @@ def prepare_kombi(finallyDisplayLines_kombi_1 : set, kombiTable : list, paramLin
                     for kombiNumber in kombiLine:
                         if kombiNumber in displayingMainLines and kombiNumber == MainLineNum:
                             if MainLineNum in ChosenKombiLines:
-                                ChosenKombiLines[MainLineNum] |= {kombiLineNumber}
+                                ChosenKombiLines[MainLineNum] |= {kombiLineNumber+1}
                             else:
-                                ChosenKombiLines[MainLineNum] = {kombiLineNumber}
+                                ChosenKombiLines[MainLineNum] = {kombiLineNumber+1}
     return ChosenKombiLines
 
 if True:
@@ -814,7 +814,8 @@ if True:
     #    printalx(str(relitable))
     finallyDisplayLines, newRows, numlen, rowsRange = prepare4out(paramLines, paramLinesNot,
                                                                   relitable, rowsAsNumbers)
-    finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1 = prepare4out(paramLines, paramLinesNot,
+    printalx(str(paramLines)+' '+str(paramLinesNot))
+    finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1 = prepare4out(set(), set(),
                                                                   animalsProfessionsTable, rowsOfcombi)
     #printalx(str(newRows))
     cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
@@ -822,8 +823,13 @@ if True:
     for key, value in finallyDisplayLines_kombi_1.items():
         for kombiLineNumber in value:
             printalx(str(kombiLineNumber))
+            cliOut({0,kombiLineNumber}, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1)
         printalx("")
     printalx(str(finallyDisplayLines_kombi_1))
     printalx(str(newRows_kombi_1))
+    printalx("")
+    printalx("")
+    printalx("")
+    printalx("")
     cliOut({0,1,2,3,4,5,6,7,8,9,10,11}, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1)
 
