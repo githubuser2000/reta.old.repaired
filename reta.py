@@ -815,7 +815,7 @@ if True:
     finallyDisplayLines, newRows, numlen, rowsRange = prepare4out(paramLines, paramLinesNot,
                                                                   relitable, rowsAsNumbers)
     printalx(str(paramLines)+' '+str(paramLinesNot))
-    finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1 = prepare4out(set(), set(),
+    finallyDisplayLines_kombi_1, newRows_kombi_1, lineLen_kombi_1, rowsRange_kombi_1 = prepare4out(set(), set(),
                                                                   animalsProfessionsTable, rowsOfcombi)
     #printalx(str(newRows))
     cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
@@ -823,7 +823,7 @@ if True:
     for key, value in finallyDisplayLines_kombi_1.items():
         for kombiLineNumber in value:
             printalx(str(kombiLineNumber))
-            cliOut({0,kombiLineNumber}, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1)
+            cliOut({0,kombiLineNumber}, newRows_kombi_1, 2, rowsRange_kombi_1)
         printalx("-----------------------")
     printalx(str(finallyDisplayLines_kombi_1))
     printalx(str(newRows_kombi_1))
@@ -831,5 +831,5 @@ if True:
     printalx("")
     printalx("")
     printalx("")
-    cliOut({0,1,2,3,4,5,6,7,8,9,10,11}, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1)
+    cliOut({0,1,2,3,4,5,6,7,8,9,10,11}, newRows_kombi_1, lineLen_kombi_1, rowsRange_kombi_1)
 
