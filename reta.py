@@ -554,6 +554,7 @@ def cellWork(cell : str, newLines, certaintextwidth : int, t : int) -> list:
                         else:
                             pass
                 return newLines[t]
+
 def cursorOf_2Tables(table1 : list, table2 : list, key : str):
     def perTable(table : list, key : str):
         result = []
@@ -588,8 +589,8 @@ def start():
 #    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
     relitable = readConcatCsv(relitable, rowsAsNumbers)
 
-    animalsProfessionsTable, relitable = readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi)
-    return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi
+    animalsProfessionsTable, relitable, kombiTable_Kombis = readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi)
+    return RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi, kombiTable_Kombis
 
 
 def readConcatCsv(relitable, rowsAsNumbers):
@@ -627,7 +628,6 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
                 kombiTable_Kombis_Col = []
                 if len(col) > 0 and z > 0:
                     for num in col[0].split(','):
-                        print(str(num))
                         if num.isdecimal():
                             kombiTable_Kombis_Col += [int(num)]
                         else:
@@ -652,7 +652,7 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
                                 rowsAsNumbers.add(int(u))
     else:
         kombiTable = [[]]
-    return kombiTable, relitable
+    return kombiTable, relitable, kombiTable_Kombis
 
 
 def createSpalteGestirn(relitable, rowsAsNumbers):
@@ -716,6 +716,26 @@ def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
 
 
 def cliOut(finallyDisplayLines, newRows, numlen, rowsRange):
+    def findMaxCellTextLen(finallyDisplayLines, newRows, rowsRange):
+        maxCellTextLen = {}
+        # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
+        for k, (f, r) in enumerate(zip(newRows, finallyDisplayLines)):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
+            for iterWholeLine, m in enumerate(rowsRange):  # eine Bildhschirm-Zeile immer
+                # for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+                for i, c in enumerate(newRows[k]):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+                    if not i in maxCellTextLen:
+                        try:
+                            maxCellTextLen[i] = len(newRows[k][i][m])
+                        except:
+                            pass
+                    else:
+                        try:
+                            textLen = len(newRows[k][i][m])
+                            if textLen > int(maxCellTextLen[i]):
+                                maxCellTextLen[i] = textLen
+                        except:
+                            pass
+        return maxCellTextLen
     maxCellTextLen = findMaxCellTextLen(finallyDisplayLines, newRows, rowsRange)
     # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
     # printalx("sdfsad"+str(len(newRows)))
@@ -757,41 +777,35 @@ def cliOut(finallyDisplayLines, newRows, numlen, rowsRange):
                 # printalx(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
 
 
-def findMaxCellTextLen(finallyDisplayLines, newRows, rowsRange):
-    maxCellTextLen = {}
-    # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
-    for k, (f, r) in enumerate(zip(newRows, finallyDisplayLines)):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
-        for iterWholeLine, m in enumerate(rowsRange):  # eine Bildhschirm-Zeile immer
-            # for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-            for i, c in enumerate(newRows[k]):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                if not i in maxCellTextLen:
-                    try:
-                        maxCellTextLen[i] = len(newRows[k][i][m])
-                    except:
-                        pass
-                else:
-                    try:
-                        textLen = len(newRows[k][i][m])
-                        if textLen > int(maxCellTextLen[i]):
-                            maxCellTextLen[i] = textLen
-                    except:
-                        pass
-    return maxCellTextLen
-#        if actualPartLineLen > maxPartLineLen:
-#            maxPartLineLen = actualPartLineLen
+
+def prepare_kombi(finallyDisplayLines_kombi_1 : set, kombiTable : list, paramLines, displayingMainLines : set, kombiTable_Kombis : list):
+
+    kombitypes = {'displaying': False, 'or': False, 'and' : False}
+    ChosenKombiLines = set()
+    for condition in paramLines:
+        if 'ka' == condition:
+            kombitypes['displaying'] = True
+            for MainLineNum in displayingMainLines:
+                for kombiLine in kombiTable:
+                    for kombiNumber in kombiLine:
+                        if kombiNumber in finallyDisplayLines_kombi_1:
+                            ChosenKombiLines |= {kombiNumber}
+
+    return finallyDisplayLines_kombi_1
+
 if True:
-    RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi = start()
+    RowsLen, paramLines, paramLinesNot, relitable, rowsAsNumbers, animalsProfessionsTable, rowsOfcombi, kombiTable_Kombis = start()
     #printalx(str(animalsProfessionsTable))
     printalx(str(paramLines)+' '+str(rowsAsNumbers))
-    headingsAmount = len(relitable[0])
+    #headingsAmount = len(relitable[0])
     createSpalteGestirn(relitable, rowsAsNumbers)
     #    printalx(str(relitable))
     finallyDisplayLines, newRows, numlen, rowsRange = prepare4out(paramLines, paramLinesNot,
                                                                   relitable, rowsAsNumbers)
     finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1 = prepare4out(paramLines, paramLinesNot,
                                                                   animalsProfessionsTable, rowsOfcombi)
+    finallyDisplayLines_kombi_1 = prepare_kombi(finallyDisplayLines_kombi_1, animalsProfessionsTable, paramLines, finallyDisplayLines, kombiTable_Kombis)
     #printalx(str(newRows))
     cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
     print(str(rowsRange))
-    print(str(len(animalsProfessionsTable)))
     cliOut(finallyDisplayLines_kombi_1, newRows_kombi_1, numlen_kombi_1, rowsRange_kombi_1)
