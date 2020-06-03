@@ -828,12 +828,16 @@ if True:
     #printalx(str(newRows))
     cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
     finallyDisplayLines_kombi_1 = prepare_kombi(finallyDisplayLines_kombi_1, animalsProfessionsTable, paramLines, finallyDisplayLines, kombiTable_Kombis)
+    KombiTables = []
     for key, value in finallyDisplayLines_kombi_1.items():
+        Tables = []
         for kombiLineNumber in value:
-            printalx(str(kombiLineNumber))
-            oneTable = tableReducedInLinesByTypeSet(newRows_kombi_1,{kombiLineNumber})
-            cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
+            #printalx(str(kombiLineNumber))
+            Tables += [tableReducedInLinesByTypeSet(newRows_kombi_1,{kombiLineNumber})[0]]
+            #cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
+        KombiTables += [Tables]
         printalx("-----------------------")
+
     printalx(str(finallyDisplayLines_kombi_1))
     printalx(str(newRows_kombi_1))
     printalx("")
