@@ -864,8 +864,6 @@ def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
     else:
         headingsAmount = 0
         rowsRange = range(0)
-    onlyShowRowAmount = len(rowsAsNumbers)
-    onlyShowRowNum = 0
     finallyDisplayLines = FilterOriginalLines(set(originalLinesRange), paramLines)
     printalx("1,5 " + str(finallyDisplayLines))
     # printalx('s1 '+str(finallyDisplayLines))
@@ -1029,8 +1027,15 @@ def tableReducedInLinesByTypeSet(table: list, linesAllowed: set):
     return newTable
 
 
-def tableJoin():
-    pass
+def tableJoin(mainTable, manySubTables, maintable2subtable_Relation):
+    for colNum, (col, sCol) in enumerate(zip(mainTable, manySubTables)):
+        for rowNum, originalCell in enumerate((col)):
+            for sRowNum, sOriginalCell in enumerate(sCol):
+                if (
+                    rowNum in maintable2subtable_Relation
+                    and sRowNum == maintable2subtable_Relation[0][rowNum]
+                ):
+                    mainTable[colNum][rowNum] = sOriginalCell
 
 
 if True:
@@ -1083,7 +1088,7 @@ if True:
 
     printalx(str(finallyDisplayLines_kombi_1))
     printalx(str(newRows_kombi_1))
-    printalx("")
+    printalx(str(maintable2subtable_Relation))
     printalx("")
     printalx("")
     printalx("")
@@ -1093,6 +1098,8 @@ if True:
         lineLen_kombi_1,
         rowsRange_kombi_1,
     )
+    tableJoin(newRows, KombiTables, maintable2subtable_Relation)
+    cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
 
 # inverted:
 # \e[7mi
