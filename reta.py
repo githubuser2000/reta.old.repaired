@@ -1031,11 +1031,13 @@ def tableJoin(mainTable, manySubTables, maintable2subtable_Relation):
     for colNum, (col, sCol) in enumerate(zip(mainTable, manySubTables)):
         for rowNum, originalCell in enumerate((col)):
             for sRowNum, sOriginalCell in enumerate(sCol):
+                print(str(sRowNum))
                 if (
                     rowNum in maintable2subtable_Relation
                     and sRowNum == maintable2subtable_Relation[0][rowNum]
                 ):
                     mainTable[colNum][rowNum] = sOriginalCell
+                    print(str(sOriginalCell))
 
 
 if True:
