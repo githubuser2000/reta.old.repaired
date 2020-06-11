@@ -740,9 +740,12 @@ def start():
     #    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
     relitable = readConcatCsv(relitable, rowsAsNumbers)
 
-    animalsProfessionsTable, relitable, kombiTable_Kombis = readKombiCsv(
-        relitable, rowsAsNumbers, rowsOfcombi
-    )
+    (
+        animalsProfessionsTable,
+        relitable,
+        kombiTable_Kombis,
+        maintable2subtable_Relation,
+    ) = readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi)
     return (
         RowsLen,
         paramLines,
@@ -752,6 +755,7 @@ def start():
         animalsProfessionsTable,
         rowsOfcombi,
         kombiTable_Kombis,
+        maintable2subtable_Relation,
     )
 
 
@@ -805,6 +809,7 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
             relitable, animalsProfessionsCol = fillBoth(relitable, list(kombiTable))
             lastlen = 0
             maxlen = 0
+            maintable2subtable_Relation = ({}, {})
             for i, (animcol, relicol) in enumerate(
                 zip(animalsProfessionsCol, relitable)
             ):
@@ -812,7 +817,10 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
                     lastlen = len(animcol)
                     if lastlen > maxlen:
                         maxlen = lastlen
-                    relitable[i] += list(animcol[1:]) + [""] * (maxlen - len(animcol))
+                    for t, ac in enumerate(animcol[1:]):
+                        maintable2subtable_Relation[0][len(relitable) - 1 + t] = t
+                        maintable2subtable_Relation[1][t] = len(relitable) - 1 + t
+                    relitable[0] += list(animcol[1:]) + [""] * (maxlen - len(animcol))
                 else:
                     relitable[i] += len(animcol[1:]) * [""] + [""] * (
                         maxlen - len(animcol)
@@ -825,7 +833,7 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
     else:
         kombiTable = [[]]
         kombiTable_Kombis = [[]]
-    return kombiTable, relitable, kombiTable_Kombis
+    return kombiTable, relitable, kombiTable_Kombis, maintable2subtable_Relation
 
 
 def createSpalteGestirn(relitable, rowsAsNumbers):
@@ -1021,6 +1029,10 @@ def tableReducedInLinesByTypeSet(table: list, linesAllowed: set):
     return newTable
 
 
+def tableJoin():
+    pass
+
+
 if True:
     (
         RowsLen,
@@ -1031,6 +1043,7 @@ if True:
         animalsProfessionsTable,
         rowsOfcombi,
         kombiTable_Kombis,
+        maintable2subtable_Relation,
     ) = start()
     # printalx(str(animalsProfessionsTable))
     printalx(str(paramLines) + " " + str(rowsAsNumbers))
@@ -1080,3 +1093,6 @@ if True:
         lineLen_kombi_1,
         rowsRange_kombi_1,
     )
+
+# inverted:
+# \e[7mi
