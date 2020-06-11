@@ -683,28 +683,25 @@ def fillBoth(liste1, liste2):
 
 
 def cellWork(cell: str, newLines, certaintextwidth: int, t: int) -> list:
-    if True:
-        if True:
-            if True:
-                isItNone = wrapping(cell, certaintextwidth)
-                cell2 = tuple()
-                rest = cell
-                while not isItNone is None:
-                    cell2 += isItNone
-                    isItNone = wrapping(cell2[-1], certaintextwidth)
-                    rest = cell2[-1]
-                    cell2 = cell2[:-1]
-                    if len(rest) > certaintextwidth and isItNone is None:
-                        cell2 += (rest[0 : certaintextwidth - 1],)
-                        isItNone = (rest[certaintextwidth:],)
-                else:
-                    cell2 += (rest[0 : certaintextwidth - 1],)
-                    for k, cellInCells in enumerate(cell2):
-                        if k < len(newLines):
-                            newLines[k] += [cellInCells]
-                        else:
-                            pass
-                return newLines[t]
+    isItNone = wrapping(cell, certaintextwidth)
+    cell2 = tuple()
+    rest = cell
+    while not isItNone is None:
+        cell2 += isItNone
+        isItNone = wrapping(cell2[-1], certaintextwidth)
+        rest = cell2[-1]
+        cell2 = cell2[:-1]
+        if len(rest) > certaintextwidth and isItNone is None:
+            cell2 += (rest[0 : certaintextwidth - 1],)
+            isItNone = (rest[certaintextwidth:],)
+    else:
+        cell2 += (rest[0 : certaintextwidth - 1],)
+        for k, cellInCells in enumerate(cell2):
+            if k < len(newLines):
+                newLines[k] += [cellInCells]
+            else:
+                pass
+    return newLines[t]
 
 
 def cursorOf_2Tables(table1: list, table2: list, key: str):
@@ -882,9 +879,11 @@ def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
     #    maxPartLineLen = 0
     numlen = len(str(finallyDisplayLines[-1]))
     printalx("2 " + str(finallyDisplayLines))
+    old2newRows = ({}, {})
     for u, line in enumerate(contentTable):
         new2Lines = []
         rowsToDisplay = 0
+        h = 0
         for t, cell in enumerate(line):
             if t in rowsAsNumbers and u in finallyDisplayLines:
                 # printalx(str(u)+' '+str(t)+' '+str(contentTable[u][t]))
@@ -899,9 +898,13 @@ def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
                     certaintextwidth = textwidth
 
                 new2Lines += [cellWork(cell, newLines, certaintextwidth, t)]
+                if u == 0:
+                    old2newRows[0][t] = h
+                    old2newRows[1][h] = t
+                h += 1
         if new2Lines != []:
             newRows += [new2Lines]
-    return finallyDisplayLines, newRows, numlen, rowsRange
+    return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
 
 
 def cliOut(finallyDisplayLines, newRows, numlen, rowsRange):
@@ -1057,7 +1060,7 @@ if True:
     # headingsAmount = len(relitable[0])
     createSpalteGestirn(relitable, rowsAsNumbers)
     #    printalx(str(relitable))
-    finallyDisplayLines, newRows, numlen, rowsRange = prepare4out(
+    finallyDisplayLines, newRows, numlen, rowsRange, old2newRows = prepare4out(
         paramLines, paramLinesNot, relitable, rowsAsNumbers
     )
     printalx(str(paramLines) + " " + str(paramLinesNot))
@@ -1066,6 +1069,7 @@ if True:
         newRows_kombi_1,
         lineLen_kombi_1,
         rowsRange_kombi_1,
+        old2newRowsAnimalsProfessions,
     ) = prepare4out(set(), set(), animalsProfessionsTable, rowsOfcombi)
     # printalx(str(newRows))
     cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
@@ -1091,7 +1095,7 @@ if True:
     printalx(str(finallyDisplayLines_kombi_1))
     printalx(str(newRows_kombi_1))
     printalx(str(maintable2subtable_Relation))
-    printalx("")
+    printalx(str(old2newRows))
     printalx("")
     printalx("")
     cliOut(
