@@ -815,8 +815,8 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
                     if lastlen > maxlen:
                         maxlen = lastlen
                     for t, ac in enumerate(animcol[1:]):
-                        maintable2subtable_Relation[0][len(relitable) - 1 + t] = t
-                        maintable2subtable_Relation[1][t] = len(relitable) - 1 + t
+                        maintable2subtable_Relation[0][len(relitable[0]) + t] = t
+                        maintable2subtable_Relation[1][t] = len(relitable[0]) + t
                     relitable[0] += list(animcol[1:]) + [""] * (maxlen - len(animcol))
                 else:
                     relitable[i] += len(animcol[1:]) * [""] + [""] * (
@@ -1030,17 +1030,39 @@ def tableReducedInLinesByTypeSet(table: list, linesAllowed: set):
     return newTable
 
 
-def tableJoin(mainTable, manySubTables, maintable2subtable_Relation):
-    for colNum, (col, sCol) in enumerate(zip(mainTable, manySubTables)):
-        for rowNum, originalCell in enumerate((col)):
-            for sRowNum, sOriginalCell in enumerate(sCol):
-                print(str(sRowNum))
-                if (
-                    rowNum in maintable2subtable_Relation
-                    and sRowNum == maintable2subtable_Relation[0][rowNum]
-                ):
-                    mainTable[colNum][rowNum] = sOriginalCell
-                    print(str(sOriginalCell))
+def tableJoin(mainTable, manySubTables, maintable2subtable_Relation, old2newRows):
+    for colNum, col in enumerate(mainTable):
+        for subTable in manySubTables:
+            if colNum in subTable:
+                for fittedAnimalsProfessions in mainTable[colNum]:
+                    for onOfFittedAP in fittedAnimalsProfessions:
+                        for sRowNum, sCell in enumerate(onOfFittedAP):
+                            if (
+                                sRowNum in maintable2subtable_Relation[1]
+                                and maintable2subtable_Relation[1][sRowNum]
+                                in old2newRows[0]
+                            ):
+                                row = old2newRows[0][
+                                    maintable2subtable_Relation[1][sRowNum]
+                                ]
+                                mainTable[colNum][row] += sCell
+
+
+#    for colNum, (col, sCol) in enumerate(zip(mainTable, manySubTables)):
+#        for rowNum, originalCell in enumerate((col)):
+#            for sRowNum, sOriginalCell in enumerate(sCol):
+#                # print(str(sRowNum))
+#                if (
+#                    sRowNum in maintable2subtable_Relation[1]
+#                    and maintable2subtable_Relation[1][sRowNum] in old2newRows[0]
+#                    and rowNum
+#                    == old2newRows[0][maintable2subtable_Relation[1][sRowNum]]
+#                ):
+#                    mainTable[colNum][rowNum] = sOriginalCell
+#                    printalx(str(colNum) + " " + str(sOriginalCell))
+#    printalx(str(manySubTables[0]))
+# printalx(str(maintable2subtable_Relation))
+# printalx(str(old2newRows))
 
 
 if True:
@@ -1060,19 +1082,19 @@ if True:
     # headingsAmount = len(relitable[0])
     createSpalteGestirn(relitable, rowsAsNumbers)
     #    printalx(str(relitable))
-    finallyDisplayLines, newRows, numlen, rowsRange, old2newRows = prepare4out(
+    finallyDisplayLines, newTable, numlen, rowsRange, old2newTable = prepare4out(
         paramLines, paramLinesNot, relitable, rowsAsNumbers
     )
     printalx(str(paramLines) + " " + str(paramLinesNot))
     (
         finallyDisplayLines_kombi_1,
-        newRows_kombi_1,
+        newTable_kombi_1,
         lineLen_kombi_1,
         rowsRange_kombi_1,
-        old2newRowsAnimalsProfessions,
+        old2newTableAnimalsProfessions,
     ) = prepare4out(set(), set(), animalsProfessionsTable, rowsOfcombi)
-    # printalx(str(newRows))
-    cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
+    # printalx(str(newTable))
+    cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
     finallyDisplayLines_kombi_1 = prepare_kombi(
         finallyDisplayLines_kombi_1,
         animalsProfessionsTable,
@@ -1082,30 +1104,36 @@ if True:
     )
     KombiTables = []
     for key, value in finallyDisplayLines_kombi_1.items():
-        Tables = []
+        Tables = {}
         for kombiLineNumber in value:
             # printalx(str(kombiLineNumber))
-            Tables += [
-                tableReducedInLinesByTypeSet(newRows_kombi_1, {kombiLineNumber})[0]
-            ]
+            if key in Tables:
+                Tables[key] += [
+                    tableReducedInLinesByTypeSet(newTable_kombi_1, {kombiLineNumber})[0]
+                ]
+            else:
+                Tables[key] = [
+                    tableReducedInLinesByTypeSet(newTable_kombi_1, {kombiLineNumber})[0]
+                ]
             # cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
         KombiTables += [Tables]
         printalx("-----------------------")
 
     printalx(str(finallyDisplayLines_kombi_1))
-    printalx(str(newRows_kombi_1))
+    printalx(str(newTable_kombi_1))
     printalx(str(maintable2subtable_Relation))
-    printalx(str(old2newRows))
+    printalx(str(old2newTable))
     printalx("")
+    printalx(str(KombiTables))
     printalx("")
-    cliOut(
-        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
-        newRows_kombi_1,
-        lineLen_kombi_1,
-        rowsRange_kombi_1,
-    )
-    tableJoin(newRows, KombiTables, maintable2subtable_Relation)
-    cliOut(finallyDisplayLines, newRows, numlen, rowsRange)
+    #    cliOut(
+    #        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
+    #        newTable_kombi_1,
+    #        lineLen_kombi_1,
+    #        rowsRange_kombi_1,
+    #    )
+    tableJoin(newTable, KombiTables, maintable2subtable_Relation, old2newTable)
+    cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
 
 # inverted:
 # \e[7mi
