@@ -41,7 +41,7 @@ textwidth = 21  # Feste Spaltenbreite
 textheight = 0
 nummerierung = True  # Nummerierung der Zeilen, z.B. Religion 1,2,3
 spaltegestirn = False
-breiten = []
+breiten: list = []
 primuniverse = False  # ob "primenumbers.csv" gelesen werden soll
 puniverseprims = set()  # welche Spalten von "primenumbers.csv"
 # rowsAsNumbers.add(1)
@@ -657,6 +657,13 @@ def primRepeat(n: list) -> list:
 
 
 def primMultiple(n: int) -> list:
+    """Gibt Liste aus geordneten Paaren aus mit Primzahl und Vielfacher der Primzahl aus denen die Zahl n besteht
+
+    @type n: int
+    @param n: eine natürliche Zahl, die zu untersuchen ist
+    @rtype: list[tuple(primzahl,vielfacher der Primzahl)] oder bool
+    @return: Primzahl und dessen Vielfacher, das mehrmals, so viele Primzahlen wie es gibt, aus denen n besteht
+    """
     multiples = [(1, n)]
     for prim in primRepeat(primFak(n)):
         multiples += [(prim[0], round(n / prim[0]))]
@@ -664,7 +671,18 @@ def primMultiple(n: int) -> list:
 
 
 def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
-    areThey = []
+    """Ist die Zahl der Vielfache n überhaupt irgendeiner Primzahl
+
+    @type isIt: int
+    @param isIt: die Zahl die zu untersuchen ist
+    @type multiples1: list[int]
+    @param multiple1: Liste an Vielfachern von denen einer zutreffen muss, bei [2,3] ist es True, wenn es das zweifache oder dreifache einer Primzahl ist
+    @type dontReturnList: bool
+    @param dontReturnList: wenn ja, dann wird nur ausgegeben ob es ein Vielfacher einer Primzahl ist, ansonsten die Liste für welche Vielfacher es zutrifft
+    @rtype: list[bool] oder bool
+    @return: True wenn Primzahlvielfacher, Liste aus True für ja für welche Multiplikatioren ja
+    """
+    areThey: list = []
     multiples2 = primMultiple(isIt)
     for multiple1 in multiples1:
         for multiple2 in multiples2:
@@ -1201,7 +1219,7 @@ if True:
     #        lineLen_kombi_1,
     #        rowsRange_kombi_1,
     #    )
-    tableJoin(newTable, KombiTables, maintable2subtable_Relation, old2newTable)
+    # tableJoin(newTable, KombiTables, maintable2subtable_Relation, old2newTable)
     cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
 
 # inverted:
