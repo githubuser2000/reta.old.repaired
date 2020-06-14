@@ -884,13 +884,21 @@ def cursorOf_2Tables(
 
 
 def start():
+    """Einlesen der ersten Tabelle "religion.csv" zu relitable
+    aller anderen csv dateien
+    Parameter werden in Befehle und Nummernlisten gewandelt
+    csv Dateien werden angehangen an relitable
+
+
+    @rtype: tuple(int,set,set,list,set,list,set,list,list)
+    @return: Spaltenanzahl, Zeilen Ja, Zeilen Nein, Religionstabelle, Spalten, weitere Tabelle daneben, spalten weitere Tabelle, weitere Tabelle für wie sql-join, deren spalten
+    """
     with open("religion.csv", mode="r") as csv_file:
         relitable = []
         for i, col in enumerate(csv.reader(csv_file, delimiter=";")):
             relitable += [col]
             if i == 0:
                 RowsLen = len(col)
-                rowsRange = range(RowsLen)
     paramLines, rowsAsNumbers, rowsOfcombi = parameters(sys.argv)
     paramLinesNot, rowsAsNumbersNot, rowsOfcombiNot = parameters(sys.argv, "-")
     #    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
