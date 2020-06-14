@@ -4,11 +4,10 @@ import csv
 import math
 import os
 import sys
+from collections.abc import Iterable
+from typing import Union
 
 import pyphen
-
- Vorzeichen, wenn es darum geht dass diese Zeilen nicht angezeigt werden sollenfrom typing import Iterable, Union
-
 
 dic = pyphen.Pyphen(lang="de_DE")
 ColumnsRowsAmount, shellRowsAmount = os.popen("stty size", "r").read().split()
@@ -424,9 +423,8 @@ def fromUntil(a) -> tuple:
         return (1, 1)
 
 
-def FilterOriginalLines(
-    numRange: set, paramLines: set
-) -> set:  # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
+# ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
+def FilterOriginalLines(numRange: set, paramLines: set) -> set:
     """Hier werden die Befehle der Angabe welche Zeilen angezeigt werden in konkrete Zeilen umgewandelt.
 
     @type results: Menge
@@ -590,7 +588,15 @@ def FilterOriginalLines(
     return numRange
 
 
-def primFak(n: int):
+def primFak(n: int) -> list:
+    """Alle Primfaktoren einer Zahl als Liste mit mehrfachvorkommen, sofern ja
+
+    @type n: int
+    @param n: ein natürliche Zahl
+    @rtype: list
+    @return: alle Primfaktoren, ggf. mit Mehrfachvorkommen
+    """
+    global zaehlungen
     faktoren = []
     z = n
     while z > 1:
@@ -609,7 +615,15 @@ def primFak(n: int):
     return faktoren
 
 
-def primRepeat(n):
+def primRepeat(n: list) -> list:
+    """Primfaktoren werden zusammengefasst in Liste aus Primfaktor hoch n
+
+    @type n:  list
+    @param n: Primfaktoren
+    @rtype: list[tuple(n1,n2)]
+    @return: Liste aus geordneten Paaren mit Primfaktor hoch n
+    """
+    global zaehlungen
     n.reverse()
     c = 1
     b = None
