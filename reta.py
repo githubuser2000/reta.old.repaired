@@ -9,33 +9,41 @@ from typing import Iterable, Union
 
 import pyphen
 
-dic = pyphen.Pyphen(lang="de_DE")
-ColumnsRowsAmount, shellRowsAmount = os.popen("stty size", "r").read().split()
+dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenumbruch
+ColumnsRowsAmount, shellRowsAmount = (
+    os.popen("stty size", "r").read().split()
+)  # Wie viele Zeilen und Spalten hat die Shell ?
 relitable = None
-toYesdisplayRows = set()
-toNotDisplayRows = set()
+toYesdisplayRows = set()  # Welche Spalten anzeigen
+toNotDisplayRows = set()  # Welche Spalten nicht anzeigen
 infoLog = True
 # c nächste silbe
 # b nächste Spalte
 # a nächste Zeile
 # exit()
 # originalLinesRange = range(len(newRows))
-originalLinesRange = range(120)
+originalLinesRange = range(120)  # Maximale Zeilenanzahl
 # realLinesRange = range(len(newRows[0]))
-realLinesRange = range(50)
+realLinesRange = range(50)  # Maximale Zeilenanzahl pro Tabellenzelle
 # rowsRange = range(len(newRows[0][0]))
 RowsLen = None
 # rowsRange = range(50)
 # printalx(newRows[0][1][0])
 
-zaehlungen = [0, {}, {}, {}, {}]
-textwidth = 21
+zaehlungen = [
+    0,
+    {},
+    {},
+    {},
+    {},
+]  # Strukturangaben zur Zeile wegen Mondzahlen und Sonnenzahlen
+textwidth = 21  # Feste Spaltenbreite
 textheight = 0
-nummerierung = True
+nummerierung = True  # Nummerierung der Zeilen, z.B. Religion 1,2,3
 spaltegestirn = False
 breiten = []
-primuniverse = False
-puniverseprims = set()
+primuniverse = False  # ob "primenumbers.csv" gelesen werden soll
+puniverseprims = set()  # welche Spalten von "primenumbers.csv"
 # rowsAsNumbers.add(1)
 
 
