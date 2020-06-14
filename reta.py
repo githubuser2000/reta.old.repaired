@@ -698,7 +698,16 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 #    printalx("w "+str(isPrimMultiple(e, [2])))
 
 
-def wrapping(text: str, length: int):
+def wrapping(text: str, length: int) -> list:
+    """Hier wird der Zeilenumbruch umgesetzt
+
+    @type text: str
+    @param text: Der Text dessen Zeilen umbgebrochen werden sollen
+    @type lenght: int
+    @param lenght: ab welcher Zeilenlänge umgebrochen werden soll
+    @rtype: list[str]
+    @return: Liste aus umgebrochenen Teilstrings
+    """
     if len(text) > length - 1:
         isItNone = dic.wrap(text, length - 1)
     else:
@@ -706,7 +715,18 @@ def wrapping(text: str, length: int):
     return isItNone
 
 
-def colorize(text, num: int, row, rest=False):
+def colorize(text, num: int, row, rest=False) -> str:
+    """Die Ausagabe der Tabelle wird coloriert
+
+    @type text: str
+    @param text: der zu colorierende Text
+    @type num: int
+    @param num: die Zeilennummer, die coloriert werden soll
+    @type rest: bool
+    @param rest: andere Colorierung
+    @rtype: str
+    @return: der colorierte Text
+    """
     # \033[0;34mblaues Huhn\033[0m.
     num = int(num)
     if rest:
@@ -731,8 +751,15 @@ def colorize(text, num: int, row, rest=False):
 
 
 def moonNumber(num: int):
-    results = []
-    exponent = []
+    """Hier wird der Zeilenumbruch umgesetzt
+
+    @type num: int
+    @param num: zu untersuchende Zahl
+    @rtype: tuple(list[int],list[int])
+    @return: () wenn keine Mondzahl, sonst 2 Listen mit gleicher Länge aus Elementen: Liste1: Basis der Mondzahl, Liste2: Exponent der Mondzahl
+    """
+    results: list = []
+    exponent: list = []
     for i in range(2, num):
         oneResult = math.pow(num, 1 / i)
         if math.floor(oneResult) == oneResult:
