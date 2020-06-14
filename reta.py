@@ -4,9 +4,11 @@ import csv
 import math
 import os
 import sys
-from typing import Iterable, Union
 
 import pyphen
+
+ Vorzeichen, wenn es darum geht dass diese Zeilen nicht angezeigt werden sollenfrom typing import Iterable, Union
+
 
 dic = pyphen.Pyphen(lang="de_DE")
 ColumnsRowsAmount, shellRowsAmount = os.popen("stty size", "r").read().split()
@@ -51,6 +53,15 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
     eine Menge die als Befehl kodiert, welche Zeilen und eine die kodiert
     welche Spaltennummer ausgegeben werden sollen.
     Außerdem welche extra Tabellen geladen werden sollen.
+
+    return paramLines, rowsAsNumbers, rowsOfcombi
+
+    @type  argv: list
+    @param argv: Programmparamenter
+    @type  neg: str
+    @param neg: MinusZeichen davor ?
+    @rtype: set, set, set
+    @return: Zeilen, Spalten, Spalten anderer Tabellen
     """
     global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims
     rowsAsNumbers = set()
@@ -334,7 +345,18 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
     return paramLines, rowsAsNumbers, rowsOfcombi
 
 
-def parametersBereich(bereiche1: str, symbol: str, neg: str):
+def parametersBereich(bereiche1: str, symbol: str, neg: str) -> set:
+    """Erstellen des Befehls: Bereich
+
+    @type bereiche1: str
+    @param bereiche1: der Bereich von bis
+    @type symbol: str
+    @param symbol: welche Art Bereich soll es werden, symbol typisiert den Bereich
+    @type neg: string
+    @param neg: Vorzeichen, wenn es darum geht dass diese Zeilen nicht angezeigt werden sollen
+    @rtype: set
+    @return: Alle Zeilen die dann ausgegeben werden sollen
+    """
     results = set()
     #    if bereiche1[:len(neg)] == neg:
     #        bereiche2 = bereiche1[len(neg):].split(',')
@@ -345,7 +367,7 @@ def parametersBereich(bereiche1: str, symbol: str, neg: str):
         if bereiche1[: len(neg)] == neg
         else bereiche1.split(",")
     ):
-        printalx("aa " + bereiche3)
+        # printalx("aa " + bereiche3)
         if (
             len(bereiche3) > len(neg)
             and bereiche3 == neg + bereiche3[len(neg) :]
@@ -371,12 +393,21 @@ def parametersBereich(bereiche1: str, symbol: str, neg: str):
     return results
 
 
-def deleteDoublesInSets(set1: set, set2: set) -> tuple:
+def deleteDoublesInSets(set1: set, set2: set) -> Iterable[Union[set, set]]:
+    """Wenn etwas in 2 Mengen doppelt vorkommt wird es gelöscht
+    @rtype: tuple[set,set]
+    @return: Beide Mengen werden ausgegeben
+    """
     intersection = set1 & set2
     return set1 - intersection, set2 - intersection
 
 
-def fromUntil(a):
+def fromUntil(a) -> tuple:
+    """2 Zahlen sollen ein ordentlicher Zahlenbereich sein, sonst werden sie es^
+
+    @rtype: tuple[int,int]
+    @return: Eine Bereichsangabe
+    """
     if a[0].isdecimal():
         a[0] = int(a[0])
         if len(a) == 2 and a[1].isdecimal():
@@ -388,7 +419,7 @@ def fromUntil(a):
             a[0] = 1
         else:
             return (1, 1)
-        return a
+        return tuple(a)
     else:
         return (1, 1)
 
@@ -396,6 +427,13 @@ def fromUntil(a):
 def FilterOriginalLines(
     numRange: set, paramLines: set
 ) -> set:  # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
+    """Hier werden die Befehle der Angabe welche Zeilen angezeigt werden in konkrete Zeilen umgewandelt.
+
+    @type results: Menge
+    @param set: Bereiche von Zeilen einer Art: Anzeigen, ja, nein, von woanders, etc.
+    @rtype: set
+    @return: Mehrere Bereichsbezeichnugen
+    """
     global zaehlungen
 
     def diffset(wether, a: set, b: set) -> set:
