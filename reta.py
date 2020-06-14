@@ -769,14 +769,28 @@ def moonNumber(num: int):
 
 
 def setZaehlungen(num: int):  # mehrere Zählungen finden festlegen zum später auslesen
+    """Eine Zahl wird untersucht und die Variable zaehlungen wegen dieser Ergänzt
+    zaehlungen bekommt informationen über mondzahlen und sonnenzahlen
+    i ist eine zu Untersuchende Zahl kleinergeich num
+    zaehlungen[4][i] bekommt die mondtypen, d.h. (Basis, Exponent) immer
+    zaehlungen[1][zaehlung] welche zählung fängt mit welcher Zahl an
+    zaehlungen[2][i] ist welcher Zählung es ist für eine beliebige Zahl: 1 ist 1-4, 2 ist 5-9, 3 ist 10-16
+    zaehlungen[3][i] ist auch welche Zählung es ist für eine beliebige Zahl: 1 ist 1-4, 2 ist 5-9, 3 ist 10-16
+    zaehlungen[0] ist bis zu welcher Zahl diese Untersuchung beim letzten Mal durchgeführt wurde
+
+    @type num: int
+    @param num: zu untersuchende Zahl
+    @rtype: kein Typ
+    @return: nichts
+    """
     global zaehlungen  # [bis zu welcher zahl, {zaehlung:zahl},{zahl:zaehlung},{jede zahl,zugehoerigeZaehlung}]
-    wasMoon = True
+    wasMoon: bool = True
     if zaehlungen[0] == 0:
         isMoon = True
     else:
         isMoon = moonNumber(zaehlungen[0])[0] != []
 
-    for i in range(zaehlungen[0] + 1, num + 1):
+    for i in range(int(zaehlungen[0]) + 1, num + 1):
         wasMoon = isMoon
         moonType = moonNumber(i)
         isMoon = moonType[0] != []
@@ -788,7 +802,17 @@ def setZaehlungen(num: int):  # mehrere Zählungen finden festlegen zum später 
         zaehlungen[4][i] = moonType
 
 
-def fillBoth(liste1, liste2):
+def fillBoth(liste1, liste2) -> Iterable[Union[list, list]]:
+    """eine der beiden Listen erhält so viele Listenelemente
+    aus Strings dazu wie die andere hat, bis beide gleich viel haben
+
+    @type liste1: list[str]
+    @param liste1: die erste Liste
+    @type liste2: list[str]
+    @param liste2: die zweite Liste
+    @rtype: tuple(list[str],list[str])
+    @return: 2 Listen mit gleicher Länger, maximiert statt minimiert
+    """
     while len(liste1) < len(liste2):
         liste1 += [""]
     while len(liste2) < len(liste1):
@@ -797,9 +821,22 @@ def fillBoth(liste1, liste2):
 
 
 def cellWork(cell: str, newLines, certaintextwidth: int, t: int) -> list:
+    """aus String mach Liste aus Strings mit korrektem Zeilenumbruch
+
+    @type cell: str
+    @param cell: Text, für in Teilstrings, korrekter Zeilenumbruch!
+    @type newLines: list[str]
+    @param newLines: voran gegangene Versuche dieser Liste aus Strings
+    @type certaintextwidth: int
+    @param certaintextwidth: an dieser Stelle Zeilenumbruch
+    @type t: int
+    @param t: welcher Versuch einer Liste aus strings soll von dieser Funktion zurück gegeben werden
+    @rtype: list[str]
+    @return: Liste aus Strings mit korrektem Zeilenumbruch
+    """
     isItNone = wrapping(cell, certaintextwidth)
-    cell2 = tuple()
-    rest = cell
+    cell2: tuple = tuple()
+    rest: str = cell
     while not isItNone is None:
         cell2 += isItNone
         isItNone = wrapping(cell2[-1], certaintextwidth)
@@ -818,9 +855,25 @@ def cellWork(cell: str, newLines, certaintextwidth: int, t: int) -> list:
     return newLines[t]
 
 
-def cursorOf_2Tables(table1: list, table2: list, key: str):
+def cursorOf_2Tables(
+    table1: list, table2: list, key: str
+) -> Iterable[Union[list, list]]:
+    """2 Tabellen, beide je erste Spalte muss der gleiche string key sein
+    erstes Vorkommen jeweils dann stelle in Liste merken bei beiden
+    Ergebnis sind 2 Listen mit den Stellen wo key:str in der ersten Spalte jeweils übereinstimmend ist
+
+    @type table1: list
+    @param table1: erste Tabell
+    @type table2: list
+    @param table2: zweite Tabelle
+    @type key: str
+    @param key: text bei dem beide Tabellen gleich sein sollen
+    @rtype: tuple(list[int],list[int])
+    @return: 2 Listen mit Zahlen wo Stellen sind wo key in beiden Tabellen vorkommt in der ersten Spalte
+    """
+
     def perTable(table: list, key: str):
-        result = []
+        result: list = []
         if len(table) > 0:
             for i, row in enumerate(table[0]):
                 if key == row:
