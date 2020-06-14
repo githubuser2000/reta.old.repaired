@@ -4,8 +4,8 @@ import csv
 import math
 import os
 import sys
-from collections.abc import Iterable
-from typing import Union
+# from collections.abc import Iterable
+from typing import Iterable, Union
 
 import pyphen
 
