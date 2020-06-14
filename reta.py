@@ -4,6 +4,7 @@ import csv
 import math
 import os
 import sys
+from typing import Iterable, Union
 
 import pyphen
 
@@ -38,11 +39,19 @@ puniverseprims = set()
 
 
 def printalx(text):
+    """Für mich, damit ich mal alle prints ausschalten kann zum vorführen,
+    wenn ich noch beim Entwicklen war."""
     if infoLog:
         print(text)
 
 
-def parameters(argv, neg=""):
+def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
+    """Parameter in der Shell werden hier vorverarbeitet.
+    Die Paraemter führen dazu, dass Variablen gesetzt werden, z.B.
+    eine Menge die als Befehl kodiert, welche Zeilen und eine die kodiert
+    welche Spaltennummer ausgegeben werden sollen.
+    Außerdem welche extra Tabellen geladen werden sollen.
+    """
     global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims
     rowsAsNumbers = set()
     paramLines = set()
