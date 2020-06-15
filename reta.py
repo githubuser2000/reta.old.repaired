@@ -883,7 +883,7 @@ def cursorOf_2Tables(
     return perTable(table1, key), perTable(table2, key)
 
 
-def start():
+def start() -> tuple:
     """Einlesen der ersten Tabelle "religion.csv" zu relitable
     aller anderen csv dateien
     Parameter werden in Befehle und Nummernlisten gewandelt
@@ -931,7 +931,17 @@ def start():
     )
 
 
-def readConcatCsv(relitable, rowsAsNumbers):
+def readConcatCsv(relitable: list, rowsAsNumbers: set) -> list:
+    """Fügt eine Tabelle neben der relitable an
+    momentan ist es noch fix auf primnumbers.csv
+
+    @type relitable: list
+    @param relitable: Haupttabelle relitable
+    @type rowsAsNumbers: set
+    @param rowsAsNumbers: welche Spalten der neuen Tabelle dazu kommen sollen
+    @rtype: list[list]
+    @return: relitable + weitere Tabelle daneben
+    """
     headingsAmount = len(relitable[0])
     if primuniverse:
         with open("primenumbers.csv", mode="r") as csv_file:
@@ -962,6 +972,22 @@ def readConcatCsv(relitable, rowsAsNumbers):
 
 
 def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
+    """Fügt eine Tabelle neben der relitable nicht daneben sondern als join an, wie ein sql-join
+    Hier wird aber noch nicht die join Operation durchgeführt
+    momentan ist es noch fix auf animalsProfessions.csv
+
+    @type relitable: list
+    @param relitable: Haupttabelle relitable
+    @type rowsAsNumbers: set
+    @param rowsAsNumbers: welche Spalten der neuen Tabelle dazu kommen sollen
+    @type rowsOfcombi: set
+    @param rowsOfcombi: welche Spalten der neuen Tabelle dazu kommen sollen
+    @rtype: tuple[list,list,list,list]
+    @return: neue Tabelle, haupttabelle relitable, \
+        Liste mit allen Zeilen der neuen Tabelle aus der ersten Spalte je Liste aus allem darin \
+        das mit Komma getrennt wurde , was zu was gehört als Info für den join später
+    return kombiTable, relitable, kombiTable_Kombis, maintable2subtable_Relation
+    """
     headingsAmount = len(relitable[0])
     if not rowsOfcombi.isdisjoint({1, 2}):
         with open("animalsProfessions.csv", mode="r") as csv_file:
@@ -1009,6 +1035,16 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
 
 
 def createSpalteGestirn(relitable, rowsAsNumbers):
+    """Fügt relitable eine Spalte hinzu, ob eine Zahl ein Mond oder eine Sonne ist
+    Die Information muss dazu kommt aus moonNumber(i)[1]
+
+    @type relitable: list
+    @param relitable: Haupttabelle relitable
+    @type rowsAsNumbers: set
+    @param rowsAsNumbers: welche Spalten der neuen Tabelle nur betroffen sind
+    @rtype:
+    @return: nichts
+    """
     if spaltegestirn:
         if len(relitable) > 0:
             rowsAsNumbers.add(len(relitable[0]))
@@ -1028,6 +1064,22 @@ def createSpalteGestirn(relitable, rowsAsNumbers):
 
 
 def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
+    """Aus einer Tabelle wird eine gemacht, bei der der Zeilenumbruch durchgeführt wird.
+    Dabei werden alle Spalten und Zeilen entfernt die nicht ausgegeben werden sollen.
+
+    @type paramLines: set
+    @param paramLines: welche Linien ja, andere fallen weg
+    @type paramLinesNot: set
+    @param paramLinesNot: welche Linien nein, werden abgezogen von ja
+    @type contentTable: list
+    @param contentTable: die Tabelle die verändert werden soll
+    @type rowsAsNumbers: set
+    @param rowsAsNumbers: anzuzeigende Spalten
+    @rtype: tuple[set,set,int,range,list]
+    @return: Zeilen die ausgegeben werden sollen, neue Tabelle, Nummer der letzten Zeile , \
+        range aus zu zeigenden Spalten 1-n nicht alle , welche neuen Spalten welche alten waren und umgekehrt
+    return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
+    """
     newRows = []
     printalx("1 " + str(originalLinesRange))
     if len(contentTable) > 0:
