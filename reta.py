@@ -1267,7 +1267,7 @@ def prepare_kombi(
     @param displayingMainLines: Zeilen die angezeigt werden sollen
     @type kombiTable_Kombis: list
     @param kombiTable_Kombis: wird anscheinend hier gar nicht gebraucht
-    @rtype: dict[set]
+    @rtype: dict[set[int]]
     @return: Zeilen die miteinander als Join kombiniert werden sollen zwischen Haupttabelle und weiterer
     """
 
@@ -1292,7 +1292,16 @@ def prepare_kombi(
 
 
 def tableReducedInLinesByTypeSet(table: list, linesAllowed: set):
-    newTable = []
+    """nur Zeilen aus dem set aus der Tabelle verwenden als Ausgabe der Tabelle
+
+    @type table: list[list]
+    @param table: Tabelle
+    @type table: set[int]
+    @param table: erlaubte Zeilen
+    @rtype: list[list]
+    @return: neue Tabelle mit nur den Zeilen aus linesAllowed
+    """
+    newTable: list = []
     for i, line in enumerate(table):
         if i in linesAllowed:
             newTable += [line]
