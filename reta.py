@@ -16,7 +16,7 @@ ColumnsRowsAmount, shellRowsAmount = (
 relitable = None
 toYesdisplayRows = set()  # Welche Spalten anzeigen
 toNotDisplayRows = set()  # Welche Spalten nicht anzeigen
-infoLog = True
+infoLog = False
 # c nächste silbe
 # b nächste Spalte
 # a nächste Zeile
@@ -44,6 +44,7 @@ spaltegestirn = False
 breiten: list = []
 primuniverse = False  # ob "primenumbers.csv" gelesen werden soll
 puniverseprims = set()  # welche Spalten von "primenumbers.csv"
+ifCombi = False
 # rowsAsNumbers.add(1)
 
 
@@ -70,11 +71,11 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
     @rtype: set, set, set
     @return: Zeilen, Spalten, Spalten anderer Tabellen
     """
-    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims
+    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, ifCombi
     rowsAsNumbers = set()
     paramLines = set()
-    bigParamaeter = []
-    rowsOfcombi = set()
+    bigParamaeter: list = []
+    rowsOfcombi: set = set()
     for arg in argv[1:]:
         if len(arg) > 0 and arg[0] == "-":
             if (
@@ -318,6 +319,7 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
                 and len(bigParamaeter) > 0
                 and bigParamaeter[-1] == "kombination"
             ):  # unteres Kommando
+                ifCombi = True
                 if arg[2:6] == "und=":
                     for word in arg[6:].split(","):
                         if (
@@ -911,13 +913,17 @@ def start() -> tuple:
     #    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
     #    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
     relitable = readConcatCsv(relitable, rowsAsNumbers)
-
-    (
-        animalsProfessionsTable,
-        relitable,
-        kombiTable_Kombis,
-        maintable2subtable_Relation,
-    ) = readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi)
+    if ifCombi:
+        (
+            animalsProfessionsTable,
+            relitable,
+            kombiTable_Kombis,
+            maintable2subtable_Relation,
+        ) = readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi)
+    else:
+        animalsProfessionsTable = []
+        kombiTable_Kombis = []
+        maintable2subtable_Relation = []
     return (
         RowsLen,
         paramLines,
@@ -1411,7 +1417,8 @@ if True:
     #        rowsRange_kombi_1,
     #    )
     # tableJoin(newTable, KombiTables, maintable2subtable_Relation, old2newTable)
-    cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
+    if ifCombi:
+        cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
 
 # inverted:
 # \e[7mi
