@@ -971,7 +971,7 @@ def readConcatCsv(relitable: list, rowsAsNumbers: set) -> list:
     return relitable
 
 
-def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
+def readKombiCsv(relitable: list, rowsAsNumbers: set, rowsOfcombi: set) -> tuple:
     """Fügt eine Tabelle neben der relitable nicht daneben sondern als join an, wie ein sql-join
     Hier wird aber noch nicht die join Operation durchgeführt
     momentan ist es noch fix auf animalsProfessions.csv
@@ -1034,7 +1034,7 @@ def readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi):
     return kombiTable, relitable, kombiTable_Kombis, maintable2subtable_Relation
 
 
-def createSpalteGestirn(relitable, rowsAsNumbers):
+def createSpalteGestirn(relitable: list, rowsAsNumbers: set):
     """Fügt relitable eine Spalte hinzu, ob eine Zahl ein Mond oder eine Sonne ist
     Die Information muss dazu kommt aus moonNumber(i)[1]
 
@@ -1063,7 +1063,9 @@ def createSpalteGestirn(relitable, rowsAsNumbers):
                     line += [text]
 
 
-def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
+def prepare4out(
+    paramLines: set, paramLinesNot: set, contentTable: list, rowsAsNumbers: set
+) -> tuple:
     """Aus einer Tabelle wird eine gemacht, bei der der Zeilenumbruch durchgeführt wird.
     Dabei werden alle Spalten und Zeilen entfernt die nicht ausgegeben werden sollen.
 
@@ -1134,9 +1136,34 @@ def prepare4out(paramLines, paramLinesNot, contentTable, rowsAsNumbers):
     return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
 
 
-def cliOut(finallyDisplayLines, newRows, numlen, rowsRange):
-    def findMaxCellTextLen(finallyDisplayLines, newRows, rowsRange):
-        maxCellTextLen = {}
+def cliOut(finallyDisplayLines: set, newRows: list, numlen: int, rowsRange: range):
+    """gibt eine Tabelle aus
+
+    @type finallyDisplayLines: set
+    @param finallyDisplayLines: Zeilen die ausgegeben werden sollen
+    @type newRows: list
+    @param newRows: Tabelle um die es geht
+    @type rowsRange: set
+    @param rowsRange: range(spaltenanzahl)
+    @rtype:
+    @return: nichts
+    """
+
+    def findMaxCellTextLen(
+        finallyDisplayLines: set, newRows: list, rowsRange: set
+    ) -> list:
+        """Gibt eine Liste zurück mit allen maximalen Zwellhoehen pro alle Zellen einer Zeile
+
+        @type finallyDisplayLines: set
+        @param finallyDisplayLines: Zeilen die ausgegeben werden sollen
+        @type newRows: list
+        @param newRows: Tabelle um die es geht
+        @type rowsRange: set
+        @param rowsRange: range(spaltenanzahl)
+        @rtype: dict[int,int]
+        @return: Zellhöhen pro Zeile
+        """
+        maxCellTextLen: dict = {}
         # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
         for k, (f, r) in enumerate(
             zip(newRows, finallyDisplayLines)
@@ -1224,13 +1251,28 @@ def cliOut(finallyDisplayLines, newRows, numlen, rowsRange):
 def prepare_kombi(
     finallyDisplayLines_kombi_1: set,
     kombiTable: list,
-    paramLines,
+    paramLines: set,
     displayingMainLines: set,
     kombiTable_Kombis: list,
 ):
+    """Vorbereiten zum Kombinieren von Tabellen, wie bei einem SQL-Join
+
+    @type finallyDisplayLines: set
+    @param finallyDisplayLines: set
+    @type kombiTable: list
+    @param kombiTable: Tabelle um die es geht, die zur Haupttabelle dazu kommt
+    @type paramLines: set
+    @param paramLines: Befehle die aus den Shell Paramentern konstruiert wurden
+    @type displayingMainLines: set
+    @param displayingMainLines: Zeilen die angezeigt werden sollen
+    @type kombiTable_Kombis: list
+    @param kombiTable_Kombis: wird anscheinend hier gar nicht gebraucht
+    @rtype: dict[set]
+    @return: Zeilen die miteinander als Join kombiniert werden sollen zwischen Haupttabelle und weiterer
+    """
 
     kombitypes = {"displaying": False, "or": False, "and": False}
-    ChosenKombiLines = {}
+    ChosenKombiLines: dict = {}
     for condition in paramLines:
         if "ka" == condition:
             kombitypes["displaying"] = True
