@@ -51,6 +51,15 @@ religionNumbers: list = []
 ifprimmultis = False
 
 
+def getRowAmountofAnyPart():
+    global puniverseprims, rowsAsNumbers
+    return {
+        "alltogether": len(puniverseprims) + len(rowsAsNumbers),
+        "main": rowsAsNumbers,
+        "prim": puniverseprims,
+    }
+
+
 def printalx(text):
     """Für mich, damit ich mal alle prints ausschalten kann zum vorführen,
     wenn ich noch beim Entwicklen war."""
@@ -91,6 +100,7 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
                     if arg[9:].isdecimal():
                         textwidth = abs(int(arg[9:]))
                 elif arg[2:10] == "breiten=":
+                    breiten = []
                     for breite in arg[10:].split(","):
                         if breite.isdecimal():
                             breiten += [int(breite)]
@@ -1173,17 +1183,33 @@ def prepare4out(
 
 
 def setWidth(rowsToDisplay, isMainTable):
-    global relitable
+    global rowsAsNumbers, relitable, puniverseprims
     if rowsToDisplay + (1 if nummerierung else 0) <= len(breiten) + 1 and isMainTable:
         certaintextwidth = breiten[rowsToDisplay + (-1 if nummerierung else -2)]
+        print("ää " + str(rowsToDisplay + (-1 if nummerierung else -2)))
+        print(
+            "ää2 "
+            + str(rowsToDisplay + (1 if nummerierung else 0))
+            + "<="
+            + str(len(breiten) + 1)
+        )
     elif (
         not isMainTable
-        and len(relitable) > 0
-        and rowsToDisplay <= len(breiten) + 1 - len(relitable[0])
-        and (rowsToDisplay - 2 - len(relitable[0])) in breiten
+        and rowsToDisplay <= len(breiten) + 1 + len(rowsAsNumbers)
+        and (rowsToDisplay - 2 + len(rowsAsNumbers)) in breiten
     ):
-        certaintextwidth = breiten[rowsToDisplay - 2 - len(relitable[0])]
+        print("üü " + str(rowsToDisplay - 2 + len(rowsAsNumbers)))
+        certaintextwidth = breiten[rowsToDisplay - 2 + len(rowsAsNumbers)]
     else:
+        print("öö " + str(rowsToDisplay - 2 + len(rowsAsNumbers)))
+        print(
+            "öö "
+            + str(rowsToDisplay)
+            + "<="
+            + str(len(breiten))
+            + " + 1 + "
+            + str(len(rowsAsNumbers))
+        )
         certaintextwidth = textwidth
     return certaintextwidth
 
