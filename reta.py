@@ -1364,16 +1364,20 @@ def tableJoin(mainTable, manySubTables, maintable2subtable_Relation, old2newRows
                                 printalx(
                                     str(mainTable[colNum][row])
                                     + "= "
+                                    + str(colNum)
+                                    + " "
+                                    + str(row)
+                                    + " "
                                     + str(subTableCell[subRowNum])
                                 )
-                        # FOLGENDES MUSS ES WERDEN:
-                        if (
-                            len(mainTable[colNum][row]) == 1
-                            and mainTable[colNum][row][0] == ""
-                        ):
-                            mainTable[colNum][row] = subTableCell[subRowNum]
-                        else:
-                            mainTable[colNum][row] += subTableCell[subRowNum]
+                                # FOLGENDES MUSS ES WERDEN:
+                                if (
+                                    len(mainTable[colNum][row]) == 1
+                                    and mainTable[colNum][row][0] == ""
+                                ):
+                                    mainTable[colNum][row] = subTableCell[subRowNum]
+                                else:
+                                    mainTable[colNum][row] += subTableCell[subRowNum]
                         # printalx(
                         #    "xx "
                         #    + str(row)
