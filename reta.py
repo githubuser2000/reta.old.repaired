@@ -1333,8 +1333,9 @@ def tableJoin(
     global religionNumbers
     rowsOfcombi = list(rowsOfcombi)
     rowsOfcombi.sort()
-    printalx("__ " + str(manySubTables))
-    table2 = deepcopy(mainTable)
+    # printalx("__ " + str(manySubTables))
+    # table2 = deepcopy(mainTable)
+    table2 = mainTable
     for colNum, (reliNum, col) in enumerate(zip(religionNumbers, mainTable)):
         for subTable in manySubTables:
             if reliNum in subTable:
@@ -1343,13 +1344,6 @@ def tableJoin(
                     if old2newRows[1][row] in maintable2subtable_Relation[0]:
                         subRowNum = maintable2subtable_Relation[0][old2newRows[1][row]]
                         for subTableCell in subTable[reliNum]:
-                            printalx(
-                                str(reliNum)
-                                + " "
-                                + str(colNum)
-                                + "= "
-                                + str(subTableCell[rowsOfcombi.index(subRowNum + 1)])
-                            )
                             if rowsOfcombi.index(subRowNum + 1) < len(subTableCell):
                                 if (
                                     len(table2[colNum][row]) == 1
@@ -1362,7 +1356,7 @@ def tableJoin(
                                     table2[colNum][row] += deepcopy(
                                         subTableCell[rowsOfcombi.index(subRowNum + 1)]
                                     )
-    printalx(str(table2))
+    # printalx(str(table2))
     return table2
 
 
