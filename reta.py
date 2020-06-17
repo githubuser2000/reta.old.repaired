@@ -1325,16 +1325,13 @@ def tableReducedInLinesByTypeSet(table: list, linesAllowed: set):
     return newTable
 
 
-def tableJoin(mainTable, manySubTables, maintable2subtable_Relation, old2newRows):
+def tableJoin(
+    mainTable, manySubTables, maintable2subtable_Relation, old2newRows, rowsOfcombi
+):
     global religionNumbers
-    # printalx(str(religionNumbers))
-    # for colNum, col in enumerate(mainTable):  # zeilen
-    #    for fittedAnimalsProfessions in mainTable[colNum]:  # spalten
-    #        pass
-    #        # printalx("zz " + str(fittedAnimalsProfessions))
-    printalx(old2newRows[0][maintable2subtable_Relation[1][0]])
-    printalx(str(old2newRows[1]))
-    printalx(str(maintable2subtable_Relation[0]))
+    rowsOfcombi = list(rowsOfcombi)
+    rowsOfcombi.sort()
+    printalx("__ " + str(rowsOfcombi))
     for colNum, (reliNum, col) in enumerate(zip(religionNumbers, mainTable)):
         for subTable in manySubTables:
             if reliNum in subTable:
@@ -1352,7 +1349,17 @@ def tableJoin(mainTable, manySubTables, maintable2subtable_Relation, old2newRows
                         #    maintable2subtable_Relation[1][subRowNum]
                         # ]
                         for subTableCell in subTable[reliNum]:
-                            if subRowNum < len(subTableCell):
+                            printalx(str(subRowNum) + " " + str(len(subTableCell)))
+                            printalx(
+                                "-- "
+                                + str(subRowNum)
+                                + " "
+                                + str(rowsOfcombi.index(subRowNum + 1))
+                                + " "
+                                + str(len(subTableCell))
+                            )
+                            # if rowsOfcombi.index(subRowNum) < len(subTableCell):
+                            if rowsOfcombi.index(subRowNum + 1) < len(subTableCell):
                                 # if row == 1:
                                 # printalx(
                                 #    str(reliNum)
@@ -1368,16 +1375,22 @@ def tableJoin(mainTable, manySubTables, maintable2subtable_Relation, old2newRows
                                     + " "
                                     + str(row)
                                     + " "
-                                    + str(subTableCell[subRowNum])
+                                    + str(
+                                        subTableCell[rowsOfcombi.index(subRowNum + 1)]
+                                    )
                                 )
                                 # FOLGENDES MUSS ES WERDEN:
                                 if (
                                     len(mainTable[colNum][row]) == 1
                                     and mainTable[colNum][row][0] == ""
                                 ):
-                                    mainTable[colNum][row] = subTableCell[subRowNum]
+                                    mainTable[colNum][row] = subTableCell[
+                                        rowsOfcombi.index(subRowNum + 1)
+                                    ]
                                 else:
-                                    mainTable[colNum][row] += subTableCell[subRowNum]
+                                    mainTable[colNum][row] += subTableCell[
+                                        rowsOfcombi.index(subRowNum + 1)
+                                    ]
                         # printalx(
                         #    "xx "
                         #    + str(row)
@@ -1498,7 +1511,9 @@ if True:
     #        lineLen_kombi_1,
     #        rowsRange_kombi_1,
     #    )
-    tableJoin(newTable, KombiTables, maintable2subtable_Relation, old2newTable)
+    tableJoin(
+        newTable, KombiTables, maintable2subtable_Relation, old2newTable, rowsOfcombi
+    )
     if ifCombi:
         cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
 
