@@ -105,7 +105,7 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
                     for breite in arg[10:].split(","):
                         if breite.isdecimal():
                             breiten += [int(breite)]
-                    printalx("qq " + str(breiten))
+                    # printalx("qq " + str(breiten))
                 elif arg[2:20] == "keinenummerierung":
                     nummerierung = False
                 elif arg[2:13] == "religionen=":
@@ -1507,6 +1507,10 @@ if True:
             rowsOfcombi,
         )
     cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
-
+    print("1. Refactoring, dass alle Tabellenerweiterungen vereinheitlicht werden")
+    print("2. darauf aufbauend die manuelle Spaltenbreiten programmieren")
+    print(
+        "3. Spalte ifprimmultis optional hinzufügen, die semantisch sagt was primzahl mit vielfacher derer bedeutet und meint, aber generiert"
+    )
 # inverted:
 # \e[7mi
