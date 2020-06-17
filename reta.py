@@ -1327,15 +1327,15 @@ def tableReducedInLinesByTypeSet(table: list, linesAllowed: set):
 
 def tableJoin(mainTable, manySubTables, maintable2subtable_Relation, old2newRows):
     global religionNumbers
-    printalx(str(religionNumbers))
-    for colNum, col in enumerate(mainTable):  # zeilen
-        for fittedAnimalsProfessions in mainTable[colNum]:  # spalten
-            pass
-            # printalx("zz " + str(fittedAnimalsProfessions))
-    for colNum, col in enumerate(mainTable):
+    # printalx(str(religionNumbers))
+    # for colNum, col in enumerate(mainTable):  # zeilen
+    #    for fittedAnimalsProfessions in mainTable[colNum]:  # spalten
+    #        pass
+    #        # printalx("zz " + str(fittedAnimalsProfessions))
+    for colNum, (reliNum, col) in enumerate(zip(religionNumbers, mainTable)):
         for subTable in manySubTables:
-            if colNum in subTable:
-                printalx("tt " + str(colNum))
+            if reliNum in subTable:
+                # printalx("tt " + str(colNum))
                 for fittedAnimalsProfessions in mainTable[colNum]:
                     for onOfFittedAP in fittedAnimalsProfessions:
                         for sRowNum, sCell in enumerate(onOfFittedAP):
@@ -1347,14 +1347,16 @@ def tableJoin(mainTable, manySubTables, maintable2subtable_Relation, old2newRows
                                 row = old2newRows[0][
                                     maintable2subtable_Relation[1][sRowNum]
                                 ]
-                                # printalx(
-                                #    "ui "
-                                #    + str(colNum)
-                                #    + " "
-                                #    + str(row)
-                                #    + " "
-                                #    + str(mainTable[colNum][row])
-                                # )
+                                printalx(
+                                    "ui "
+                                    + str(colNum)
+                                    + " "
+                                    + str(row)
+                                    + " "
+                                    + str(mainTable[colNum][row])
+                                    + " "
+                                    + str(onOfFittedAP)
+                                )
                                 # mainTable[colNum][row] += sCell
 
 
