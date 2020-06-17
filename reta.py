@@ -1331,7 +1331,7 @@ def tableJoin(
     global religionNumbers
     rowsOfcombi = list(rowsOfcombi)
     rowsOfcombi.sort()
-    printalx("__ " + str(rowsOfcombi))
+    # printalx("__ " + str(rowsOfcombi))
     for colNum, (reliNum, col) in enumerate(zip(religionNumbers, mainTable)):
         for subTable in manySubTables:
             if reliNum in subTable:
@@ -1349,15 +1349,15 @@ def tableJoin(
                         #    maintable2subtable_Relation[1][subRowNum]
                         # ]
                         for subTableCell in subTable[reliNum]:
-                            printalx(str(subRowNum) + " " + str(len(subTableCell)))
-                            printalx(
-                                "-- "
-                                + str(subRowNum)
-                                + " "
-                                + str(rowsOfcombi.index(subRowNum + 1))
-                                + " "
-                                + str(len(subTableCell))
-                            )
+                            # printalx(str(subRowNum) + " " + str(len(subTableCell)))
+                            # printalx(
+                            #    "-- "
+                            #    + str(subRowNum)
+                            #    + " "
+                            #    + str(rowsOfcombi.index(subRowNum + 1))
+                            #    + " "
+                            #    + str(len(subTableCell))
+                            # )
                             # if rowsOfcombi.index(subRowNum) < len(subTableCell):
                             if rowsOfcombi.index(subRowNum + 1) < len(subTableCell):
                                 # if row == 1:
@@ -1368,17 +1368,17 @@ def tableJoin(
                                 #    + " "
                                 #    + str(subTableCell[subRowNum])
                                 # )
-                                printalx(
-                                    str(mainTable[colNum][row])
-                                    + "= "
-                                    + str(colNum)
-                                    + " "
-                                    + str(row)
-                                    + " "
-                                    + str(
-                                        subTableCell[rowsOfcombi.index(subRowNum + 1)]
-                                    )
-                                )
+                                # printalx(
+                                #    str(mainTable[colNum][row])
+                                #    + "= "
+                                #    + str(colNum)
+                                #    + " "
+                                #    + str(row)
+                                #    + " "
+                                #    + str(
+                                #        subTableCell[rowsOfcombi.index(subRowNum + 1)]
+                                #    )
+                                # )
                                 # FOLGENDES MUSS ES WERDEN:
                                 if (
                                     len(mainTable[colNum][row]) == 1
@@ -1391,57 +1391,6 @@ def tableJoin(
                                     mainTable[colNum][row] += subTableCell[
                                         rowsOfcombi.index(subRowNum + 1)
                                     ]
-                        # printalx(
-                        #    "xx "
-                        #    + str(row)
-                        #    + " "
-                        #    + str(maintable2subtable_Relation[0][old2newRows[1][row]])
-                        #    + str(bigCell)
-                        #    )
-                        # )
-                        # if old2newRows[1][maintable2subtable_Relation[0][0]] == row:
-                        #     printalx("y " + str(bigCell))
-                        # for fittedAnimalsProfessions in subTable:
-
-
-#                    for onOfFittedAP in bigCell:
-#                        for sRowNum, sCell in enumerate(onOfFittedAP):
-#                            if (
-#                                sRowNum in maintable2subtable_Relation[1]
-#                                and maintable2subtable_Relation[1][sRowNum]
-#                                in old2newRows[0]
-#                            ):
-#                                row = old2newRows[0][
-#                                    maintable2subtable_Relation[1][sRowNum]
-#                                ]
-# printalx(
-#    "ui "
-#    + str(colNum)
-#    + " "
-#    + str(row)
-#    + " "
-#    #+ str(mainTable[colNum][row])
-#    + " "
-#    + str(bigCell)
-# )
-# mainTable[colNum][row] += sCell
-
-
-#    for colNum, (col, sCol) in enumerate(zip(mainTable, manySubTables)):
-#        for rowNum, originalCell in enumerate((col)):
-#            for sRowNum, sOriginalCell in enumerate(sCol):
-#                # print(str(sRowNum))
-#                if (
-#                    sRowNum in maintable2subtable_Relation[1]
-#                    and maintable2subtable_Relation[1][sRowNum] in old2newRows[0]
-#                    and rowNum
-#                    == old2newRows[0][maintable2subtable_Relation[1][sRowNum]]
-#                ):
-#                    mainTable[colNum][rowNum] = sOriginalCell
-#                    printalx(str(colNum) + " " + str(sOriginalCell))
-#    printalx(str(manySubTables[0]))
-# printalx(str(maintable2subtable_Relation))
-# printalx(str(old2newRows))
 
 
 if True:
