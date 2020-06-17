@@ -4,6 +4,7 @@ import csv
 import math
 import os
 import sys
+from copy import deepcopy
 # from collections.abc import Iterable
 from typing import Iterable, Union
 
@@ -1301,6 +1302,7 @@ def prepare_kombi(
                             kombiNumber in displayingMainLines
                             and kombiNumber == MainLineNum
                         ):
+                            # printalx(str(MainLineNum) + "=" + str(kombiLineNumber + 1))
                             if MainLineNum in ChosenKombiLines:
                                 ChosenKombiLines[MainLineNum] |= {kombiLineNumber + 1}
                             else:
@@ -1331,66 +1333,36 @@ def tableJoin(
     global religionNumbers
     rowsOfcombi = list(rowsOfcombi)
     rowsOfcombi.sort()
-    # printalx("__ " + str(rowsOfcombi))
+    printalx("__ " + str(manySubTables))
+    table2 = deepcopy(mainTable)
     for colNum, (reliNum, col) in enumerate(zip(religionNumbers, mainTable)):
         for subTable in manySubTables:
             if reliNum in subTable:
-                # printalx("tt " + str(colNum))
+                printalx(str(reliNum) + " " + str(subTable))
                 for row, bigCell in enumerate(mainTable[colNum]):
-                    # print(
-                    #    "in "
-                    #    + str(old2newRows[1][row])
-                    #    + " "
-                    #    + str(maintable2subtable_Relation[0])
-                    # )
                     if old2newRows[1][row] in maintable2subtable_Relation[0]:
                         subRowNum = maintable2subtable_Relation[0][old2newRows[1][row]]
-                        # newSameRowNum = old2newRows[0][
-                        #    maintable2subtable_Relation[1][subRowNum]
-                        # ]
                         for subTableCell in subTable[reliNum]:
-                            # printalx(str(subRowNum) + " " + str(len(subTableCell)))
-                            # printalx(
-                            #    "-- "
-                            #    + str(subRowNum)
-                            #    + " "
-                            #    + str(rowsOfcombi.index(subRowNum + 1))
-                            #    + " "
-                            #    + str(len(subTableCell))
-                            # )
-                            # if rowsOfcombi.index(subRowNum) < len(subTableCell):
+                            printalx(
+                                str(reliNum)
+                                + " "
+                                + str(colNum)
+                                + "= "
+                                + str(subTableCell[rowsOfcombi.index(subRowNum + 1)])
+                            )
                             if rowsOfcombi.index(subRowNum + 1) < len(subTableCell):
-                                # if row == 1:
-                                # printalx(
-                                #    str(reliNum)
-                                #    + " "
-                                #    + str(subRowNum)
-                                #    + " "
-                                #    + str(subTableCell[subRowNum])
-                                # )
-                                # printalx(
-                                #    str(mainTable[colNum][row])
-                                #    + "= "
-                                #    + str(colNum)
-                                #    + " "
-                                #    + str(row)
-                                #    + " "
-                                #    + str(
-                                #        subTableCell[rowsOfcombi.index(subRowNum + 1)]
-                                #    )
-                                # )
-                                # FOLGENDES MUSS ES WERDEN:
                                 if (
                                     len(mainTable[colNum][row]) == 1
                                     and mainTable[colNum][row][0] == ""
                                 ):
-                                    mainTable[colNum][row] = subTableCell[
+                                    table2[colNum][row] = subTableCell[
                                         rowsOfcombi.index(subRowNum + 1)
                                     ]
                                 else:
-                                    mainTable[colNum][row] += subTableCell[
+                                    table2[colNum][row] += subTableCell[
                                         rowsOfcombi.index(subRowNum + 1)
                                     ]
+    return table2
 
 
 if True:
@@ -1460,7 +1432,7 @@ if True:
     #        lineLen_kombi_1,
     #        rowsRange_kombi_1,
     #    )
-    tableJoin(
+    newTable = tableJoin(
         newTable, KombiTables, maintable2subtable_Relation, old2newTable, rowsOfcombi
     )
     if ifCombi:
