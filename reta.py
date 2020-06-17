@@ -15,8 +15,8 @@ ColumnsRowsAmount, shellRowsAmount = (
     os.popen("stty size", "r").read().split()
 )  # Wie viele Zeilen und Spalten hat die Shell ?
 relitable = None
-toYesdisplayRows = set()  # Welche Spalten anzeigen
-toNotDisplayRows = set()  # Welche Spalten nicht anzeigen
+toYesdisplayRows: set = set()  # Welche Spalten anzeigen
+toNotDisplayRows: set = set()  # Welche Spalten nicht anzeigen
 infoLog = False
 # c nächste silbe
 # b nächste Spalte
@@ -25,7 +25,7 @@ infoLog = False
 # originalLinesRange = range(len(newRows))
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
 # realLinesRange = range(len(newRows[0]))
-realLinesRange = range(50)  # Maximale Zeilenanzahl pro Tabellenzelle
+realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 # rowsRange = range(len(newRows[0][0]))
 RowsLen = None
 # rowsRange = range(50)
@@ -44,10 +44,11 @@ nummerierung = True  # Nummerierung der Zeilen, z.B. Religion 1,2,3
 spaltegestirn = False
 breiten: list = []
 primuniverse = False  # ob "primenumbers.csv" gelesen werden soll
-puniverseprims = set()  # welche Spalten von "primenumbers.csv"
+puniverseprims: set = set()  # welche Spalten von "primenumbers.csv"
 ifCombi = False
 # rowsAsNumbers.add(1)
-religionNumbers = []
+religionNumbers: list = []
+ifprimmultis = False
 
 
 def printalx(text):
@@ -73,7 +74,7 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
     @rtype: set, set, set
     @return: Zeilen, Spalten, Spalten anderer Tabellen
     """
-    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, ifCombi, infoLog
+    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, ifCombi, infoLog, ifprimmultis
     rowsAsNumbers = set()
     paramLines = set()
     bigParamaeter: list = []
@@ -93,6 +94,7 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
                     for breite in arg[10:].split(","):
                         if breite.isdecimal():
                             breiten += [int(breite)]
+                    printalx("qq " + str(breiten))
                 elif arg[2:20] == "keinenummerierung":
                     nummerierung = False
                 elif arg[2:13] == "religionen=":
@@ -239,6 +241,13 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
                             neg + "planet",
                         ]:
                             spaltegestirn = True
+                        elif thing in [
+                            neg + "primvielfache",
+                            neg + "primvielfacher",
+                            neg + "primzahlenvielfacher",
+                            neg + "primzahlenvielfache",
+                        ]:
+                            ifprimmultis = True
                 elif arg[2 : 11 + len(neg)] == "symbole" + neg:
                     rowsAsNumbers.add(36)
                     rowsAsNumbers.add(37)
@@ -1073,6 +1082,19 @@ def createSpalteGestirn(relitable: list, rowsAsNumbers: set):
                     line += [text]
 
 
+def createRowPrimeMultiples(relitable: list, rowsAsNumbers: set, certaintextwidth: int):
+    if ifprimmultis:
+        if len(relitable) > 0:
+            rowsAsNumbers.add(len(relitable[0]))
+        # moonNumber
+        for i, line in enumerate(relitable):
+            if i == 0:
+                line += wrapping("Primzahlenvielfache", certaintextwidth)
+            else:
+                line += wrapping("", certaintextwidth)
+            pass
+
+
 def prepare4out(
     paramLines: set,
     paramLinesNot: set,
@@ -1096,8 +1118,9 @@ def prepare4out(
         range aus zu zeigenden Spalten 1-n nicht alle , welche neuen Spalten welche alten waren und umgekehrt
     return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
     """
-    global religionNumbers
-    newRows = []
+    global religionNumbers, breiten
+    print("rr " + str(breiten))
+    newRows: list = []
     printalx("1 " + str(originalLinesRange))
     if len(contentTable) > 0:
         headingsAmount = len(contentTable[0])
@@ -1137,12 +1160,7 @@ def prepare4out(
                     rowsToDisplay += 1
                     newLines = [[]] * headingsAmount
                     # printalx(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
-                    if rowsToDisplay + (1 if nummerierung else 0) <= len(breiten) + 1:
-                        certaintextwidth = breiten[
-                            rowsToDisplay + (-1 if nummerierung else -2)
-                        ]
-                    else:
-                        certaintextwidth = textwidth
+                    certaintextwidth = setWidth(rowsToDisplay)
 
                     new2Lines += [cellWork(cell, newLines, certaintextwidth, t)]
                     if u == 0:
@@ -1152,6 +1170,14 @@ def prepare4out(
             if new2Lines != []:
                 newRows += [new2Lines]
     return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
+
+
+def setWidth(rowsToDisplay):
+    if rowsToDisplay + (1 if nummerierung else 0) <= len(breiten) + 1:
+        certaintextwidth = breiten[rowsToDisplay + (-1 if nummerierung else -2)]
+    else:
+        certaintextwidth = textwidth
+    return certaintextwidth
 
 
 def cliOut(finallyDisplayLines: set, newRows: list, numlen: int, rowsRange: range):
@@ -1378,6 +1404,7 @@ if True:
     printalx(str(paramLines) + " " + str(rowsAsNumbers))
     # headingsAmount = len(relitable[0])
     createSpalteGestirn(relitable, rowsAsNumbers)
+    createRowPrimeMultiples(relitable, rowsAsNumbers, setWidth(len(rowsAsNumbers)))
     #    printalx(str(relitable))
     finallyDisplayLines, newTable, numlen, rowsRange, old2newTable = prepare4out(
         paramLines, paramLinesNot, relitable, rowsAsNumbers, isMainTable=True
