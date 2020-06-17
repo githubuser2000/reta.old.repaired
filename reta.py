@@ -1160,7 +1160,7 @@ def prepare4out(
                     rowsToDisplay += 1
                     newLines = [[]] * headingsAmount
                     # printalx(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
-                    certaintextwidth = setWidth(rowsToDisplay)
+                    certaintextwidth = setWidth(rowsToDisplay, isMainTable)
 
                     new2Lines += [cellWork(cell, newLines, certaintextwidth, t)]
                     if u == 0:
@@ -1172,9 +1172,17 @@ def prepare4out(
     return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
 
 
-def setWidth(rowsToDisplay):
-    if rowsToDisplay + (1 if nummerierung else 0) <= len(breiten) + 1:
+def setWidth(rowsToDisplay, isMainTable):
+    global relitable
+    if rowsToDisplay + (1 if nummerierung else 0) <= len(breiten) + 1 and isMainTable:
         certaintextwidth = breiten[rowsToDisplay + (-1 if nummerierung else -2)]
+    elif (
+        not isMainTable
+        and len(relitable) > 0
+        and rowsToDisplay <= len(breiten) + 1 - len(relitable[0])
+        and (rowsToDisplay - 2 - len(relitable[0])) in breiten
+    ):
+        certaintextwidth = breiten[rowsToDisplay - 2 - len(relitable[0])]
     else:
         certaintextwidth = textwidth
     return certaintextwidth
@@ -1404,21 +1412,23 @@ if True:
     printalx(str(paramLines) + " " + str(rowsAsNumbers))
     # headingsAmount = len(relitable[0])
     createSpalteGestirn(relitable, rowsAsNumbers)
-    createRowPrimeMultiples(relitable, rowsAsNumbers, setWidth(len(rowsAsNumbers)))
+    createRowPrimeMultiples(
+        relitable, rowsAsNumbers, setWidth(len(rowsAsNumbers), False)
+    )
     #    printalx(str(relitable))
     finallyDisplayLines, newTable, numlen, rowsRange, old2newTable = prepare4out(
         paramLines, paramLinesNot, relitable, rowsAsNumbers, isMainTable=True
     )
     printalx(str(paramLines) + " " + str(paramLinesNot))
-    (
-        finallyDisplayLines_kombi_1,
-        newTable_kombi_1,
-        lineLen_kombi_1,
-        rowsRange_kombi_1,
-        old2newTableAnimalsProfessions,
-    ) = prepare4out(set(), set(), animalsProfessionsTable, rowsOfcombi)
-    # printalx(str(newTable))
     if ifCombi:
+        (
+            finallyDisplayLines_kombi_1,
+            newTable_kombi_1,
+            lineLen_kombi_1,
+            rowsRange_kombi_1,
+            old2newTableAnimalsProfessions,
+        ) = prepare4out(set(), set(), animalsProfessionsTable, rowsOfcombi)
+        # printalx(str(newTable))
         finallyDisplayLines_kombi_1 = prepare_kombi(
             finallyDisplayLines_kombi_1,
             animalsProfessionsTable,
