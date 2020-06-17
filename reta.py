@@ -16,7 +16,7 @@ ColumnsRowsAmount, shellRowsAmount = (
 relitable = None
 toYesdisplayRows = set()  # Welche Spalten anzeigen
 toNotDisplayRows = set()  # Welche Spalten nicht anzeigen
-infoLog = False
+infoLog = True
 # c nächste silbe
 # b nächste Spalte
 # a nächste Zeile
@@ -46,6 +46,7 @@ primuniverse = False  # ob "primenumbers.csv" gelesen werden soll
 puniverseprims = set()  # welche Spalten von "primenumbers.csv"
 ifCombi = False
 # rowsAsNumbers.add(1)
+religionNumbers = []
 
 
 def printalx(text):
@@ -1070,7 +1071,11 @@ def createSpalteGestirn(relitable: list, rowsAsNumbers: set):
 
 
 def prepare4out(
-    paramLines: set, paramLinesNot: set, contentTable: list, rowsAsNumbers: set
+    paramLines: set,
+    paramLinesNot: set,
+    contentTable: list,
+    rowsAsNumbers: set,
+    isMainTable: bool = False,
 ) -> tuple:
     """Aus einer Tabelle wird eine gemacht, bei der der Zeilenumbruch durchgeführt wird.
     Dabei werden alle Spalten und Zeilen entfernt die nicht ausgegeben werden sollen.
@@ -1088,6 +1093,7 @@ def prepare4out(
         range aus zu zeigenden Spalten 1-n nicht alle , welche neuen Spalten welche alten waren und umgekehrt
     return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
     """
+    global religionNumbers
     newRows = []
     printalx("1 " + str(originalLinesRange))
     if len(contentTable) > 0:
@@ -1116,29 +1122,32 @@ def prepare4out(
     printalx("2 " + str(finallyDisplayLines))
     old2newRows = ({}, {})
     for u, line in enumerate(contentTable):
-        new2Lines = []
-        rowsToDisplay = 0
-        h = 0
-        for t, cell in enumerate(line):
-            if t in rowsAsNumbers and u in finallyDisplayLines:
-                # printalx(str(u)+' '+str(t)+' '+str(contentTable[u][t]))
-                rowsToDisplay += 1
-                newLines = [[]] * headingsAmount
-                # printalx(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
-                if rowsToDisplay + (1 if nummerierung else 0) <= len(breiten) + 1:
-                    certaintextwidth = breiten[
-                        rowsToDisplay + (-1 if nummerierung else -2)
-                    ]
-                else:
-                    certaintextwidth = textwidth
+        if u in finallyDisplayLines:
+            if isMainTable:
+                religionNumbers += [int(u)]
+            new2Lines = []
+            rowsToDisplay = 0
+            h = 0
+            for t, cell in enumerate(line):
+                if t in rowsAsNumbers:
+                    # printalx(str(u)+' '+str(t)+' '+str(contentTable[u][t]))
+                    rowsToDisplay += 1
+                    newLines = [[]] * headingsAmount
+                    # printalx(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
+                    if rowsToDisplay + (1 if nummerierung else 0) <= len(breiten) + 1:
+                        certaintextwidth = breiten[
+                            rowsToDisplay + (-1 if nummerierung else -2)
+                        ]
+                    else:
+                        certaintextwidth = textwidth
 
-                new2Lines += [cellWork(cell, newLines, certaintextwidth, t)]
-                if u == 0:
-                    old2newRows[0][t] = h
-                    old2newRows[1][h] = t
-                h += 1
-        if new2Lines != []:
-            newRows += [new2Lines]
+                    new2Lines += [cellWork(cell, newLines, certaintextwidth, t)]
+                    if u == 0:
+                        old2newRows[0][t] = h
+                        old2newRows[1][h] = t
+                    h += 1
+            if new2Lines != []:
+                newRows += [new2Lines]
     return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
 
 
@@ -1154,6 +1163,7 @@ def cliOut(finallyDisplayLines: set, newRows: list, numlen: int, rowsRange: rang
     @rtype:
     @return: nichts
     """
+    global religionNumbers
 
     def findMaxCellTextLen(
         finallyDisplayLines: set, newRows: list, rowsRange: set
@@ -1169,6 +1179,7 @@ def cliOut(finallyDisplayLines: set, newRows: list, numlen: int, rowsRange: rang
         @rtype: dict[int,int]
         @return: Zellhöhen pro Zeile
         """
+        global religionNumbers
         maxCellTextLen: dict = {}
         # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
         for k, (f, r) in enumerate(
@@ -1315,9 +1326,16 @@ def tableReducedInLinesByTypeSet(table: list, linesAllowed: set):
 
 
 def tableJoin(mainTable, manySubTables, maintable2subtable_Relation, old2newRows):
+    global religionNumbers
+    printalx(str(religionNumbers))
+    for colNum, col in enumerate(mainTable):  # zeilen
+        for fittedAnimalsProfessions in mainTable[colNum]:  # spalten
+            pass
+            # printalx("zz " + str(fittedAnimalsProfessions))
     for colNum, col in enumerate(mainTable):
         for subTable in manySubTables:
             if colNum in subTable:
+                printalx("tt " + str(colNum))
                 for fittedAnimalsProfessions in mainTable[colNum]:
                     for onOfFittedAP in fittedAnimalsProfessions:
                         for sRowNum, sCell in enumerate(onOfFittedAP):
@@ -1329,7 +1347,15 @@ def tableJoin(mainTable, manySubTables, maintable2subtable_Relation, old2newRows
                                 row = old2newRows[0][
                                     maintable2subtable_Relation[1][sRowNum]
                                 ]
-                                mainTable[colNum][row] += sCell
+                                # printalx(
+                                #    "ui "
+                                #    + str(colNum)
+                                #    + " "
+                                #    + str(row)
+                                #    + " "
+                                #    + str(mainTable[colNum][row])
+                                # )
+                                # mainTable[colNum][row] += sCell
 
 
 #    for colNum, (col, sCol) in enumerate(zip(mainTable, manySubTables)):
@@ -1367,7 +1393,7 @@ if True:
     createSpalteGestirn(relitable, rowsAsNumbers)
     #    printalx(str(relitable))
     finallyDisplayLines, newTable, numlen, rowsRange, old2newTable = prepare4out(
-        paramLines, paramLinesNot, relitable, rowsAsNumbers
+        paramLines, paramLinesNot, relitable, rowsAsNumbers, isMainTable=True
     )
     printalx(str(paramLines) + " " + str(paramLinesNot))
     (
@@ -1416,7 +1442,7 @@ if True:
     #        lineLen_kombi_1,
     #        rowsRange_kombi_1,
     #    )
-    # tableJoin(newTable, KombiTables, maintable2subtable_Relation, old2newTable)
+    tableJoin(newTable, KombiTables, maintable2subtable_Relation, old2newTable)
     if ifCombi:
         cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
 
