@@ -17,7 +17,7 @@ ColumnsRowsAmount, shellRowsAmount = (
 relitable = None
 toYesdisplayRows = set()  # Welche Spalten anzeigen
 toNotDisplayRows = set()  # Welche Spalten nicht anzeigen
-infoLog = True
+infoLog = False
 # c nächste silbe
 # b nächste Spalte
 # a nächste Zeile
@@ -73,7 +73,7 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
     @rtype: set, set, set
     @return: Zeilen, Spalten, Spalten anderer Tabellen
     """
-    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, ifCombi
+    global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, ifCombi, infoLog
     rowsAsNumbers = set()
     paramLines = set()
     bigParamaeter: list = []
@@ -353,6 +353,8 @@ def parameters(argv, neg="") -> Iterable[Union[set, set, set]]:
             else:  # oberes Kommando
                 if arg[1:] in ["zeilen", "spalten", "kombination"]:
                     bigParamaeter += [arg[1:]]
+            if arg[1:] in ["debug"]:
+                infoLog = True
     return paramLines, rowsAsNumbers, rowsOfcombi
 
 
@@ -1389,49 +1391,56 @@ if True:
         old2newTableAnimalsProfessions,
     ) = prepare4out(set(), set(), animalsProfessionsTable, rowsOfcombi)
     # printalx(str(newTable))
-    cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
-    finallyDisplayLines_kombi_1 = prepare_kombi(
-        finallyDisplayLines_kombi_1,
-        animalsProfessionsTable,
-        paramLines,
-        finallyDisplayLines,
-        kombiTable_Kombis,
-    )
-    KombiTables = []
-    for key, value in finallyDisplayLines_kombi_1.items():
-        Tables = {}
-        for kombiLineNumber in value:
-            # printalx(str(kombiLineNumber))
-            if key in Tables:
-                Tables[key] += [
-                    tableReducedInLinesByTypeSet(newTable_kombi_1, {kombiLineNumber})[0]
-                ]
-            else:
-                Tables[key] = [
-                    tableReducedInLinesByTypeSet(newTable_kombi_1, {kombiLineNumber})[0]
-                ]
-            # cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
-        KombiTables += [Tables]
-        printalx("-----------------------")
-
-    printalx(str(finallyDisplayLines_kombi_1))
-    printalx(str(newTable_kombi_1))
-    printalx(str(maintable2subtable_Relation))
-    printalx(str(old2newTable))
-    printalx("")
-    printalx(str(KombiTables))
-    printalx("")
-    #    cliOut(
-    #        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
-    #        newTable_kombi_1,
-    #        lineLen_kombi_1,
-    #        rowsRange_kombi_1,
-    #    )
-    newTable = tableJoin(
-        newTable, KombiTables, maintable2subtable_Relation, old2newTable, rowsOfcombi
-    )
     if ifCombi:
-        cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
+        finallyDisplayLines_kombi_1 = prepare_kombi(
+            finallyDisplayLines_kombi_1,
+            animalsProfessionsTable,
+            paramLines,
+            finallyDisplayLines,
+            kombiTable_Kombis,
+        )
+        KombiTables = []
+        for key, value in finallyDisplayLines_kombi_1.items():
+            Tables = {}
+            for kombiLineNumber in value:
+                # printalx(str(kombiLineNumber))
+                if key in Tables:
+                    Tables[key] += [
+                        tableReducedInLinesByTypeSet(
+                            newTable_kombi_1, {kombiLineNumber}
+                        )[0]
+                    ]
+                else:
+                    Tables[key] = [
+                        tableReducedInLinesByTypeSet(
+                            newTable_kombi_1, {kombiLineNumber}
+                        )[0]
+                    ]
+                # cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
+            KombiTables += [Tables]
+            printalx("-----------------------")
+
+        printalx(str(finallyDisplayLines_kombi_1))
+        printalx(str(newTable_kombi_1))
+        printalx(str(maintable2subtable_Relation))
+        printalx(str(old2newTable))
+        printalx("")
+        printalx(str(KombiTables))
+        printalx("")
+        #    cliOut(
+        #        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
+        #        newTable_kombi_1,
+        #        lineLen_kombi_1,
+        #        rowsRange_kombi_1,
+        #    )
+        newTable = tableJoin(
+            newTable,
+            KombiTables,
+            maintable2subtable_Relation,
+            old2newTable,
+            rowsOfcombi,
+        )
+    cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
 
 # inverted:
 # \e[7mi
