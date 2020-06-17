@@ -1352,16 +1352,17 @@ def tableJoin(
                             )
                             if rowsOfcombi.index(subRowNum + 1) < len(subTableCell):
                                 if (
-                                    len(mainTable[colNum][row]) == 1
-                                    and mainTable[colNum][row][0] == ""
+                                    len(table2[colNum][row]) == 1
+                                    and table2[colNum][row][0] == ""
                                 ):
-                                    table2[colNum][row] = subTableCell[
-                                        rowsOfcombi.index(subRowNum + 1)
-                                    ]
+                                    table2[colNum][row] = deepcopy(
+                                        subTableCell[rowsOfcombi.index(subRowNum + 1)]
+                                    )
                                 else:
-                                    table2[colNum][row] += subTableCell[
-                                        rowsOfcombi.index(subRowNum + 1)
-                                    ]
+                                    table2[colNum][row] += deepcopy(
+                                        subTableCell[rowsOfcombi.index(subRowNum + 1)]
+                                    )
+    printalx(str(table2))
     return table2
 
 
