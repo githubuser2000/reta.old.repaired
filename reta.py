@@ -54,9 +54,10 @@ ifprimmultis = False
 def getRowAmountofAnyPart():
     global puniverseprims, rowsAsNumbers
     return {
-        "alltogether": len(puniverseprims) + len(rowsAsNumbers),
-        "main": rowsAsNumbers,
-        "prim": puniverseprims,
+        "alltogether": len(puniverseprims) + len(rowsAsNumbers) + len(rowsOfcombi),
+        "main": len(rowsAsNumbers),
+        "prim": len(puniverseprims),
+        "combi": len(rowsOfcombi),
     }
 
 
@@ -1129,7 +1130,7 @@ def prepare4out(
     return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
     """
     global religionNumbers, breiten
-    print("rr " + str(breiten))
+    printalx("rr " + str(breiten))
     newRows: list = []
     printalx("1 " + str(originalLinesRange))
     if len(contentTable) > 0:
@@ -1184,10 +1185,12 @@ def prepare4out(
 
 def setWidth(rowsToDisplay, isMainTable):
     global rowsAsNumbers, relitable, puniverseprims
+    if not isMainTable:
+        printalx("ee " + str(getRowAmountofAnyPart()))
     if rowsToDisplay + (1 if nummerierung else 0) <= len(breiten) + 1 and isMainTable:
         certaintextwidth = breiten[rowsToDisplay + (-1 if nummerierung else -2)]
-        print("ää " + str(rowsToDisplay + (-1 if nummerierung else -2)))
-        print(
+        printalx("ää " + str(rowsToDisplay + (-1 if nummerierung else -2)))
+        printalx(
             "ää2 "
             + str(rowsToDisplay + (1 if nummerierung else 0))
             + "<="
@@ -1198,11 +1201,11 @@ def setWidth(rowsToDisplay, isMainTable):
         and rowsToDisplay <= len(breiten) + 1 + len(rowsAsNumbers)
         and (rowsToDisplay - 2 + len(rowsAsNumbers)) in breiten
     ):
-        print("üü " + str(rowsToDisplay - 2 + len(rowsAsNumbers)))
+        printalx("üü " + str(rowsToDisplay - 2 + len(rowsAsNumbers)))
         certaintextwidth = breiten[rowsToDisplay - 2 + len(rowsAsNumbers)]
     else:
-        print("öö " + str(rowsToDisplay - 2 + len(rowsAsNumbers)))
-        print(
+        printalx("öö " + str(rowsToDisplay - 2 + len(rowsAsNumbers)))
+        printalx(
             "öö "
             + str(rowsToDisplay)
             + "<="
