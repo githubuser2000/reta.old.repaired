@@ -78,7 +78,11 @@ class Tables:
 
     class output:
         def cliOut(
-            self, finallyDisplayLines: set, newRows: list, numlen: int, rowsRange: range
+            self,
+            finallyDisplayLines: set,
+            newTable: list,
+            numlen: int,
+            rowsRange: range,
         ):
             """gibt eine Tabelle aus
 
@@ -94,14 +98,14 @@ class Tables:
             global religionNumbers
 
             def findMaxCellTextLen(
-                finallyDisplayLines: set, newRows: list, rowsRange: range
+                finallyDisplayLines: set, newTable: list, rowsRange: range
             ) -> dict:
                 """Gibt eine Liste zurück mit allen maximalen Zwellhoehen pro alle Zellen einer Zeile
 
                 @type finallyDisplayLines: set
                 @param finallyDisplayLines: Zeilen die ausgegeben werden sollen
-                @type newRows: list
-                @param newRows: Tabelle um die es geht
+                @type newTable: list
+                @param newTable: Tabelle um die es geht
                 @type rowsRange: set
                 @param rowsRange: range(spaltenanzahl)
                 @rtype: dict[int,int]
@@ -111,34 +115,38 @@ class Tables:
                 maxCellTextLen: dict = {}
                 # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
                 for k, (f, r) in enumerate(
-                    zip(newRows, finallyDisplayLines)
+                    zip(newTable, finallyDisplayLines)
                 ):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
                     for iterWholeLine, m in enumerate(
                         rowsRange
                     ):  # eine Bildhschirm-Zeile immer
                         # for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                         for i, c in enumerate(
-                            newRows[k]
+                            newTable[k]
                         ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                             if not i in maxCellTextLen:
                                 try:
-                                    maxCellTextLen[i] = len(newRows[k][i][m])
+                                    maxCellTextLen[i] = len(newTable[k][i][m])
                                 except:
                                     pass
                             else:
                                 try:
-                                    textLen = len(newRows[k][i][m])
+                                    textLen = len(newTable[k][i][m])
                                     if textLen > int(maxCellTextLen[i]):
                                         maxCellTextLen[i] = textLen
                                 except:
                                     pass
+                #                    printalx(str(maxCellTextLen))
                 return maxCellTextLen
 
-            maxCellTextLen = findMaxCellTextLen(finallyDisplayLines, newRows, rowsRange)
+            maxCellTextLen = findMaxCellTextLen(
+                finallyDisplayLines, newTable, rowsRange
+            )
             # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
-            # printalx("sdfsad"+str(len(newRows)))
+            # printalx("sdfsad" + str((newTable)))
+            # printalx("sdfsad" + str((finallyDisplayLines)))
             for k, (f, r) in enumerate(
-                zip(newRows, finallyDisplayLines)
+                zip(newTable, finallyDisplayLines)
             ):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
                 #        actualPartLineLen = 0
                 for iterWholeLine, m in enumerate(
@@ -162,7 +170,7 @@ class Tables:
                     # maxCellTextLen = 0
                     # for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                     for i, c in enumerate(
-                        newRows[k]
+                        newTable[k]
                     ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                         # maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
                         # if i < maxRowsPossible and k < 6:
@@ -176,10 +184,11 @@ class Tables:
                         else:
                             i_textwidth = certaintextwidth
                         try:
-                            # line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
+                            # line += colorize(newTable[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
+                            # printalx(str(newTable[k][i][m]))
                             line += (
-                                self.cliOut.colorize(
-                                    newRows[k][i][m]
+                                self.colorize(
+                                    newTable[k][i][m]
                                     .replace("\n", "")
                                     .ljust(i_textwidth),
                                     r,
@@ -1519,7 +1528,6 @@ class program:
             kombiTable_Kombis,
             maintable2subtable_Relation,
         ) = self.start()
-        # printalx(str(animalsProfessionsTable))
         printalx(str(paramLines) + " " + str(rowsAsNumbers))
         # headingsAmount = len(relitable[0])
         self.tables.getMainTable.createSpalteGestirn(relitable, rowsAsNumbers)
@@ -1598,6 +1606,9 @@ class program:
                 old2newTable,
                 rowsOfcombi,
             )
+        printalx(str(finallyDisplayLines))
+        printalx(str(numlen))
+        printalx(str(rowsRange))
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
         print("1. Refactoring, dass alle Tabellenerweiterungen vereinheitlicht werden")
         print("2. darauf aufbauend die manuelle Spaltenbreiten programmieren")
