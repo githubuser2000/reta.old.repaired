@@ -177,7 +177,7 @@ class Tables:
                         try:
                             # line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
                             line += (
-                                colorize(
+                                self.cliOut.colorize(
                                     newRows[k][i][m]
                                     .replace("\n", "")
                                     .ljust(i_textwidth),
@@ -189,7 +189,8 @@ class Tables:
                         except:
                             rowsEmpty += 1
                             line += (
-                                colorize("".ljust(i_textwidth), r, i, True) + " "
+                                self.cliOut.colorize("".ljust(i_textwidth), r, i, True)
+                                + " "
                             )  # neben-Einander
                     # if k < 6 and rowsEmpty != maxRowsPossible: #and m < actualPartLineLen:
                     #            printalx("sdf "+str(len(rowsAsNumbers))+' '+str(rowsEmpty))
@@ -377,7 +378,7 @@ class Tables:
             """
             global zaehlungen
 
-            def diffset(self, wether, a: set, b: set) -> set:
+            def diffset(wether, a: set, b: set) -> set:
                 if wether:
                     # result = a.difference(b)
                     result = a - b
@@ -389,7 +390,7 @@ class Tables:
 
             numRange.remove(0)
 
-            def cutset(self, wether, a: set, b: set) -> set:
+            def cutset(wether, a: set, b: set) -> set:
                 if wether:
                     # result = a.intersection(b)
                     result = a & b
@@ -405,7 +406,7 @@ class Tables:
             for condition in paramLines:
                 if "-a-" in condition:
                     if_a_AtAll = True
-                    a = fromUntil(condition.split("-a-"))
+                    a = self.fromUntil(condition.split("-a-"))
                     for n in numRange.copy():
                         if a[0] <= n and a[1] >= n:
                             # numRange.remove(n)
