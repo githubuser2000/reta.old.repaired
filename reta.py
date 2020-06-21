@@ -69,7 +69,7 @@ def printalx(text):
 
 
 class tables:
-    def parametersBereich(bereiche1: str, symbol: str, neg: str) -> set:
+    def parametersBereich(self, bereiche1: str, symbol: str, neg: str) -> set:
         """Erstellen des Befehls: Bereich
 
         @type bereiche1: str
@@ -116,7 +116,7 @@ class tables:
                     results.add(maybeAmounts[0] + "-" + symbol + "-" + maybeAmounts[1])
         return results
 
-    def deleteDoublesInSets(set1: set, set2: set) -> Iterable[Union[set, set]]:
+    def deleteDoublesInSets(self, set1: set, set2: set) -> Iterable[Union[set, set]]:
         """Wenn etwas in 2 Mengen doppelt vorkommt wird es gelöscht
         @rtype: tuple[set,set]
         @return: Beide Mengen werden ausgegeben
@@ -124,7 +124,7 @@ class tables:
         intersection = set1 & set2
         return set1 - intersection, set2 - intersection
 
-    def fromUntil(a) -> tuple:
+    def fromUntil(self, a) -> tuple:
         """2 Zahlen sollen ein ordentlicher Zahlenbereich sein, sonst werden sie es^
 
         @rtype: tuple[int,int]
@@ -146,7 +146,7 @@ class tables:
             return (1, 1)
 
     # ich wollte je pro extra num, nun nicht mehr nur sondern modular ein mal alles und dann pro nummer in 2 funktionen geteilt
-    def FilterOriginalLines(numRange: set, paramLines: set) -> set:
+    def FilterOriginalLines(self, numRange: set, paramLines: set) -> set:
         """Hier werden die Befehle der Angabe welche Zeilen angezeigt werden in konkrete Zeilen umgewandelt.
 
         @type results: Menge
@@ -156,7 +156,7 @@ class tables:
         """
         global zaehlungen
 
-        def diffset(wether, a: set, b: set) -> set:
+        def diffset(self, wether, a: set, b: set) -> set:
             if wether:
                 # result = a.difference(b)
                 result = a - b
@@ -168,7 +168,7 @@ class tables:
 
         numRange.remove(0)
 
-        def cutset(wether, a: set, b: set) -> set:
+        def cutset(self, wether, a: set, b: set) -> set:
             if wether:
                 # result = a.intersection(b)
                 result = a & b
@@ -242,7 +242,7 @@ class tables:
         ifTypAtAll = False
         numRangeYesZ = set()
 
-        def moonsun(MoonNotSun: bool, numRangeYesZ: set):
+        def moonsun(self, MoonNotSun: bool, numRangeYesZ: set):
             if not ifZaehlungenAtAll:
                 setZaehlungen(originalLinesRange[-1])
             for n in numRange:
@@ -322,7 +322,7 @@ class tables:
         return numRange
 
     class output:
-        def wrapping(text: str, length: int) -> list:
+        def wrapping(self, text: str, length: int) -> list:
             """Hier wird der Zeilenumbruch umgesetzt
 
             @type text: str
@@ -338,7 +338,7 @@ class tables:
                 isItNone = None
             return isItNone
 
-        def colorize(text, num: int, row, rest=False) -> str:
+        def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
 
             @type text: str
@@ -372,7 +372,7 @@ class tables:
             else:
                 return "\033[40m" + "\033[37m" + text + "\033[0m" + "\033[0m"
 
-    def fillBoth(liste1, liste2) -> Iterable[Union[list, list]]:
+    def fillBoth(self, liste1, liste2) -> Iterable[Union[list, list]]:
         """eine der beiden Listen erhält so viele Listenelemente
         aus Strings dazu wie die andere hat, bis beide gleich viel haben
 
@@ -390,7 +390,7 @@ class tables:
         return liste1, liste2
 
     class prepare:
-        def cellWork(cell: str, newLines, certaintextwidth: int, t: int) -> list:
+        def cellWork(self, cell: str, newLines, certaintextwidth: int, t: int) -> list:
             """aus String mach Liste aus Strings mit korrektem Zeilenumbruch
 
             @type cell: str
@@ -426,6 +426,7 @@ class tables:
 
     class combi:
         def tableJoin(
+            self,
             mainTable,
             manySubTables,
             maintable2subtable_Relation,
@@ -533,7 +534,7 @@ class tables:
             @return: 2 Listen mit Zahlen wo Stellen sind wo key in beiden Tabellen vorkommt in der ersten Spalte
             """
 
-            def perTable(table: list, key: str):
+            def perTable(self, table: list, key: str):
                 result: list = []
                 if len(table) > 0:
                     for i, row in enumerate(table[0]):
@@ -544,7 +545,7 @@ class tables:
             return perTable(table1, key), perTable(table2, key)
 
         def readKombiCsv(
-            relitable: list, rowsAsNumbers: set, rowsOfcombi: set
+            self, relitable: list, rowsAsNumbers: set, rowsOfcombi: set
         ) -> tuple:
             """Fügt eine Tabelle neben der relitable nicht daneben sondern als join an, wie ein sql-join
             Hier wird aber noch nicht die join Operation durchgeführt
@@ -619,7 +620,7 @@ class tables:
             return kombiTable, relitable, kombiTable_Kombis, maintable2subtable_Relation
 
     class concat:
-        def readConcatCsv(relitable: list, rowsAsNumbers: set) -> list:
+        def readConcatCsv(self, relitable: list, rowsAsNumbers: set) -> list:
             """Fügt eine Tabelle neben der relitable an
             momentan ist es noch fix auf primnumbers.csv
 
@@ -660,7 +661,7 @@ class tables:
                     # print(str((relitable[i])))
             return relitable
 
-    def createSpalteGestirn(relitable: list, rowsAsNumbers: set):
+    def createSpalteGestirn(self, relitable: list, rowsAsNumbers: set):
         """Fügt relitable eine Spalte hinzu, ob eine Zahl ein Mond oder eine Sonne ist
         Die Information muss dazu kommt aus moonNumber(i)[1]
 
@@ -690,7 +691,7 @@ class tables:
 
     class maintable:
         def createRowPrimeMultiples(
-            relitable: list, rowsAsNumbers: set, certaintextwidth: int
+            self, relitable: list, rowsAsNumbers: set, certaintextwidth: int
         ):
             if ifprimmultis:
                 if len(relitable) > 0:
@@ -779,7 +780,7 @@ class tables:
                     newRows += [new2Lines]
         return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
 
-    def setWidth(rowsToDisplay, isMainTable):
+    def setWidth(self, rowsToDisplay, isMainTable):
         global rowsAsNumbers, relitable, puniverseprims
         # if not isMainTable:
         #    printalx("ee " + str(getRowAmountofAnyPart()))
@@ -815,7 +816,9 @@ class tables:
             certaintextwidth = textwidth
         return certaintextwidth
 
-    def cliOut(finallyDisplayLines: set, newRows: list, numlen: int, rowsRange: range):
+    def cliOut(
+        self, finallyDisplayLines: set, newRows: list, numlen: int, rowsRange: range
+    ):
         """gibt eine Tabelle aus
 
         @type finallyDisplayLines: set
@@ -830,7 +833,7 @@ class tables:
         global religionNumbers
 
         def findMaxCellTextLen(
-            finallyDisplayLines: set, newRows: list, rowsRange: set
+            self, finallyDisplayLines: set, newRows: list, rowsRange: set
         ) -> list:
             """Gibt eine Liste zurück mit allen maximalen Zwellhoehen pro alle Zellen einer Zeile
 
@@ -932,7 +935,7 @@ class tables:
                     print(line)
                     # printalx(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
 
-    def tableReducedInLinesByTypeSet(table: list, linesAllowed: set):
+    def tableReducedInLinesByTypeSet(self, table: list, linesAllowed: set):
         """nur Zeilen aus dem set aus der Tabelle verwenden als Ausgabe der Tabelle
 
         @type table: list[list]
