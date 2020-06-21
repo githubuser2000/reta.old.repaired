@@ -155,7 +155,9 @@ class Tables:
                     )
                     rowsEmpty = 0
                     # for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
-                    maxRowsPossible = math.floor(int(shellRowsAmount) / int(textwidth + 1))
+                    maxRowsPossible = math.floor(
+                        int(shellRowsAmount) / int(textwidth + 1)
+                    )
                     # maxCellTextLen = 0
                     # for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                     for i, c in enumerate(
@@ -176,7 +178,9 @@ class Tables:
                             # line += colorize(newRows[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
                             line += (
                                 colorize(
-                                    newRows[k][i][m].replace("\n", "").ljust(i_textwidth),
+                                    newRows[k][i][m]
+                                    .replace("\n", "")
+                                    .ljust(i_textwidth),
                                     r,
                                     i,
                                 )
@@ -947,7 +951,6 @@ class Tables:
                         line += wrapping("", certaintextwidth)
                     pass
 
-
     def tableReducedInLinesByTypeSet(self, table: list, linesAllowed: set):
         """nur Zeilen aus dem set aus der Tabelle verwenden als Ausgabe der Tabelle
 
@@ -1381,9 +1384,13 @@ class program:
                             ):
                                 paramLines.add(str(abs(int(word))) + "p")
                     elif arg[2:22] == "vorhervonausschnitt=":
-                        paramLines |= parametersBereich(arg[22:], "a", neg)
+                        paramLines |= self.tables.getPrepare.parametersBereich(
+                            arg[22:], "a", neg
+                        )
                     elif arg[2:21] == "nachtraeglichdavon=":
-                        paramLines |= parametersBereich(arg[21:], "z", neg)
+                        paramLines |= self.tables.getPrepare.parametersBereich(
+                            arg[21:], "z", neg
+                        )
                 #                    if arg[21:21+len(neg)] == neg:
                 #                        maybeAmounts=arg[21+len(neg):].split('-')
                 #                        if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0":
@@ -1456,21 +1463,25 @@ class program:
         paramLinesNot, rowsAsNumbersNot, rowsOfcombiNot = self.parameters(sys.argv, "-")
         #    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
         #    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
-        paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(paramLines, paramLinesNot)
+        paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
+            paramLines, paramLinesNot
+        )
         rowsAsNumbers, rowsAsNumbersNot = self.tables.getPrepare.deleteDoublesInSets(
             rowsAsNumbers, rowsAsNumbersNot
         )
-        rowsOfcombi, rowsOfcombiNot = dself.tables.getPrepare.eleteDoublesInSets(rowsOfcombi, rowsOfcombiNot)
+        rowsOfcombi, rowsOfcombiNot = self.tables.getPrepare.eleteDoublesInSets(
+            rowsOfcombi, rowsOfcombiNot
+        )
         #    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
         #    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
-        relitable = readConcatCsv(relitable, rowsAsNumbers)
+        relitable = self.tables.concat.readConcatCsv(relitable, rowsAsNumbers)
         if ifCombi:
             (
                 animalsProfessionsTable,
                 relitable,
                 kombiTable_Kombis,
                 maintable2subtable_Relation,
-            ) = readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi)
+            ) = self.tables.combi.readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi)
         else:
             animalsProfessionsTable = []
             kombiTable_Kombis = []
