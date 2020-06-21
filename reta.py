@@ -74,6 +74,7 @@ class Tables:
         self.getCombis = self.combi()
         self.getConcat = self.concat()
         self.getOut = self.output()
+        self.getMainTable = self.maintable()
 
     class output:
         def cliOut(
@@ -189,8 +190,7 @@ class Tables:
                         except:
                             rowsEmpty += 1
                             line += (
-                                self.cliOut.colorize("".ljust(i_textwidth), r, i, True)
-                                + " "
+                                self.colorize("".ljust(i_textwidth), r, i, True) + " "
                             )  # neben-Einander
                     # if k < 6 and rowsEmpty != maxRowsPossible: #and m < actualPartLineLen:
                     #            printalx("sdf "+str(len(rowsAsNumbers))+' '+str(rowsEmpty))
@@ -1476,12 +1476,12 @@ class program:
         rowsAsNumbers, rowsAsNumbersNot = self.tables.getPrepare.deleteDoublesInSets(
             rowsAsNumbers, rowsAsNumbersNot
         )
-        rowsOfcombi, rowsOfcombiNot = self.tables.getPrepare.eleteDoublesInSets(
+        rowsOfcombi, rowsOfcombiNot = self.tables.getPrepare.deleteDoublesInSets(
             rowsOfcombi, rowsOfcombiNot
         )
         #    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
         #    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
-        relitable = self.tables.concat.readConcatCsv(relitable, rowsAsNumbers)
+        relitable = self.tables.getConcat.readConcatCsv(relitable, rowsAsNumbers)
         if ifCombi:
             (
                 animalsProfessionsTable,
@@ -1507,6 +1507,7 @@ class program:
 
     def __init__(self):
         global relitable, rowsAsNumbers, Tables
+        self.tables = Tables()
         (
             RowsLen,
             paramLines,
@@ -1521,9 +1522,8 @@ class program:
         # printalx(str(animalsProfessionsTable))
         printalx(str(paramLines) + " " + str(rowsAsNumbers))
         # headingsAmount = len(relitable[0])
-        self.tables = Tables()
-        self.tables.createSpalteGestirn(relitable, rowsAsNumbers)
-        self.tables.createRowPrimeMultiples(
+        self.tables.getMainTable.createSpalteGestirn(relitable, rowsAsNumbers)
+        self.tables.getMainTable.createRowPrimeMultiples(
             relitable,
             rowsAsNumbers,
             self.tables.getPrepare.setWidth(len(rowsAsNumbers), False),
@@ -1598,7 +1598,7 @@ class program:
                 old2newTable,
                 rowsOfcombi,
             )
-        self.tables.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
+        self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
         print("1. Refactoring, dass alle Tabellenerweiterungen vereinheitlicht werden")
         print("2. darauf aufbauend die manuelle Spaltenbreiten programmieren")
         print(
