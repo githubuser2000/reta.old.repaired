@@ -1514,3 +1514,58 @@ if True:
     )
 # inverted:
 # \e[7mi
+"""
+Wie refactoren?
+Es gibt:
++ Es gibt Funktionen,
+  + die mathematische Operationen ausführen
+  + kleine Hilfsfunktionen sind
++ Es gibt Funktionen, die csv dateien
+  + einlesen
+  + vorverarbeiten
+  + ausgeben
+  + umverarbeiten
++ es gibt Programm-Hauptteil-Funktionen
+  + start
+  + programmparameter
+  + Ausgabe-Hilfs-Funktionen
+
+Mein Problem ist jetzt:
++ Mehrere Tabllenverarbeitungsmethoden unter einen Hut bekommen und deren
+  Standards vereinheitlichen, so dass ich es einheitlich ansprechen kann
++ es sollte besser schon einprogrammiert sein, dass es mehrere
+  + kombitabellen
+  + nebentabellen
+  geben kann
+
+Was gibt es davon:
+    + Haupttabelle
+    + Nebentabelle
+    + Kombitabelle
+    + Gesamttabelle
+
+Werte die davon vereinheitlicht werden sollten:
+    + Tabelle selbst: eingelesene + angepasste
+    + Spaltenanzahl und Zeilenanzahl
+    + erlaubte Spalten und Zeilen als sets
+    + bool werte
+
+Funktionen davon, außer weniger relevante Hilfsfunktionen:
+    + tableJoin
+    + readKombiCsv, readConcatCsv
+    + prepare4out, prepare_kombi
+    + Tabellen und Listen, die Informationen enthalten über das Zusammenspiel
+      dieser aller Tabellen
+
+Lösungsgedanken:
+    + eine Klasse für Tabellenarbeit
+        + darin eine Klasse jeweils für
+            + Kombitabellen
+            + Nebentabellen
+            + Haupttabelle
+            + Gesamttabelle
+        + daraus soll möglichst alles andere was geht raus gehalten werden
+    + ich sollte das als erstes tun und alles andere darauf aufbauen
+      d.h. ich überlege später was ich weiteres für Refactoring plane
+
+"""
