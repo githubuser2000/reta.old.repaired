@@ -93,8 +93,8 @@ class Tables:
             global religionNumbers
 
             def findMaxCellTextLen(
-                self, finallyDisplayLines: set, newRows: list, rowsRange: set
-            ) -> list:
+                finallyDisplayLines: set, newRows: list, rowsRange: range
+            ) -> dict:
                 """Gibt eine Liste zurück mit allen maximalen Zwellhoehen pro alle Zellen einer Zeile
 
                 @type finallyDisplayLines: set
@@ -200,22 +200,6 @@ class Tables:
                         print(line)
                         # printalx(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
 
-        def wrapping(self, text: str, length: int) -> list:
-            """Hier wird der Zeilenumbruch umgesetzt
-
-            @type text: str
-            @param text: Der Text dessen Zeilen umbgebrochen werden sollen
-            @type lenght: int
-            @param lenght: ab welcher Zeilenlänge umgebrochen werden soll
-            @rtype: list[str]
-            @return: Liste aus umgebrochenen Teilstrings
-            """
-            if len(text) > length - 1:
-                isItNone = dic.wrap(text, length - 1)
-            else:
-                isItNone = None
-            return isItNone
-
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
 
@@ -251,6 +235,22 @@ class Tables:
                 return "\033[40m" + "\033[37m" + text + "\033[0m" + "\033[0m"
 
     class prepare:
+        def wrapping(self, text: str, length: int) -> list:
+            """Hier wird der Zeilenumbruch umgesetzt
+
+            @type text: str
+            @param text: Der Text dessen Zeilen umbgebrochen werden sollen
+            @type lenght: int
+            @param lenght: ab welcher Zeilenlänge umgebrochen werden soll
+            @rtype: list[str]
+            @return: Liste aus umgebrochenen Teilstrings
+            """
+            if len(text) > length - 1:
+                isItNone = dic.wrap(text, length - 1)
+            else:
+                isItNone = None
+            return isItNone
+
         def setWidth(self, rowsToDisplay, isMainTable):
             global rowsAsNumbers, relitable, puniverseprims
             # if not isMainTable:
@@ -464,7 +464,7 @@ class Tables:
             ifTypAtAll = False
             numRangeYesZ = set()
 
-            def moonsun(self, MoonNotSun: bool, numRangeYesZ: set):
+            def moonsun(MoonNotSun: bool, numRangeYesZ: set):
                 if not ifZaehlungenAtAll:
                     setZaehlungen(originalLinesRange[-1])
                 for n in numRange:
@@ -487,7 +487,7 @@ class Tables:
             numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
             # printalx("x3 "+str(numRange))
 
-            primMultiples = []
+            primMultiples: list = []
             ifPrimAtAll = False
             for condition in paramLines:
                 if (
@@ -531,19 +531,20 @@ class Tables:
             for condition in paramLines:
                 if "-z-" in condition:
                     if not ifNachtraeglichAtAll:
-                        numRange = list(numRange)
-                        numRange.sort()
+                        numRange2: list = list(numRange)
+                        numRange2.sort()
                         ifNachtraeglichAtAll = True
-                    a = fromUntil(condition.split("-z-"))
-                    for i, n in enumerate(numRange.copy()):
+                    a = self.fromUntil(condition.split("-z-"))
+                    for i, n in enumerate(numRange2.copy()):
                         if a[0] - 1 > i or a[1] - 1 < i:
-                            numRange.remove(n)
+                            numRange2.remove(n)
             if ifNachtraeglichAtAll:
-                numRange = set(numRange)
+                numRange = set(numRange2)
             # printalx(str(ifNachtraeglichAtAll)+' '+str(ifMultiplesFromAnyAtAll)+' '+str(ifPrimAtAll)+' '+str(ifTypAtAll)+' '+str(ifZeitAtAll)+' '+str(numRange))
             return numRange
 
         def prepare4out(
+            self,
             paramLines: set,
             paramLinesNot: set,
             contentTable: list,
@@ -576,13 +577,13 @@ class Tables:
             else:
                 headingsAmount = 0
                 rowsRange = range(0)
-            finallyDisplayLines = FilterOriginalLines(
+            finallyDisplayLines: set = self.FilterOriginalLines(
                 set(originalLinesRange), paramLines
             )
             printalx("1,5 " + str(finallyDisplayLines))
             # printalx('s1 '+str(finallyDisplayLines))
             if not len(paramLinesNot) == 0:
-                finallyDisplayLines2 = FilterOriginalLines(
+                finallyDisplayLines2 = self.FilterOriginalLines(
                     set(originalLinesRange), paramLinesNot
                 )
                 printalx("34567 " + str(set(originalLinesRange) - finallyDisplayLines2))
@@ -591,17 +592,18 @@ class Tables:
                     finallyDisplayLines -= finallyDisplayLines2
             # printalx('s2 '+str(finallyDisplayLines))
             finallyDisplayLines.add(0)
-            finallyDisplayLines = list(finallyDisplayLines)
-            finallyDisplayLines.sort()
+            finallyDisplayLines3: list = list(finallyDisplayLines)
+            finallyDisplayLines3.sort()
+            finallyDisplayLines = set(finallyDisplayLines3)
             #    maxPartLineLen = 0
-            numlen = len(str(finallyDisplayLines[-1]))
+            numlen = len(str(finallyDisplayLines3[-1]))
             printalx("2 " + str(finallyDisplayLines))
-            old2newRows = ({}, {})
+            old2newRows: tuple = ({}, {})
             for u, line in enumerate(contentTable):
                 if u in finallyDisplayLines:
                     if isMainTable:
                         religionNumbers += [int(u)]
-                    new2Lines = []
+                    new2Lines: list = []
                     rowsToDisplay = 0
                     h = 0
                     for t, cell in enumerate(line):
@@ -610,9 +612,11 @@ class Tables:
                             rowsToDisplay += 1
                             newLines = [[]] * headingsAmount
                             # printalx(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
-                            certaintextwidth = setWidth(rowsToDisplay, isMainTable)
+                            certaintextwidth = self.setWidth(rowsToDisplay, isMainTable)
 
-                            new2Lines += [cellWork(cell, newLines, certaintextwidth, t)]
+                            new2Lines += [
+                                self.cellWork(cell, newLines, certaintextwidth, t)
+                            ]
                             if u == 0:
                                 old2newRows[0][t] = h
                                 old2newRows[1][h] = t
@@ -635,12 +639,12 @@ class Tables:
             @rtype: list[str]
             @return: Liste aus Strings mit korrektem Zeilenumbruch
             """
-            isItNone = wrapping(cell, certaintextwidth)
+            isItNone = self.wrapping(cell, certaintextwidth)
             cell2: tuple = tuple()
             rest: str = cell
             while not isItNone is None:
                 cell2 += isItNone
-                isItNone = wrapping(cell2[-1], certaintextwidth)
+                isItNone = self.wrapping(cell2[-1], certaintextwidth)
                 rest = cell2[-1]
                 cell2 = cell2[:-1]
                 if len(rest) > certaintextwidth and isItNone is None:
@@ -655,24 +659,25 @@ class Tables:
                         pass
             return newLines[t]
 
+    @staticmethod
+    def fillBoth(liste1, liste2) -> Iterable[Union[list, list]]:
+        """eine der beiden Listen erhält so viele Listenelemente
+        aus Strings dazu wie die andere hat, bis beide gleich viel haben
+
+        @type liste1: list[str]
+        @param liste1: die erste Liste
+        @type liste2: list[str]
+        @param liste2: die zweite Liste
+        @rtype: tuple(list[str],list[str])
+        @return: 2 Listen mit gleicher Länger, maximiert statt minimiert
+        """
+        while len(liste1) < len(liste2):
+            liste1 += [""]
+        while len(liste2) < len(liste1):
+            liste2 += [""]
+        return liste1, liste2
+
     class combi:
-        def fillBoth(self, liste1, liste2) -> Iterable[Union[list, list]]:
-            """eine der beiden Listen erhält so viele Listenelemente
-            aus Strings dazu wie die andere hat, bis beide gleich viel haben
-
-            @type liste1: list[str]
-            @param liste1: die erste Liste
-            @type liste2: list[str]
-            @param liste2: die zweite Liste
-            @rtype: tuple(list[str],list[str])
-            @return: 2 Listen mit gleicher Länger, maximiert statt minimiert
-            """
-            while len(liste1) < len(liste2):
-                liste1 += [""]
-            while len(liste2) < len(liste1):
-                liste2 += [""]
-            return liste1, liste2
-
         def tableJoin(
             self,
             mainTable,
@@ -719,6 +724,7 @@ class Tables:
             return table2
 
         def prepare_kombi(
+            self,
             finallyDisplayLines_kombi_1: set,
             kombiTable: list,
             paramLines: set,
@@ -766,7 +772,7 @@ class Tables:
             return ChosenKombiLines
 
         def cursorOf_2Tables(
-            table1: list, table2: list, key: str
+            self, table1: list, table2: list, key: str
         ) -> Iterable[Union[list, list]]:
             """2 Tabellen, beide je erste Spalte muss der gleiche string key sein
             erstes Vorkommen jeweils dann stelle in Liste merken bei beiden
@@ -782,7 +788,7 @@ class Tables:
             @return: 2 Listen mit Zahlen wo Stellen sind wo key in beiden Tabellen vorkommt in der ersten Spalte
             """
 
-            def perTable(self, table: list, key: str):
+            def perTable(table: list, key: str):
                 result: list = []
                 if len(table) > 0:
                     for i, row in enumerate(table[0]):
@@ -814,25 +820,25 @@ class Tables:
             headingsAmount = len(relitable[0])
             if not rowsOfcombi.isdisjoint({1, 2}):
                 with open("animalsProfessions.csv", mode="r") as csv_file:
-                    kombiTable = []
-                    kombiTable_Kombis = []
+                    kombiTable: list = []
+                    kombiTable_Kombis: list = []
                     for z, col in enumerate(csv.reader(csv_file, delimiter=";")):
                         kombiTable += [col]
-                        kombiTable_Kombis_Col = []
+                        kombiTable_Kombis_Col: list = []
                         if len(col) > 0 and z > 0:
                             for num in col[0].split(","):
                                 if num.isdecimal():
                                     kombiTable_Kombis_Col += [int(num)]
                                 else:
-                                    raise ("not NUM !!!!! ")
+                                    raise BaseException("not NUM !!!!! ")
                             kombiTable_Kombis += [kombiTable_Kombis_Col]
                     # printalx(str(kombiTable_Kombis))
-                    relitable, animalsProfessionsCol = fillBoth(
+                    relitable, animalsProfessionsCol = Tables.fillBoth(
                         relitable, list(kombiTable)
                     )
                     lastlen = 0
                     maxlen = 0
-                    maintable2subtable_Relation = ({}, {})
+                    maintable2subtable_Relation: tuple = ({}, {})
                     for i, (animcol, relicol) in enumerate(
                         zip(animalsProfessionsCol, relitable)
                     ):
@@ -882,7 +888,7 @@ class Tables:
             headingsAmount = len(relitable[0])
             if primuniverse:
                 with open("primenumbers.csv", mode="r") as csv_file:
-                    relitable, primUniverseLine = fillBoth(
+                    relitable, primUniverseLine = Tables.fillBoth(
                         relitable, list(csv.reader(csv_file, delimiter=";"))
                     )
                     lastlen = 0
@@ -1060,7 +1066,7 @@ def primRepeat(n: list) -> list:
     n.reverse()
     c = 1
     b = None
-    d = []
+    d: list = []
     for a in n:
         if b == a:
             c += 1
@@ -1070,7 +1076,7 @@ def primRepeat(n: list) -> list:
         b = a
     d.reverse()
     b = None
-    f = []
+    f: list = []
     for e, g in d:
         if b != e:
             if g == 1:
