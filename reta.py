@@ -14,35 +14,9 @@ dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenum
 ColumnsRowsAmount, shellRowsAmount = (
     os.popen("stty size", "r").read().split()
 )  # Wie viele Zeilen und Spalten hat die Shell ?
-# self.relitable = None
-# toYesdisplayRows: set = set()  # Welche Spalten anzeigen
-# toNotDisplayRows: set = set()  # Welche Spalten nicht anzeigen
 infoLog = True
-# c nächste silbe
-# b nächste Spalte
-# a nächste Zeile
-# exit()
-# originalLinesRange = range(len(newRows))
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
-# realLinesRange = range(len(newRows[0]))
 realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
-# rowsRange = range(len(newRows[0][0]))
-# self.RowsLen = None
-# rowsRange = range(50)
-# printalx(newRows[0][1][0])
-
-# self.textwidth = 21  # Feste Spaltenbreite
-# rowsAsNumbers.add(1)
-
-
-# def getRowAmountofAnyPart():
-#    global self.puniverseprims, rowsAsNumbers
-#    return {
-#        "alltogether": len(self.puniverseprims) + len(rowsAsNumbers) + len(rowsOfcombi),
-#        "main": len(rowsAsNumbers),
-#        "prim": len(self.puniverseprims),
-#        "combi": len(rowsOfcombi),
-#    }
 
 
 def printalx(text):
@@ -53,6 +27,24 @@ def printalx(text):
 
 
 class Tables:
+    def getRowAmountofAnyPart(self):
+        return {
+            "alltogether": len(self.puniverseprims)
+            + len(self.rowsAsNumbers)
+            + len(self.rowsOfcombi),
+            "main": len(self.rowsAsNumbers),
+            "prim": len(self.puniverseprims),
+            "combi": len(self.getCombis.rowsOfcombi),
+        }
+
+    #    @property
+    #    def rowsSet(self):
+    #        return self.getPrepare.rowsAsNumbers
+    #
+    #    @rowsSet.setter
+    #    def rowsSet(self, value: set):
+    #        self.getPrepare.rowsAsNumbers = value
+
     @property
     def ifPrimMultis(self):
         return self.getPrepare.ifprimmultis
@@ -146,6 +138,7 @@ class Tables:
         self.getPrepare.religionNumbers = self.religionNumbers
         self.getCombis.religionNumbers = self.religionNumbers
         self.getPrepare.ifprimmultis = False
+        # self.getPrepare.rowsAsNumbers = set()
 
     class Output:
         @property
@@ -231,7 +224,7 @@ class Tables:
                     for iterWholeLine, m in enumerate(
                         rowsRange
                     ):  # eine Bildhschirm-Zeile immer
-                        # for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+                        # for i in self.rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                         for i, c in enumerate(
                             newTable[k]
                         ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
@@ -279,7 +272,7 @@ class Tables:
                         int(shellRowsAmount) / int(self.textwidth + 1)
                     )
                     # maxCellTextLen = 0
-                    # for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+                    # for i in self.rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                     for i, c in enumerate(
                         newTable[k]
                     ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
@@ -315,8 +308,8 @@ class Tables:
                                 self.colorize("".ljust(i_textwidth), r, i, True) + " "
                             )  # neben-Einander
                     # if k < 6 and rowsEmpty != maxRowsPossible: #and m < actualPartLineLen:
-                    #            printalx("sdf "+str(len(rowsAsNumbers))+' '+str(rowsEmpty))
-                    if rowsEmpty != len(rowsAsNumbers) and (
+                    #            printalx("sdf "+str(len(self.rowsAsNumbers))+' '+str(rowsEmpty))
+                    if rowsEmpty != len(self.rowsAsNumbers) and (
                         iterWholeLine < self.textheight or self.textheight == 0
                     ):  # and m < actualPartLineLen:
                         print(line)
@@ -430,7 +423,6 @@ class Tables:
             return isItNone
 
         def setWidth(self, rowsToDisplay, isMainTable):
-            global rowsAsNumbers
             # if not isMainTable:
             #    printalx("ee " + str(getRowAmountofAnyPart()))
             if (
@@ -449,20 +441,22 @@ class Tables:
                 )
             elif (
                 not isMainTable
-                and rowsToDisplay <= len(self.breiten) + 1 + len(rowsAsNumbers)
-                and (rowsToDisplay - 2 + len(rowsAsNumbers)) in self.breiten
+                and rowsToDisplay <= len(self.breiten) + 1 + len(self.rowsAsNumbers)
+                and (rowsToDisplay - 2 + len(self.rowsAsNumbers)) in self.breiten
             ):
-                printalx("üü " + str(rowsToDisplay - 2 + len(rowsAsNumbers)))
-                certaintextwidth = self.breiten[rowsToDisplay - 2 + len(rowsAsNumbers)]
+                printalx("üü " + str(rowsToDisplay - 2 + len(self.rowsAsNumbers)))
+                certaintextwidth = self.breiten[
+                    rowsToDisplay - 2 + len(self.rowsAsNumbers)
+                ]
             else:
-                printalx("öö " + str(rowsToDisplay - 2 + len(rowsAsNumbers)))
+                printalx("öö " + str(rowsToDisplay - 2 + len(self.rowsAsNumbers)))
                 printalx(
                     "öö "
                     + str(rowsToDisplay)
                     + "<="
                     + str(len(self.breiten))
                     + " + 1 + "
-                    + str(len(rowsAsNumbers))
+                    + str(len(self.rowsAsNumbers))
                 )
                 certaintextwidth = self.textwidth
             return certaintextwidth
@@ -739,8 +733,8 @@ class Tables:
             @param paramLinesNot: welche Linien nein, werden abgezogen von ja
             @type contentTable: list
             @param contentTable: die Tabelle die verändert werden soll
-            @type rowsAsNumbers: set
-            @param rowsAsNumbers: anzuzeigende Spalten
+            @type rowsAsNumberss: set
+            @param rowsAsNumberss: anzuzeigende Spalten
             @rtype: tuple[set,set,int,range,list]
             @return: Zeilen die ausgegeben werden sollen, neue Tabelle, Nummer der letzten Zeile , \
                 range aus zu zeigenden Spalten 1-n nicht alle , welche neuen Spalten welche alten waren und umgekehrt
@@ -984,8 +978,8 @@ class Tables:
             Hier wird aber noch nicht die join Operation durchgeführt
             momentan ist es noch fix auf animalsProfessions.csv
 
-            @type self.relitable: list
-            @param self.relitable: Haupttabelle self.relitable
+            @type relitable: list
+            @param relitable: Haupttabelle self.relitable
             @type rowsAsNumbers: set
             @param rowsAsNumbers: welche Spalten der neuen Tabelle dazu kommen sollen
             @type rowsOfcombi: set
@@ -998,6 +992,7 @@ class Tables:
             """
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
+            printalx("-_- " + str(rowsOfcombi))
             if not rowsOfcombi.isdisjoint({1, 2}):
                 with open("animalsProfessions.csv", mode="r") as csv_file:
                     kombiTable: list = []
@@ -1080,12 +1075,12 @@ class Tables:
             """Fügt eine Tabelle neben der self.relitable an
             momentan ist es noch fix auf primnumbers.csv
 
-            @type self.relitable: list
-            @param self.relitable: Haupttabelle self.relitable
+            @type relitable: list
+            @param relitable: Haupttabelle self.relitable
             @type rowsAsNumbers: set
             @param rowsAsNumbers: welche Spalten der neuen Tabelle dazu kommen sollen
             @rtype: list[list]
-            @return: self.relitable + weitere Tabelle daneben
+            @return: relitable + weitere Tabelle daneben
             """
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
@@ -1116,7 +1111,7 @@ class Tables:
                                     printalx(
                                         str(heading) + "ö" + str(self.puniverseprims)
                                     )
-                                    rowsAsNumbers.add(int(u))
+                                    self.rowsAsNumbers.add(int(u))
 
                     # print(str(len(primUniverseLine[i]))+' '+str(len(self.relitable[i])))
                     # print(str((self.relitable[i])))
@@ -1139,8 +1134,8 @@ class Tables:
             """Fügt self.relitable eine Spalte hinzu, ob eine Zahl ein Mond oder eine Sonne ist
             Die Information muss dazu kommt aus moonNumber(i)[1]
 
-            @type self.relitable: list
-            @param self.relitable: Haupttabelle self.relitable
+            @type relitable: list
+            @param relitable: Haupttabelle self.relitable
             @type rowsAsNumbers: set
             @param rowsAsNumbers: welche Spalten der neuen Tabelle nur betroffen sind
             @rtype:
@@ -1149,7 +1144,7 @@ class Tables:
             self.relitable = relitable
             if self.spaltegestirn:
                 if len(self.relitable) > 0:
-                    rowsAsNumbers.add(len(self.relitable[0]))
+                    self.rowsAsNumbers.add(len(self.relitable[0]))
                 # moonNumber
                 for i, line in enumerate(self.relitable):
                     if i == 0:
@@ -1342,7 +1337,7 @@ class Program:
         welche Spaltennummer ausgegeben werden sollen.
         Außerdem welche extra Tabellen geladen werden sollen.
 
-        return paramLines, rowsAsNumbers, rowsOfcombi
+        return paramLines, self.rowsAsNumbers, rowsOfcombi
 
         @type  argv: list
         @param argv: Programmparamenter
@@ -1352,7 +1347,7 @@ class Program:
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
         global infoLog
-        rowsAsNumbers = set()
+        self.rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
         rowsOfcombi: set = set()
@@ -1378,22 +1373,22 @@ class Program:
                     elif arg[2:13] == "religionen=":
                         for religion in arg[13:].split(","):
                             if religion == neg + "sternpolygon":
-                                rowsAsNumbers.add(0)
-                                rowsAsNumbers.add(6)
-                                rowsAsNumbers.add(36)
+                                self.rowsAsNumbers.add(0)
+                                self.rowsAsNumbers.add(6)
+                                self.rowsAsNumbers.add(36)
                             elif religion in [
                                 neg + "babylon",
                                 neg + "dertierkreiszeichen",
                             ]:
-                                rowsAsNumbers.add(0)
-                                rowsAsNumbers.add(36)
+                                self.rowsAsNumbers.add(0)
+                                self.rowsAsNumbers.add(36)
                             elif religion in [
                                 neg + "gleichfoermigespolygon",
                                 neg + "nichtsternpolygon",
                                 neg + "polygon",
                             ]:
-                                rowsAsNumbers.add(16)
-                                rowsAsNumbers.add(36)
+                                self.rowsAsNumbers.add(16)
+                                self.rowsAsNumbers.add(36)
                             elif religion in [
                                 neg + "galaxien",
                                 neg + "galaxie",
@@ -1406,7 +1401,7 @@ class Program:
                                 neg + "kugel",
                                 neg + "kugeln",
                             ]:
-                                rowsAsNumbers.add(23)
+                                self.rowsAsNumbers.add(23)
                     elif (
                         arg[2:11] == "galaxien="
                         or arg[2:16] == "alteschriften="
@@ -1414,82 +1409,82 @@ class Program:
                     ):
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "babylon", neg + "tierkreiszeichen"]:
-                                rowsAsNumbers.add(1)
-                                rowsAsNumbers.add(2)
+                                self.rowsAsNumbers.add(1)
+                                self.rowsAsNumbers.add(2)
                             elif thing in [neg + "thomas", neg + "thomasevangelium"]:
-                                rowsAsNumbers.add(3)
+                                self.rowsAsNumbers.add(3)
                     elif arg[2:] in [
                         "groessenordnung" + neg,
                         "strukturgroesse" + neg,
                         "groesse" + neg,
                         "stufe" + neg,
                     ]:
-                        rowsAsNumbers.add(4)
-                        rowsAsNumbers.add(21)
+                        self.rowsAsNumbers.add(4)
+                        self.rowsAsNumbers.add(21)
                     elif arg[2:] in [
                         "universum" + neg,
                         "transzendentalien" + neg,
                         "strukturalien" + neg,
                     ]:
-                        rowsAsNumbers.add(5)
+                        self.rowsAsNumbers.add(5)
                     elif arg[2:15] in ["menschliches="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "liebe", neg + "ethik"]:
-                                rowsAsNumbers.add(8)
-                                rowsAsNumbers.add(9)
-                                rowsAsNumbers.add(28)
+                                self.rowsAsNumbers.add(8)
+                                self.rowsAsNumbers.add(9)
+                                self.rowsAsNumbers.add(28)
                             elif thing in [
                                 neg + "motive",
                                 neg + "motivation",
                                 neg + "motiv",
                             ]:
-                                rowsAsNumbers.add(10)
-                                rowsAsNumbers.add(18)
+                                self.rowsAsNumbers.add(10)
+                                self.rowsAsNumbers.add(18)
                             elif thing in [
                                 neg + "errungenschaften",
                                 neg + "ziele",
                                 neg + "erhalten",
                             ]:
-                                rowsAsNumbers.add(11)
+                                self.rowsAsNumbers.add(11)
                             elif thing in [
                                 neg + "erwerben",
                                 neg + "erlernen",
                                 neg + "lernen",
                                 neg + "evolutionaer",
                             ]:
-                                rowsAsNumbers.add(12)
+                                self.rowsAsNumbers.add(12)
                             elif thing in [
                                 neg + "brauchen",
                                 neg + "benoetigen",
                                 neg + "notwendig",
                             ]:
-                                rowsAsNumbers.add(13)
-                                rowsAsNumbers.add(14)
+                                self.rowsAsNumbers.add(13)
+                                self.rowsAsNumbers.add(14)
                             elif thing in [
                                 neg + "krankheit",
                                 neg + "pathologisch",
                                 neg + "pathologie",
                                 neg + "psychiatrisch",
                             ]:
-                                rowsAsNumbers.add(24)
+                                self.rowsAsNumbers.add(24)
                             elif thing in [neg + "kreativ", neg + "kreativitaet"]:
-                                rowsAsNumbers.add(27)
+                                self.rowsAsNumbers.add(27)
                             elif thing in [neg + "anfuehrer", neg + "chef"]:
-                                rowsAsNumbers.add(29)
+                                self.rowsAsNumbers.add(29)
                             elif thing in [neg + "beruf", neg + "berufe"]:
-                                rowsAsNumbers.add(30)
+                                self.rowsAsNumbers.add(30)
                             elif thing in [neg + "loesungen", neg + "loesung"]:
-                                rowsAsNumbers.add(31)
+                                self.rowsAsNumbers.add(31)
                             elif thing in [neg + "musik"]:
-                                rowsAsNumbers.add(33)
+                                self.rowsAsNumbers.add(33)
                     elif arg[2:12] == "procontra=" or arg[2:16] == "dagegendafuer=":
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "pro", neg + "dafeuer"]:
-                                rowsAsNumbers.add(17)
+                                self.rowsAsNumbers.add(17)
                             elif thing in [neg + "contra", neg + "dagegen"]:
-                                rowsAsNumbers.add(15)
+                                self.rowsAsNumbers.add(15)
                     elif arg[2 : 7 + len(neg)] == "licht" + neg:
-                        rowsAsNumbers.add(20)
+                        self.rowsAsNumbers.add(20)
                     elif arg[2:12] == "bedeutung=":
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             printalx("weruioweuio " + neg + thing)
@@ -1498,24 +1493,24 @@ class Program:
                                 neg + "vielfache",
                                 neg + "vielfacher",
                             ]:
-                                rowsAsNumbers.add(19)
+                                self.rowsAsNumbers.add(19)
                             elif thing in [
                                 neg + "anwendungdersonnen",
                                 neg + "anwendungenfuermonde",
                             ]:
-                                rowsAsNumbers.add(22)
+                                self.rowsAsNumbers.add(22)
                             elif thing in [neg + "zaehlung", neg + "zaehlungen"]:
-                                rowsAsNumbers.add(25)
+                                self.rowsAsNumbers.add(25)
                             elif thing in [neg + "liebe", neg + "ethik"]:
-                                rowsAsNumbers.add(26)
+                                self.rowsAsNumbers.add(26)
                             elif thing in [
                                 neg + "jura",
                                 neg + "gesetzeslehre",
                                 neg + "recht",
                             ]:
-                                rowsAsNumbers.add(34)
+                                self.rowsAsNumbers.add(34)
                             elif thing in [neg + "vollkommenheit", neg + "geist"]:
-                                rowsAsNumbers.add(35)
+                                self.rowsAsNumbers.add(35)
                             elif thing in [
                                 neg + "gestirn",
                                 neg + "mond",
@@ -1531,8 +1526,8 @@ class Program:
                             ]:
                                 self.tables.ifPrimMultis = True
                     elif arg[2 : 11 + len(neg)] == "symbole" + neg:
-                        rowsAsNumbers.add(36)
-                        rowsAsNumbers.add(37)
+                        self.rowsAsNumbers.add(36)
+                        self.rowsAsNumbers.add(37)
                     elif arg[2:30] == "primzahlvielfachesuniversum=":
                         for word in arg[30:].split(","):
                             if word.isdecimal():
@@ -1654,7 +1649,7 @@ class Program:
                         bigParamaeter += [arg[1:]]
                 if arg[1:] in ["debug"]:
                     infoLog = True
-        return paramLines, rowsAsNumbers, rowsOfcombi
+        return paramLines, self.rowsAsNumbers, rowsOfcombi
 
     def start(self) -> tuple:
         """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
@@ -1672,23 +1667,31 @@ class Program:
                 self.relitable += [col]
                 if i == 0:
                     self.RowsLen = len(col)
-        paramLines, rowsAsNumbers, rowsOfcombi = self.parameters(sys.argv)
-        paramLinesNot, rowsAsNumbersNot, rowsOfcombiNot = self.parameters(sys.argv, "-")
-        #    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
-        #    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
+        paramLines, self.rowsAsNumbers, rowsOfcombi = self.parameters(sys.argv)
+        paramLinesNot, self.rowsAsNumbersNot, rowsOfcombiNot = self.parameters(
+            sys.argv, "-"
+        )
+        #    printalx(str(paramLines) + ' ' + str(self.rowsAsNumbers))
+        #    printalx(str(paramLinesNot) + ' ' + str(self.rowsAsNumbersNot))
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
         )
-        rowsAsNumbers, rowsAsNumbersNot = self.tables.getPrepare.deleteDoublesInSets(
-            rowsAsNumbers, rowsAsNumbersNot
+        (
+            self.rowsAsNumbers,
+            self.rowsAsNumbersNot,
+        ) = self.tables.getPrepare.deleteDoublesInSets(
+            self.rowsAsNumbers, self.rowsAsNumbersNot
         )
-        rowsOfcombi, rowsOfcombiNot = self.tables.getPrepare.deleteDoublesInSets(
+        (rowsOfcombi, rowsOfcombiNot,) = self.tables.getPrepare.deleteDoublesInSets(
             rowsOfcombi, rowsOfcombiNot
         )
-        #    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
-        #    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
+        self.tables.getPrepare.rowsAsNumbers = self.rowsAsNumbers
+        self.tables.getOut.rowsAsNumbers = self.rowsAsNumbers
+
+        #    printalx(str(paramLines) + ' ' + str(self.rowsAsNumbers))
+        #    printalx(str(paramLinesNot) + ' ' + str(self.rowsAsNumbersNot))
         self.relitable = self.tables.getConcat.readConcatCsv(
-            self.relitable, rowsAsNumbers
+            self.relitable, self.rowsAsNumbers
         )
         if self.ifCombi:
             (
@@ -1697,7 +1700,7 @@ class Program:
                 kombiTable_Kombis,
                 maintable2subtable_Relation,
             ) = self.tables.getCombis.readKombiCsv(
-                self.relitable, rowsAsNumbers, rowsOfcombi
+                self.relitable, self.rowsAsNumbers, rowsOfcombi
             )
         else:
             animalsProfessionsTable = []
@@ -1708,7 +1711,7 @@ class Program:
             paramLines,
             paramLinesNot,
             self.relitable,
-            rowsAsNumbers,
+            self.rowsAsNumbers,
             animalsProfessionsTable,
             rowsOfcombi,
             kombiTable_Kombis,
@@ -1716,7 +1719,7 @@ class Program:
         )
 
     def __init__(self):
-        global rowsAsNumbers, Tables
+        global Tables
         self.ifCombi = False
         self.tables = Tables()
         (
@@ -1724,23 +1727,23 @@ class Program:
             paramLines,
             paramLinesNot,
             self.relitable,
-            rowsAsNumbers,
+            self.rowsAsNumbers,
             animalsProfessionsTable,
             rowsOfcombi,
             kombiTable_Kombis,
             maintable2subtable_Relation,
         ) = self.start()
-        printalx(str(paramLines) + " " + str(rowsAsNumbers))
+        printalx(str(paramLines) + " " + str(self.rowsAsNumbers))
         # headingsAmount = len(self.relitable[0])
-        self.tables.getMainTable.createSpalteGestirn(self.relitable, rowsAsNumbers)
+        self.tables.getMainTable.createSpalteGestirn(self.relitable, self.rowsAsNumbers)
         printalx(
             "asdfghjklö "
-            + str(self.tables.getPrepare.setWidth(len(rowsAsNumbers), False))
+            + str(self.tables.getPrepare.setWidth(len(self.rowsAsNumbers), False))
         )
         self.tables.getPrepare.createRowPrimeMultiples(
             self.relitable,
-            rowsAsNumbers,
-            self.tables.getPrepare.setWidth(len(rowsAsNumbers), False),
+            self.rowsAsNumbers,
+            self.tables.getPrepare.setWidth(len(self.rowsAsNumbers), False),
         )
         #    printalx(str(self.relitable))
         (
@@ -1750,7 +1753,11 @@ class Program:
             rowsRange,
             old2newTable,
         ) = self.tables.getPrepare.prepare4out(
-            paramLines, paramLinesNot, self.relitable, rowsAsNumbers, isMainTable=True
+            paramLines,
+            paramLinesNot,
+            self.relitable,
+            self.rowsAsNumbers,
+            isMainTable=True,
         )
         printalx(str(paramLines) + " " + str(paramLinesNot))
         if self.ifCombi:
