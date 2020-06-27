@@ -33,8 +33,6 @@ realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 
 # self.textwidth = 21  # Feste Spaltenbreite
 # rowsAsNumbers.add(1)
-religionNumbers: list = []
-ifprimmultis = False
 
 
 # def getRowAmountofAnyPart():
@@ -56,15 +54,17 @@ def printalx(text):
 
 class Tables:
     @property
+    def ifPrimMultis(self):
+        return self.getPrepare.ifprimmultis
+
+    @ifPrimMultis.setter
+    def ifPrimMultis(self, value: bool):
+        self.getPrepare.ifprimmultis = value
+
+    @property
     def primUniversePrimsSet(self):
         return self.puniverseprims
 
-    #    @primUniversePrimsSet.setter
-    #    def primUniversePrimsSet(self, value: int):
-    #        self.puniverseprims.add(value)
-    #        self.getOut.primUniversePrimsSet = self.puniverseprims
-    #        self.getConcat.primUniversePrimsSet = self.puniverseprims
-    #
     @property
     def primUniverse(self):
         return self.getConcat.primUniverse
@@ -141,6 +141,11 @@ class Tables:
         self.puniverseprims: set = set()  # welche Spalten von "primenumbers.csv"
         self.getOut.primUniversePrimsSet = self.puniverseprims
         self.getConcat.primUniversePrimsSet = self.puniverseprims
+        self.religionNumbers: list = []
+        self.getOut.religionNumbers = self.religionNumbers
+        self.getPrepare.religionNumbers = self.religionNumbers
+        self.getCombis.religionNumbers = self.religionNumbers
+        self.getPrepare.ifprimmultis = False
 
     class Output:
         @property
@@ -202,7 +207,6 @@ class Tables:
             @rtype:
             @return: nichts
             """
-            global religionNumbers
             printalx("asdfdas " + str(self.nummerierung))
 
             def findMaxCellTextLen(
@@ -219,7 +223,6 @@ class Tables:
                 @rtype: dict[int,int]
                 @return: Zellhöhen pro Zeile
                 """
-                global religionNumbers
                 maxCellTextLen: dict = {}
                 # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
                 for k, (f, r) in enumerate(
@@ -383,7 +386,7 @@ class Tables:
             self, relitable: list, rowsAsNumbers: set, certaintextwidth: int
         ):
             self.relitable = relitable
-            if ifprimmultis:
+            if self.ifprimmultis:
                 if len(self.relitable) > 0:
                     rowsAsNumbers.add(len(self.relitable[0]))
                 # moonNumber
@@ -743,7 +746,6 @@ class Tables:
                 range aus zu zeigenden Spalten 1-n nicht alle , welche neuen Spalten welche alten waren und umgekehrt
             return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
             """
-            global religionNumbers
             printalx("rr " + str(self.breiten))
             newRows: list = []
             printalx("1 " + str(originalLinesRange))
@@ -778,7 +780,7 @@ class Tables:
             for u, line in enumerate(contentTable):
                 if u in finallyDisplayLines:
                     if isMainTable:
-                        religionNumbers += [int(u)]
+                        self.religionNumbers += [int(u)]
                     new2Lines: list = []
                     rowsToDisplay = 0
                     h = 0
@@ -862,13 +864,14 @@ class Tables:
             old2newRows,
             rowsOfcombi,
         ):
-            global religionNumbers
             rowsOfcombi = list(rowsOfcombi)
             rowsOfcombi.sort()
             # printalx("__ " + str(manySubTables))
             # table2 = deepcopy(mainTable)
             table2 = mainTable
-            for colNum, (reliNum, col) in enumerate(zip(religionNumbers, mainTable)):
+            for colNum, (reliNum, col) in enumerate(
+                zip(self.religionNumbers, mainTable)
+            ):
                 for subTable in manySubTables:
                     if reliNum in subTable:
                         printalx(str(reliNum) + " " + str(subTable))
@@ -1348,7 +1351,7 @@ class Program:
         @rtype: set, set, set
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
-        global infoLog, ifprimmultis
+        global infoLog
         rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
@@ -1526,7 +1529,7 @@ class Program:
                                 neg + "primzahlenvielfacher",
                                 neg + "primzahlenvielfache",
                             ]:
-                                ifprimmultis = True
+                                self.tables.ifPrimMultis = True
                     elif arg[2 : 11 + len(neg)] == "symbole" + neg:
                         rowsAsNumbers.add(36)
                         rowsAsNumbers.add(37)
@@ -1815,7 +1818,7 @@ class Program:
         print("1. Refactoring, dass alle Tabellenerweiterungen vereinheitlicht werden")
         print("2. darauf aufbauend die manuelle Spaltenself.breiten programmieren")
         print(
-            "3. Spalte ifprimmultis optional hinzufügen, die semantisch sagt was primzahl mit vielfacher derer bedeutet und meint, aber generiert"
+            "3. Spalte self.ifprimmultis optional hinzufügen, die semantisch sagt was primzahl mit vielfacher derer bedeutet und meint, aber generiert"
         )
 
 
