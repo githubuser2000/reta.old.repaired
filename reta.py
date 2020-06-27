@@ -17,7 +17,7 @@ ColumnsRowsAmount, shellRowsAmount = (
 # self.relitable = None
 # toYesdisplayRows: set = set()  # Welche Spalten anzeigen
 # toNotDisplayRows: set = set()  # Welche Spalten nicht anzeigen
-infoLog = False
+infoLog = True
 # c nächste silbe
 # b nächste Spalte
 # a nächste Zeile
@@ -32,8 +32,6 @@ realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 # printalx(newRows[0][1][0])
 
 # self.textwidth = 21  # Feste Spaltenbreite
-nummerierung = True  # Nummerierung der Zeilen, z.B. Religion 1,2,3
-spaltegestirn = False
 breiten: list = []
 primuniverse = False  # ob "primenumbers.csv" gelesen werden soll
 puniverseprims: set = set()  # welche Spalten von "primenumbers.csv"
@@ -62,11 +60,30 @@ def printalx(text):
 
 class Tables:
     @property
+    def spalteGestirn(self):
+        return self.Maintable.spalteGestirn
+
+    @spalteGestirn.setter
+    def spalteGestirn(self, value: bool):
+        self.getMainTable.spalteGestirn = value
+        printalx("SpalteGestirn " + str(value))
+
+    @property
+    def nummeriere(self):
+        """ # Nummerierung der Zeilen, z.B. Religion 1,2,3 """
+        return self.getOut.nummerierung
+
+    @nummeriere.setter
+    def nummeriere(self, value: bool):
+        self.getOut.nummerierung = value
+        self.getPrepare.nummerierung = value
+
+    @property
     def textHeight(self):
         return self.getOut.textHeight
 
     @textHeight.setter
-    def textHeight(self, value):
+    def textHeight(self, value: int):
         self.getOut.textHeight = value
 
     @property
@@ -74,7 +91,7 @@ class Tables:
         return self.textwidth
 
     @textWidth.setter
-    def textWidth(self, value):
+    def textWidth(self, value: int):
         self.getPrepare.textWidth = value
         self.getOut.textWidth = value
         self.textwidth = value
@@ -94,8 +111,19 @@ class Tables:
         self.getMainTable = self.Maintable()
         self.textHeight = 0
         self.textWidth = 21
+        self.nummeriere = True
+        self.spaltegGestirn = False
 
     class Output:
+        @property
+        def nummeriere(self):
+            """ # Nummerierung der Zeilen, z.B. Religion 1,2,3 """
+            return self.nummerierung
+
+        @nummeriere.setter
+        def nummeriere(self, value):
+            self.nummerierung = value
+
         @property
         def textHeight(self):
             return self.textheight
@@ -131,6 +159,7 @@ class Tables:
             @return: nichts
             """
             global religionNumbers
+            printalx("asdfdas " + str(self.nummerierung))
 
             def findMaxCellTextLen(
                 finallyDisplayLines: set, newTable: list, rowsRange: range
@@ -190,7 +219,7 @@ class Tables:
                     #            actualPartLineLen += 1
                     line = (
                         ""
-                        if not nummerierung
+                        if not self.nummerierung
                         else (
                             "".rjust(numlen + 1)
                             if iterWholeLine != 0
@@ -210,8 +239,10 @@ class Tables:
                         # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
                         # if i < maxRowsPossible and k < 6:
                         # if i < maxRowsPossible:
-                        if i + (1 if nummerierung else 0) <= len(breiten):
-                            certaintextwidth = breiten[i + (0 if nummerierung else -1)]
+                        if i + (1 if self.nummerierung else 0) <= len(breiten):
+                            certaintextwidth = breiten[
+                                i + (0 if self.nummerierung else -1)
+                            ]
                         else:
                             certaintextwidth = self.textwidth
                         if certaintextwidth > maxCellTextLen[i]:
@@ -280,12 +311,52 @@ class Tables:
 
     class Prepare:
         @property
+        def nummeriere(self):
+            """ # Nummerierung der Zeilen, z.B. Religion 1,2,3 """
+            return self.nummerierung
+
+        @nummeriere.setter
+        def nummeriere(self, value):
+            self.nummerierung = value
+
+        @property
         def textWidth(self):
             return self.textwidth
 
         @textWidth.setter
         def textWidth(self, value):
             self.textwidth = value
+
+        def createRowPrimeMultiples(
+            self, relitable: list, rowsAsNumbers: set, certaintextwidth: int
+        ):
+            self.relitable = relitable
+            if ifprimmultis:
+                if len(self.relitable) > 0:
+                    rowsAsNumbers.add(len(self.relitable[0]))
+                # moonNumber
+                for i, line in enumerate(self.relitable):
+                    if i == 0:
+                        line += self.wrapping2("Primzahlenvielfache", certaintextwidth)
+                    else:
+                        line += self.wrapping2("", certaintextwidth)
+                    pass
+
+        def wrapping2(self, text: str, length: int) -> list:
+            """Hier wird der Zeilenumbruch umgesetzt
+
+            @type text: str
+            @param text: Der Text dessen Zeilen umbgebrochen werden sollen
+            @type lenght: int
+            @param lenght: ab welcher Zeilenlänge umgebrochen werden soll
+            @rtype: list[str]
+            @return: Liste aus umgebrochenen Teilstrings
+            """
+            if len(text) > length - 1:
+                isItNone = dic.wrap(text, length - 1)
+            else:
+                isItNone = text
+            return isItNone
 
         def wrapping(self, text: str, length: int) -> list:
             """Hier wird der Zeilenumbruch umgesetzt
@@ -308,14 +379,16 @@ class Tables:
             # if not isMainTable:
             #    printalx("ee " + str(getRowAmountofAnyPart()))
             if (
-                rowsToDisplay + (1 if nummerierung else 0) <= len(breiten) + 1
+                rowsToDisplay + (1 if self.nummerierung else 0) <= len(breiten) + 1
                 and isMainTable
             ):
-                certaintextwidth = breiten[rowsToDisplay + (-1 if nummerierung else -2)]
-                printalx("ää " + str(rowsToDisplay + (-1 if nummerierung else -2)))
+                certaintextwidth = breiten[
+                    rowsToDisplay + (-1 if self.nummerierung else -2)
+                ]
+                printalx("ää " + str(rowsToDisplay + (-1 if self.nummerierung else -2)))
                 printalx(
                     "ää2 "
-                    + str(rowsToDisplay + (1 if nummerierung else 0))
+                    + str(rowsToDisplay + (1 if self.nummerierung else 0))
                     + "<="
                     + str(len(breiten) + 1)
                 )
@@ -662,7 +735,7 @@ class Tables:
                             # printalx(str(u)+' '+str(t)+' '+str(contentTable[u][t]))
                             rowsToDisplay += 1
                             newLines = [[]] * headingsAmount
-                            # printalx(str(rowsToDisplay+(1 if nummerierung else 0))+' '+str(len(breiten)))
+                            # printalx(str(rowsToDisplay+(1 if self.nummerierung else 0))+' '+str(len(breiten)))
                             certaintextwidth = self.setWidth(rowsToDisplay, isMainTable)
 
                             new2Lines += [
@@ -976,6 +1049,18 @@ class Tables:
             return self.relitable
 
     class Maintable:
+        @property
+        def spalteGestirn(self):
+            return self.spaltegestirn
+
+        @spalteGestirn.setter
+        def spalteGestirn(self, value: bool):
+            self.spaltegestirn = value
+            printalx("SpalteGestirn " + str(value))
+
+        def __init__(self):
+            self.spaltegestirn = False
+
         def createSpalteGestirn(self, relitable: list, rowsAsNumbers: set):
             """Fügt self.relitable eine Spalte hinzu, ob eine Zahl ein Mond oder eine Sonne ist
             Die Information muss dazu kommt aus moonNumber(i)[1]
@@ -988,7 +1073,7 @@ class Tables:
             @return: nichts
             """
             self.relitable = relitable
-            if spaltegestirn:
+            if self.spaltegestirn:
                 if len(self.relitable) > 0:
                     rowsAsNumbers.add(len(self.relitable[0]))
                 # moonNumber
@@ -1004,21 +1089,6 @@ class Tables:
                             line += [text + ", Planet"]
                         else:
                             line += [text]
-
-        def createRowPrimeMultiples(
-            self, relitable: list, rowsAsNumbers: set, certaintextwidth: int
-        ):
-            self.relitable = relitable
-            if ifprimmultis:
-                if len(self.relitable) > 0:
-                    rowsAsNumbers.add(len(self.relitable[0]))
-                # moonNumber
-                for i, line in enumerate(self.relitable):
-                    if i == 0:
-                        line += wrapping("Primzahlenvielfache", certaintextwidth)
-                    else:
-                        line += wrapping("", certaintextwidth)
-                    pass
 
     def tableReducedInLinesByTypeSet(self, table: list, linesAllowed: set):
         """nur Zeilen aus dem set aus der Tabelle verwenden als Ausgabe der Tabelle
@@ -1207,7 +1277,7 @@ class Program:
         @rtype: set, set, set
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
-        global nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, ifCombi, infoLog, ifprimmultis
+        global breiten, primuniverse, puniverseprims, ifCombi, infoLog, ifprimmultis
         rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
@@ -1230,7 +1300,7 @@ class Program:
                                 breiten += [int(breite)]
                         # printalx("qq " + str(breiten))
                     elif arg[2:20] == "keinenummerierung":
-                        nummerierung = False
+                        self.tables.nummeriere = False
                     elif arg[2:13] == "religionen=":
                         for religion in arg[13:].split(","):
                             if religion == neg + "sternpolygon":
@@ -1348,6 +1418,7 @@ class Program:
                         rowsAsNumbers.add(20)
                     elif arg[2:12] == "bedeutung=":
                         for thing in arg[(arg.find("=") + 1) :].split(","):
+                            printalx("weruioweuio " + neg + thing)
                             if thing in [
                                 neg + "primzahlen",
                                 neg + "vielfache",
@@ -1377,7 +1448,7 @@ class Program:
                                 neg + "sonne",
                                 neg + "planet",
                             ]:
-                                spaltegestirn = True
+                                self.tables.spalteGestirn = True
                             elif thing in [
                                 neg + "primvielfache",
                                 neg + "primvielfacher",
@@ -1587,7 +1658,11 @@ class Program:
         printalx(str(paramLines) + " " + str(rowsAsNumbers))
         # headingsAmount = len(self.relitable[0])
         self.tables.getMainTable.createSpalteGestirn(self.relitable, rowsAsNumbers)
-        self.tables.getMainTable.createRowPrimeMultiples(
+        printalx(
+            "asdfghjklö "
+            + str(self.tables.getPrepare.setWidth(len(rowsAsNumbers), False))
+        )
+        self.tables.getPrepare.createRowPrimeMultiples(
             self.relitable,
             rowsAsNumbers,
             self.tables.getPrepare.setWidth(len(rowsAsNumbers), False),
