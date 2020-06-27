@@ -14,9 +14,9 @@ dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenum
 ColumnsRowsAmount, shellRowsAmount = (
     os.popen("stty size", "r").read().split()
 )  # Wie viele Zeilen und Spalten hat die Shell ?
-relitable = None
-toYesdisplayRows: set = set()  # Welche Spalten anzeigen
-toNotDisplayRows: set = set()  # Welche Spalten nicht anzeigen
+# self.relitable = None
+# toYesdisplayRows: set = set()  # Welche Spalten anzeigen
+# toNotDisplayRows: set = set()  # Welche Spalten nicht anzeigen
 infoLog = False
 # c nächste silbe
 # b nächste Spalte
@@ -27,18 +27,11 @@ originalLinesRange = range(120)  # Maximale Zeilenanzahl
 # realLinesRange = range(len(newRows[0]))
 realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 # rowsRange = range(len(newRows[0][0]))
-RowsLen = None
+# self.RowsLen = None
 # rowsRange = range(50)
 # printalx(newRows[0][1][0])
 
-zaehlungen = [
-    0,
-    {},
-    {},
-    {},
-    {},
-]  # Strukturangaben zur Zeile wegen Mondzahlen und Sonnenzahlen
-textwidth = 21  # Feste Spaltenbreite
+# self.textwidth = 21  # Feste Spaltenbreite
 textheight = 0
 nummerierung = True  # Nummerierung der Zeilen, z.B. Religion 1,2,3
 spaltegestirn = False
@@ -69,14 +62,40 @@ def printalx(text):
 
 
 class Tables:
-    def __init__(self):
-        self.getPrepare = self.prepare()
-        self.getCombis = self.combi()
-        self.getConcat = self.concat()
-        self.getOut = self.output()
-        self.getMainTable = self.maintable()
+    @property
+    def textWidth(self):
+        return self.textwidth
 
-    class output:
+    @textWidth.setter
+    def textWidth(self, value):
+        self.getPrepare.textWidth = value
+        self.getOut.textWidth = value
+        self.textwidth = value
+
+    def __init__(self):
+        self.zaehlungen = [
+            0,
+            {},
+            {},
+            {},
+            {},
+        ]  # Strukturangaben zur Zeile wegen Mondzahlen und Sonnenzahlen
+        self.getPrepare = self.Prepare()
+        self.getCombis = self.Combi()
+        self.getConcat = self.Concat()
+        self.getOut = self.Output()
+        self.getMainTable = self.Maintable()
+        self.textWidth = 21
+
+    class Output:
+        @property
+        def textWidth(self):
+            return self.textwidth
+
+        @textWidth.setter
+        def textWidth(self, value):
+            self.textwidth = value
+
         def cliOut(
             self,
             finallyDisplayLines: set,
@@ -165,26 +184,26 @@ class Tables:
                     rowsEmpty = 0
                     # for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
                     maxRowsPossible = math.floor(
-                        int(shellRowsAmount) / int(textwidth + 1)
+                        int(shellRowsAmount) / int(self.textwidth + 1)
                     )
                     # maxCellTextLen = 0
                     # for i in rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                     for i, c in enumerate(
                         newTable[k]
                     ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                        # maxRowsPossible = math.floor( int(shellRowsAmount) / int(textwidth+1))
+                        # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
                         # if i < maxRowsPossible and k < 6:
                         # if i < maxRowsPossible:
                         if i + (1 if nummerierung else 0) <= len(breiten):
                             certaintextwidth = breiten[i + (0 if nummerierung else -1)]
                         else:
-                            certaintextwidth = textwidth
+                            certaintextwidth = self.textwidth
                         if certaintextwidth > maxCellTextLen[i]:
                             i_textwidth = maxCellTextLen[i]
                         else:
                             i_textwidth = certaintextwidth
                         try:
-                            # line += colorize(newTable[k][i][m].replace('\n', '').ljust(textwidth if textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
+                            # line += colorize(newTable[k][i][m].replace('\n', '').ljust(self.textwidth if self.textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
                             # printalx(str(newTable[k][i][m]))
                             line += (
                                 self.colorize(
@@ -243,7 +262,15 @@ class Tables:
             else:
                 return "\033[40m" + "\033[37m" + text + "\033[0m" + "\033[0m"
 
-    class prepare:
+    class Prepare:
+        @property
+        def textWidth(self):
+            return self.textwidth
+
+        @textWidth.setter
+        def textWidth(self, value):
+            self.textwidth = value
+
         def wrapping(self, text: str, length: int) -> list:
             """Hier wird der Zeilenumbruch umgesetzt
 
@@ -261,7 +288,7 @@ class Tables:
             return isItNone
 
         def setWidth(self, rowsToDisplay, isMainTable):
-            global rowsAsNumbers, relitable, puniverseprims
+            global rowsAsNumbers, puniverseprims
             # if not isMainTable:
             #    printalx("ee " + str(getRowAmountofAnyPart()))
             if (
@@ -293,7 +320,7 @@ class Tables:
                     + " + 1 + "
                     + str(len(rowsAsNumbers))
                 )
-                certaintextwidth = textwidth
+                certaintextwidth = self.textwidth
             return certaintextwidth
 
         def parametersBereich(self, bereiche1: str, symbol: str, neg: str) -> set:
@@ -385,7 +412,6 @@ class Tables:
             @rtype: set
             @return: Mehrere Bereichsbezeichnugen
             """
-            global zaehlungen
 
             def diffset(wether, a: set, b: set) -> set:
                 if wether:
@@ -453,14 +479,14 @@ class Tables:
                     and condition[0:-1].isdecimal()
                 ):  # ist eine von mehreren Zählungen
                     if not ifZaehlungenAtAll:
-                        setZaehlungen(originalLinesRange[-1])
+                        self.setZaehlungen(originalLinesRange[-1])
                         ifZaehlungenAtAll = True
                     zaehlungGesucht = int(
                         condition[0:-1]
                     )  # eine zählung = eine zahl, beginnend minimal ab 1
                     for n in numRange:  # nur die nummern, die noch infrage kommen
-                        # zaehlungen = [0,{},{},{}]
-                        if zaehlungen[3][n] == int(
+                        # self.zaehlungen = [0,{},{},{}]
+                        if self.zaehlungen[3][n] == int(
                             zaehlungGesucht
                         ):  # 1-4:1,5-9:2 == jetzt ?
                             numRangeYesZ.add(n)
@@ -475,9 +501,9 @@ class Tables:
 
             def moonsun(MoonNotSun: bool, numRangeYesZ: set):
                 if not ifZaehlungenAtAll:
-                    setZaehlungen(originalLinesRange[-1])
+                    self.setZaehlungen(originalLinesRange[-1])
                 for n in numRange:
-                    if (zaehlungen[4][n][0] != []) == MoonNotSun:
+                    if (self.zaehlungen[4][n][0] != []) == MoonNotSun:
                         numRangeYesZ.add(n)
                 return numRangeYesZ
 
@@ -686,7 +712,7 @@ class Tables:
             liste2 += [""]
         return liste1, liste2
 
-    class combi:
+    class Combi:
         def tableJoin(
             self,
             mainTable,
@@ -810,23 +836,24 @@ class Tables:
         def readKombiCsv(
             self, relitable: list, rowsAsNumbers: set, rowsOfcombi: set
         ) -> tuple:
-            """Fügt eine Tabelle neben der relitable nicht daneben sondern als join an, wie ein sql-join
+            """Fügt eine Tabelle neben der self.relitable nicht daneben sondern als join an, wie ein sql-join
             Hier wird aber noch nicht die join Operation durchgeführt
             momentan ist es noch fix auf animalsProfessions.csv
 
-            @type relitable: list
-            @param relitable: Haupttabelle relitable
+            @type self.relitable: list
+            @param self.relitable: Haupttabelle self.relitable
             @type rowsAsNumbers: set
             @param rowsAsNumbers: welche Spalten der neuen Tabelle dazu kommen sollen
             @type rowsOfcombi: set
             @param rowsOfcombi: welche Spalten der neuen Tabelle dazu kommen sollen
             @rtype: tuple[list,list,list,list]
-            @return: neue Tabelle, haupttabelle relitable, \
+            @return: neue Tabelle, haupttabelle self.relitable, \
                 Liste mit allen Zeilen der neuen Tabelle aus der ersten Spalte je Liste aus allem darin \
                 das mit Komma getrennt wurde , was zu was gehört als Info für den join später
-            return kombiTable, relitable, kombiTable_Kombis, maintable2subtable_Relation
+            return kombiTable, self.relitable, kombiTable_Kombis, maintable2subtable_Relation
             """
-            headingsAmount = len(relitable[0])
+            self.relitable = relitable
+            headingsAmount = len(self.relitable[0])
             if not rowsOfcombi.isdisjoint({1, 2}):
                 with open("animalsProfessions.csv", mode="r") as csv_file:
                     kombiTable: list = []
@@ -842,14 +869,14 @@ class Tables:
                                     raise BaseException("not NUM !!!!! ")
                             kombiTable_Kombis += [kombiTable_Kombis_Col]
                     # printalx(str(kombiTable_Kombis))
-                    relitable, animalsProfessionsCol = Tables.fillBoth(
-                        relitable, list(kombiTable)
+                    self.relitable, animalsProfessionsCol = Tables.fillBoth(
+                        self.relitable, list(kombiTable)
                     )
                     lastlen = 0
                     maxlen = 0
                     maintable2subtable_Relation: tuple = ({}, {})
                     for i, (animcol, relicol) in enumerate(
-                        zip(animalsProfessionsCol, relitable)
+                        zip(animalsProfessionsCol, self.relitable)
                     ):
                         if i == 0:
                             lastlen = len(animcol)
@@ -857,20 +884,20 @@ class Tables:
                                 maxlen = lastlen
                             for t, ac in enumerate(animcol[1:]):
                                 maintable2subtable_Relation[0][
-                                    len(relitable[0]) + t
+                                    len(self.relitable[0]) + t
                                 ] = t
                                 maintable2subtable_Relation[1][t] = (
-                                    len(relitable[0]) + t
+                                    len(self.relitable[0]) + t
                                 )
-                            relitable[0] += list(animcol[1:]) + [""] * (
+                            self.relitable[0] += list(animcol[1:]) + [""] * (
                                 maxlen - len(animcol)
                             )
                         else:
-                            relitable[i] += len(animcol[1:]) * [""] + [""] * (
+                            self.relitable[i] += len(animcol[1:]) * [""] + [""] * (
                                 maxlen - len(animcol)
                             )
                         if i == 0:
-                            for u, heading in enumerate(relitable[0]):
+                            for u, heading in enumerate(self.relitable[0]):
                                 for a in rowsOfcombi:
                                     if (
                                         u >= headingsAmount
@@ -880,38 +907,46 @@ class Tables:
             else:
                 kombiTable = [[]]
                 kombiTable_Kombis = [[]]
-            return kombiTable, relitable, kombiTable_Kombis, maintable2subtable_Relation
+            return (
+                kombiTable,
+                self.relitable,
+                kombiTable_Kombis,
+                maintable2subtable_Relation,
+            )
 
-    class concat:
+    class Concat:
         def readConcatCsv(self, relitable: list, rowsAsNumbers: set) -> list:
-            """Fügt eine Tabelle neben der relitable an
+            """Fügt eine Tabelle neben der self.relitable an
             momentan ist es noch fix auf primnumbers.csv
 
-            @type relitable: list
-            @param relitable: Haupttabelle relitable
+            @type self.relitable: list
+            @param self.relitable: Haupttabelle self.relitable
             @type rowsAsNumbers: set
             @param rowsAsNumbers: welche Spalten der neuen Tabelle dazu kommen sollen
             @rtype: list[list]
-            @return: relitable + weitere Tabelle daneben
+            @return: self.relitable + weitere Tabelle daneben
             """
-            headingsAmount = len(relitable[0])
+            self.relitable = relitable
+            headingsAmount = len(self.relitable[0])
             if primuniverse:
                 with open("primenumbers.csv", mode="r") as csv_file:
-                    relitable, primUniverseLine = Tables.fillBoth(
-                        relitable, list(csv.reader(csv_file, delimiter=";"))
+                    self.relitable, primUniverseLine = Tables.fillBoth(
+                        self.relitable, list(csv.reader(csv_file, delimiter=";"))
                     )
                     lastlen = 0
                     maxlen = 0
                     for i, (primcol, relicol) in enumerate(
-                        zip(primUniverseLine, relitable)
+                        zip(primUniverseLine, self.relitable)
                     ):
                         lastlen = len(primcol)
                         if lastlen > maxlen:
                             maxlen = lastlen
-                        relitable[i] += list(primcol) + [""] * (maxlen - len(primcol))
+                        self.relitable[i] += list(primcol) + [""] * (
+                            maxlen - len(primcol)
+                        )
                         # printalx(str(list(primcol)))
                         if i == 0:
-                            for u, heading in enumerate(relitable[0]):
+                            for u, heading in enumerate(self.relitable[0]):
                                 if (
                                     heading.isdecimal()
                                     and int(heading) in puniverseprims
@@ -920,27 +955,28 @@ class Tables:
                                     printalx(str(heading) + "ö" + str(puniverseprims))
                                     rowsAsNumbers.add(int(u))
 
-                    # print(str(len(primUniverseLine[i]))+' '+str(len(relitable[i])))
-                    # print(str((relitable[i])))
-            return relitable
+                    # print(str(len(primUniverseLine[i]))+' '+str(len(self.relitable[i])))
+                    # print(str((self.relitable[i])))
+            return self.relitable
 
-    class maintable:
+    class Maintable:
         def createSpalteGestirn(self, relitable: list, rowsAsNumbers: set):
-            """Fügt relitable eine Spalte hinzu, ob eine Zahl ein Mond oder eine Sonne ist
+            """Fügt self.relitable eine Spalte hinzu, ob eine Zahl ein Mond oder eine Sonne ist
             Die Information muss dazu kommt aus moonNumber(i)[1]
 
-            @type relitable: list
-            @param relitable: Haupttabelle relitable
+            @type self.relitable: list
+            @param self.relitable: Haupttabelle self.relitable
             @type rowsAsNumbers: set
             @param rowsAsNumbers: welche Spalten der neuen Tabelle nur betroffen sind
             @rtype:
             @return: nichts
             """
+            self.relitable = relitable
             if spaltegestirn:
-                if len(relitable) > 0:
-                    rowsAsNumbers.add(len(relitable[0]))
+                if len(self.relitable) > 0:
+                    rowsAsNumbers.add(len(self.relitable[0]))
                 # moonNumber
-                for i, line in enumerate(relitable):
+                for i, line in enumerate(self.relitable):
                     if i == 0:
                         line += ["Gestirn"]
                     else:
@@ -956,11 +992,12 @@ class Tables:
         def createRowPrimeMultiples(
             self, relitable: list, rowsAsNumbers: set, certaintextwidth: int
         ):
+            self.relitable = relitable
             if ifprimmultis:
-                if len(relitable) > 0:
-                    rowsAsNumbers.add(len(relitable[0]))
+                if len(self.relitable) > 0:
+                    rowsAsNumbers.add(len(self.relitable[0]))
                 # moonNumber
-                for i, line in enumerate(relitable):
+                for i, line in enumerate(self.relitable):
                     if i == 0:
                         line += wrapping("Primzahlenvielfache", certaintextwidth)
                     else:
@@ -983,6 +1020,41 @@ class Tables:
                 newTable += [line]
         return newTable
 
+    def setZaehlungen(
+        self, num: int
+    ):  # mehrere Zählungen finden festlegen zum später auslesen
+        """Eine Zahl wird untersucht und die Variable self.zaehlungen wegen dieser Ergänzt
+        self.zaehlungen bekommt informationen über mondzahlen und sonnenzahlen
+        i ist eine zu Untersuchende Zahl kleinergeich num
+        self.zaehlungen[4][i] bekommt die mondtypen, d.h. (Basis, Exponent) immer
+        self.zaehlungen[1][zaehlung] welche zählung fängt mit welcher Zahl an
+        self.zaehlungen[2][i] ist welcher Zählung es ist für eine beliebige Zahl: 1 ist 1-4, 2 ist 5-9, 3 ist 10-16
+        self.zaehlungen[3][i] ist auch welche Zählung es ist für eine beliebige Zahl: 1 ist 1-4, 2 ist 5-9, 3 ist 10-16
+        self.zaehlungen[0] ist bis zu welcher Zahl diese Untersuchung beim letzten Mal durchgeführt wurde
+        self.zaehlungen  # [bis zu welcher zahl, {zaehlung:zahl},{zahl:zaehlung},{jede zahl,zugehoerigeZaehlung}]
+
+        @type num: int
+        @param num: zu untersuchende Zahl
+        @rtype: kein Typ
+        @return: nichts
+        """
+        wasMoon: bool = True
+        if self.zaehlungen[0] == 0:
+            isMoon = True
+        else:
+            isMoon = moonNumber(self.zaehlungen[0])[0] != []
+
+        for i in range(int(self.zaehlungen[0]) + 1, num + 1):
+            wasMoon = isMoon
+            moonType = moonNumber(i)
+            isMoon = moonType[0] != []
+            if wasMoon and not isMoon:
+                isMoon = False
+                self.zaehlungen[1][len(self.zaehlungen[1]) + 1] = i
+                self.zaehlungen[2][i] = len(self.zaehlungen[2]) + 1
+            self.zaehlungen[3][i] = len(self.zaehlungen[2])
+            self.zaehlungen[4][i] = moonType
+
 
 def moonNumber(num: int):
     """Hier wird der Zeilenumbruch umgesetzt
@@ -1002,40 +1074,6 @@ def moonNumber(num: int):
     return results, exponent
 
 
-def setZaehlungen(num: int,):  # mehrere Zählungen finden festlegen zum später auslesen
-    """Eine Zahl wird untersucht und die Variable zaehlungen wegen dieser Ergänzt
-    zaehlungen bekommt informationen über mondzahlen und sonnenzahlen
-    i ist eine zu Untersuchende Zahl kleinergeich num
-    zaehlungen[4][i] bekommt die mondtypen, d.h. (Basis, Exponent) immer
-    zaehlungen[1][zaehlung] welche zählung fängt mit welcher Zahl an
-    zaehlungen[2][i] ist welcher Zählung es ist für eine beliebige Zahl: 1 ist 1-4, 2 ist 5-9, 3 ist 10-16
-    zaehlungen[3][i] ist auch welche Zählung es ist für eine beliebige Zahl: 1 ist 1-4, 2 ist 5-9, 3 ist 10-16
-    zaehlungen[0] ist bis zu welcher Zahl diese Untersuchung beim letzten Mal durchgeführt wurde
-
-    @type num: int
-    @param num: zu untersuchende Zahl
-    @rtype: kein Typ
-    @return: nichts
-    """
-    global zaehlungen  # [bis zu welcher zahl, {zaehlung:zahl},{zahl:zaehlung},{jede zahl,zugehoerigeZaehlung}]
-    wasMoon: bool = True
-    if zaehlungen[0] == 0:
-        isMoon = True
-    else:
-        isMoon = moonNumber(zaehlungen[0])[0] != []
-
-    for i in range(int(zaehlungen[0]) + 1, num + 1):
-        wasMoon = isMoon
-        moonType = moonNumber(i)
-        isMoon = moonType[0] != []
-        if wasMoon and not isMoon:
-            isMoon = False
-            zaehlungen[1][len(zaehlungen[1]) + 1] = i
-            zaehlungen[2][i] = len(zaehlungen[2]) + 1
-        zaehlungen[3][i] = len(zaehlungen[2])
-        zaehlungen[4][i] = moonType
-
-
 def primFak(n: int) -> list:
     """Alle Primfaktoren einer Zahl als Liste mit mehrfachvorkommen, sofern ja
 
@@ -1044,7 +1082,6 @@ def primFak(n: int) -> list:
     @rtype: list
     @return: alle Primfaktoren, ggf. mit Mehrfachvorkommen
     """
-    global zaehlungen
     faktoren = []
     z = n
     while z > 1:
@@ -1071,7 +1108,6 @@ def primRepeat(n: list) -> list:
     @rtype: list[tuple(n1,n2)]
     @return: Liste aus geordneten Paaren mit Primfaktor hoch n
     """
-    global zaehlungen
     n.reverse()
     c = 1
     b = None
@@ -1138,7 +1174,7 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 #    printalx("w "+str(isPrimMultiple(e, [2])))
 
 
-class program:
+class Program:
     def parameters(self, argv, neg="") -> Iterable[Union[set, set, set]]:
         """Parameter in der Shell werden hier vorverarbeitet.
         Die Paraemter führen dazu, dass Variablen gesetzt werden, z.B.
@@ -1155,7 +1191,7 @@ class program:
         @rtype: set, set, set
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
-        global textwidth, textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, ifCombi, infoLog, ifprimmultis
+        global textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, ifCombi, infoLog, ifprimmultis
         rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
@@ -1170,7 +1206,7 @@ class program:
                 ):  # unteres Kommando
                     if arg[2:9] == "breite=":
                         if arg[9:].isdecimal():
-                            textwidth = abs(int(arg[9:]))
+                            self.tables.textWidth = abs(int(arg[9:]))
                     elif arg[2:10] == "breiten=":
                         breiten = []
                         for breite in arg[10:].split(","):
@@ -1460,21 +1496,21 @@ class program:
         return paramLines, rowsAsNumbers, rowsOfcombi
 
     def start(self) -> tuple:
-        """Einlesen der ersten Tabelle "religion.csv" zu relitable
+        """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
         aller anderen csv dateien
         Parameter werden in Befehle und Nummernlisten gewandelt
-        csv Dateien werden angehangen an relitable
+        csv Dateien werden angehangen an self.relitable
 
 
         @rtype: tuple(int,set,set,list,set,list,set,list,list)
         @return: Spaltenanzahl, Zeilen Ja, Zeilen Nein, Religionstabelle, Spalten, weitere Tabelle daneben, spalten weitere Tabelle, weitere Tabelle für wie sql-join, deren spalten
         """
         with open("religion.csv", mode="r") as csv_file:
-            relitable = []
+            self.relitable: list = []
             for i, col in enumerate(csv.reader(csv_file, delimiter=";")):
-                relitable += [col]
+                self.relitable += [col]
                 if i == 0:
-                    RowsLen = len(col)
+                    self.RowsLen = len(col)
         paramLines, rowsAsNumbers, rowsOfcombi = self.parameters(sys.argv)
         paramLinesNot, rowsAsNumbersNot, rowsOfcombiNot = self.parameters(sys.argv, "-")
         #    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
@@ -1490,23 +1526,27 @@ class program:
         )
         #    printalx(str(paramLines) + ' ' + str(rowsAsNumbers))
         #    printalx(str(paramLinesNot) + ' ' + str(rowsAsNumbersNot))
-        relitable = self.tables.getConcat.readConcatCsv(relitable, rowsAsNumbers)
+        self.relitable = self.tables.getConcat.readConcatCsv(
+            self.relitable, rowsAsNumbers
+        )
         if ifCombi:
             (
                 animalsProfessionsTable,
-                relitable,
+                self.relitable,
                 kombiTable_Kombis,
                 maintable2subtable_Relation,
-            ) = self.tables.combi.readKombiCsv(relitable, rowsAsNumbers, rowsOfcombi)
+            ) = self.tables.combi.readKombiCsv(
+                self.relitable, rowsAsNumbers, rowsOfcombi
+            )
         else:
             animalsProfessionsTable = []
             kombiTable_Kombis = []
             maintable2subtable_Relation = []
         return (
-            RowsLen,
+            self.RowsLen,
             paramLines,
             paramLinesNot,
-            relitable,
+            self.relitable,
             rowsAsNumbers,
             animalsProfessionsTable,
             rowsOfcombi,
@@ -1515,13 +1555,13 @@ class program:
         )
 
     def __init__(self):
-        global relitable, rowsAsNumbers, Tables
+        global rowsAsNumbers, Tables
         self.tables = Tables()
         (
-            RowsLen,
+            self.RowsLen,
             paramLines,
             paramLinesNot,
-            relitable,
+            self.relitable,
             rowsAsNumbers,
             animalsProfessionsTable,
             rowsOfcombi,
@@ -1529,14 +1569,14 @@ class program:
             maintable2subtable_Relation,
         ) = self.start()
         printalx(str(paramLines) + " " + str(rowsAsNumbers))
-        # headingsAmount = len(relitable[0])
-        self.tables.getMainTable.createSpalteGestirn(relitable, rowsAsNumbers)
+        # headingsAmount = len(self.relitable[0])
+        self.tables.getMainTable.createSpalteGestirn(self.relitable, rowsAsNumbers)
         self.tables.getMainTable.createRowPrimeMultiples(
-            relitable,
+            self.relitable,
             rowsAsNumbers,
             self.tables.getPrepare.setWidth(len(rowsAsNumbers), False),
         )
-        #    printalx(str(relitable))
+        #    printalx(str(self.relitable))
         (
             finallyDisplayLines,
             newTable,
@@ -1544,7 +1584,7 @@ class program:
             rowsRange,
             old2newTable,
         ) = self.tables.getPrepare.prepare4out(
-            paramLines, paramLinesNot, relitable, rowsAsNumbers, isMainTable=True
+            paramLines, paramLinesNot, self.relitable, rowsAsNumbers, isMainTable=True
         )
         printalx(str(paramLines) + " " + str(paramLinesNot))
         if ifCombi:
@@ -1617,7 +1657,7 @@ class program:
         )
 
 
-program()
+Program()
 # inverted:
 # \e[7mi
 """
