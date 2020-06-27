@@ -32,7 +32,6 @@ realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 # printalx(newRows[0][1][0])
 
 # self.textwidth = 21  # Feste Spaltenbreite
-primuniverse = False  # ob "primenumbers.csv" gelesen werden soll
 puniverseprims: set = set()  # welche Spalten von "primenumbers.csv"
 ifCombi = False
 # rowsAsNumbers.add(1)
@@ -58,6 +57,14 @@ def printalx(text):
 
 
 class Tables:
+    @property
+    def primUniverse(self):
+        return self.getConcat.primUniverse
+
+    @primUniverse.setter
+    def primUniverse(self, value: bool):
+        self.getConcat.primUniverse = value
+
     @property
     def breitenn(self):
         return self.getOut.breiten
@@ -122,6 +129,7 @@ class Tables:
         self.nummeriere = True
         self.spaltegGestirn = False
         self.breitenn: list = []
+        self.primUniverse = False  # ob "primenumbers.csv" gelesen werden soll
 
     class Output:
         @property
@@ -1029,6 +1037,15 @@ class Tables:
             )
 
     class Concat:
+        @property
+        def primUniverse(self):
+            return self.primuniverse
+
+        @primUniverse.setter
+        def primUniverse(self, value: bool):
+            # ob "primenumbers.csv" gelesen werden soll
+            self.primuniverse = value
+
         def readConcatCsv(self, relitable: list, rowsAsNumbers: set) -> list:
             """Fügt eine Tabelle neben der self.relitable an
             momentan ist es noch fix auf primnumbers.csv
@@ -1042,7 +1059,7 @@ class Tables:
             """
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
-            if primuniverse:
+            if self.primuniverse:
                 with open("primenumbers.csv", mode="r") as csv_file:
                     self.relitable, primUniverseLine = Tables.fillBoth(
                         self.relitable, list(csv.reader(csv_file, delimiter=";"))
@@ -1302,7 +1319,7 @@ class Program:
         @rtype: set, set, set
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
-        global primuniverse, puniverseprims, ifCombi, infoLog, ifprimmultis
+        global puniverseprims, ifCombi, infoLog, ifprimmultis
         rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
@@ -1487,7 +1504,7 @@ class Program:
                     elif arg[2:30] == "primzahlvielfachesuniversum=":
                         for word in arg[30:].split(","):
                             if word.isdecimal():
-                                primuniverse = True
+                                self.tables.primUniverse = True
                                 puniverseprims.add(int(word))
 
                 if (
