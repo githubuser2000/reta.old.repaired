@@ -1693,7 +1693,7 @@ class Program:
                 self.relitable,
                 kombiTable_Kombis,
                 maintable2subtable_Relation,
-            ) = self.tables.combi.readKombiCsv(
+            ) = self.tables.getCombis.readKombiCsv(
                 self.relitable, rowsAsNumbers, rowsOfcombi
             )
         else:
@@ -1761,7 +1761,7 @@ class Program:
                 set(), set(), animalsProfessionsTable, rowsOfcombi
             )
             # printalx(str(newTable))
-            finallyDisplayLines_kombi_1 = self.tables.getPrepare.repare_kombi(
+            finallyDisplayLines_kombi_1 = self.tables.getCombis.prepare_kombi(
                 finallyDisplayLines_kombi_1,
                 animalsProfessionsTable,
                 paramLines,
@@ -1787,7 +1787,6 @@ class Program:
                         ]
                     # cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
                 KombiTables += [Tables]
-                printalx("-----------------------")
 
             printalx(str(finallyDisplayLines_kombi_1))
             printalx(str(newTable_kombi_1))
@@ -1802,7 +1801,7 @@ class Program:
             #        lineLen_kombi_1,
             #        rowsRange_kombi_1,
             #    )
-            newTable = self.tables.combi.tableJoin(
+            newTable = self.tables.getCombis.tableJoin(
                 newTable,
                 KombiTables,
                 maintable2subtable_Relation,
