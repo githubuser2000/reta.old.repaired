@@ -32,7 +32,6 @@ realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 # printalx(newRows[0][1][0])
 
 # self.textwidth = 21  # Feste Spaltenbreite
-textheight = 0
 nummerierung = True  # Nummerierung der Zeilen, z.B. Religion 1,2,3
 spaltegestirn = False
 breiten: list = []
@@ -63,6 +62,14 @@ def printalx(text):
 
 class Tables:
     @property
+    def textHeight(self):
+        return self.getOut.textHeight
+
+    @textHeight.setter
+    def textHeight(self, value):
+        self.getOut.textHeight = value
+
+    @property
     def textWidth(self):
         return self.textwidth
 
@@ -85,9 +92,18 @@ class Tables:
         self.getConcat = self.Concat()
         self.getOut = self.Output()
         self.getMainTable = self.Maintable()
+        self.textHeight = 0
         self.textWidth = 21
 
     class Output:
+        @property
+        def textHeight(self):
+            return self.textheight
+
+        @textHeight.setter
+        def textHeight(self, value):
+            self.textheight = value
+
         @property
         def textWidth(self):
             return self.textwidth
@@ -223,7 +239,7 @@ class Tables:
                     # if k < 6 and rowsEmpty != maxRowsPossible: #and m < actualPartLineLen:
                     #            printalx("sdf "+str(len(rowsAsNumbers))+' '+str(rowsEmpty))
                     if rowsEmpty != len(rowsAsNumbers) and (
-                        iterWholeLine < textheight or textheight == 0
+                        iterWholeLine < self.textheight or self.textheight == 0
                     ):  # and m < actualPartLineLen:
                         print(line)
                         # printalx(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
@@ -1191,7 +1207,7 @@ class Program:
         @rtype: set, set, set
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
-        global textheight, nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, ifCombi, infoLog, ifprimmultis
+        global nummerierung, spaltegestirn, breiten, primuniverse, puniverseprims, ifCombi, infoLog, ifprimmultis
         rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
@@ -1404,7 +1420,7 @@ class Program:
                                 paramLines.add(str(abs(int(word))) + "z")
                     elif arg[2:15] == "hoehemaximal=":
                         if arg[15:].isdecimal():
-                            textheight = abs(int(arg[15:]))
+                            self.tables.textHeight = abs(int(arg[15:]))
                     elif arg[2:6] == "typ=":
                         for word in arg[6:].split(","):
                             if word == neg + "sonne":
