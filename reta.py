@@ -32,7 +32,6 @@ realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 # printalx(newRows[0][1][0])
 
 # self.textwidth = 21  # Feste Spaltenbreite
-breiten: list = []
 primuniverse = False  # ob "primenumbers.csv" gelesen werden soll
 puniverseprims: set = set()  # welche Spalten von "primenumbers.csv"
 ifCombi = False
@@ -59,6 +58,15 @@ def printalx(text):
 
 
 class Tables:
+    @property
+    def breitenn(self):
+        return self.getOut.breiten
+
+    @breitenn.setter
+    def breitenn(self, value: bool):
+        self.getPrepare.breiten = value
+        self.getOut.breiten = value
+
     @property
     def spalteGestirn(self):
         return self.Maintable.spalteGestirn
@@ -113,8 +121,17 @@ class Tables:
         self.textWidth = 21
         self.nummeriere = True
         self.spaltegGestirn = False
+        self.breitenn: list = []
 
     class Output:
+        @property
+        def breitenn(self):
+            return self.breiten
+
+        @breitenn.setter
+        def breitenn(self, value: bool):
+            self.breiten = value
+
         @property
         def nummeriere(self):
             """ # Nummerierung der Zeilen, z.B. Religion 1,2,3 """
@@ -239,8 +256,8 @@ class Tables:
                         # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
                         # if i < maxRowsPossible and k < 6:
                         # if i < maxRowsPossible:
-                        if i + (1 if self.nummerierung else 0) <= len(breiten):
-                            certaintextwidth = breiten[
+                        if i + (1 if self.nummerierung else 0) <= len(self.breiten):
+                            certaintextwidth = self.breiten[
                                 i + (0 if self.nummerierung else -1)
                             ]
                         else:
@@ -311,6 +328,14 @@ class Tables:
 
     class Prepare:
         @property
+        def breitenn(self):
+            return self.breiten
+
+        @breitenn.setter
+        def breitenn(self, value: bool):
+            self.breiten = value
+
+        @property
         def nummeriere(self):
             """ # Nummerierung der Zeilen, z.B. Religion 1,2,3 """
             return self.nummerierung
@@ -379,10 +404,10 @@ class Tables:
             # if not isMainTable:
             #    printalx("ee " + str(getRowAmountofAnyPart()))
             if (
-                rowsToDisplay + (1 if self.nummerierung else 0) <= len(breiten) + 1
+                rowsToDisplay + (1 if self.nummerierung else 0) <= len(self.breiten) + 1
                 and isMainTable
             ):
-                certaintextwidth = breiten[
+                certaintextwidth = self.breiten[
                     rowsToDisplay + (-1 if self.nummerierung else -2)
                 ]
                 printalx("ää " + str(rowsToDisplay + (-1 if self.nummerierung else -2)))
@@ -390,22 +415,22 @@ class Tables:
                     "ää2 "
                     + str(rowsToDisplay + (1 if self.nummerierung else 0))
                     + "<="
-                    + str(len(breiten) + 1)
+                    + str(len(self.breiten) + 1)
                 )
             elif (
                 not isMainTable
-                and rowsToDisplay <= len(breiten) + 1 + len(rowsAsNumbers)
-                and (rowsToDisplay - 2 + len(rowsAsNumbers)) in breiten
+                and rowsToDisplay <= len(self.breiten) + 1 + len(rowsAsNumbers)
+                and (rowsToDisplay - 2 + len(rowsAsNumbers)) in self.breiten
             ):
                 printalx("üü " + str(rowsToDisplay - 2 + len(rowsAsNumbers)))
-                certaintextwidth = breiten[rowsToDisplay - 2 + len(rowsAsNumbers)]
+                certaintextwidth = self.breiten[rowsToDisplay - 2 + len(rowsAsNumbers)]
             else:
                 printalx("öö " + str(rowsToDisplay - 2 + len(rowsAsNumbers)))
                 printalx(
                     "öö "
                     + str(rowsToDisplay)
                     + "<="
-                    + str(len(breiten))
+                    + str(len(self.breiten))
                     + " + 1 + "
                     + str(len(rowsAsNumbers))
                 )
@@ -691,8 +716,8 @@ class Tables:
                 range aus zu zeigenden Spalten 1-n nicht alle , welche neuen Spalten welche alten waren und umgekehrt
             return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
             """
-            global religionNumbers, breiten
-            printalx("rr " + str(breiten))
+            global religionNumbers
+            printalx("rr " + str(self.breiten))
             newRows: list = []
             printalx("1 " + str(originalLinesRange))
             if len(contentTable) > 0:
@@ -735,7 +760,7 @@ class Tables:
                             # printalx(str(u)+' '+str(t)+' '+str(contentTable[u][t]))
                             rowsToDisplay += 1
                             newLines = [[]] * headingsAmount
-                            # printalx(str(rowsToDisplay+(1 if self.nummerierung else 0))+' '+str(len(breiten)))
+                            # printalx(str(rowsToDisplay+(1 if self.nummerierung else 0))+' '+str(len(self.breiten)))
                             certaintextwidth = self.setWidth(rowsToDisplay, isMainTable)
 
                             new2Lines += [
@@ -1277,7 +1302,7 @@ class Program:
         @rtype: set, set, set
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
-        global breiten, primuniverse, puniverseprims, ifCombi, infoLog, ifprimmultis
+        global primuniverse, puniverseprims, ifCombi, infoLog, ifprimmultis
         rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
@@ -1294,11 +1319,11 @@ class Program:
                         if arg[9:].isdecimal():
                             self.tables.textWidth = abs(int(arg[9:]))
                     elif arg[2:10] == "breiten=":
-                        breiten = []
+                        self.breiten = []
                         for breite in arg[10:].split(","):
                             if breite.isdecimal():
-                                breiten += [int(breite)]
-                        # printalx("qq " + str(breiten))
+                                self.tables.breitenn += [int(breite)]
+                        # printalx("qq " + str(self.breiten))
                     elif arg[2:20] == "keinenummerierung":
                         self.tables.nummeriere = False
                     elif arg[2:13] == "religionen=":
@@ -1742,7 +1767,7 @@ class Program:
         printalx(str(rowsRange))
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
         print("1. Refactoring, dass alle Tabellenerweiterungen vereinheitlicht werden")
-        print("2. darauf aufbauend die manuelle Spaltenbreiten programmieren")
+        print("2. darauf aufbauend die manuelle Spaltenself.breiten programmieren")
         print(
             "3. Spalte ifprimmultis optional hinzufügen, die semantisch sagt was primzahl mit vielfacher derer bedeutet und meint, aber generiert"
         )
