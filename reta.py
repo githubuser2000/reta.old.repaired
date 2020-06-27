@@ -200,7 +200,7 @@ class Tables:
             @rtype:
             @return: nichts
             """
-            printalx("asdfdas " + str(self.nummerierung))
+            printalx("asdfdas " + str(self.rowsAsNumbers))
 
             def findMaxCellTextLen(
                 finallyDisplayLines: set, newTable: list, rowsRange: range
@@ -1111,7 +1111,7 @@ class Tables:
                                     printalx(
                                         str(heading) + "ö" + str(self.puniverseprims)
                                     )
-                                    self.rowsAsNumbers.add(int(u))
+                                    rowsAsNumbers.add(int(u))
 
                     # print(str(len(primUniverseLine[i]))+' '+str(len(self.relitable[i])))
                     # print(str((self.relitable[i])))
@@ -1144,7 +1144,7 @@ class Tables:
             self.relitable = relitable
             if self.spaltegestirn:
                 if len(self.relitable) > 0:
-                    self.rowsAsNumbers.add(len(self.relitable[0]))
+                    rowsAsNumbers.add(len(self.relitable[0]))
                 # moonNumber
                 for i, line in enumerate(self.relitable):
                     if i == 0:
@@ -1337,7 +1337,7 @@ class Program:
         welche Spaltennummer ausgegeben werden sollen.
         Außerdem welche extra Tabellen geladen werden sollen.
 
-        return paramLines, self.rowsAsNumbers, rowsOfcombi
+        return paramLines, rowsAsNumbers, rowsOfcombi
 
         @type  argv: list
         @param argv: Programmparamenter
@@ -1347,7 +1347,7 @@ class Program:
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
         global infoLog
-        self.rowsAsNumbers = set()
+        rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
         rowsOfcombi: set = set()
@@ -1373,22 +1373,22 @@ class Program:
                     elif arg[2:13] == "religionen=":
                         for religion in arg[13:].split(","):
                             if religion == neg + "sternpolygon":
-                                self.rowsAsNumbers.add(0)
-                                self.rowsAsNumbers.add(6)
-                                self.rowsAsNumbers.add(36)
+                                rowsAsNumbers.add(0)
+                                rowsAsNumbers.add(6)
+                                rowsAsNumbers.add(36)
                             elif religion in [
                                 neg + "babylon",
                                 neg + "dertierkreiszeichen",
                             ]:
-                                self.rowsAsNumbers.add(0)
-                                self.rowsAsNumbers.add(36)
+                                rowsAsNumbers.add(0)
+                                rowsAsNumbers.add(36)
                             elif religion in [
                                 neg + "gleichfoermigespolygon",
                                 neg + "nichtsternpolygon",
                                 neg + "polygon",
                             ]:
-                                self.rowsAsNumbers.add(16)
-                                self.rowsAsNumbers.add(36)
+                                rowsAsNumbers.add(16)
+                                rowsAsNumbers.add(36)
                             elif religion in [
                                 neg + "galaxien",
                                 neg + "galaxie",
@@ -1401,7 +1401,7 @@ class Program:
                                 neg + "kugel",
                                 neg + "kugeln",
                             ]:
-                                self.rowsAsNumbers.add(23)
+                                rowsAsNumbers.add(23)
                     elif (
                         arg[2:11] == "galaxien="
                         or arg[2:16] == "alteschriften="
@@ -1409,82 +1409,82 @@ class Program:
                     ):
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "babylon", neg + "tierkreiszeichen"]:
-                                self.rowsAsNumbers.add(1)
-                                self.rowsAsNumbers.add(2)
+                                rowsAsNumbers.add(1)
+                                rowsAsNumbers.add(2)
                             elif thing in [neg + "thomas", neg + "thomasevangelium"]:
-                                self.rowsAsNumbers.add(3)
+                                rowsAsNumbers.add(3)
                     elif arg[2:] in [
                         "groessenordnung" + neg,
                         "strukturgroesse" + neg,
                         "groesse" + neg,
                         "stufe" + neg,
                     ]:
-                        self.rowsAsNumbers.add(4)
-                        self.rowsAsNumbers.add(21)
+                        rowsAsNumbers.add(4)
+                        rowsAsNumbers.add(21)
                     elif arg[2:] in [
                         "universum" + neg,
                         "transzendentalien" + neg,
                         "strukturalien" + neg,
                     ]:
-                        self.rowsAsNumbers.add(5)
+                        rowsAsNumbers.add(5)
                     elif arg[2:15] in ["menschliches="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "liebe", neg + "ethik"]:
-                                self.rowsAsNumbers.add(8)
-                                self.rowsAsNumbers.add(9)
-                                self.rowsAsNumbers.add(28)
+                                rowsAsNumbers.add(8)
+                                rowsAsNumbers.add(9)
+                                rowsAsNumbers.add(28)
                             elif thing in [
                                 neg + "motive",
                                 neg + "motivation",
                                 neg + "motiv",
                             ]:
-                                self.rowsAsNumbers.add(10)
-                                self.rowsAsNumbers.add(18)
+                                rowsAsNumbers.add(10)
+                                rowsAsNumbers.add(18)
                             elif thing in [
                                 neg + "errungenschaften",
                                 neg + "ziele",
                                 neg + "erhalten",
                             ]:
-                                self.rowsAsNumbers.add(11)
+                                rowsAsNumbers.add(11)
                             elif thing in [
                                 neg + "erwerben",
                                 neg + "erlernen",
                                 neg + "lernen",
                                 neg + "evolutionaer",
                             ]:
-                                self.rowsAsNumbers.add(12)
+                                rowsAsNumbers.add(12)
                             elif thing in [
                                 neg + "brauchen",
                                 neg + "benoetigen",
                                 neg + "notwendig",
                             ]:
-                                self.rowsAsNumbers.add(13)
-                                self.rowsAsNumbers.add(14)
+                                rowsAsNumbers.add(13)
+                                rowsAsNumbers.add(14)
                             elif thing in [
                                 neg + "krankheit",
                                 neg + "pathologisch",
                                 neg + "pathologie",
                                 neg + "psychiatrisch",
                             ]:
-                                self.rowsAsNumbers.add(24)
+                                rowsAsNumbers.add(24)
                             elif thing in [neg + "kreativ", neg + "kreativitaet"]:
-                                self.rowsAsNumbers.add(27)
+                                rowsAsNumbers.add(27)
                             elif thing in [neg + "anfuehrer", neg + "chef"]:
-                                self.rowsAsNumbers.add(29)
+                                rowsAsNumbers.add(29)
                             elif thing in [neg + "beruf", neg + "berufe"]:
-                                self.rowsAsNumbers.add(30)
+                                rowsAsNumbers.add(30)
                             elif thing in [neg + "loesungen", neg + "loesung"]:
-                                self.rowsAsNumbers.add(31)
+                                rowsAsNumbers.add(31)
                             elif thing in [neg + "musik"]:
-                                self.rowsAsNumbers.add(33)
+                                rowsAsNumbers.add(33)
                     elif arg[2:12] == "procontra=" or arg[2:16] == "dagegendafuer=":
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "pro", neg + "dafeuer"]:
-                                self.rowsAsNumbers.add(17)
+                                rowsAsNumbers.add(17)
                             elif thing in [neg + "contra", neg + "dagegen"]:
-                                self.rowsAsNumbers.add(15)
+                                rowsAsNumbers.add(15)
                     elif arg[2 : 7 + len(neg)] == "licht" + neg:
-                        self.rowsAsNumbers.add(20)
+                        rowsAsNumbers.add(20)
                     elif arg[2:12] == "bedeutung=":
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             printalx("weruioweuio " + neg + thing)
@@ -1493,24 +1493,24 @@ class Program:
                                 neg + "vielfache",
                                 neg + "vielfacher",
                             ]:
-                                self.rowsAsNumbers.add(19)
+                                rowsAsNumbers.add(19)
                             elif thing in [
                                 neg + "anwendungdersonnen",
                                 neg + "anwendungenfuermonde",
                             ]:
-                                self.rowsAsNumbers.add(22)
+                                rowsAsNumbers.add(22)
                             elif thing in [neg + "zaehlung", neg + "zaehlungen"]:
-                                self.rowsAsNumbers.add(25)
+                                rowsAsNumbers.add(25)
                             elif thing in [neg + "liebe", neg + "ethik"]:
-                                self.rowsAsNumbers.add(26)
+                                rowsAsNumbers.add(26)
                             elif thing in [
                                 neg + "jura",
                                 neg + "gesetzeslehre",
                                 neg + "recht",
                             ]:
-                                self.rowsAsNumbers.add(34)
+                                rowsAsNumbers.add(34)
                             elif thing in [neg + "vollkommenheit", neg + "geist"]:
-                                self.rowsAsNumbers.add(35)
+                                rowsAsNumbers.add(35)
                             elif thing in [
                                 neg + "gestirn",
                                 neg + "mond",
@@ -1526,8 +1526,8 @@ class Program:
                             ]:
                                 self.tables.ifPrimMultis = True
                     elif arg[2 : 11 + len(neg)] == "symbole" + neg:
-                        self.rowsAsNumbers.add(36)
-                        self.rowsAsNumbers.add(37)
+                        rowsAsNumbers.add(36)
+                        rowsAsNumbers.add(37)
                     elif arg[2:30] == "primzahlvielfachesuniversum=":
                         for word in arg[30:].split(","):
                             if word.isdecimal():
@@ -1649,7 +1649,7 @@ class Program:
                         bigParamaeter += [arg[1:]]
                 if arg[1:] in ["debug"]:
                     infoLog = True
-        return paramLines, self.rowsAsNumbers, rowsOfcombi
+        return paramLines, rowsAsNumbers, rowsOfcombi
 
     def start(self) -> tuple:
         """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
@@ -1671,6 +1671,7 @@ class Program:
         paramLinesNot, self.rowsAsNumbersNot, rowsOfcombiNot = self.parameters(
             sys.argv, "-"
         )
+        printalx("asdfdas " + str(self.rowsAsNumbers))
         #    printalx(str(paramLines) + ' ' + str(self.rowsAsNumbers))
         #    printalx(str(paramLinesNot) + ' ' + str(self.rowsAsNumbersNot))
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
@@ -1685,8 +1686,10 @@ class Program:
         (rowsOfcombi, rowsOfcombiNot,) = self.tables.getPrepare.deleteDoublesInSets(
             rowsOfcombi, rowsOfcombiNot
         )
+        printalx("asdfdas " + str(self.rowsAsNumbers))
         self.tables.getPrepare.rowsAsNumbers = self.rowsAsNumbers
         self.tables.getOut.rowsAsNumbers = self.rowsAsNumbers
+        printalx("asdfdas " + str(self.tables.getOut.rowsAsNumbers))
 
         #    printalx(str(paramLines) + ' ' + str(self.rowsAsNumbers))
         #    printalx(str(paramLinesNot) + ' ' + str(self.rowsAsNumbersNot))
@@ -1733,13 +1736,9 @@ class Program:
             kombiTable_Kombis,
             maintable2subtable_Relation,
         ) = self.start()
-        printalx(str(paramLines) + " " + str(self.rowsAsNumbers))
+        # printalx(str(paramLines) + " " + str(self.rowsAsNumbers))
         # headingsAmount = len(self.relitable[0])
         self.tables.getMainTable.createSpalteGestirn(self.relitable, self.rowsAsNumbers)
-        printalx(
-            "asdfghjklö "
-            + str(self.tables.getPrepare.setWidth(len(self.rowsAsNumbers), False))
-        )
         self.tables.getPrepare.createRowPrimeMultiples(
             self.relitable,
             self.rowsAsNumbers,
