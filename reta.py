@@ -32,7 +32,6 @@ realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 # printalx(newRows[0][1][0])
 
 # self.textwidth = 21  # Feste Spaltenbreite
-puniverseprims: set = set()  # welche Spalten von "primenumbers.csv"
 ifCombi = False
 # rowsAsNumbers.add(1)
 religionNumbers: list = []
@@ -40,11 +39,11 @@ ifprimmultis = False
 
 
 # def getRowAmountofAnyPart():
-#    global puniverseprims, rowsAsNumbers
+#    global self.puniverseprims, rowsAsNumbers
 #    return {
-#        "alltogether": len(puniverseprims) + len(rowsAsNumbers) + len(rowsOfcombi),
+#        "alltogether": len(self.puniverseprims) + len(rowsAsNumbers) + len(rowsOfcombi),
 #        "main": len(rowsAsNumbers),
-#        "prim": len(puniverseprims),
+#        "prim": len(self.puniverseprims),
 #        "combi": len(rowsOfcombi),
 #    }
 
@@ -57,6 +56,16 @@ def printalx(text):
 
 
 class Tables:
+    @property
+    def primUniversePrimsSet(self):
+        return self.puniverseprims
+
+    #    @primUniversePrimsSet.setter
+    #    def primUniversePrimsSet(self, value: int):
+    #        self.puniverseprims.add(value)
+    #        self.getOut.primUniversePrimsSet = self.puniverseprims
+    #        self.getConcat.primUniversePrimsSet = self.puniverseprims
+    #
     @property
     def primUniverse(self):
         return self.getConcat.primUniverse
@@ -130,8 +139,19 @@ class Tables:
         self.spaltegGestirn = False
         self.breitenn: list = []
         self.primUniverse = False  # ob "primenumbers.csv" gelesen werden soll
+        self.puniverseprims: set = set()  # welche Spalten von "primenumbers.csv"
+        self.getOut.primUniversePrimsSet = self.puniverseprims
+        self.getConcat.primUniversePrimsSet = self.puniverseprims
 
     class Output:
+        @property
+        def primUniversePrimsSet(self):
+            return self.puniverseprims
+
+        @primUniversePrimsSet.setter
+        def primUniversePrimsSet(self, value: set):
+            self.puniverseprims = value
+
         @property
         def breitenn(self):
             return self.breiten
@@ -408,7 +428,7 @@ class Tables:
             return isItNone
 
         def setWidth(self, rowsToDisplay, isMainTable):
-            global rowsAsNumbers, puniverseprims
+            global rowsAsNumbers
             # if not isMainTable:
             #    printalx("ee " + str(getRowAmountofAnyPart()))
             if (
@@ -1038,6 +1058,14 @@ class Tables:
 
     class Concat:
         @property
+        def primUniversePrimsSet(self):
+            return self.puniverseprims
+
+        @primUniversePrimsSet.setter
+        def primUniversePrimsSet(self, value: set):
+            self.puniverseprims = value
+
+        @property
         def primUniverse(self):
             return self.primuniverse
 
@@ -1080,10 +1108,12 @@ class Tables:
                             for u, heading in enumerate(self.relitable[0]):
                                 if (
                                     heading.isdecimal()
-                                    and int(heading) in puniverseprims
+                                    and int(heading) in self.puniverseprims
                                     and u >= headingsAmount
                                 ):
-                                    printalx(str(heading) + "ö" + str(puniverseprims))
+                                    printalx(
+                                        str(heading) + "ö" + str(self.puniverseprims)
+                                    )
                                     rowsAsNumbers.add(int(u))
 
                     # print(str(len(primUniverseLine[i]))+' '+str(len(self.relitable[i])))
@@ -1319,7 +1349,7 @@ class Program:
         @rtype: set, set, set
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
-        global puniverseprims, ifCombi, infoLog, ifprimmultis
+        global ifCombi, infoLog, ifprimmultis
         rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
@@ -1505,7 +1535,7 @@ class Program:
                         for word in arg[30:].split(","):
                             if word.isdecimal():
                                 self.tables.primUniverse = True
-                                puniverseprims.add(int(word))
+                                self.tables.primUniversePrimsSet.add(int(word))
 
                 if (
                     len(arg) > 1
