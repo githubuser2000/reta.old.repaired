@@ -32,7 +32,6 @@ realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 # printalx(newRows[0][1][0])
 
 # self.textwidth = 21  # Feste Spaltenbreite
-ifCombi = False
 # rowsAsNumbers.add(1)
 religionNumbers: list = []
 ifprimmultis = False
@@ -1349,7 +1348,7 @@ class Program:
         @rtype: set, set, set
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
-        global ifCombi, infoLog, ifprimmultis
+        global infoLog, ifprimmultis
         rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
@@ -1614,7 +1613,7 @@ class Program:
                     and len(bigParamaeter) > 0
                     and bigParamaeter[-1] == "kombination"
                 ):  # unteres Kommando
-                    ifCombi = True
+                    self.ifCombi = True
                     if arg[2:6] == "und=":
                         for word in arg[6:].split(","):
                             if (
@@ -1688,7 +1687,7 @@ class Program:
         self.relitable = self.tables.getConcat.readConcatCsv(
             self.relitable, rowsAsNumbers
         )
-        if ifCombi:
+        if self.ifCombi:
             (
                 animalsProfessionsTable,
                 self.relitable,
@@ -1715,6 +1714,7 @@ class Program:
 
     def __init__(self):
         global rowsAsNumbers, Tables
+        self.ifCombi = False
         self.tables = Tables()
         (
             self.RowsLen,
@@ -1750,7 +1750,7 @@ class Program:
             paramLines, paramLinesNot, self.relitable, rowsAsNumbers, isMainTable=True
         )
         printalx(str(paramLines) + " " + str(paramLinesNot))
-        if ifCombi:
+        if self.ifCombi:
             (
                 finallyDisplayLines_kombi_1,
                 newTable_kombi_1,
