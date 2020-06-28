@@ -3,6 +3,7 @@
 import csv
 import math
 import os
+import pprint
 import sys
 from copy import deepcopy
 # from collections.abc import Iterable
@@ -10,6 +11,7 @@ from typing import Iterable, Union
 
 import pyphen
 
+pp = pprint.PrettyPrinter(indent=4)
 dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenumbruch
 ColumnsRowsAmount, shellRowsAmount = (
     os.popen("stty size", "r").read().split()
@@ -29,11 +31,13 @@ def printalx(text):
 class Tables:
     def getRowAmountofAnyPart(self):
         return {
+            "numerierung": 1 if self.nummeriere else 0,
+            "gestirn": 1 if self.spalteGestirn else 0,
             #            "alltogether": len(self.puniverseprims)
             #            + len(self.rowsAsNumbers)
             #            + len(self.rowsOfcombi),
             "main out": len(self.getOut.rowsAsNumbers),
-            "main prepare": len(self.getPrepare.rowsAsNumbers),
+            "main prepare relitable orignal": len(self.getPrepare.rowsAsNumbers),
             "prim": len(self.puniverseprims),
             "combi": self.getCombis.rowsOfcombi,
         }
@@ -1049,7 +1053,7 @@ class Tables:
                 kombiTable = [[]]
                 kombiTable_Kombis = [[]]
             if len(kombiTable) > 0:
-                self.rowsOfcombi = len(kombiTable[0])
+                self.rowsOfcombi = len(rowsAsNumbers) - 1
             else:
                 self.rowsOfcombi = 0
             return (
@@ -1827,12 +1831,17 @@ class Program:
         printalx(str(numlen))
         printalx(str(rowsRange))
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
-        print("1. Refactoring, dass alle Tabellenerweiterungen vereinheitlicht werden")
-        print("2. darauf aufbauend die manuelle Spaltenself.breiten programmieren")
-        print(
+        printalx(
+            "1. Refactoring, dass alle Tabellenerweiterungen vereinheitlicht werden"
+        )
+        printalx("2. darauf aufbauend die manuelle Spaltenself.breiten programmieren")
+        printalx(
             "3. Spalte self.ifprimmultis optional hinzufügen, die semantisch sagt was primzahl mit vielfacher derer bedeutet und meint, aber generiert"
         )
-        printalx(str(self.tables.getRowAmountofAnyPart()))
+        printalx(
+            "4. Überprüfen, ob auch alle minus -zusatzspalten funktionieren, nicht nur plus"
+        )
+        pp.pprint(self.tables.getRowAmountofAnyPart())
 
 
 Program()
