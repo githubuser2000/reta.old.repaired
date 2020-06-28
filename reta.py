@@ -16,16 +16,19 @@ dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenum
 ColumnsRowsAmount, shellRowsAmount = (
     os.popen("stty size", "r").read().split()
 )  # Wie viele Zeilen und Spalten hat die Shell ?
-infoLog = True
+infoLog = False
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
 realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 
 
-def printalx(text):
+def alxp(text):
     """Für mich, damit ich mal alle prints ausschalten kann zum vorführen,
     wenn ich noch beim Entwicklen war."""
     if infoLog:
-        print(text)
+        if type(text) is str:
+            print(text)
+        else:
+            pp.pprint(text)
 
 
 class Tables:
@@ -86,7 +89,7 @@ class Tables:
     @spalteGestirn.setter
     def spalteGestirn(self, value: bool):
         self.getMainTable.spalteGestirn = value
-        printalx("SpalteGestirn " + str(value))
+        alxp("SpalteGestirn " + str(value))
 
     @property
     def nummeriere(self):
@@ -206,7 +209,7 @@ class Tables:
             @rtype:
             @return: nichts
             """
-            printalx("asdfdas " + str(self.rowsAsNumbers))
+            alxp("asdfdas " + str(self.rowsAsNumbers))
 
             def findMaxCellTextLen(
                 finallyDisplayLines: set, newTable: list, rowsRange: range
@@ -246,15 +249,15 @@ class Tables:
                                         maxCellTextLen[i] = textLen
                                 except:
                                     pass
-                #                    printalx(str(maxCellTextLen))
+                #                    alxp(str(maxCellTextLen))
                 return maxCellTextLen
 
             maxCellTextLen = findMaxCellTextLen(
                 finallyDisplayLines, newTable, rowsRange
             )
             # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
-            # printalx("sdfsad" + str((newTable)))
-            # printalx("sdfsad" + str((finallyDisplayLines)))
+            # alxp("sdfsad" + str((newTable)))
+            # alxp("sdfsad" + str((finallyDisplayLines)))
             for k, (f, r) in enumerate(
                 zip(newTable, finallyDisplayLines)
             ):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
@@ -297,7 +300,7 @@ class Tables:
                             i_textwidth = certaintextwidth
                         try:
                             # line += colorize(newTable[k][i][m].replace('\n', '').ljust(self.textwidth if self.textwidth < maxCellTextLen[i] else maxCellTextLen[i]), k, i)+' ' # neben-Einander
-                            # printalx(str(newTable[k][i][m]))
+                            # alxp(str(newTable[k][i][m]))
                             line += (
                                 self.colorize(
                                     newTable[k][i][m]
@@ -314,12 +317,12 @@ class Tables:
                                 self.colorize("".ljust(i_textwidth), r, i, True) + " "
                             )  # neben-Einander
                     # if k < 6 and rowsEmpty != maxRowsPossible: #and m < actualPartLineLen:
-                    #            printalx("sdf "+str(len(self.rowsAsNumbers))+' '+str(rowsEmpty))
+                    #            alxp("sdf "+str(len(self.rowsAsNumbers))+' '+str(rowsEmpty))
                     if rowsEmpty != len(self.rowsAsNumbers) and (
                         iterWholeLine < self.textheight or self.textheight == 0
                     ):  # and m < actualPartLineLen:
                         print(line)
-                        # printalx(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
+                        # alxp(colorize(str(rowsEmpty)+' '+str(maxRowsPossible), k))
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
@@ -430,7 +433,7 @@ class Tables:
 
         def setWidth(self, rowsToDisplay, isMainTable):
             # if not isMainTable:
-            #    printalx("ee " + str(getRowAmountofAnyPart()))
+            #    alxp("ee " + str(getRowAmountofAnyPart()))
             if (
                 rowsToDisplay + (1 if self.nummerierung else 0) <= len(self.breiten) + 1
                 and isMainTable
@@ -438,8 +441,8 @@ class Tables:
                 certaintextwidth = self.breiten[
                     rowsToDisplay + (-1 if self.nummerierung else -2)
                 ]
-                printalx("ää " + str(rowsToDisplay + (-1 if self.nummerierung else -2)))
-                printalx(
+                alxp("ää " + str(rowsToDisplay + (-1 if self.nummerierung else -2)))
+                alxp(
                     "ää2 "
                     + str(rowsToDisplay + (1 if self.nummerierung else 0))
                     + "<="
@@ -450,13 +453,13 @@ class Tables:
                 and rowsToDisplay <= len(self.breiten) + 1 + len(self.rowsAsNumbers)
                 and (rowsToDisplay - 2 + len(self.rowsAsNumbers)) in self.breiten
             ):
-                printalx("üü " + str(rowsToDisplay - 2 + len(self.rowsAsNumbers)))
+                alxp("üü " + str(rowsToDisplay - 2 + len(self.rowsAsNumbers)))
                 certaintextwidth = self.breiten[
                     rowsToDisplay - 2 + len(self.rowsAsNumbers)
                 ]
             else:
-                printalx("öö " + str(rowsToDisplay - 2 + len(self.rowsAsNumbers)))
-                printalx(
+                alxp("öö " + str(rowsToDisplay - 2 + len(self.rowsAsNumbers)))
+                alxp(
                     "öö "
                     + str(rowsToDisplay)
                     + "<="
@@ -489,15 +492,15 @@ class Tables:
                 if bereiche1[: len(neg)] == neg
                 else bereiche1.split(",")
             ):
-                # printalx("aa " + bereiche3)
+                # alxp("aa " + bereiche3)
                 if (
                     len(bereiche3) > len(neg)
                     and bereiche3 == neg + bereiche3[len(neg) :]
                     and len(neg) > 0
                 ) or (len(bereiche3) > 0 and (neg + bereiche3[0]).isdigit()):
-                    printalx(bereiche3 + " " + str(len(neg)))
+                    alxp(bereiche3 + " " + str(len(neg)))
                     maybeAmounts = bereiche3[len(neg) :].split("-")
-                    printalx(str(maybeAmounts) + " " + str(neg))
+                    alxp(str(maybeAmounts) + " " + str(neg))
                     if (
                         len(maybeAmounts) == 1
                         and maybeAmounts[0].isdecimal()
@@ -573,7 +576,7 @@ class Tables:
                 if wether:
                     # result = a.intersection(b)
                     result = a & b
-                    # printalx("x "+str(result))
+                    # alxp("x "+str(result))
                     if result is None:
                         return set()
                     else:
@@ -612,8 +615,8 @@ class Tables:
 
             numRange = cutset(ifZeitAtAll, numRange, numRangeYesZ)
 
-            # printalx("x0 "+str(numRange))
-            # printalx("y0 "+str(paramLines))
+            # alxp("x0 "+str(numRange))
+            # alxp("y0 "+str(paramLines))
             numRangeYesZ = set()
             ifZaehlungenAtAll = False
             for condition in paramLines:
@@ -635,8 +638,8 @@ class Tables:
                         ):  # 1-4:1,5-9:2 == jetzt ?
                             numRangeYesZ.add(n)
                             # numRange.remove(n)
-            # printalx("xi "+str(numRangeYesZ))
-            # printalx("xt "+str(numRange))
+            # alxp("xi "+str(numRangeYesZ))
+            # alxp("xt "+str(numRange))
             numRange = cutset(ifZaehlungenAtAll, numRange, numRangeYesZ)
             # set().add
             # exit()
@@ -662,9 +665,9 @@ class Tables:
                         if n % 2 == 0:
                             numRangeYesZ.add(n)
 
-            # printalx("x2 "+str(numRangeYesZ))
+            # alxp("x2 "+str(numRangeYesZ))
             numRange = cutset(ifTypAtAll, numRange, numRangeYesZ)
-            # printalx("x3 "+str(numRange))
+            # alxp("x3 "+str(numRange))
 
             primMultiples: list = []
             ifPrimAtAll = False
@@ -677,14 +680,14 @@ class Tables:
                     ifPrimAtAll = True
                     primMultiples += [int(condition[:-1])]
 
-            # printalx("x3 "+str(numRange))
+            # alxp("x3 "+str(numRange))
             numRangeYesZ = set()
             for n in numRange:
                 if isPrimMultiple(n, primMultiples):
                     numRangeYesZ.add(n)
             numRange = cutset(ifPrimAtAll, numRange, numRangeYesZ)
-            # printalx("x4 "+str(numRangeYesZ))
-            # printalx("x5 "+str(numRange))
+            # alxp("x4 "+str(numRangeYesZ))
+            # alxp("x5 "+str(numRange))
 
             ifMultiplesFromAnyAtAll = False
             anyMultiples = []
@@ -700,7 +703,7 @@ class Tables:
             if ifMultiplesFromAnyAtAll:
                 numRangeYesZ = set()
                 for n in numRange:
-                    # printalx(str(n))
+                    # alxp(str(n))
                     for divisor in anyMultiples:
                         if n % divisor == 0:
                             numRangeYesZ.add(n)
@@ -719,7 +722,7 @@ class Tables:
                             numRange2.remove(n)
             if ifNachtraeglichAtAll:
                 numRange = set(numRange2)
-            # printalx(str(ifNachtraeglichAtAll)+' '+str(ifMultiplesFromAnyAtAll)+' '+str(ifPrimAtAll)+' '+str(ifTypAtAll)+' '+str(ifZeitAtAll)+' '+str(numRange))
+            # alxp(str(ifNachtraeglichAtAll)+' '+str(ifMultiplesFromAnyAtAll)+' '+str(ifPrimAtAll)+' '+str(ifTypAtAll)+' '+str(ifZeitAtAll)+' '+str(numRange))
             return numRange
 
         def prepare4out(
@@ -746,9 +749,9 @@ class Tables:
                 range aus zu zeigenden Spalten 1-n nicht alle , welche neuen Spalten welche alten waren und umgekehrt
             return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
             """
-            printalx("rr " + str(self.breiten))
+            alxp("rr " + str(self.breiten))
             newRows: list = []
-            printalx("1 " + str(originalLinesRange))
+            alxp("1 " + str(originalLinesRange))
             if len(contentTable) > 0:
                 headingsAmount = len(contentTable[0])
                 rowsRange = range(headingsAmount)
@@ -758,24 +761,24 @@ class Tables:
             finallyDisplayLines: set = self.FilterOriginalLines(
                 set(originalLinesRange), paramLines
             )
-            printalx("1,5 " + str(finallyDisplayLines))
-            # printalx('s1 '+str(finallyDisplayLines))
+            alxp("1,5 " + str(finallyDisplayLines))
+            # alxp('s1 '+str(finallyDisplayLines))
             if not len(paramLinesNot) == 0:
                 finallyDisplayLines2 = self.FilterOriginalLines(
                     set(originalLinesRange), paramLinesNot
                 )
-                printalx("34567 " + str(set(originalLinesRange) - finallyDisplayLines2))
+                alxp("34567 " + str(set(originalLinesRange) - finallyDisplayLines2))
                 hasAnythingCanged = set(originalLinesRange) - finallyDisplayLines2 - {0}
                 if len(hasAnythingCanged) > 0:
                     finallyDisplayLines -= finallyDisplayLines2
-            # printalx('s2 '+str(finallyDisplayLines))
+            # alxp('s2 '+str(finallyDisplayLines))
             finallyDisplayLines.add(0)
             finallyDisplayLines3: list = list(finallyDisplayLines)
             finallyDisplayLines3.sort()
             finallyDisplayLines = set(finallyDisplayLines3)
             #    maxPartLineLen = 0
             numlen = len(str(finallyDisplayLines3[-1]))
-            printalx("2 " + str(finallyDisplayLines))
+            alxp("2 " + str(finallyDisplayLines))
             old2newRows: tuple = ({}, {})
             for u, line in enumerate(contentTable):
                 if u in finallyDisplayLines:
@@ -786,10 +789,10 @@ class Tables:
                     h = 0
                     for t, cell in enumerate(line):
                         if t in rowsAsNumbers:
-                            # printalx(str(u)+' '+str(t)+' '+str(contentTable[u][t]))
+                            # alxp(str(u)+' '+str(t)+' '+str(contentTable[u][t]))
                             rowsToDisplay += 1
                             newLines = [[]] * headingsAmount
-                            # printalx(str(rowsToDisplay+(1 if self.nummerierung else 0))+' '+str(len(self.breiten)))
+                            # alxp(str(rowsToDisplay+(1 if self.nummerierung else 0))+' '+str(len(self.breiten)))
                             certaintextwidth = self.setWidth(rowsToDisplay, isMainTable)
 
                             new2Lines += [
@@ -866,7 +869,7 @@ class Tables:
         ):
             rowsOfcombi = list(rowsOfcombi)
             rowsOfcombi.sort()
-            # printalx("__ " + str(manySubTables))
+            # alxp("__ " + str(manySubTables))
             # table2 = deepcopy(mainTable)
             table2 = mainTable
             for colNum, (reliNum, col) in enumerate(
@@ -874,7 +877,7 @@ class Tables:
             ):
                 for subTable in manySubTables:
                     if reliNum in subTable:
-                        printalx(str(reliNum) + " " + str(subTable))
+                        alxp(str(reliNum) + " " + str(subTable))
                         for row, bigCell in enumerate(mainTable[colNum]):
                             if old2newRows[1][row] in maintable2subtable_Relation[0]:
                                 subRowNum = maintable2subtable_Relation[0][
@@ -899,7 +902,7 @@ class Tables:
                                                     rowsOfcombi.index(subRowNum + 1)
                                                 ]
                                             )
-            # printalx(str(table2))
+            # alxp(str(table2))
             return table2
 
         def prepare_kombi(
@@ -933,13 +936,13 @@ class Tables:
                     kombitypes["displaying"] = True
                     for MainLineNum in displayingMainLines:
                         for kombiLineNumber, kombiLine in enumerate(kombiTable_Kombis):
-                            # printalx('ka '+str(displayingMainLines)+' '+str(kombiLine)+' '+str(finallyDisplayLines_kombi_1))
+                            # alxp('ka '+str(displayingMainLines)+' '+str(kombiLine)+' '+str(finallyDisplayLines_kombi_1))
                             for kombiNumber in kombiLine:
                                 if (
                                     kombiNumber in displayingMainLines
                                     and kombiNumber == MainLineNum
                                 ):
-                                    # printalx(str(MainLineNum) + "=" + str(kombiLineNumber + 1))
+                                    # alxp(str(MainLineNum) + "=" + str(kombiLineNumber + 1))
                                     if MainLineNum in ChosenKombiLines:
                                         ChosenKombiLines[MainLineNum] |= {
                                             kombiLineNumber + 1
@@ -998,7 +1001,7 @@ class Tables:
             """
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
-            printalx("-_- " + str(rowsOfcombi))
+            alxp("-_- " + str(rowsOfcombi))
             if not rowsOfcombi.isdisjoint({1, 2}):
                 with open("animalsProfessions.csv", mode="r") as csv_file:
                     kombiTable: list = []
@@ -1013,7 +1016,7 @@ class Tables:
                                 else:
                                     raise BaseException("not NUM !!!!! ")
                             kombiTable_Kombis += [kombiTable_Kombis_Col]
-                    # printalx(str(kombiTable_Kombis))
+                    # alxp(str(kombiTable_Kombis))
                     self.relitable, animalsProfessionsCol = Tables.fillBoth(
                         self.relitable, list(kombiTable)
                     )
@@ -1110,7 +1113,7 @@ class Tables:
                         self.relitable[i] += list(primcol) + [""] * (
                             maxlen - len(primcol)
                         )
-                        # printalx(str(list(primcol)))
+                        # alxp(str(list(primcol)))
                         if i == 0:
                             for u, heading in enumerate(self.relitable[0]):
                                 if (
@@ -1118,9 +1121,7 @@ class Tables:
                                     and int(heading) in self.puniverseprims
                                     and u >= headingsAmount
                                 ):
-                                    printalx(
-                                        str(heading) + "ö" + str(self.puniverseprims)
-                                    )
+                                    alxp(str(heading) + "ö" + str(self.puniverseprims))
                                     rowsAsNumbers.add(int(u))
 
                     # print(str(len(primUniverseLine[i]))+' '+str(len(self.relitable[i])))
@@ -1135,7 +1136,7 @@ class Tables:
         @spalteGestirn.setter
         def spalteGestirn(self, value: bool):
             self.spaltegestirn = value
-            printalx("SpalteGestirn " + str(value))
+            alxp("SpalteGestirn " + str(value))
 
         def __init__(self):
             self.spaltegestirn = False
@@ -1336,7 +1337,7 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 
 
 # for e in range(1,11):
-#    printalx("w "+str(isPrimMultiple(e, [2])))
+#    alxp("w "+str(isPrimMultiple(e, [2])))
 
 
 class Program:
@@ -1377,7 +1378,7 @@ class Program:
                         for breite in arg[10:].split(","):
                             if breite.isdecimal():
                                 self.tables.breitenn += [int(breite)]
-                        # printalx("qq " + str(self.breiten))
+                        # alxp("qq " + str(self.breiten))
                     elif arg[2:20] == "keinenummerierung":
                         self.tables.nummeriere = False
                     elif arg[2:13] == "religionen=":
@@ -1497,7 +1498,7 @@ class Program:
                         rowsAsNumbers.add(20)
                     elif arg[2:12] == "bedeutung=":
                         for thing in arg[(arg.find("=") + 1) :].split(","):
-                            printalx("weruioweuio " + neg + thing)
+                            alxp("weruioweuio " + neg + thing)
                             if thing in [
                                 neg + "primzahlen",
                                 neg + "vielfache",
@@ -1681,9 +1682,9 @@ class Program:
         paramLinesNot, self.rowsAsNumbersNot, rowsOfcombiNot = self.parameters(
             sys.argv, "-"
         )
-        printalx("asdfdas " + str(self.rowsAsNumbers))
-        #    printalx(str(paramLines) + ' ' + str(self.rowsAsNumbers))
-        #    printalx(str(paramLinesNot) + ' ' + str(self.rowsAsNumbersNot))
+        alxp("asdfdas " + str(self.rowsAsNumbers))
+        #    alxp(str(paramLines) + ' ' + str(self.rowsAsNumbers))
+        #    alxp(str(paramLinesNot) + ' ' + str(self.rowsAsNumbersNot))
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
         )
@@ -1696,13 +1697,13 @@ class Program:
         (rowsOfcombi, rowsOfcombiNot,) = self.tables.getPrepare.deleteDoublesInSets(
             rowsOfcombi, rowsOfcombiNot
         )
-        printalx("asdfdas " + str(self.rowsAsNumbers))
+        alxp("asdfdas " + str(self.rowsAsNumbers))
         self.tables.getPrepare.rowsAsNumbers = self.rowsAsNumbers
         self.tables.getOut.rowsAsNumbers = self.rowsAsNumbers
-        printalx("asdfdas " + str(self.tables.getOut.rowsAsNumbers))
+        alxp("asdfdas " + str(self.tables.getOut.rowsAsNumbers))
 
-        #    printalx(str(paramLines) + ' ' + str(self.rowsAsNumbers))
-        #    printalx(str(paramLinesNot) + ' ' + str(self.rowsAsNumbersNot))
+        #    alxp(str(paramLines) + ' ' + str(self.rowsAsNumbers))
+        #    alxp(str(paramLinesNot) + ' ' + str(self.rowsAsNumbersNot))
         self.relitable = self.tables.getConcat.readConcatCsv(
             self.relitable, self.rowsAsNumbers
         )
@@ -1746,7 +1747,7 @@ class Program:
             kombiTable_Kombis,
             maintable2subtable_Relation,
         ) = self.start()
-        # printalx(str(paramLines) + " " + str(self.rowsAsNumbers))
+        # alxp(str(paramLines) + " " + str(self.rowsAsNumbers))
         # headingsAmount = len(self.relitable[0])
         self.tables.getMainTable.createSpalteGestirn(self.relitable, self.rowsAsNumbers)
         self.tables.getPrepare.createRowPrimeMultiples(
@@ -1754,7 +1755,7 @@ class Program:
             self.rowsAsNumbers,
             self.tables.getPrepare.setWidth(len(self.rowsAsNumbers), False),
         )
-        #    printalx(str(self.relitable))
+        #    alxp(str(self.relitable))
         (
             finallyDisplayLines,
             newTable,
@@ -1768,7 +1769,7 @@ class Program:
             self.rowsAsNumbers,
             isMainTable=True,
         )
-        printalx(str(paramLines) + " " + str(paramLinesNot))
+        alxp(str(paramLines) + " " + str(paramLinesNot))
         if self.ifCombi:
             (
                 finallyDisplayLines_kombi_1,
@@ -1779,7 +1780,7 @@ class Program:
             ) = self.tables.getPrepare.prepare4out(
                 set(), set(), animalsProfessionsTable, rowsOfcombi
             )
-            # printalx(str(newTable))
+            # alxp(str(newTable))
             finallyDisplayLines_kombi_1 = self.tables.getCombis.prepare_kombi(
                 finallyDisplayLines_kombi_1,
                 animalsProfessionsTable,
@@ -1791,7 +1792,7 @@ class Program:
             for key, value in finallyDisplayLines_kombi_1.items():
                 Tables = {}
                 for kombiLineNumber in value:
-                    # printalx(str(kombiLineNumber))
+                    # alxp(str(kombiLineNumber))
                     if key in Tables:
                         Tables[key] += [
                             self.tables.tableReducedInLinesByTypeSet(
@@ -1807,13 +1808,13 @@ class Program:
                     # cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
                 KombiTables += [Tables]
 
-            printalx(str(finallyDisplayLines_kombi_1))
-            printalx(str(newTable_kombi_1))
-            printalx(str(maintable2subtable_Relation))
-            printalx(str(old2newTable))
-            printalx("")
-            printalx(str(KombiTables))
-            printalx("")
+            alxp(str(finallyDisplayLines_kombi_1))
+            alxp(str(newTable_kombi_1))
+            alxp(str(maintable2subtable_Relation))
+            alxp(str(old2newTable))
+            alxp("")
+            alxp(str(KombiTables))
+            alxp("")
             #    cliOut(
             #        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
             #        newTable_kombi_1,
@@ -1827,21 +1828,19 @@ class Program:
                 old2newTable,
                 rowsOfcombi,
             )
-        printalx(str(finallyDisplayLines))
-        printalx(str(numlen))
-        printalx(str(rowsRange))
+        alxp(str(finallyDisplayLines))
+        alxp(str(numlen))
+        alxp(str(rowsRange))
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
-        printalx(
-            "1. Refactoring, dass alle Tabellenerweiterungen vereinheitlicht werden"
-        )
-        printalx("2. darauf aufbauend die manuelle Spaltenself.breiten programmieren")
-        printalx(
+        alxp("1. Refactoring, dass alle Tabellenerweiterungen vereinheitlicht werden")
+        alxp("2. darauf aufbauend die manuelle Spaltenself.breiten programmieren")
+        alxp(
             "3. Spalte self.ifprimmultis optional hinzufügen, die semantisch sagt was primzahl mit vielfacher derer bedeutet und meint, aber generiert"
         )
-        printalx(
+        alxp(
             "4. Überprüfen, ob auch alle minus -zusatzspalten funktionieren, nicht nur plus"
         )
-        pp.pprint(self.tables.getRowAmountofAnyPart())
+        alxp(self.tables.getRowAmountofAnyPart())
 
 
 Program()
