@@ -43,6 +43,7 @@ class Tables:
             "main prepare relitable orignal": len(self.getPrepare.rowsAsNumbers),
             "prim": len(self.puniverseprims),
             "combi": self.getCombis.rowsOfcombi,
+            "concat": self.getConcat.concatRowsAmount,
         }
 
     #    @property
@@ -148,6 +149,7 @@ class Tables:
         self.getPrepare.ifprimmultis = False
         self.getCombis.rowsOfcombi = 0
         # self.getPrepare.rowsAsNumbers = set()
+        self.getConcat.concatRowsAmount = 0
 
     class Output:
         @property
@@ -1126,6 +1128,7 @@ class Tables:
 
                     # print(str(len(primUniverseLine[i]))+' '+str(len(self.relitable[i])))
                     # print(str((self.relitable[i])))
+                self.concatRowsAmount = len(primcol)
             return self.relitable
 
     class Maintable:
@@ -1498,7 +1501,6 @@ class Program:
                         rowsAsNumbers.add(20)
                     elif arg[2:12] == "bedeutung=":
                         for thing in arg[(arg.find("=") + 1) :].split(","):
-                            alxp("weruioweuio " + neg + thing)
                             if thing in [
                                 neg + "primzahlen",
                                 neg + "vielfache",
