@@ -29,12 +29,13 @@ def printalx(text):
 class Tables:
     def getRowAmountofAnyPart(self):
         return {
-            "alltogether": len(self.puniverseprims)
-            + len(self.rowsAsNumbers)
-            + len(self.rowsOfcombi),
-            "main": len(self.rowsAsNumbers),
+            #            "alltogether": len(self.puniverseprims)
+            #            + len(self.rowsAsNumbers)
+            #            + len(self.rowsOfcombi),
+            "main out": len(self.getOut.rowsAsNumbers),
+            "main prepare": len(self.getPrepare.rowsAsNumbers),
             "prim": len(self.puniverseprims),
-            "combi": len(self.getCombis.rowsOfcombi),
+            "combi": self.getCombis.rowsOfcombi,
         }
 
     #    @property
@@ -138,6 +139,7 @@ class Tables:
         self.getPrepare.religionNumbers = self.religionNumbers
         self.getCombis.religionNumbers = self.religionNumbers
         self.getPrepare.ifprimmultis = False
+        self.getCombis.rowsOfcombi = 0
         # self.getPrepare.rowsAsNumbers = set()
 
     class Output:
@@ -1046,6 +1048,10 @@ class Tables:
             else:
                 kombiTable = [[]]
                 kombiTable_Kombis = [[]]
+            if len(kombiTable) > 0:
+                self.rowsOfcombi = len(kombiTable[0])
+            else:
+                self.rowsOfcombi = 0
             return (
                 kombiTable,
                 self.relitable,
@@ -1826,6 +1832,7 @@ class Program:
         print(
             "3. Spalte self.ifprimmultis optional hinzufügen, die semantisch sagt was primzahl mit vielfacher derer bedeutet und meint, aber generiert"
         )
+        printalx(str(self.tables.getRowAmountofAnyPart()))
 
 
 Program()
