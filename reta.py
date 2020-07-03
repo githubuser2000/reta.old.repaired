@@ -42,7 +42,7 @@ class Tables:
             "main out": len(self.getOut.rowsAsNumbers),
             "main prepare relitable orignal": len(self.getPrepare.rowsAsNumbers),
             "prim": len(self.puniverseprims),
-            "combi": self.getCombis.rowsOfcombi,
+            "combi": (self.getCombis.rowsOfcombi, self.getCombis.ChosenKombiLines,),
             "concat": self.getConcat.concatRowsAmount,
         }
 
@@ -121,13 +121,6 @@ class Tables:
         self.textwidth = value
 
     def __init__(self):
-        self.zaehlungen = [
-            0,
-            {},
-            {},
-            {},
-            {},
-        ]  # Strukturangaben zur Zeile wegen Mondzahlen und Sonnenzahlen
         self.getPrepare = self.Prepare()
         self.getCombis = self.Combi()
         self.getConcat = self.Concat()
@@ -361,6 +354,50 @@ class Tables:
                 return "\033[40m" + "\033[37m" + text + "\033[0m" + "\033[0m"
 
     class Prepare:
+        def __init__(self):
+            self.zaehlungen = [
+                0,
+                {},
+                {},
+                {},
+                {},
+            ]  # Strukturangaben zur Zeile wegen Mondzahlen und Sonnenzahlen
+
+        def setZaehlungen(
+            self, num: int
+        ):  # mehrere Zählungen finden festlegen zum später auslesen
+            """Eine Zahl wird untersucht und die Variable self.zaehlungen wegen dieser Ergänzt
+            self.zaehlungen bekommt informationen über mondzahlen und sonnenzahlen
+            i ist eine zu Untersuchende Zahl kleinergeich num
+            self.zaehlungen[4][i] bekommt die mondtypen, d.h. (Basis, Exponent) immer
+            self.zaehlungen[1][zaehlung] welche zählung fängt mit welcher Zahl an
+            self.zaehlungen[2][i] ist welcher Zählung es ist für eine beliebige Zahl: 1 ist 1-4, 2 ist 5-9, 3 ist 10-16
+            self.zaehlungen[3][i] ist auch welche Zählung es ist für eine beliebige Zahl: 1 ist 1-4, 2 ist 5-9, 3 ist 10-16
+            self.zaehlungen[0] ist bis zu welcher Zahl diese Untersuchung beim letzten Mal durchgeführt wurde
+            self.zaehlungen  # [bis zu welcher zahl, {zaehlung:zahl},{zahl:zaehlung},{jede zahl,zugehoerigeZaehlung}]
+
+            @type num: int
+            @param num: zu untersuchende Zahl
+            @rtype: kein Typ
+            @return: nichts
+            """
+            wasMoon: bool = True
+            if self.zaehlungen[0] == 0:
+                isMoon = True
+            else:
+                isMoon = moonNumber(self.zaehlungen[0])[0] != []
+
+            for i in range(int(self.zaehlungen[0]) + 1, num + 1):
+                wasMoon = isMoon
+                moonType = moonNumber(i)
+                isMoon = moonType[0] != []
+                if wasMoon and not isMoon:
+                    isMoon = False
+                    self.zaehlungen[1][len(self.zaehlungen[1]) + 1] = i
+                    self.zaehlungen[2][i] = len(self.zaehlungen[2]) + 1
+                self.zaehlungen[3][i] = len(self.zaehlungen[2])
+                self.zaehlungen[4][i] = moonType
+
         @property
         def breitenn(self):
             return self.breiten
@@ -953,6 +990,7 @@ class Tables:
                                         ChosenKombiLines[MainLineNum] = {
                                             kombiLineNumber + 1
                                         }
+            self.ChosenKombiLines = ChosenKombiLines
             return ChosenKombiLines
 
         def cursorOf_2Tables(
@@ -1188,41 +1226,6 @@ class Tables:
             if i in linesAllowed:
                 newTable += [line]
         return newTable
-
-    def setZaehlungen(
-        self, num: int
-    ):  # mehrere Zählungen finden festlegen zum später auslesen
-        """Eine Zahl wird untersucht und die Variable self.zaehlungen wegen dieser Ergänzt
-        self.zaehlungen bekommt informationen über mondzahlen und sonnenzahlen
-        i ist eine zu Untersuchende Zahl kleinergeich num
-        self.zaehlungen[4][i] bekommt die mondtypen, d.h. (Basis, Exponent) immer
-        self.zaehlungen[1][zaehlung] welche zählung fängt mit welcher Zahl an
-        self.zaehlungen[2][i] ist welcher Zählung es ist für eine beliebige Zahl: 1 ist 1-4, 2 ist 5-9, 3 ist 10-16
-        self.zaehlungen[3][i] ist auch welche Zählung es ist für eine beliebige Zahl: 1 ist 1-4, 2 ist 5-9, 3 ist 10-16
-        self.zaehlungen[0] ist bis zu welcher Zahl diese Untersuchung beim letzten Mal durchgeführt wurde
-        self.zaehlungen  # [bis zu welcher zahl, {zaehlung:zahl},{zahl:zaehlung},{jede zahl,zugehoerigeZaehlung}]
-
-        @type num: int
-        @param num: zu untersuchende Zahl
-        @rtype: kein Typ
-        @return: nichts
-        """
-        wasMoon: bool = True
-        if self.zaehlungen[0] == 0:
-            isMoon = True
-        else:
-            isMoon = moonNumber(self.zaehlungen[0])[0] != []
-
-        for i in range(int(self.zaehlungen[0]) + 1, num + 1):
-            wasMoon = isMoon
-            moonType = moonNumber(i)
-            isMoon = moonType[0] != []
-            if wasMoon and not isMoon:
-                isMoon = False
-                self.zaehlungen[1][len(self.zaehlungen[1]) + 1] = i
-                self.zaehlungen[2][i] = len(self.zaehlungen[2]) + 1
-            self.zaehlungen[3][i] = len(self.zaehlungen[2])
-            self.zaehlungen[4][i] = moonType
 
 
 def moonNumber(num: int):
@@ -1773,8 +1776,16 @@ class Program:
         )
         alxp(str(paramLines) + " " + str(paramLinesNot))
         if self.ifCombi:
+            ChosenKombiLines = self.tables.getCombis.prepare_kombi(
+                finallyDisplayLines,
+                animalsProfessionsTable,
+                paramLines,
+                finallyDisplayLines,
+                kombiTable_Kombis,
+            )
+
             (
-                finallyDisplayLines_kombi_1,
+                finallyDisplayLines_kombi,
                 newTable_kombi_1,
                 lineLen_kombi_1,
                 rowsRange_kombi_1,
@@ -1783,15 +1794,8 @@ class Program:
                 set(), set(), animalsProfessionsTable, rowsOfcombi
             )
             # alxp(str(newTable))
-            finallyDisplayLines_kombi_1 = self.tables.getCombis.prepare_kombi(
-                finallyDisplayLines_kombi_1,
-                animalsProfessionsTable,
-                paramLines,
-                finallyDisplayLines,
-                kombiTable_Kombis,
-            )
             KombiTables = []
-            for key, value in finallyDisplayLines_kombi_1.items():
+            for key, value in ChosenKombiLines.items():
                 Tables = {}
                 for kombiLineNumber in value:
                     # alxp(str(kombiLineNumber))
@@ -1810,7 +1814,7 @@ class Program:
                     # cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
                 KombiTables += [Tables]
 
-            alxp(str(finallyDisplayLines_kombi_1))
+            alxp(str(ChosenKombiLines))
             alxp(str(newTable_kombi_1))
             alxp(str(maintable2subtable_Relation))
             alxp(str(old2newTable))
