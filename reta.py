@@ -369,6 +369,7 @@ class Tables:
                 {},
                 {},
             ]  # Strukturangaben zur Zeile wegen Mondzahlen und Sonnenzahlen
+            self.religionNumbers = 0
 
         def setZaehlungen(
             self, num: int
@@ -826,11 +827,14 @@ class Tables:
             #    maxPartLineLen = 0
             numlen = len(str(finallyDisplayLines3[-1]))
             # alxp("2 " + str(finallyDisplayLines))
+            alxp("___i")
             old2newRows: tuple = ({}, {})
-            reliNumbersSet = False if self.religionNumbers == [] else True
+            alxp(self.religionNumbers)
+            reliNumbersBool = False if self.religionNumbers != [] else True
+            alxp(reliNumbersBool)
             for u, line in enumerate(contentTable):
                 if u in finallyDisplayLines:
-                    if reliNumbersSet:
+                    if reliNumbersBool:
                         self.religionNumbers += [int(u)]
                     new2Lines: list = []
                     rowsToDisplay = 0
@@ -852,6 +856,9 @@ class Tables:
                             h += 1
                     if new2Lines != []:
                         newRows += [new2Lines]
+
+                alxp("___")
+                alxp(self.religionNumbers)
             return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
 
         def cellWork(self, cell: str, newLines, certaintextwidth: int, t: int) -> list:
@@ -1827,15 +1834,15 @@ class Program:
             alxp(str(newTable_kombi_1))
             alxp(str(maintable2subtable_Relation))
             alxp(str(old2newTable))
-            alxp("")
+            alxp("x")
             alxp(str(KombiTables))
-            alxp("")
-            #    cliOut(
-            #        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
-            #        newTable_kombi_1,
-            #        lineLen_kombi_1,
-            #        rowsRange_kombi_1,
-            #    )
+            alxp("y")
+            #            self.tables.getOut.cliOut(
+            #                {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
+            #                newTable_kombi_1,
+            #                lineLen_kombi_1,
+            #                rowsRange_kombi_1,
+            #            )
             newTable = self.tables.getCombis.tableJoin(
                 newTable,
                 KombiTables,
