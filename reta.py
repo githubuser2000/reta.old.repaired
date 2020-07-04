@@ -43,10 +43,10 @@ class Tables:
             "main prepare relitable orignal | combi & concat-prim drin": self.getPrepare.rowsAsNumbers,
             "prim (concat)": self.puniverseprims,
             "combi": (self.getCombis.rowsOfcombi, self.getCombis.ChosenKombiLines),
-            "concat (prim)": (
-                self.getConcat.concatRowsAmount,
-                self.primUniversePrimsSet,
-            ),
+            # "concat (prim)": (
+            #    self.getConcat.concatRowsAmount,
+            #    self.primUniversePrimsSet,
+            # ),
         }
 
     #    @property
@@ -476,7 +476,8 @@ class Tables:
                 isItNone = None
             return isItNone
 
-        def setWidth(self, rowsToDisplay, isMainTable):
+        def setWidth(self, rowsToDisplay):
+            isMainTable = True
             alxp(len(self.breiten))
             alxp(rowsToDisplay)
             alxp((-1 if self.nummerierung else -2))
@@ -777,7 +778,6 @@ class Tables:
             paramLinesNot: set,
             contentTable: list,
             rowsAsNumbers: set,
-            isMainTable: bool = False,
         ) -> tuple:
             """Aus einer Tabelle wird eine gemacht, bei der der Zeilenumbruch durchgeführt wird.
             Dabei werden alle Spalten und Zeilen entfernt die nicht ausgegeben werden sollen.
@@ -826,9 +826,10 @@ class Tables:
             numlen = len(str(finallyDisplayLines3[-1]))
             # alxp("2 " + str(finallyDisplayLines))
             old2newRows: tuple = ({}, {})
+            reliNumbersSet = False if self.religionNumbers == [] else True
             for u, line in enumerate(contentTable):
                 if u in finallyDisplayLines:
-                    if isMainTable:
+                    if reliNumbersSet:
                         self.religionNumbers += [int(u)]
                     new2Lines: list = []
                     rowsToDisplay = 0
@@ -839,7 +840,7 @@ class Tables:
                             rowsToDisplay += 1
                             newLines = [[]] * headingsAmount
                             # alxp(str(rowsToDisplay+(1 if self.nummerierung else 0))+' '+str(len(self.breiten)))
-                            certaintextwidth = self.setWidth(rowsToDisplay, isMainTable)
+                            certaintextwidth = self.setWidth(rowsToDisplay)
 
                             new2Lines += [
                                 self.cellWork(cell, newLines, certaintextwidth, t)
@@ -1767,7 +1768,7 @@ class Program:
         self.tables.getPrepare.createRowPrimeMultiples(
             self.relitable,
             self.rowsAsNumbers,
-            self.tables.getPrepare.setWidth(len(self.rowsAsNumbers), False),
+            self.tables.getPrepare.setWidth(len(self.rowsAsNumbers)),
         )
         #    alxp(str(self.relitable))
         (
@@ -1777,11 +1778,7 @@ class Program:
             rowsRange,
             old2newTable,
         ) = self.tables.getPrepare.prepare4out(
-            paramLines,
-            paramLinesNot,
-            self.relitable,
-            self.rowsAsNumbers,
-            isMainTable=True,
+            paramLines, paramLinesNot, self.relitable, self.rowsAsNumbers,
         )
         alxp(str(paramLines) + " " + str(paramLinesNot))
         if self.ifCombi:
