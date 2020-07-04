@@ -40,10 +40,10 @@ class Tables:
             #            + len(self.rowsAsNumbers)
             #            + len(self.rowsOfcombi),
             "main out": len(self.getOut.rowsAsNumbers),
-            "main prepare relitable orignal": len(self.getPrepare.rowsAsNumbers),
-            "prim": len(self.puniverseprims),
-            "combi": (self.getCombis.rowsOfcombi, self.getCombis.ChosenKombiLines,),
-            "concat": self.getConcat.concatRowsAmount,
+            "main prepare relitable orignal": self.getPrepare.rowsAsNumbers,
+            "prim": self.puniverseprims,
+            "combi": (self.getCombis.rowsOfcombi, self.getCombis.ChosenKombiLines),
+            "concat": (self.getConcat.concatRowsAmount, self.primUniversePrimsSet),
         }
 
     #    @property
