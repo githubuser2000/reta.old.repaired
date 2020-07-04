@@ -898,6 +898,9 @@ class Tables:
         return liste1, liste2
 
     class Combi:
+        def __init__(self):
+            self.ChosenKombiLines: dict = {}
+
         def tableJoin(
             self,
             mainTable,
@@ -969,7 +972,7 @@ class Tables:
             """
 
             kombitypes = {"displaying": False, "or": False, "and": False}
-            ChosenKombiLines: dict = {}
+            self.ChosenKombiLines: dict = {}
             for condition in paramLines:
                 if "ka" == condition:
                     kombitypes["displaying"] = True
@@ -982,16 +985,15 @@ class Tables:
                                     and kombiNumber == MainLineNum
                                 ):
                                     # alxp(str(MainLineNum) + "=" + str(kombiLineNumber + 1))
-                                    if MainLineNum in ChosenKombiLines:
-                                        ChosenKombiLines[MainLineNum] |= {
+                                    if MainLineNum in self.ChosenKombiLines:
+                                        self.ChosenKombiLines[MainLineNum] |= {
                                             kombiLineNumber + 1
                                         }
                                     else:
                                         ChosenKombiLines[MainLineNum] = {
                                             kombiLineNumber + 1
                                         }
-            self.ChosenKombiLines = ChosenKombiLines
-            return ChosenKombiLines
+            return self.ChosenKombiLines
 
         def cursorOf_2Tables(
             self, table1: list, table2: list, key: str
