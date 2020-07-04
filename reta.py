@@ -43,6 +43,7 @@ class Tables:
             "main prepare relitable orignal | combi & concat-prim drin": self.getPrepare.rowsAsNumbers,
             "prim (concat)": self.puniverseprims,
             "combi": (self.getCombis.rowsOfcombi, self.getCombis.ChosenKombiLines),
+            "len(AllCombiRows)": self.getCombis.sumOfAllCombiRowsAmount,
             # "concat (prim)": (
             #    self.getConcat.concatRowsAmount,
             #    self.primUniversePrimsSet,
@@ -908,6 +909,7 @@ class Tables:
     class Combi:
         def __init__(self):
             self.ChosenKombiLines: dict = {}
+            self.sumOfAllCombiRowsAmount = 0
 
         def tableJoin(
             self,
@@ -1049,9 +1051,10 @@ class Tables:
                 das mit Komma getrennt wurde , was zu was gehört als Info für den join später
             return kombiTable, self.relitable, kombiTable_Kombis, maintable2subtable_Relation
             """
+            self.sumOfAllCombiRowsAmount += len(rowsOfcombi)
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
-            alxp("-_- " + str(rowsOfcombi))
+            # alxp("-_- " + str(rowsOfcombi))
             if not rowsOfcombi.isdisjoint({1, 2}):
                 with open("animalsProfessions.csv", mode="r") as csv_file:
                     kombiTable: list = []
