@@ -85,12 +85,14 @@ class Tables:
 
     @property
     def spalteGestirn(self):
-        return self.Maintable.spalteGestirn
+        alxp("SpalteGestirn2 ")
+        alxp(self.getMainTable.spalteGestirn)
+        return self.getMainTable.spalteGestirn
 
     @spalteGestirn.setter
     def spalteGestirn(self, value: bool):
-        self.getMainTable.spalteGestirn = value
         alxp("SpalteGestirn " + str(value))
+        self.getMainTable.spalteGestirn = value
 
     @property
     def nummeriere(self):
