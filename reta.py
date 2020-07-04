@@ -35,15 +35,18 @@ class Tables:
     def getRowAmountofAnyPart(self):
         return {
             "numerierung": 1 if self.nummeriere else 0,
-            "gestirn": 1 if self.spalteGestirn else 0,
+            #            "irrelevant: gestirn": 1 if self.spalteGestirn else 0,
             #            "alltogether": len(self.puniverseprims)
             #            + len(self.rowsAsNumbers)
             #            + len(self.rowsOfcombi),
-            "main out": len(self.getOut.rowsAsNumbers),
-            "main prepare relitable orignal": self.getPrepare.rowsAsNumbers,
-            "prim": self.puniverseprims,
+            #            "main out": len(self.getOut.rowsAsNumbers),
+            "main prepare relitable orignal | combi & concat-prim drin": self.getPrepare.rowsAsNumbers,
+            "prim (concat)": self.puniverseprims,
             "combi": (self.getCombis.rowsOfcombi, self.getCombis.ChosenKombiLines),
-            "concat": (self.getConcat.concatRowsAmount, self.primUniversePrimsSet),
+            "concat (prim)": (
+                self.getConcat.concatRowsAmount,
+                self.primUniversePrimsSet,
+            ),
         }
 
     #    @property
@@ -792,7 +795,7 @@ class Tables:
                 range aus zu zeigenden Spalten 1-n nicht alle , welche neuen Spalten welche alten waren und umgekehrt
             return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
             """
-            alxp("rr " + str(self.breiten))
+            # alxp("rr " + str(self.breiten))
             newRows: list = []
             alxp("1 " + str(originalLinesRange))
             if len(contentTable) > 0:
@@ -804,7 +807,7 @@ class Tables:
             finallyDisplayLines: set = self.FilterOriginalLines(
                 set(originalLinesRange), paramLines
             )
-            alxp("1,5 " + str(finallyDisplayLines))
+            # alxp("1,5 " + str(finallyDisplayLines))
             # alxp('s1 '+str(finallyDisplayLines))
             if not len(paramLinesNot) == 0:
                 finallyDisplayLines2 = self.FilterOriginalLines(
@@ -821,7 +824,7 @@ class Tables:
             finallyDisplayLines = set(finallyDisplayLines3)
             #    maxPartLineLen = 0
             numlen = len(str(finallyDisplayLines3[-1]))
-            alxp("2 " + str(finallyDisplayLines))
+            # alxp("2 " + str(finallyDisplayLines))
             old2newRows: tuple = ({}, {})
             for u, line in enumerate(contentTable):
                 if u in finallyDisplayLines:
@@ -994,7 +997,7 @@ class Tables:
                                             kombiLineNumber + 1
                                         }
                                     else:
-                                        ChosenKombiLines[MainLineNum] = {
+                                        self.ChosenKombiLines[MainLineNum] = {
                                             kombiLineNumber + 1
                                         }
             return self.ChosenKombiLines
