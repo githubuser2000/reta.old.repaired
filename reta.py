@@ -283,9 +283,10 @@ class Tables:
                         # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
                         # if i < maxRowsPossible and k < 6:
                         # if i < maxRowsPossible:
-                        if i + (1 if self.nummerierung else 0) <= len(self.breiten):
+                        if i + (0 if self.nummerierung else 1) < len(self.breiten):
+                            # if i + (1 if self.nummerierung else 0) <= len(self.breiten):
                             certaintextwidth = self.breiten[
-                                i + (0 if self.nummerierung else -1)
+                                i + (0 if self.nummerierung else 1)
                             ]
                         else:
                             certaintextwidth = self.textwidth
@@ -471,10 +472,11 @@ class Tables:
             return isItNone
 
         def setWidth(self, rowsToDisplay, isMainTable):
-            # if not isMainTable:
-            #    alxp("ee " + str(getRowAmountofAnyPart()))
+            alxp(len(self.breiten))
+            alxp(rowsToDisplay)
+            alxp((-1 if self.nummerierung else -2))
             if (
-                rowsToDisplay + (1 if self.nummerierung else 0) <= len(self.breiten) + 1
+                rowsToDisplay + (1 if self.nummerierung else 0) < len(self.breiten)
                 and isMainTable
             ):
                 certaintextwidth = self.breiten[
