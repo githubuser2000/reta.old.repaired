@@ -542,6 +542,12 @@ class Tables:
                 else bereiche1.split(",")
             ):
                 # alxp("aa " + bereiche3)
+                if bereiche3.isdecimal():
+                    bereiche3 = bereiche3 + "-" + bereiche3
+                elif bereiche3[: len(neg)] == neg and bereiche3[len(neg) :].isdecimal():
+                    bereiche3 = (
+                        neg + bereiche3[len(neg) :] + "-" + bereiche3[len(neg) :]
+                    )
                 if (
                     len(bereiche3) > len(neg)
                     and bereiche3 == neg + bereiche3[len(neg) :]
@@ -1854,6 +1860,7 @@ class Program:
         alxp(str(numlen))
         alxp(str(rowsRange))
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
+        alxp(self.tables.getCombis.sumOfAllCombiRowsAmount)
         alxp("1. Refactoring, dass alle Tabellenerweiterungen vereinheitlicht werden")
         alxp("2. darauf aufbauend die manuelle Spaltenself.breiten programmieren")
         alxp(
@@ -1861,6 +1868,10 @@ class Program:
         )
         alxp(
             "4. Überprüfen, ob auch alle minus -zusatzspalten funktionieren, nicht nur plus"
+        )
+        alxp(
+            "Bei ./reta.py -zeilen --zeit='' --zaehlung='' --typ='' --primzahlvielfache='' --vielfachevonzahlen='' --vorhervonausschnitt='23-23,46-46' --nachtraeglichdavon='' -spalten --breite=100 --kreise=thomas \
+\n stimmen die Religionsnummern nicht mehr mit den Religionen überein und die Reihenfolge der Religionsnummern ist auch falsch"
         )
         alxp(self.tables.getRowAmountofAnyPart())
 
