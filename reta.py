@@ -480,8 +480,8 @@ class Tables:
                 isItNone = None
             return isItNone
 
-        def setWidth(self, rowToDisplay: int, combiRows: int = 0) -> int:
-            combiRows = combiRows if combiRows != 0 else len(self.rowsAsNumbers)
+        def setWidth(self, rowToDisplay: int, combiRows1: int = 0) -> int:
+            combiRows = combiRows1 if combiRows1 != 0 else len(self.rowsAsNumbers)
             if len(self.rowsAsNumbers) - combiRows < len(self.breiten):
                 breiten: list = self.breiten[len(self.rowsAsNumbers) - combiRows :]
             else:
@@ -498,10 +498,9 @@ class Tables:
                 + " "
                 + str(1 if self.nummerierung else 0)
             )
-            if rowToDisplay + (-1 if self.nummerierung else -2) < len(breiten):
-                certaintextwidth = breiten[
-                    rowToDisplay + (-1 if self.nummerierung else -2)
-                ]
+            delta = 0 if not self.nummerierung and combiRows1 != 0 else -1
+            if rowToDisplay + delta < len(breiten):
+                certaintextwidth = breiten[rowToDisplay + delta]
             else:
                 certaintextwidth = self.textwidth
             return certaintextwidth
