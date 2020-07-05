@@ -259,6 +259,8 @@ class Tables:
             # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
             # alxp("sdfsad" + str((newTable)))
             # alxp("sdfsad" + str((finallyDisplayLines)))
+            finallyDisplayLines = list(finallyDisplayLines)
+            finallyDisplayLines.sort()
             for k, (f, r) in enumerate(
                 zip(newTable, finallyDisplayLines)
             ):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
