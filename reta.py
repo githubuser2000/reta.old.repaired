@@ -480,7 +480,15 @@ class Tables:
                 isItNone = None
             return isItNone
 
-        def setWidth(self, rowsToDisplay):
+        def setWidth(self, rowsToDisplay, combiRows: int = 0):
+            alxp(
+                "setWidth "
+                + str((rowsToDisplay))
+                + " "
+                + str(self.breiten)
+                + " "
+                + str((self.rowsAsNumbers))
+            )
             isMainTable = True
             alxp(len(self.breiten))
             alxp(rowsToDisplay)
@@ -788,6 +796,7 @@ class Tables:
             paramLinesNot: set,
             contentTable: list,
             rowsAsNumbers: set,
+            combiRows: int,
         ) -> tuple:
             """Aus einer Tabelle wird eine gemacht, bei der der Zeilenumbruch durchgeführt wird.
             Dabei werden alle Spalten und Zeilen entfernt die nicht ausgegeben werden sollen.
@@ -853,7 +862,7 @@ class Tables:
                             rowsToDisplay += 1
                             newLines = [[]] * headingsAmount
                             # alxp(str(rowsToDisplay+(1 if self.nummerierung else 0))+' '+str(len(self.breiten)))
-                            certaintextwidth = self.setWidth(rowsToDisplay)
+                            certaintextwidth = self.setWidth(rowsToDisplay, combiRows)
 
                             new2Lines += [
                                 self.cellWork(cell, newLines, certaintextwidth, t)
