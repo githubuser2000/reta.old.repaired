@@ -164,7 +164,7 @@ class Tables:
             return self.breiten
 
         @breitenn.setter
-        def breitenn(self, value: bool):
+        def breitenn(self, value: list):
             self.breiten = value
 
         @property
@@ -480,52 +480,28 @@ class Tables:
                 isItNone = None
             return isItNone
 
-        def setWidth(self, rowsToDisplay, combiRows: int = 0):
+        def setWidth(self, rowToDisplay: int, combiRows: int = 0) -> int:
+            if combiRows < len(self.breiten):
+                breiten: list = self.breiten[combiRows:]
+            else:
+                breiten: list = []
             alxp(
                 "setWidth "
-                + str((rowsToDisplay))
+                + str((rowToDisplay))
                 + " "
-                + str(self.breiten)
+                + str(breiten)
                 + " "
                 + str((self.rowsAsNumbers))
+                + " "
+                + str(combiRows)
+                + " "
+                + str(1 if self.nummerierung else 0)
             )
-            isMainTable = True
-            alxp(len(self.breiten))
-            alxp(rowsToDisplay)
-            alxp((-1 if self.nummerierung else -2))
-            if (
-                rowsToDisplay + (1 if self.nummerierung else 0) < len(self.breiten)
-                and isMainTable
-            ):
-                certaintextwidth = self.breiten[
-                    rowsToDisplay + (-1 if self.nummerierung else -2)
-                ]
-                alxp("ää " + str(rowsToDisplay + (-1 if self.nummerierung else -2)))
-                alxp(
-                    "ää2 "
-                    + str(rowsToDisplay + (1 if self.nummerierung else 0))
-                    + "<="
-                    + str(len(self.breiten) + 1)
-                )
-            elif (
-                not isMainTable
-                and rowsToDisplay <= len(self.breiten) + 1 + len(self.rowsAsNumbers)
-                and (rowsToDisplay - 2 + len(self.rowsAsNumbers)) in self.breiten
-            ):
-                alxp("üü " + str(rowsToDisplay - 2 + len(self.rowsAsNumbers)))
-                certaintextwidth = self.breiten[
-                    rowsToDisplay - 2 + len(self.rowsAsNumbers)
+            if rowToDisplay + (-1 if self.nummerierung else -2) < len(breiten):
+                certaintextwidth = breiten[
+                    rowToDisplay + (-1 if self.nummerierung else -2)
                 ]
             else:
-                alxp("öö " + str(rowsToDisplay - 2 + len(self.rowsAsNumbers)))
-                alxp(
-                    "öö "
-                    + str(rowsToDisplay)
-                    + "<="
-                    + str(len(self.breiten))
-                    + " + 1 + "
-                    + str(len(self.rowsAsNumbers))
-                )
                 certaintextwidth = self.textwidth
             return certaintextwidth
 
@@ -796,7 +772,7 @@ class Tables:
             paramLinesNot: set,
             contentTable: list,
             rowsAsNumbers: set,
-            combiRows: int,
+            combiRows: int = 0,
         ) -> tuple:
             """Aus einer Tabelle wird eine gemacht, bei der der Zeilenumbruch durchgeführt wird.
             Dabei werden alle Spalten und Zeilen entfernt die nicht ausgegeben werden sollen.
@@ -854,16 +830,18 @@ class Tables:
                     if reliNumbersBool:
                         self.religionNumbers += [int(u)]
                     new2Lines: list = []
-                    rowsToDisplay = 0
+                    rowToDisplay = 0
                     h = 0
                     for t, cell in enumerate(line):
                         if t in rowsAsNumbers:
                             # alxp(str(u)+' '+str(t)+' '+str(contentTable[u][t]))
-                            rowsToDisplay += 1
+                            rowToDisplay += 1
                             newLines = [[]] * headingsAmount
-                            # alxp(str(rowsToDisplay+(1 if self.nummerierung else 0))+' '+str(len(self.breiten)))
-                            certaintextwidth = self.setWidth(rowsToDisplay, combiRows)
-
+                            # alxp(str(rowToDisplay+(1 if self.nummerierung else 0))+' '+str(len(self.breiten)))
+                            certaintextwidth = self.setWidth(rowToDisplay, combiRows)
+                            alxp(
+                                "zz " + str(rowToDisplay) + " " + str(certaintextwidth)
+                            )
                             new2Lines += [
                                 self.cellWork(cell, newLines, certaintextwidth, t)
                             ]
@@ -1417,15 +1395,18 @@ class Program:
                         if arg[9:].isdecimal():
                             self.tables.textWidth = abs(int(arg[9:]))
                     elif arg[2:10] == "breiten=":
-                        self.breiten = []
+                        self.tables.breitenn = []
                         for breite in arg[10:].split(","):
                             if breite.isdecimal():
                                 self.tables.breitenn += [int(breite)]
-                        # alxp("qq " + str(self.breiten))
                     elif arg[2:20] == "keinenummerierung":
                         self.tables.nummeriere = False
-                    elif arg[2:13] == "religionen=":
-                        for religion in arg[13:].split(","):
+                    elif arg[2:13] == "religionen=" or arg[2:11] == "religion=":
+                        for religion in (
+                            arg[13:].split(",")
+                            if arg[2:13] == "religionen="
+                            else arg[11:].split(",")
+                        ):
                             if religion == neg + "sternpolygon":
                                 rowsAsNumbers.add(0)
                                 rowsAsNumbers.add(6)
@@ -1824,7 +1805,11 @@ class Program:
                 rowsRange_kombi_1,
                 old2newTableAnimalsProfessions,
             ) = self.tables.getPrepare.prepare4out(
-                set(), set(), animalsProfessionsTable, rowsOfcombi
+                set(),
+                set(),
+                animalsProfessionsTable,
+                rowsOfcombi,
+                self.tables.getCombis.sumOfAllCombiRowsAmount,
             )
             # alxp(str(newTable))
             KombiTables = []
