@@ -498,7 +498,7 @@ class Tables:
                 + " "
                 + str(1 if self.nummerierung else 0)
             )
-            delta = 0 if not self.nummerierung and combiRows1 != 0 else -1
+            delta = -1 if not self.nummerierung and combiRows1 != 0 else -1
             if rowToDisplay + delta < len(breiten):
                 certaintextwidth = breiten[rowToDisplay + delta]
             else:
