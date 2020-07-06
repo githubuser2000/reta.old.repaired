@@ -215,7 +215,7 @@ class Tables:
             def findMaxCellTextLen(
                 finallyDisplayLines: set, newTable: list, rowsRange: range
             ) -> dict:
-                """Gibt eine Liste zurück mit allen maximalen Zwellhoehen pro alle Zellen einer Zeile
+                """Gibt eine Liste zurück mit allen maximalen Zellhoehen pro alle Zellen einer Zeile
 
                 @type finallyDisplayLines: set
                 @param finallyDisplayLines: Zeilen die ausgegeben werden sollen
@@ -291,11 +291,9 @@ class Tables:
                         # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
                         # if i < maxRowsPossible and k < 6:
                         # if i < maxRowsPossible:
-                        if i + (0 if self.nummerierung else 1) < len(self.breiten):
+                        if i < len(self.breiten):
                             # if i + (1 if self.nummerierung else 0) <= len(self.breiten):
-                            certaintextwidth = self.breiten[
-                                i + (0 if self.nummerierung else 1)
-                            ]
+                            certaintextwidth = self.breiten[i]
                         else:
                             certaintextwidth = self.textwidth
                         if certaintextwidth > maxCellTextLen[i]:
@@ -486,19 +484,21 @@ class Tables:
                 breiten: list = self.breiten[len(self.rowsAsNumbers) - combiRows :]
             else:
                 breiten: list = []
-            alxp(
-                "setWidth "
-                + str((rowToDisplay))
-                + " "
-                + str(breiten)
-                + " "
-                + str((self.rowsAsNumbers))
-                + " "
-                + str(combiRows)
-                + " "
-                + str(1 if self.nummerierung else 0)
-            )
-            delta = -1 if not self.nummerierung and combiRows1 != 0 else -1
+            if False:
+                alxp(
+                    "setWidth "
+                    + str((rowToDisplay))
+                    + " "
+                    + str(breiten)
+                    + " "
+                    + str((self.rowsAsNumbers))
+                    + " "
+                    + str(combiRows)
+                    + " "
+                    + str(1 if self.nummerierung else 0)
+                )
+            # delta = -1 if not self.nummerierung and combiRows1 != 0 else -1
+            delta = -1
             if rowToDisplay + delta < len(breiten):
                 certaintextwidth = breiten[rowToDisplay + delta]
             else:

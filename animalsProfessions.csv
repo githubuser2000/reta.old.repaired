@@ -2,9 +2,10 @@
 3,8,10;Mensch, Menschenaffe;
 7;Hund, Wolf, Fuchs;Tischler
 6;Elefant, Bär, Nilpferd;Kaufmann, Richter, Soziologe, Bänker
-5,9;Katze;Arzt
+5,9;Katze;
+5,9,13;;Arzt
 10;Rabe, Greifvogel;Mathematiker, Informatiker, Strukturwissenschaftler
-10,7;Delphin;Philosoph. Model, Architekt, 3D-Software-Künstler
+10,7;Delphin;Philosoph, Laufsteg-Model, Architekt, 3D-Software-Künstler
 11;Kanarienvogel;Systemtheoretiker, Darsteller
 2,4,7,14,15,18;Hundeaußerirdische;
 5,9,19;Katzenaußerirdische;
