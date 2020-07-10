@@ -67,6 +67,10 @@ class Tables:
         self.getPrepare.ifprimmultis = value
 
     @property
+    def primUniversePrimsSet2(self):
+        return self.puniverseprims2
+
+    @property
     def primUniversePrimsSet(self):
         return self.puniverseprims
 
@@ -103,7 +107,7 @@ class Tables:
     @nummeriere.setter
     def nummeriere(self, value: bool):
         self.getOut.nummerierung = value
-        self.getPrepare.nummerierung = value
+        )self.getPrepare.nummerierung = value
 
     @property
     def textHeight(self):
@@ -136,6 +140,7 @@ class Tables:
         self.breitenn: list = []
         self.primUniverse = False  # ob "primenumbers.csv" gelesen werden soll
         self.puniverseprims: set = set()  # welche Spalten von "primenumbers.csv"
+        self.puniverseprims2: set = set()  # welche Spalten von "primenumbers.csv"
         self.getOut.primUniversePrimsSet = self.puniverseprims
         self.getConcat.primUniversePrimsSet = self.puniverseprims
         self.religionNumbers: list = []
@@ -786,9 +791,9 @@ class Tables:
                             rowToDisplay += 1
                             newLines = [[]] * headingsAmount
                             certaintextwidth = self.setWidth(rowToDisplay, combiRows)
-                            new2Lines += [
-                                self.cellWork(cell, newLines, certaintextwidth, t)
-                            ]
+                            into = self.cellWork(cell, newLines, certaintextwidth, t)
+                            if into != [""] or True:
+                                new2Lines += [into]
                             if u == 0:
                                 old2newRows[0][t] = h
                                 old2newRows[1][h] = t
@@ -812,6 +817,8 @@ class Tables:
             @rtype: list[str]
             @return: Liste aus Strings mit korrektem Zeilenumbruch
             """
+
+            cell = cell.strip()
             isItNone = self.wrapping(cell, certaintextwidth)
             cell2: tuple = tuple()
             rest: str = cell
@@ -997,6 +1004,9 @@ class Tables:
                     kombiTable: list = []
                     kombiTable_Kombis: list = []
                     for z, col in enumerate(csv.reader(csv_file, delimiter=";")):
+                        for i, row in enumerate(col):
+                            if i > 0 and col[i].strip() != "":
+                                col[i] += " (" + col[0] + ")"
                         kombiTable += [col]
                         kombiTable_Kombis_Col: list = []
                         if len(col) > 0 and z > 0:
@@ -1072,6 +1082,29 @@ class Tables:
         def primUniverse(self, value: bool):
             # ob "primenumbers.csv" gelesen werden soll
             self.primuniverse = value
+
+        def concat1RowPrimUniverse2(self, relitable: list):
+            """Fügt eine Spalte ein, in der Primzahlen mit Vielfachern
+            auf dem Niveau des Universums nicht einfach nur aus einer
+            CSV Tabelle geladen werden, sondern durch Primzahlen und
+            deren Vielfachern generiert werden.
+
+            @type relitable: list
+            @param relitable: Haupttabelle self.relitable
+            @return: relitable + weitere Tabelle daneben
+            """
+            global originalLinesRange
+            headingsAmount = len(self.relitable[0])
+            self.relitable = relitable
+            self.transzendentalien = []
+            self.rolle = []
+            self.motivation = []
+            for cols in self.relitable:
+                for i, transzendentalien, rolle, motivation in enumerate(zip(
+                    cols[5], cols[19], cols[10]
+                )):
+                    pass
+            return self.relitable
 
         def readConcatCsv(self, relitable: list, rowsAsNumbers: set) -> list:
             """Fügt eine Tabelle neben der self.relitable an
@@ -1492,6 +1525,10 @@ class Program:
                             if word.isdecimal():
                                 self.tables.primUniverse = True
                                 self.tables.primUniversePrimsSet.add(int(word))
+                    elif arg[2:31] == "primzahlvielfachesuniversum2=":
+                        for word in arg[30:].split(","):
+                            if word.isdecimal():
+                                self.tables.primUniversePrimsSet2.add(int(word))
 
                 if (
                     len(arg) > 1
@@ -1729,18 +1766,14 @@ class Program:
             for key, value in ChosenKombiLines.items():
                 Tables = {}
                 for kombiLineNumber in value:
-                    if key in Tables:
-                        Tables[key] += [
-                            self.tables.tableReducedInLinesByTypeSet(
-                                newTable_kombi_1, {kombiLineNumber}
-                            )[0]
-                        ]
-                    else:
-                        Tables[key] = [
-                            self.tables.tableReducedInLinesByTypeSet(
-                                newTable_kombi_1, {kombiLineNumber}
-                            )[0]
-                        ]
+                    into = self.tables.tableReducedInLinesByTypeSet(
+                        newTable_kombi_1, {kombiLineNumber}
+                    )
+                    if len(into) > 0:
+                        if key in Tables:
+                            Tables[key] += [into[0]]
+                        else:
+                            Tables[key] = [into[0]]
                     # cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
                 KombiTables += [Tables]
 
@@ -1760,64 +1793,9 @@ class Program:
             "Bei ./reta.py -zeilen --zeit='' --zaehlung='' --typ='' --primzahlvielfache='' --vielfachevonzahlen='' --vorhervonausschnitt='23-23,46-46' --nachtraeglichdavon='' -spalten --breite=100 --kreise=thomas \
 \n stimmen die Religionsnummern nicht mehr mit den Religionen überein und die Reihenfolge der Religionsnummern ist auch falsch"
         )
-        alxp(self.tables.getRowAmountofAnyPart())
+        # alxp(self.tables.getRowAmountofAnyPart())
 
 
 Program()
 # inverted:
 # \e[7mi
-"""
-Wie refactoren?
-Es gibt:
-+ Es gibt Funktionen,
-  + die mathematische Operationen ausführen
-  + kleine Hilfsfunktionen sind
-+ Es gibt Funktionen, die csv dateien
-  + einlesen
-  + vorverarbeiten
-  + ausgeben
-  + umverarbeiten
-+ es gibt Programm-Hauptteil-Funktionen
-  + start
-  + programmparameter
-  + Ausgabe-Hilfs-Funktionen
-
-Mein Problem ist jetzt:
-+ Mehrere Tabllenverarbeitungsmethoden unter einen Hut bekommen und deren
-  Standards vereinheitlichen, so dass ich es einheitlich ansprechen kann
-+ es sollte besser schon einprogrammiert sein, dass es mehrere
-  + kombitabellen
-  + nebentabellen
-  geben kann
-
-Was gibt es davon:
-    + Haupttabelle
-    + Nebentabelle
-    + Kombitabelle
-    + Gesamttabelle
-
-Werte die davon vereinheitlicht werden sollten:
-    + Tabelle selbst: eingelesene + angepasste
-    + Spaltenanzahl und Zeilenanzahl
-    + erlaubte Spalten und Zeilen als sets
-    + bool werte
-
-Funktionen davon, außer weniger relevante Hilfsfunktionen:
-    + tableJoin
-    + readKombiCsv, readConcatCsv
-    + prepare4out, prepare_kombi
-    + Tabellen und Listen, die Informationen enthalten über das Zusammenspiel
-      dieser aller Tabellen
-
-Lösungsgedanken:
-    + eine Klasse für Tabellenarbeit
-        + darin eine Klasse jeweils für
-            + Kombitabellen
-            + Nebentabellen
-            + Haupttabelle
-            + Gesamttabelle
-        + daraus soll möglichst alles andere was geht raus gehalten werden
-    + ich sollte das als erstes tun und alles andere darauf aufbauen
-      d.h. ich überlege später was ich weiteres für Refactoring plane
-
-"""
