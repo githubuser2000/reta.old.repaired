@@ -1104,6 +1104,17 @@ class Tables:
             # ob "primenumbers.csv" gelesen werden soll
             self.primuniverse = value
 
+        def concatMondExponzierenLogarithmusTyp(
+            self, relitable: list, rowsAsNumbers: set
+        ) -> tuple:
+            self.relitable = relitable
+            if self.tables.spalteGestirn:
+                rowsAsNumbers |= {len(self.relitable[0])}
+            for i, cols in enumerate(deepcopy(self.relitable)):
+                moonTypesOf1Num = moonNumber(i)
+                self.relitable[i] += [self.relitable[i][44]]
+            return self.relitable, rowsAsNumbers
+
         def concatRowsOfConcepts(
             self, relitable: list, conceptsRowsSetOfTuple: set, rowsAsNumbers: set
         ) -> tuple:
@@ -1123,7 +1134,7 @@ class Tables:
                     zip(deepcopy(self.relitable), concept[0], concept[1])
                 ):
                     if i == 0:
-                        into = row1
+                        into = "Generiert: " + row1
                     else:
                         into = ""
                         if row1.strip() != "":
@@ -1137,7 +1148,7 @@ class Tables:
                         if len(concept[1]) > i + 1 and concept[1][i + 1].strip() != "":
                             into += concept[1][i + 1] + "| "
                         if into != "":
-                            into += "alles zur eigenen Strukturgröße einer " + cols[4]
+                            into += "alles zur selben Strukturgröße einer " + cols[4]
                     self.relitable[i] += [into]
             return self.relitable, rowsAsNumbers
 
@@ -1343,6 +1354,14 @@ def primFak(n: int) -> list:
     return faktoren
 
 
+def getLogarithmOnlyAsPureInt(potenz: int, basis: int) -> int:
+    exponent = math.log(potenz) / math.log(basis)
+    if exponent == round(exponent):
+        return exponent
+    else:
+        return None
+
+
 def primRepeat(n: list) -> list:
     """Primfaktoren werden zusammengefasst in Liste aus Primfaktor hoch n
 
@@ -1517,16 +1536,13 @@ class Program:
                     elif arg[2:15] in ["menschliches="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "liebe", neg + "ethik"]:
-                                rowsAsNumbers.add(8)
-                                rowsAsNumbers.add(9)
-                                rowsAsNumbers.add(28)
+                                rowsAsNumbers |= {8, 9, 28}
                             elif thing in [
                                 neg + "motive",
                                 neg + "motivation",
                                 neg + "motiv",
                             ]:
-                                rowsAsNumbers.add(10)
-                                rowsAsNumbers.add(18)
+                                rowsAsNumbers |= {10, 18, 42}
                             elif thing in [
                                 neg + "errungenschaften",
                                 neg + "ziele",
@@ -1645,6 +1661,13 @@ class Program:
                             ]:
                                 alxp("gut")
                                 self.tables.generRows |= {(38, 39)}
+                    elif arg[2:17] == "inkrementieren=":
+                        for word in arg[17:].split(","):
+                            if word in [
+                                neg + "universum",
+                            ]:
+                                rowsAsNumbers.add(43)
+
                 if (
                     len(arg) > 1
                     and arg[1] == "-"
@@ -1796,6 +1819,12 @@ class Program:
         )
         self.relitable, self.rowsAsNumbers = self.tables.getConcat.concatRowsOfConcepts(
             self.relitable, self.tables.generRows, self.rowsAsNumbers
+        )
+        (
+            self.relitable,
+            self.rowsAsNumbers,
+        ) = self.tables.getConcat.concatMondExponzierenLogarithmusTyp(
+            self.relitable, self.rowsAsNumbers
         )
         if True:
             (
