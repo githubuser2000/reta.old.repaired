@@ -107,7 +107,7 @@ class Tables:
     @nummeriere.setter
     def nummeriere(self, value: bool):
         self.getOut.nummerierung = value
-        )self.getPrepare.nummerierung = value
+        self.getPrepare.nummerierung = value
 
     @property
     def textHeight(self):
@@ -1040,6 +1040,10 @@ class Tables:
                                 maxlen - len(animcol)
                             )
                         else:
+                            """alxp("---")
+                            alxp(type(animcol[1:]))
+                            alxp(type(maxlen))
+                            alxp(type(animcol))"""
                             self.relitable[i] += len(animcol[1:]) * [""] + [""] * (
                                 maxlen - len(animcol)
                             )
@@ -1094,22 +1098,54 @@ class Tables:
             @return: relitable + weitere Tabelle daneben
             """
             global originalLinesRange
-            headingsAmount = len(self.relitable[0])
             self.relitable = relitable
             self.transzendentalien = []
             self.rolle = []
             self.motivation = []
+            self.ziel = []
             for cols in self.relitable:
-                for i, transzendentalien, rolle, motivation in enumerate(zip(
+                """for transzendentalien, rolle, motivation in zip(
                     cols[5], cols[19], cols[10]
-                )):
+                ):
                     self.transzendentalien += [transzendentalien]
-                    self.rolle += [rolle]
-                    self.motivation += [motivation]
+                    self.rolle += [rolle]"""
+                self.motivation += [cols[10]]
+                self.rolle += [cols[19]]
+                self.transzendentalien += [cols[5]]
+                self.ziel += [cols[11]]
 
-            for i, cols in enumerate(self.relitable):
+            for i, cols in enumerate(deepcopy(self.relitable)):
                 primMultiples = primMultiple(i)
-                self.relitable += [""]
+                into = ""
+                for k, multi in enumerate(primMultiples[1:]):
+                    if k > 0:
+                        into += ", außerdem: "
+                    into += (
+                        (
+                            self.transzendentalien[multi[0]]
+                            if self.transzendentalien[multi[0]].strip() != ""
+                            else "..."
+                        )
+                        + " UND "
+                        + (
+                            self.rolle[multi[0]]
+                            if self.rolle[multi[0]].strip() != ""
+                            else "..."
+                        )
+                        + " * "
+                        + (
+                            self.motivation[multi[1]]
+                            if self.motivation[multi[1]].strip() != ""
+                            else "..."
+                        )
+                        + " UND "
+                        + (
+                            self.ziel[multi[1]]
+                            if self.ziel[multi[1]].strip() != ""
+                            else "..."
+                        )
+                    )
+                self.relitable[i] += [into]
             return self.relitable
 
         def readConcatCsv(self, relitable: list, rowsAsNumbers: set) -> list:
@@ -1532,7 +1568,7 @@ class Program:
                                 self.tables.primUniverse = True
                                 self.tables.primUniversePrimsSet.add(int(word))
                     elif arg[2:31] == "primzahlvielfachesuniversum2=":
-                        for word in arg[30:].split(","):
+                        for word in arg[31:].split(","):
                             if word.isdecimal():
                                 self.tables.primUniversePrimsSet2.add(int(word))
 
@@ -1691,6 +1727,11 @@ class Program:
         self.relitable = self.tables.getConcat.readConcatCsv(
             self.relitable, self.rowsAsNumbers
         )
+
+        if len(self.tables.primUniversePrimsSet2) > 0:
+            self.relitable = self.tables.getConcat.concat1RowPrimUniverse2(
+                self.relitable
+            )
         if self.ifCombi:
             (
                 animalsProfessionsTable,
