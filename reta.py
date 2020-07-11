@@ -1105,23 +1105,28 @@ class Tables:
             self.primuniverse = value
 
         def concatRowsOfConcepts(
-            self, relitable: list, conceptsRowsSetOfTuple: set
+            self, relitable: list, conceptsRowsSetOfTuple: set, rowsAsNumbers: set
         ) -> tuple:
+            """
             self.relitable = relitable
             self.concepts = []
             alxp(conceptsRowsSetOfTuple)
             for paar in conceptsRowsSetOfTuple:
                 for cols in self.relitable:
                     self.concepts += [(cols[paar[0]], cols[paar[1]])]
-
-            for concept in self.concepts:
-                for i, cols, row1, row2 in enumerate(
-                    deepcopy(self.relitable), concept[0], concept[1]
+            for k, concept in enumerate(self.concepts):
+                rowsAsNumbers |= {len(self.relitable[0]) + k}
+                for i, (cols, row1, row2) in enumerate(
+                    zip(deepcopy(self.relitable), concept[0], concept[1])
                 ):
-                    if row1.split() == "" and row2.split() == "":
-                        pass
-            alxp(self.concepts)
+                    if row1.split() == "" or row2.split() == "":
+                        into = ""
+                    else:
+                        into = row1
 
+                    # self.relitable[i] += [into]
+            alxp(self.concepts)
+"""
             return self.relitable
 
         def concat1RowPrimUniverse2(self, relitable: list, rowsAsNumbers: set) -> tuple:
@@ -1145,7 +1150,8 @@ class Tables:
                 self.rolle += [cols[19]]
                 self.transzendentalien += [cols[5]]
                 self.ziel += [cols[11]]
-            self.tables.primUniverseRowNum = len(self.relitable[0])
+            if len(self.tables.primUniversePrimsSet) > 0:
+                self.tables.primUniverseRowNum = len(self.relitable[0])
             rowsAsNumbers |= {len(self.relitable[0])}
             for i, cols in enumerate(deepcopy(self.relitable)):
                 primMultiples = primMultiple(i)
@@ -1776,7 +1782,7 @@ class Program:
             self.relitable, self.rowsAsNumbers
         )
         self.relitable = self.tables.getConcat.concatRowsOfConcepts(
-            self.relitable, self.tables.generRows
+            self.relitable, self.tables.generRows, self.rowsAsNumbers
         )
         if True:
             (
