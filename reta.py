@@ -1124,15 +1124,26 @@ class Tables:
                 ):
                     if i == 0:
                         into = row1
-                    elif row1.split() == "" or row2.split() == "":
-                        into = "-"
+                    elif row1.strip() == "":
+                        if i > 2 and concept[0][i - 2].strip() != "":
+                            into = "wenig: " + concept[0][i - 2]
+                        elif (
+                            len(concept[0]) > i + 2 and concept[0][i + 2].strip() != ""
+                        ):
+                            into = "wenig: " + concept[0][i + 2]
+                        elif i > 1 and concept[1][i - 1].strip() != "":
+                            into = concept[1][i - 1]
+                        elif (
+                            len(concept[1]) > i + 1 and concept[1][i + 1].strip() != ""
+                        ):
+                            into = concept[1][i + 1]
+                        else:
+                            into = ""
                     else:
                         into = "sehr: " + row1
-
-                    alxp(into)
+                    if into != "":
+                        into += " zu Strukturgröße einer " + cols[4]
                     self.relitable[i] += [into]
-            alxp(self.concepts)
-
             return self.relitable, rowsAsNumbers
 
         def concat1RowPrimUniverse2(self, relitable: list, rowsAsNumbers: set) -> tuple:
