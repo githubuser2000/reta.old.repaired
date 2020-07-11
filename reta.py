@@ -1103,7 +1103,13 @@ class Tables:
                 for i, transzendentalien, rolle, motivation in enumerate(zip(
                     cols[5], cols[19], cols[10]
                 )):
-                    pass
+                    self.transzendentalien += [transzendentalien]
+                    self.rolle += [rolle]
+                    self.motivation += [motivation]
+
+            for i, cols in enumerate(self.relitable):
+                primMultiples = primMultiple(i)
+                self.relitable += [""]
             return self.relitable
 
         def readConcatCsv(self, relitable: list, rowsAsNumbers: set) -> list:
