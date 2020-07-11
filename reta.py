@@ -1107,26 +1107,24 @@ class Tables:
         def concatRowsOfConcepts(
             self, relitable: list, conceptsRowsSetOfTuple: set, rowsAsNumbers: set
         ) -> tuple:
-            """
             self.relitable = relitable
             self.concepts = []
-            alxp(conceptsRowsSetOfTuple)
-            for paar in conceptsRowsSetOfTuple:
+            for i, paar in enumerate(conceptsRowsSetOfTuple):
                 for cols in self.relitable:
                     self.concepts += [(cols[paar[0]], cols[paar[1]])]
-            for k, concept in enumerate(self.concepts):
-                rowsAsNumbers |= {len(self.relitable[0]) + k}
-                for i, (cols, row1, row2) in enumerate(
-                    zip(deepcopy(self.relitable), concept[0], concept[1])
-                ):
-                    if row1.split() == "" or row2.split() == "":
-                        into = ""
-                    else:
-                        into = row1
+                rowsAsNumbers |= {len(self.relitable[0]) + i}
+            for i, (cols, concept) in enumerate(
+                zip(deepcopy(self.relitable), self.concepts)
+            ):
+                """if row1.split() == "" or row2.split() == "":
+                    into = ""
+                else:"""
+                into = ""
 
-                    # self.relitable[i] += [into]
+                alxp(into)
+                self.relitable[i] += [into]
             alxp(self.concepts)
-"""
+
             return self.relitable
 
         def concat1RowPrimUniverse2(self, relitable: list, rowsAsNumbers: set) -> tuple:
@@ -1150,9 +1148,10 @@ class Tables:
                 self.rolle += [cols[19]]
                 self.transzendentalien += [cols[5]]
                 self.ziel += [cols[11]]
+            alxp(self.tables.primUniversePrimsSet)
             if len(self.tables.primUniversePrimsSet) > 0:
                 self.tables.primUniverseRowNum = len(self.relitable[0])
-            rowsAsNumbers |= {len(self.relitable[0])}
+                rowsAsNumbers |= {len(self.relitable[0])}
             for i, cols in enumerate(deepcopy(self.relitable)):
                 primMultiples = primMultiple(i)
                 into = "" if i != 0 else "generierte Multiplikationen"
