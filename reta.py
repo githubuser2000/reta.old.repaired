@@ -71,6 +71,10 @@ class Tables:
     def primUniverseRow(self):
         return self.puniverseprims2
 
+    @primUniverseRow.setter
+    def primUniverseRow(self, value: bool):
+        self.puniverseprims2 = value
+
     @property
     def primUniversePrimsSet(self):
         return self.puniverseprims
@@ -131,7 +135,7 @@ class Tables:
     def __init__(self):
         self.getPrepare = self.Prepare()
         self.getCombis = self.Combi()
-        self.getConcat = self.Concat()
+        self.getConcat = self.Concat(self)
         self.getOut = self.Output()
         self.getMainTable = self.Maintable()
         self.textHeight = 0
@@ -1071,6 +1075,9 @@ class Tables:
             )
 
     class Concat:
+        def __init__(self, tables):
+            self.tables = tables
+
         @property
         def primUniversePrimsSet(self):
             return self.puniverseprims
@@ -1088,7 +1095,7 @@ class Tables:
             # ob "primenumbers.csv" gelesen werden soll
             self.primuniverse = value
 
-        def concat1RowPrimUniverse2(self, relitable: list):
+        def concat1RowPrimUniverse2(self, relitable: list, rowsAsNumbers: set) -> tuple:
             """Fügt eine Spalte ein, in der Primzahlen mit Vielfachern
             auf dem Niveau des Universums nicht einfach nur aus einer
             CSV Tabelle geladen werden, sondern durch Primzahlen und
@@ -1105,19 +1112,15 @@ class Tables:
             self.motivation = []
             self.ziel = []
             for cols in self.relitable:
-                """for transzendentalien, rolle, motivation in zip(
-                    cols[5], cols[19], cols[10]
-                ):
-                    self.transzendentalien += [transzendentalien]
-                    self.rolle += [rolle]"""
                 self.motivation += [cols[10]]
                 self.rolle += [cols[19]]
                 self.transzendentalien += [cols[5]]
                 self.ziel += [cols[11]]
-
+            self.tables.primUniverseRowNum = len(self.relitable[0])
+            rowsAsNumbers |= {len(self.relitable[0])}
             for i, cols in enumerate(deepcopy(self.relitable)):
                 primMultiples = primMultiple(i)
-                into = ""
+                into = "" if i != 0 else "generierte Multiplikationen"
                 for k, multi in enumerate(primMultiples[1:]):
                     if k > 0:
                         into += ", außerdem: "
@@ -1147,7 +1150,7 @@ class Tables:
                         )
                     )
                 self.relitable[i] += [into]
-            return self.relitable
+            return self.relitable, rowsAsNumbers
 
         def readConcatCsv(self, relitable: list, rowsAsNumbers: set) -> list:
             """Fügt eine Tabelle neben der self.relitable an
@@ -1636,12 +1639,6 @@ class Program:
                         paramLines |= self.tables.getPrepare.parametersBereich(
                             arg[21:], "z", neg
                         )
-                #                    if arg[21:21+len(neg)] == neg:
-                #                        maybeAmounts=arg[21+len(neg):].split('-')
-                #                        if len(maybeAmounts) == 1 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0":
-                #                            paramLines.add('1-z-'+maybeAmounts[0])
-                #                        elif len(maybeAmounts) == 2 and maybeAmounts[0].isdecimal() and maybeAmounts[0] != "0" and maybeAmounts[1].isdecimal() and maybeAmounts[1] != "0":
-                #                            paramLines.add(maybeAmounts[0]+'-z-'+maybeAmounts[1])
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"
@@ -1726,8 +1723,13 @@ class Program:
         self.relitable = self.tables.getConcat.readConcatCsv(
             self.relitable, self.rowsAsNumbers
         )
-
-        self.relitable = self.tables.getConcat.concat1RowPrimUniverse2(self.relitable)
+        if True:
+            (
+                self.relitable,
+                self.rowsAsNumbers,
+            ) = self.tables.getConcat.concat1RowPrimUniverse2(
+                self.relitable, self.rowsAsNumbers
+            )
         if self.ifCombi:
             (
                 animalsProfessionsTable,
