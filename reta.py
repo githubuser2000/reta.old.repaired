@@ -1107,22 +1107,31 @@ class Tables:
         def concatRowsOfConcepts(
             self, relitable: list, conceptsRowsSetOfTuple: set, rowsAsNumbers: set
         ) -> tuple:
-            self.relitable = relitable
-            self.concepts = []
+            self.relitable: list = relitable
+            self.concepts: list = []
             for i, paar in enumerate(conceptsRowsSetOfTuple):
+                first = []
+                second = []
+                self.concepts += [(first, second)]
                 for cols in self.relitable:
-                    self.concepts += [(cols[paar[0]], cols[paar[1]])]
+                    first += [cols[paar[0]]]
+                    second += [cols[paar[1]]]
+                    # alxp(cols[paar[0]])
                 rowsAsNumbers |= {len(self.relitable[0]) + i}
-            for i, (cols, concept) in enumerate(
-                zip(deepcopy(self.relitable), self.concepts)
-            ):
-                """if row1.split() == "" or row2.split() == "":
-                    into = ""
-                else:"""
-                into = "iabc"
+            for concept in self.concepts:
+                for i, (cols, row1, row2) in enumerate(
+                    zip(deepcopy(self.relitable), concept[0], concept[1])
+                ):
+                    """if row1.split() == "" or row2.split() == "":
+                        into = ""
+                    else:"""
+                    if i == 0:
+                        into = row1
+                    else:
+                        into = "iabc"
 
-                alxp(into)
-                self.relitable[i] += [into]
+                    alxp(into)
+                    self.relitable[i] += [into]
             alxp(self.concepts)
 
             return self.relitable, rowsAsNumbers
