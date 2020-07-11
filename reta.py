@@ -1113,6 +1113,13 @@ class Tables:
             for paar in conceptsRowsSetOfTuple:
                 for cols in self.relitable:
                     self.concepts += [(cols[paar[0]], cols[paar[1]])]
+
+            for concept in self.concepts:
+                for i, cols, row1, row2 in enumerate(
+                    deepcopy(self.relitable), concept[0], concept[1]
+                ):
+                    if row1.split() == "" and row2.split() == "":
+                        pass
             alxp(self.concepts)
 
             return self.relitable
