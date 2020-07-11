@@ -1112,15 +1112,18 @@ class Tables:
                 rowsAsNumbers |= {len(self.relitable[0])}
             for i, cols in enumerate(deepcopy(self.relitable)):
                 moonTypesOf1Num = moonNumber(i)
-                into = ""
-                for k, (basis, exponentMinus2) in enumerate(zip(*moonTypesOf1Num)):
-                    if k > 0:
-                        into += " | "
-                    into += (
-                        self.relitable[basis][44]
-                        + " - "
-                        + self.relitable[exponentMinus2 + 2][10]
-                    )
+                if i == 0:
+                    into = "Mond-Typ"
+                else:
+                    into = ""
+                    for k, (basis, exponentMinus2) in enumerate(zip(*moonTypesOf1Num)):
+                        if k > 0:
+                            into += " | "
+                        into += (
+                            self.relitable[basis][44]
+                            + " - "
+                            + self.relitable[exponentMinus2 + 2][10]
+                        )
                 self.relitable[i] += [into]
             return self.relitable, rowsAsNumbers
 
