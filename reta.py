@@ -60,6 +60,14 @@ class Tables:
     #        self.getPrepare.rowsAsNumbers = value
 
     @property
+    def generRows(self):
+        return self.__generRows__
+
+    @generRows.setter
+    def generRows(self, value: set):
+        self.__generRows__ = value
+
+    @property
     def ifPrimMultis(self):
         return self.getPrepare.ifprimmultis
 
@@ -156,6 +164,7 @@ class Tables:
         self.getCombis.rowsOfcombi = 0
         # self.getPrepare.rowsAsNumbers = set()
         self.getConcat.concatRowsAmount = 0
+        self.__generRows__: set = set()
 
     class Output:
         @property
@@ -1095,6 +1104,19 @@ class Tables:
             # ob "primenumbers.csv" gelesen werden soll
             self.primuniverse = value
 
+        def concatRowsOfConcepts(
+            self, relitable: list, conceptsRowsSetOfTuple: set
+        ) -> tuple:
+            self.relitable = relitable
+            self.concepts = []
+            alxp(conceptsRowsSetOfTuple)
+            for paar in conceptsRowsSetOfTuple:
+                for cols in self.relitable:
+                    self.concepts += [(cols[paar[0]], cols[paar[1]])]
+            alxp(self.concepts)
+
+            return self.relitable
+
         def concat1RowPrimUniverse2(self, relitable: list, rowsAsNumbers: set) -> tuple:
             """Fügt eine Spalte ein, in der Primzahlen mit Vielfachern
             auf dem Niveau des Universums nicht einfach nur aus einer
@@ -1573,7 +1595,30 @@ class Program:
                                 self.tables.primUniversePrimsSet.add(int(word))
                     elif arg[2:29] == "primzahlvielfachesuniversum":
                         self.tables.primUniverseRow = True
-
+                    elif arg[2:10] == "konzept=" or arg[2:11] == "konzepte=":
+                        for word in (
+                            arg[10:].split(",")
+                            if arg[2:10] == "konzept="
+                            else word in arg[11:].split(",")
+                        ):
+                            if word in [
+                                neg + "weisheit",
+                                neg + "metaweisheit",
+                                neg + "meta-weisheit",
+                                neg + "idiot",
+                                neg + "weise",
+                                neg + "optimal",
+                                neg + "optimum",
+                            ]:
+                                self.tables.generRows |= {(40, 41)}
+                            elif word in [
+                                neg + "gut",
+                                neg + "böse",
+                                neg + "lieb",
+                                neg + "schlecht",
+                            ]:
+                                alxp("gut")
+                                self.tables.generRows |= {(38, 39)}
                 if (
                     len(arg) > 1
                     and arg[1] == "-"
@@ -1722,6 +1767,9 @@ class Program:
 
         self.relitable = self.tables.getConcat.readConcatCsv(
             self.relitable, self.rowsAsNumbers
+        )
+        self.relitable = self.tables.getConcat.concatRowsOfConcepts(
+            self.relitable, self.tables.generRows
         )
         if True:
             (
