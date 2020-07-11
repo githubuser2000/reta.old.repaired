@@ -1119,13 +1119,13 @@ class Tables:
                 """if row1.split() == "" or row2.split() == "":
                     into = ""
                 else:"""
-                into = ""
+                into = "iabc"
 
                 alxp(into)
                 self.relitable[i] += [into]
             alxp(self.concepts)
 
-            return self.relitable
+            return self.relitable, rowsAsNumbers
 
         def concat1RowPrimUniverse2(self, relitable: list, rowsAsNumbers: set) -> tuple:
             """Fügt eine Spalte ein, in der Primzahlen mit Vielfachern
@@ -1780,7 +1780,7 @@ class Program:
         self.relitable = self.tables.getConcat.readConcatCsv(
             self.relitable, self.rowsAsNumbers
         )
-        self.relitable = self.tables.getConcat.concatRowsOfConcepts(
+        self.relitable, self.rowsAsNumbers = self.tables.getConcat.concatRowsOfConcepts(
             self.relitable, self.tables.generRows, self.rowsAsNumbers
         )
         if True:
