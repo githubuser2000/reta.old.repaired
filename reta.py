@@ -44,6 +44,7 @@ class Tables:
             "prim (concat)": self.puniverseprims,
             "combi": (self.getCombis.rowsOfcombi, self.getCombis.ChosenKombiLines),
             "len(AllCombiRows)": self.getCombis.sumOfAllCombiRowsAmount,
+            "row of prim multi generated": self.primUniverseRow
             # "concat (prim)": (
             #    self.getConcat.concatRowsAmount,
             #    self.primUniversePrimsSet,
@@ -67,7 +68,7 @@ class Tables:
         self.getPrepare.ifprimmultis = value
 
     @property
-    def primUniversePrimsSet2(self):
+    def primUniverseRow(self):
         return self.puniverseprims2
 
     @property
@@ -1161,7 +1162,7 @@ class Tables:
             """
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
-            if self.primuniverse:
+            if True or self.primuniverse:
                 with open("primenumbers.csv", mode="r") as csv_file:
                     self.relitable, primUniverseLine = Tables.fillBoth(
                         self.relitable, list(csv.reader(csv_file, delimiter=";"))
@@ -1567,10 +1568,8 @@ class Program:
                             if word.isdecimal():
                                 self.tables.primUniverse = True
                                 self.tables.primUniversePrimsSet.add(int(word))
-                    elif arg[2:31] == "primzahlvielfachesuniversum2=":
-                        for word in arg[31:].split(","):
-                            if word.isdecimal():
-                                self.tables.primUniversePrimsSet2.add(int(word))
+                    elif arg[2:29] == "primzahlvielfachesuniversum":
+                        self.tables.primUniverseRow = True
 
                 if (
                     len(arg) > 1
@@ -1728,10 +1727,7 @@ class Program:
             self.relitable, self.rowsAsNumbers
         )
 
-        if len(self.tables.primUniversePrimsSet2) > 0:
-            self.relitable = self.tables.getConcat.concat1RowPrimUniverse2(
-                self.relitable
-            )
+        self.relitable = self.tables.getConcat.concat1RowPrimUniverse2(self.relitable)
         if self.ifCombi:
             (
                 animalsProfessionsTable,
