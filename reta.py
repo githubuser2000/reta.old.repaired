@@ -1112,7 +1112,10 @@ class Tables:
                 rowsAsNumbers |= {len(self.relitable[0])}
             for i, cols in enumerate(deepcopy(self.relitable)):
                 moonTypesOf1Num = moonNumber(i)
-                self.relitable[i] += [self.relitable[i][44]]
+                into = ""
+                for basis, exponentMinus2 in zip(*moonTypesOf1Num):
+                    into += self.relitable[i][44] + " - " + str(moonTypesOf1Num) + " | "
+                self.relitable[i] += [into]
             return self.relitable, rowsAsNumbers
 
         def concatRowsOfConcepts(
@@ -1323,7 +1326,7 @@ def moonNumber(num: int):
     for i in range(2, num):
         oneResult = math.pow(num, 1 / i)
         if math.floor(oneResult) == oneResult:
-            results += [oneResult]
+            results += [int(oneResult)]
             exponent += [i - 2]
     return results, exponent
 
