@@ -1137,7 +1137,7 @@ class Tables:
                         if len(concept[1]) > i + 1 and concept[1][i + 1].strip() != "":
                             into += concept[1][i + 1] + "| "
                         if into != "":
-                            into += "alles zu Strukturgröße einer " + cols[4]
+                            into += "alles zur eigenen Strukturgröße einer " + cols[4]
                     self.relitable[i] += [into]
             return self.relitable, rowsAsNumbers
 
