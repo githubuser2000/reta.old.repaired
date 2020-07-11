@@ -1122,13 +1122,12 @@ class Tables:
                 for i, (cols, row1, row2) in enumerate(
                     zip(deepcopy(self.relitable), concept[0], concept[1])
                 ):
-                    """if row1.split() == "" or row2.split() == "":
-                        into = ""
-                    else:"""
                     if i == 0:
                         into = row1
+                    elif row1.split() == "" or row2.split() == "":
+                        into = "-"
                     else:
-                        into = "iabc"
+                        into = "sehr: " + row1
 
                     alxp(into)
                     self.relitable[i] += [into]
