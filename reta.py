@@ -1124,25 +1124,20 @@ class Tables:
                 ):
                     if i == 0:
                         into = row1
-                    elif row1.strip() == "":
-                        if i > 2 and concept[0][i - 2].strip() != "":
-                            into = "wenig: " + concept[0][i - 2]
-                        elif (
-                            len(concept[0]) > i + 2 and concept[0][i + 2].strip() != ""
-                        ):
-                            into = "wenig: " + concept[0][i + 2]
-                        elif i > 1 and concept[1][i - 1].strip() != "":
-                            into = concept[1][i - 1]
-                        elif (
-                            len(concept[1]) > i + 1 and concept[1][i + 1].strip() != ""
-                        ):
-                            into = concept[1][i + 1]
-                        else:
-                            into = ""
                     else:
-                        into = "sehr: " + row1
-                    if into != "":
-                        into += " zu Strukturgröße einer " + cols[4]
+                        into = ""
+                        if row1.strip() != "":
+                            into += "sehr: " + row1 + "| "
+                        if i > 2 and concept[0][i - 2].strip() != "":
+                            into += "ausreichend: " + concept[0][i - 2] + "| "
+                        if len(concept[0]) > i + 2 and concept[0][i + 2].strip() != "":
+                            into += "ausreichend: " + concept[0][i + 2] + "| "
+                        if i > 1 and concept[1][i - 1].strip() != "":
+                            into += concept[1][i - 1] + "| "
+                        if len(concept[1]) > i + 1 and concept[1][i + 1].strip() != "":
+                            into += concept[1][i + 1] + "| "
+                        if into != "":
+                            into += "alles zu Strukturgröße einer " + cols[4]
                     self.relitable[i] += [into]
             return self.relitable, rowsAsNumbers
 
