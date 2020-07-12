@@ -1614,7 +1614,7 @@ class Program:
                             ]:
                                 rowsAsNumbers.add(22)
                             elif thing in [neg + "zaehlung", neg + "zaehlungen"]:
-                                rowsAsNumbers.add(25)
+                                rowsAsNumbers |= {25, 45}
                             elif thing in [neg + "liebe", neg + "ethik"]:
                                 rowsAsNumbers.add(26)
                             elif thing in [
