@@ -1152,11 +1152,19 @@ class Tables:
                         if row1.strip() != "":
                             into += "sehr: " + row1 + "| "
                         if i > 2 and concept[0][i - 2].strip() != "":
-                            into += "ausreichend: " + concept[0][i - 2] + "| "
+                            into += "ganz gut: " + concept[0][i - 2] + "| "
                         if len(concept[0]) > i + 2 and concept[0][i + 2].strip() != "":
-                            into += "ausreichend: " + concept[0][i + 2] + "| "
+                            into += "ganz gut: " + concept[0][i + 2] + "| "
+                        if i > 4 and concept[0][i - 4].strip() != "":
+                            into += "noch etwas: " + concept[0][i - 4] + "| "
+                        if len(concept[0]) > i + 4 and concept[0][i + 4].strip() != "":
+                            into += "noch etwas: " + concept[0][i + 4] + "| "
                         if i > 1 and concept[1][i - 1].strip() != "":
                             into += concept[1][i - 1] + "| "
+                        if i > 3 and concept[1][i - 3].strip() != "":
+                            into += "ein wenig: " + concept[1][i - 3] + "| "
+                        if len(concept[1]) > i + 3 and concept[1][i + 3].strip() != "":
+                            into += "ein wenig: " + concept[1][i + 3] + "| "
                         if len(concept[1]) > i + 1 and concept[1][i + 1].strip() != "":
                             into += concept[1][i + 1] + "| "
                         if into != "":
@@ -1491,9 +1499,7 @@ class Program:
                             else arg[11:].split(",")
                         ):
                             if religion == neg + "sternpolygon":
-                                rowsAsNumbers.add(0)
-                                rowsAsNumbers.add(6)
-                                rowsAsNumbers.add(36)
+                                rowsAsNumbers |= {0, 6, 36}
                             elif religion in [
                                 neg + "babylon",
                                 neg + "dertierkreiszeichen",
@@ -1671,8 +1677,14 @@ class Program:
                                 neg + "lieb",
                                 neg + "schlecht",
                             ]:
-                                alxp("gut")
                                 self.tables.generRows |= {(38, 39)}
+                            elif word in [
+                                neg + "zeit",
+                                neg + "raum",
+                                neg + "zeitlich",
+                                neg + "räumlich",
+                            ]:
+                                self.tables.generRows |= {(49, 50)}
                     elif arg[2:17] == "inkrementieren=":
                         for word in arg[17:].split(","):
                             if word in [
