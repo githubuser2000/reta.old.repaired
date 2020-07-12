@@ -1588,6 +1588,13 @@ class Program:
                                 neg + "psychiatrisch",
                             ]:
                                 rowsAsNumbers.add(24)
+                            elif thing in [
+                                neg + "alpha",
+                                neg + "beta",
+                                neg + "omega",
+                                neg + "sigma",
+                            ]:
+                                rowsAsNumbers.add(46)
                             elif thing in [neg + "kreativ", neg + "kreativitaet"]:
                                 rowsAsNumbers.add(27)
                             elif thing in [neg + "anfuehrer", neg + "chef"]:
