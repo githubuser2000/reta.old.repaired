@@ -1573,7 +1573,7 @@ class Program:
                                 neg + "lernen",
                                 neg + "evolutionaer",
                             ]:
-                                rowsAsNumbers.add(12)
+                                rowsAsNumbers |= {12, 47}
                             elif thing in [
                                 neg + "brauchen",
                                 neg + "benoetigen",
