@@ -1124,6 +1124,13 @@ class Tables:
                             + " - "
                             + self.relitable[exponentMinus2 + 2][10]
                         )
+                        into += " | "
+                        into += (
+                            self.relitable[i][10]
+                            + " + "
+                            + self.relitable[i][11]
+                            + ", obwohl man nicht kann"
+                        )
                 self.relitable[i] += [into]
             return self.relitable, rowsAsNumbers
 
