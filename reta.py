@@ -1233,11 +1233,15 @@ class Tables:
                                 if self.motivation[multi[1]].strip() != ""
                                 else "..."
                             )
-                            + " UND "
                             + (
-                                self.ziel[multi[1]]
-                                if self.ziel[multi[1]].strip() != ""
-                                else "..."
+                                " UND "
+                                + (
+                                    self.ziel[multi[1]]
+                                    if self.ziel[multi[1]].strip() != ""
+                                    else "..."
+                                )
+                                if polytype == 10
+                                else ""
                             )
                         )
                     self.relitable[i] += [into]
