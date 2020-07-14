@@ -1104,7 +1104,9 @@ class Tables:
             # ob "primenumbers.csv" gelesen werden soll
             self.primuniverse = value
 
-        def concatPrimCreativityTpe(self, relitable: list, rowsAsNumbers: set) -> tuple:
+        def concatPrimCreativityType(
+            self, relitable: list, rowsAsNumbers: set
+        ) -> tuple:
             self.relitable = relitable
             if self.tables.spalteGestirn:
                 rowsAsNumbers |= {len(self.relitable[0])}
@@ -1123,7 +1125,7 @@ class Tables:
                             )
                         )
                     ]
-                return self.relitable, rowsAsNumbers
+            return self.relitable, rowsAsNumbers
 
         def concatMondExponzierenLogarithmusTyp(
             self, relitable: list, rowsAsNumbers: set
@@ -1155,7 +1157,7 @@ class Tables:
                                 + ", obwohl man nicht kann"
                             )
                     self.relitable[i] += [into]
-                return self.relitable, rowsAsNumbers
+            return self.relitable, rowsAsNumbers
 
         def concatRowsOfConcepts(
             self, relitable: list, conceptsRowsSetOfTuple: set, rowsAsNumbers: set
@@ -1228,12 +1230,12 @@ class Tables:
                         self.rolle += [cols[19]]
                         self.transzendentalien += [cols[5]]
                         self.ziel += [cols[11]]
-                    alxp(self.tables.primUniversePrimsSet)
-                        rowsAsNumbers |= {len(self.relitable[0])}
                     for i, cols in enumerate(deepcopy(self.relitable)):
                         primMultiples = primMultiple(i)
                         into = (
-                            "" if i != 0 else "generierte Multiplikationen " + polytypename
+                            ""
+                            if i != 0
+                            else "generierte Multiplikationen " + polytypename
                         )
                         for k, multi in enumerate(primMultiples[1:]):
                             if k > 0:
@@ -1410,19 +1412,17 @@ def primFak(n: int) -> list:
             p = z
         faktoren += [p]
         z = z // p
-        alxp(faktoren)
     return faktoren
 
 
 def primCreativity(num: int):
     fak = primFak(num)
     moon = True
-    first = fak[0]
-    for f in fak[1:]:
-        if f != first:
-            moon = False
-    if fak == [1]:
+    if len(fak) == 0:
         return 0
+    for f in fak[1:]:
+        if f != fak[0]:
+            moon = False
     if len(fak) == 1:
         return 1
     if moon:
@@ -1906,8 +1906,11 @@ class Program:
         self.relitable, self.rowsAsNumbers = self.tables.getConcat.concatRowsOfConcepts(
             self.relitable, self.tables.generRows, self.rowsAsNumbers
         )
-        self.relitable, self.rowsAsNumbers = self.tables.getConcat.concatPrimCreativity(
-            self.relitable, self.tables.generRows, self.rowsAsNumbers
+        (
+            self.relitable,
+            self.rowsAsNumbers,
+        ) = self.tables.getConcat.concatPrimCreativityType(
+            self.relitable, self.rowsAsNumbers
         )
         (
             self.relitable,
