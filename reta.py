@@ -1191,51 +1191,56 @@ class Tables:
             """
             global originalLinesRange
             self.relitable = relitable
-            self.transzendentalien = []
-            self.rolle = []
-            self.motivation = []
-            self.ziel = []
-            for cols in self.relitable:
-                self.motivation += [cols[10]]
-                self.rolle += [cols[19]]
-                self.transzendentalien += [cols[5]]
-                self.ziel += [cols[11]]
-            alxp(self.tables.primUniversePrimsSet)
-            if len(self.tables.primUniversePrimsSet) > 0:
-                self.tables.primUniverseRowNum = len(self.relitable[0])
-                rowsAsNumbers |= {len(self.relitable[0])}
-            for i, cols in enumerate(deepcopy(self.relitable)):
-                primMultiples = primMultiple(i)
-                into = "" if i != 0 else "generierte Multiplikationen"
-                for k, multi in enumerate(primMultiples[1:]):
-                    if k > 0:
-                        into += ", außerdem: "
-                    into += (
-                        (
-                            self.transzendentalien[multi[0]]
-                            if self.transzendentalien[multi[0]].strip() != ""
-                            else "..."
-                        )
-                        + " UND "
-                        + (
-                            self.rolle[multi[0]]
-                            if self.rolle[multi[0]].strip() != ""
-                            else "..."
-                        )
-                        + " * "
-                        + (
-                            self.motivation[multi[1]]
-                            if self.motivation[multi[1]].strip() != ""
-                            else "..."
-                        )
-                        + " UND "
-                        + (
-                            self.ziel[multi[1]]
-                            if self.ziel[multi[1]].strip() != ""
-                            else "..."
-                        )
+            for polytype, polytypename in zip(
+                [10, 42], ["Sternpolygone", "gleichförmiges Polygone"]
+            ):
+                self.transzendentalien = []
+                self.rolle = []
+                self.motivation = []
+                self.ziel = []
+                for cols in self.relitable:
+                    self.motivation += [cols[polytype]]
+                    self.rolle += [cols[19]]
+                    self.transzendentalien += [cols[5]]
+                    self.ziel += [cols[11]]
+                alxp(self.tables.primUniversePrimsSet)
+                if len(self.tables.primUniversePrimsSet) > 0:
+                    self.tables.primUniverseRowNum = len(self.relitable[0])
+                    rowsAsNumbers |= {len(self.relitable[0])}
+                for i, cols in enumerate(deepcopy(self.relitable)):
+                    primMultiples = primMultiple(i)
+                    into = (
+                        "" if i != 0 else "generierte Multiplikationen " + polytypename
                     )
-                self.relitable[i] += [into]
+                    for k, multi in enumerate(primMultiples[1:]):
+                        if k > 0:
+                            into += ", außerdem: "
+                        into += (
+                            (
+                                self.transzendentalien[multi[0]]
+                                if self.transzendentalien[multi[0]].strip() != ""
+                                else "..."
+                            )
+                            + " UND "
+                            + (
+                                self.rolle[multi[0]]
+                                if self.rolle[multi[0]].strip() != ""
+                                else "..."
+                            )
+                            + " * "
+                            + (
+                                self.motivation[multi[1]]
+                                if self.motivation[multi[1]].strip() != ""
+                                else "..."
+                            )
+                            + " UND "
+                            + (
+                                self.ziel[multi[1]]
+                                if self.ziel[multi[1]].strip() != ""
+                                else "..."
+                            )
+                        )
+                    self.relitable[i] += [into]
             return self.relitable, rowsAsNumbers
 
         def readConcatCsv(self, relitable: list, rowsAsNumbers: set) -> list:
