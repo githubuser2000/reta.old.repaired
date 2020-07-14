@@ -492,7 +492,7 @@ class Tables:
                 breiten: list = []
             # delta = -1 if not self.nummerierung and combiRows1 != 0 else -1
             delta = -1
-            if rowToDisplay + delta < len(breiten):
+            if rowToDisplay + delta < len(breiten) and rowToDisplay + delta >= 0:
                 certaintextwidth = breiten[rowToDisplay + delta]
             else:
                 certaintextwidth = self.textwidth
@@ -1721,7 +1721,7 @@ class Program:
                         for word in (
                             arg[10:].split(",")
                             if arg[2:10] == "konzept="
-                            else word in arg[11:].split(",")
+                            else arg[11:].split(",")
                         ):
                             if word in [
                                 neg + "weisheit",
