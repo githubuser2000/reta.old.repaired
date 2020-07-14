@@ -1104,35 +1104,58 @@ class Tables:
             # ob "primenumbers.csv" gelesen werden soll
             self.primuniverse = value
 
+        def concatPrimCreativityTpe(self, relitable: list, rowsAsNumbers: set) -> tuple:
+            self.relitable = relitable
+            if self.tables.spalteGestirn:
+                rowsAsNumbers |= {len(self.relitable[0])}
+                for i, cols in enumerate(deepcopy(self.relitable)):
+                    primCreativityType = primCreativity(i)
+                    self.relitable[i] += [
+                        "0. Primzahl 1"
+                        if primCreativityType == 0
+                        else (
+                            "1. Primzahl und Sonnenzahl"
+                            if primCreativityType == 1
+                            else (
+                                "2. Sonnenzahl, aber keine Primzahl"
+                                if primCreativityType == 2
+                                else "3. Mondzahl"
+                            )
+                        )
+                    ]
+                return self.relitable, rowsAsNumbers
+
         def concatMondExponzierenLogarithmusTyp(
             self, relitable: list, rowsAsNumbers: set
         ) -> tuple:
             self.relitable = relitable
             if self.tables.spalteGestirn:
                 rowsAsNumbers |= {len(self.relitable[0])}
-            for i, cols in enumerate(deepcopy(self.relitable)):
-                moonTypesOf1Num = moonNumber(i)
-                if i == 0:
-                    into = "Mond-Typ"
-                else:
-                    into = ""
-                    for k, (basis, exponentMinus2) in enumerate(zip(*moonTypesOf1Num)):
-                        if k > 0:
+                for i, cols in enumerate(deepcopy(self.relitable)):
+                    moonTypesOf1Num = moonNumber(i)
+                    if i == 0:
+                        into = "Mond-Typ"
+                    else:
+                        into = ""
+                        for k, (basis, exponentMinus2) in enumerate(
+                            zip(*moonTypesOf1Num)
+                        ):
+                            if k > 0:
+                                into += " | "
+                            into += (
+                                self.relitable[basis][44]
+                                + " - "
+                                + self.relitable[exponentMinus2 + 2][10]
+                            )
                             into += " | "
-                        into += (
-                            self.relitable[basis][44]
-                            + " - "
-                            + self.relitable[exponentMinus2 + 2][10]
-                        )
-                        into += " | "
-                        into += (
-                            self.relitable[i][10]
-                            + " + "
-                            + self.relitable[i][11]
-                            + ", obwohl man nicht kann"
-                        )
-                self.relitable[i] += [into]
-            return self.relitable, rowsAsNumbers
+                            into += (
+                                self.relitable[i][10]
+                                + " + "
+                                + self.relitable[i][11]
+                                + ", obwohl man nicht kann"
+                            )
+                    self.relitable[i] += [into]
+                return self.relitable, rowsAsNumbers
 
         def concatRowsOfConcepts(
             self, relitable: list, conceptsRowsSetOfTuple: set, rowsAsNumbers: set
@@ -1191,60 +1214,60 @@ class Tables:
             """
             global originalLinesRange
             self.relitable = relitable
-            for polytype, polytypename in zip(
-                [10, 42], ["Sternpolygone", "gleichförmiges Polygone"]
-            ):
-                self.transzendentalien = []
-                self.rolle = []
-                self.motivation = []
-                self.ziel = []
-                for cols in self.relitable:
-                    self.motivation += [cols[polytype]]
-                    self.rolle += [cols[19]]
-                    self.transzendentalien += [cols[5]]
-                    self.ziel += [cols[11]]
-                alxp(self.tables.primUniversePrimsSet)
-                if len(self.tables.primUniversePrimsSet) > 0:
-                    self.tables.primUniverseRowNum = len(self.relitable[0])
-                    rowsAsNumbers |= {len(self.relitable[0])}
-                for i, cols in enumerate(deepcopy(self.relitable)):
-                    primMultiples = primMultiple(i)
-                    into = (
-                        "" if i != 0 else "generierte Multiplikationen " + polytypename
-                    )
-                    for k, multi in enumerate(primMultiples[1:]):
-                        if k > 0:
-                            into += ", außerdem: "
-                        into += (
-                            (
-                                self.transzendentalien[multi[0]]
-                                if self.transzendentalien[multi[0]].strip() != ""
-                                else "..."
-                            )
-                            + " UND "
-                            + (
-                                self.rolle[multi[0]]
-                                if self.rolle[multi[0]].strip() != ""
-                                else "..."
-                            )
-                            + " * "
-                            + (
-                                self.motivation[multi[1]]
-                                if self.motivation[multi[1]].strip() != ""
-                                else "..."
-                            )
-                            + (
-                                " UND "
-                                + (
-                                    self.ziel[multi[1]]
-                                    if self.ziel[multi[1]].strip() != ""
+            if len(self.tables.primUniversePrimsSet) > 0:
+                self.tables.primUniverseRowNum = len(self.relitable[0])
+                for polytype, polytypename in zip(
+                    [10, 42], ["Sternpolygone", "gleichförmiges Polygone"]
+                ):
+                    self.transzendentalien = []
+                    self.rolle = []
+                    self.motivation = []
+                    self.ziel = []
+                    for cols in self.relitable:
+                        self.motivation += [cols[polytype]]
+                        self.rolle += [cols[19]]
+                        self.transzendentalien += [cols[5]]
+                        self.ziel += [cols[11]]
+                    alxp(self.tables.primUniversePrimsSet)
+                        rowsAsNumbers |= {len(self.relitable[0])}
+                    for i, cols in enumerate(deepcopy(self.relitable)):
+                        primMultiples = primMultiple(i)
+                        into = (
+                            "" if i != 0 else "generierte Multiplikationen " + polytypename
+                        )
+                        for k, multi in enumerate(primMultiples[1:]):
+                            if k > 0:
+                                into += ", außerdem: "
+                            into += (
+                                (
+                                    self.transzendentalien[multi[0]]
+                                    if self.transzendentalien[multi[0]].strip() != ""
                                     else "..."
                                 )
-                                if polytype == 10
-                                else ""
+                                + " UND "
+                                + (
+                                    self.rolle[multi[0]]
+                                    if self.rolle[multi[0]].strip() != ""
+                                    else "..."
+                                )
+                                + " * "
+                                + (
+                                    self.motivation[multi[1]]
+                                    if self.motivation[multi[1]].strip() != ""
+                                    else "..."
+                                )
+                                + (
+                                    " UND "
+                                    + (
+                                        self.ziel[multi[1]]
+                                        if self.ziel[multi[1]].strip() != ""
+                                        else "..."
+                                    )
+                                    if polytype == 10
+                                    else ""
+                                )
                             )
-                        )
-                    self.relitable[i] += [into]
+                        self.relitable[i] += [into]
             return self.relitable, rowsAsNumbers
 
         def readConcatCsv(self, relitable: list, rowsAsNumbers: set) -> list:
@@ -1387,7 +1410,25 @@ def primFak(n: int) -> list:
             p = z
         faktoren += [p]
         z = z // p
+        alxp(faktoren)
     return faktoren
+
+
+def primCreativity(num: int):
+    fak = primFak(num)
+    moon = True
+    first = fak[0]
+    for f in fak[1:]:
+        if f != first:
+            moon = False
+    if fak == [1]:
+        return 0
+    if len(fak) == 1:
+        return 1
+    if moon:
+        return 3
+    else:
+        return 2
 
 
 def getLogarithmOnlyAsPureInt(potenz: int, basis: int) -> int:
@@ -1445,7 +1486,7 @@ def primMultiple(n: int) -> list:
 
 
 def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
-    """Ist die Zahl der Vielfache n überhaupt irgendeiner Primzahl
+    """Ist die Zahl der Vielfache in überhaupt irgendeiner Primzahl
 
     @type isIt: int
     @param isIt: die Zahl die zu untersuchen ist
@@ -1863,6 +1904,9 @@ class Program:
             self.relitable, self.rowsAsNumbers
         )
         self.relitable, self.rowsAsNumbers = self.tables.getConcat.concatRowsOfConcepts(
+            self.relitable, self.tables.generRows, self.rowsAsNumbers
+        )
+        self.relitable, self.rowsAsNumbers = self.tables.getConcat.concatPrimCreativity(
             self.relitable, self.tables.generRows, self.rowsAsNumbers
         )
         (
