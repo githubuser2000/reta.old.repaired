@@ -1624,9 +1624,9 @@ class Program:
                     elif arg[2:12] == "procontra=" or arg[2:16] == "dagegendafuer=":
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "pro", neg + "dafeuer"]:
-                                rowsAsNumbers.add(17)
+                                rowsAsNumbers |= {17, 48}
                             elif thing in [neg + "contra", neg + "dagegen"]:
-                                rowsAsNumbers.add(15)
+                                rowsAsNumbers |= {15, 26}
                     elif arg[2 : 7 + len(neg)] == "licht" + neg:
                         rowsAsNumbers.add(20)
                     elif arg[2:12] == "bedeutung=":
