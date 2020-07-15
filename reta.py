@@ -4,6 +4,7 @@ import csv
 import math
 import os
 import pprint
+import re
 import sys
 from copy import deepcopy
 # from collections.abc import Iterable
@@ -1136,31 +1137,43 @@ class Tables:
         ) -> tuple:
             self.relitable = relitable
             if self.tables.spalteGestirn:
-                rowsAsNumbers |= {len(self.relitable[0])}
-                for i, cols in enumerate(deepcopy(self.relitable)):
-                    moonTypesOf1Num = moonNumber(i)
-                    if i == 0:
-                        into = "Mond-Typ"
-                    else:
-                        into = ""
-                        for k, (basis, exponentMinus2) in enumerate(
-                            zip(*moonTypesOf1Num)
-                        ):
-                            if k > 0:
+                for rownum, rowheading in zip(
+                    [44, 56],
+                    [
+                        "Mond-Typ eines Sternpolygons",
+                        "Mond-Typ eines gleichförmigen Polygons",
+                    ],
+                ):
+                    rowsAsNumbers |= {len(self.relitable[0])}
+                    for i, cols in enumerate(deepcopy(self.relitable)):
+                        moonTypesOf1Num = moonNumber(i)
+                        if i == 0:
+                            into = rowheading
+                        else:
+                            into = ""
+                            for k, (basis, exponentMinus2) in enumerate(
+                                zip(*moonTypesOf1Num)
+                            ):
+                                if k > 0:
+                                    into += " | "
+                                insert = re.sub(
+                                    r"<SG>",
+                                    self.relitable[i][4].strip(),
+                                    self.relitable[basis][rownum].rstrip(),
+                                )
+                                into += (
+                                    insert
+                                    + " - "
+                                    + self.relitable[exponentMinus2 + 2][10]
+                                )
                                 into += " | "
-                            into += (
-                                self.relitable[basis][44]
-                                + " - "
-                                + self.relitable[exponentMinus2 + 2][10]
-                            )
-                            into += " | "
-                            into += (
-                                self.relitable[i][10]
-                                + " + "
-                                + self.relitable[i][11]
-                                + ", obwohl man nicht kann"
-                            )
-                    self.relitable[i] += [into]
+                                into += (
+                                    self.relitable[i][10]
+                                    + " + "
+                                    + self.relitable[i][11]
+                                    + ", obwohl man nicht kann"
+                                )
+                        self.relitable[i] += [into]
             return self.relitable, rowsAsNumbers
 
         def concatRowsOfConcepts(
