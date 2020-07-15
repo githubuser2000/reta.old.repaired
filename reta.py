@@ -1747,6 +1747,7 @@ class Program:
                                 neg + "schlecht",
                             ]:
                                 self.tables.generRows |= {(38, 39)}
+                                rowsAsNumbers |= {52, 53}
                             elif word in [
                                 neg + "zeit",
                                 neg + "raum",
