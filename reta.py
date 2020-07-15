@@ -1646,6 +1646,11 @@ class Program:
                             if thing in [neg + "liebe", neg + "ethik"]:
                                 rowsAsNumbers |= {8, 9, 28}
                             elif thing in [
+                                neg + "angreifbar",
+                                neg + "angreifbarkeit",
+                            ]:
+                                rowsAsNumbers |= {58, 57}
+                            elif thing in [
                                 neg + "motive",
                                 neg + "motivation",
                                 neg + "motiv",
