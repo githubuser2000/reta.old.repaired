@@ -1113,15 +1113,19 @@ class Tables:
                 for i, cols in enumerate(deepcopy(self.relitable)):
                     primCreativityType = primCreativity(i)
                     self.relitable[i] += [
-                        "0. Primzahl 1"
-                        if primCreativityType == 0
+                        "Evolutions-Züchtungs-Kreativität"
+                        if i == 0
                         else (
-                            "1. Primzahl und Sonnenzahl"
-                            if primCreativityType == 1
+                            "0. Primzahl 1"
+                            if primCreativityType == 0
                             else (
-                                "2. Sonnenzahl, aber keine Primzahl"
-                                if primCreativityType == 2
-                                else "3. Mondzahl"
+                                "1. Primzahl und Sonnenzahl"
+                                if primCreativityType == 1
+                                else (
+                                    "2. Sonnenzahl, aber keine Primzahl"
+                                    if primCreativityType == 2
+                                    else "3. Mondzahl"
+                                )
                             )
                         )
                     ]
