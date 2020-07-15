@@ -1,18 +1,24 @@
-;Lebewesen;Beruf
-3,8,10;Mensch, Menschenaffe;
-7;Hund, Wolf, Fuchs;Tischler
-6;Elefant, Bär, Nilpferd;Kaufmann, Richter, Soziologe, Bänker
-5,9;Katze;
-5,9,13;;Arzt
-10;Rabe, Greifvogel;Mathematiker, Informatiker, Strukturwissenschaftler
-10,7;Delphin;Philosoph, Laufsteg-Model, Architekt, 3D-Software-Künstler
-11;Kanarienvogel;Systemtheoretiker, Darsteller
-2,4,7,14,15,18;Hundeaußerirdische;
-5,9,19;Katzenaußerirdische;
-5;Reptil;Lehrer, Professor
-3,6,10,12;Elefantenaußerirdische;
-7,9;Vielleicht Schafe, Ziegen, Kühe;Nicht kommerzielle Berufe / Vereine
-3;;Handwerker, Wissen-Verwalter
-8;;Kriegsherr, Pfandleihausbetreiber
-1;vielleicht Parasit;Zauberkünstler
-9;;Hase
+;Lebewesen;Beruf;Kreativität und Intelligenz
+3,8,10;Mensch, Menschenaffe;;
+7;Hund, Wolf, Fuchs;Tischler;bloßes Verallgemeinern
+6;Elefant, Bär, Nilpferd;Kaufmann, Richter, Soziologe, Bänker;
+5,9;Katze;;
+5,9,13;;Arzt;
+10;Rabe, Greifvogel;Mathematiker, Informatiker, Strukturwissenschaftler;
+10,7;Delphin;Philosoph, Laufsteg-Model, Architekt, 3D-Software-Künstler;mathematische Induktionsverfahren und aus Informatik
+11;Kanarienvogel;Systemtheoretiker, Darsteller;
+2,4,7,14,15,18;Hundeaußerirdische;;
+5,9,19;Katzenaußerirdische;;
+5;Reptil;Lehrer, Professor;
+3,6,10,12;Elefantenaußerirdische;;
+7,9;Vielleicht Schafe, Ziegen, Kühe;Nicht kommerzielle Berufe / Vereine;
+3;;Handwerker, Wissen-Verwalter;
+8;;Kriegsherr, Pfandleihausbetreiber;
+1;vielleicht Parasit;Zauberkünstler;
+9;;Hase;
+7,12;;;abstrakte Induktionsverfahren, die es erst in 1000 Jahren geben wird, höher als Mathematik, keine Mathematik
+10,6;;;vollständige Abduktion
+10,5;;;komplette Axiome
+10,9;;;vollständige Impliatkion, z.B. KI-Korrektheit und KI-Vollständigkeit
+10,8;;;vollständige Deduktion
+10,14;;;induktives Problemlösen in 2000 Jahren

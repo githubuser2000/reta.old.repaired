@@ -1629,8 +1629,12 @@ class Program:
                                 neg + "erlernen",
                                 neg + "lernen",
                                 neg + "evolutionaer",
+                                neg + "evolutionär",
+                                neg + "intelligenz",
+                                neg + "kreativität",
+                                neg + "kreativitaet",
                             ]:
-                                rowsAsNumbers |= {12, 47}
+                                rowsAsNumbers |= {12, 47, 51}
                             elif thing in [
                                 neg + "brauchen",
                                 neg + "benoetigen",
