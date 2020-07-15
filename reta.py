@@ -1105,6 +1105,22 @@ class Tables:
             # ob "primenumbers.csv" gelesen werden soll
             self.primuniverse = value
 
+        def concatLovePolygon(self, relitable: list, rowsAsNumbers: set) -> tuple:
+            self.relitable = relitable
+            if rowsAsNumbers >= {8}:
+                rowsAsNumbers |= {len(self.relitable[0])}
+                for i, cols in enumerate(deepcopy(self.relitable)):
+                    if self.relitable[i][8].strip() != "":
+                        self.relitable[i] += [
+                            self.relitable[i][8]
+                            + " der eigenen Strukturgröße ("
+                            + self.relitable[i][4]
+                            + ") auf dich"
+                        ]
+                    else:
+                        self.relitable[i] += [""]
+            return self.relitable, rowsAsNumbers
+
         def concatPrimCreativityType(
             self, relitable: list, rowsAsNumbers: set
         ) -> tuple:
@@ -1939,13 +1955,16 @@ class Program:
         ) = self.tables.getConcat.concatMondExponzierenLogarithmusTyp(
             self.relitable, self.rowsAsNumbers
         )
-        if True:
-            (
-                self.relitable,
-                self.rowsAsNumbers,
-            ) = self.tables.getConcat.concat1RowPrimUniverse2(
-                self.relitable, self.rowsAsNumbers
-            )
+        (
+            self.relitable,
+            self.rowsAsNumbers,
+        ) = self.tables.getConcat.concat1RowPrimUniverse2(
+            self.relitable, self.rowsAsNumbers
+        )
+        (self.relitable, self.rowsAsNumbers,) = self.tables.getConcat.concatLovePolygon(
+            self.relitable, self.rowsAsNumbers
+        )
+
         if self.ifCombi:
             (
                 animalsProfessionsTable,
