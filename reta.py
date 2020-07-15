@@ -1673,7 +1673,7 @@ class Program:
                             elif thing in [neg + "contra", neg + "dagegen"]:
                                 rowsAsNumbers |= {15, 26}
                     elif arg[2 : 7 + len(neg)] == "licht" + neg:
-                        rowsAsNumbers.add(20)
+                        rowsAsNumbers |= {20, 51}
                     elif arg[2:12] == "bedeutung=":
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [
