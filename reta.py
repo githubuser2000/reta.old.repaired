@@ -1712,8 +1712,7 @@ class Program:
                             ]:
                                 self.tables.ifPrimMultis = True
                     elif arg[2 : 11 + len(neg)] == "symbole" + neg:
-                        rowsAsNumbers.add(36)
-                        rowsAsNumbers.add(37)
+                        rowsAsNumbers |= {36, 37}
                     elif arg[2:30] == "primzahlvielfachesuniversum=":
                         for word in arg[30:].split(","):
                             if word.isdecimal():
