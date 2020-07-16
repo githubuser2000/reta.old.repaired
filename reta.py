@@ -901,11 +901,13 @@ class Tables:
                                 for subTableCell in subTable[reliNum]:
                                     if rowsOfcombi.index(subRowNum + 1) < len(
                                         subTableCell
-                                    ):
+                                    ) and subTableCell != [[""]]:
                                         if (
                                             len(table2[colNum][row]) == 1
                                             and table2[colNum][row][0] == ""
                                         ):
+                                            alxp(subTableCell)
+                                            alxp("|")
                                             table2[colNum][row] = deepcopy(
                                                 subTableCell[
                                                     rowsOfcombi.index(subRowNum + 1)
