@@ -19,7 +19,6 @@ ColumnsRowsAmount, shellRowsAmount = (
 )  # Wie viele Zeilen und Spalten hat die Shell ?
 infoLog = False
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
-realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
 output = True
 
 
@@ -1630,8 +1629,7 @@ class Program:
                                 neg + "benoetigen",
                                 neg + "notwendig",
                             ]:
-                                rowsAsNumbers.add(13)
-                                rowsAsNumbers.add(14)
+                                rowsAsNumbers |= {13, 14}
                             elif thing in [
                                 neg + "krankheit",
                                 neg + "pathologisch",
@@ -2030,15 +2028,7 @@ class Program:
                 rowsOfcombi,
             )
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
-        alxp(
-            "3. Spalte self.ifprimmultis optional hinzufügen, die semantisch sagt was primzahl mit vielfacher derer bedeutet und meint, aber generiert"
-        )
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
-        alxp(
-            "Bei ./reta.py -zeilen --zeit='' --zaehlung='' --typ='' --primzahlvielfache='' --vielfachevonzahlen='' --vorhervonausschnitt='23-23,46-46' --nachtraeglichdavon='' -spalten --breite=100 --kreise=thomas \
-\n stimmen die Religionsnummern nicht mehr mit den Religionen überein und die Reihenfolge der Religionsnummern ist auch falsch"
-        )
-        # alxp(self.tables.getRowAmountofAnyPart())
 
 
 Program()
