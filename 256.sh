@@ -1,26 +1,43 @@
-#!/bin/bash
- 
-# This program is free software. It comes without any warranty, to
-# the extent permitted by applicable law. You can redistribute it
-# and/or modify it under the terms of the Do What The Fuck You Want
-# To Public License, Version 2, as published by Sam Hocevar. See
-# http://sam.zoy.org/wtfpl/COPYING for more details.
- 
-for fgbg in 38 48 ; do # Foreground / Background
-  for color in {0..255} ; do # Colors
-    # Display the color
-    printf "\e[${fgbg};5;%sm  %3s  \e[0m" $color $color
-    # Display 6 colors per lines
-    if [ $((($color + 1) % 6)) == 4 ] ; then
-      echo # New line
-    fi
-  done
-  echo # New line
-done
 
-echo -e "\e[1;4mBold and Underlined"
-echo -e "\e[1;31;42m Yes it is awful \e[0m"
-echo -e "Normal \e[7minverted"
-echo -e "Normal \e[2mDim"
-echo -e "Normal \e[5mBlink"
-exit 0
+        def readConcatCsv(self, relitable: list, rowsAsNumbers: set) -> list:
+            """Fügt eine Tabelle neben der self.relitable an
+            momentan ist es noch fix auf primnumbers.csv
+
+            @type relitable: list
+            @param relitable: Haupttabelle self.relitable
+            @type rowsAsNumbers: set
+            @param rowsAsNumbers: welche Spalten der neuen Tabelle dazu kommen sollen
+            @rtype: list[list]
+            @return: relitable + weitere Tabelle daneben
+            """
+            self.relitable = relitable
+            headingsAmount = len(self.relitable[0])
+            alxp(self.puniverseprims)
+            if True or len(self.puniverseprims) > 0:
+                with open("primenumbers.csv", mode="r") as csv_file:
+                    self.relitable, primUniverseLine = Tables.fillBoth(
+                        self.relitable, list(csv.reader(csv_file, delimiter=";"))
+                    )
+                    lastlen = 0
+                    maxlen = 0
+                    for i, (primcol, relicol) in enumerate(
+                        zip(primUniverseLine, self.relitable)
+                    ):
+                        lastlen = len(primcol)
+                        if lastlen > maxlen:
+                            maxlen = lastlen
+                        self.relitable[i] += list(primcol) + [""] * (
+                            maxlen - len(primcol)
+                        )
+                        if i == 0:
+                            for u, heading in enumerate(self.relitable[0]):
+                                if (
+                                    heading.isdecimal()
+                                    and int(heading) in self.puniverseprims
+                                    and u >= headingsAmount
+                                ):
+                                    rowsAsNumbers.add(int(u))
+
+                self.concatRowsAmount = len(primcol)
+                alxp(self.relitable)
+            return self.relitable

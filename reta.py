@@ -1196,6 +1196,7 @@ class Tables:
             self.relitable = relitable
             if len(self.tables.primUniversePrimsSet) > 0:
                 self.tables.primUniverseRowNum = len(self.relitable[0])
+                rowsAsNumbers |= {len(self.relitable[0]), len(self.relitable[0]) + 1}
                 for polytype, polytypename in zip(
                     [10, 42], ["Sternpolygone", "gleichförmiges Polygone"]
                 ):
@@ -1216,6 +1217,7 @@ class Tables:
                             else "generierte Multiplikationen " + polytypename
                         )
                         for k, multi in enumerate(primMultiples[1:]):
+                            alxp("i")
                             if k > 0:
                                 into += ", außerdem: "
                             into += (
@@ -1263,8 +1265,7 @@ class Tables:
             """
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
-            alxp(self.puniverseprims)
-            if True or len(self.puniverseprims) > 0:
+            if len(self.puniverseprims) > 0:
                 with open("primenumbers.csv", mode="r") as csv_file:
                     self.relitable, primUniverseLine = Tables.fillBoth(
                         self.relitable, list(csv.reader(csv_file, delimiter=";"))
@@ -1290,8 +1291,7 @@ class Tables:
                                     rowsAsNumbers.add(int(u))
 
                 self.concatRowsAmount = len(primcol)
-                alxp(self.relitable)
-            return self.relitable
+            return self.relitable, rowsAsNumbers
 
     class Maintable:
         @property
@@ -1898,7 +1898,7 @@ class Program:
         self.tables.getPrepare.rowsAsNumbers = self.rowsAsNumbers
         self.tables.getOut.rowsAsNumbers = self.rowsAsNumbers
 
-        self.relitable = self.tables.getConcat.readConcatCsv(
+        self.relitable, rowsAsNumbers = self.tables.getConcat.readConcatCsv(
             self.relitable, self.rowsAsNumbers
         )
         self.relitable, self.rowsAsNumbers = self.tables.getConcat.concatRowsOfConcepts(
