@@ -77,24 +77,8 @@ class Tables:
         self.getPrepare.ifprimmultis = value
 
     @property
-    def primUniverseRow(self):
-        return self.puniverseprims2
-
-    @primUniverseRow.setter
-    def primUniverseRow(self, value: bool):
-        self.puniverseprims2 = value
-
-    @property
     def primUniversePrimsSet(self):
         return self.puniverseprims
-
-    @property
-    def primUniverse(self):
-        return self.getConcat.primUniverse
-
-    @primUniverse.setter
-    def primUniverse(self, value: bool):
-        self.getConcat.primUniverse = value
 
     @property
     def breitenn(self):
@@ -152,9 +136,7 @@ class Tables:
         self.nummeriere = True
         self.spaltegGestirn = False
         self.breitenn: list = []
-        self.primUniverse = False  # ob "primenumbers.csv" gelesen werden soll
         self.puniverseprims: set = set()  # welche Spalten von "primenumbers.csv"
-        self.puniverseprims2: set = set()  # welche Spalten von "primenumbers.csv"
         self.getOut.primUniversePrimsSet = self.puniverseprims
         self.getConcat.primUniversePrimsSet = self.puniverseprims
         self.religionNumbers: list = []
@@ -1069,15 +1051,6 @@ class Tables:
         def primUniversePrimsSet(self, value: set):
             self.puniverseprims = value
 
-        @property
-        def primUniverse(self):
-            return self.primuniverse
-
-        @primUniverse.setter
-        def primUniverse(self, value: bool):
-            # ob "primenumbers.csv" gelesen werden soll
-            self.primuniverse = value
-
         def concatLovePolygon(self, relitable: list, rowsAsNumbers: set) -> tuple:
             self.relitable = relitable
             if rowsAsNumbers >= {8}:
@@ -1290,7 +1263,8 @@ class Tables:
             """
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
-            if True or self.primuniverse:
+            alxp(self.puniverseprims)
+            if True or len(self.puniverseprims) > 0:
                 with open("primenumbers.csv", mode="r") as csv_file:
                     self.relitable, primUniverseLine = Tables.fillBoth(
                         self.relitable, list(csv.reader(csv_file, delimiter=";"))
@@ -1316,6 +1290,7 @@ class Tables:
                                     rowsAsNumbers.add(int(u))
 
                 self.concatRowsAmount = len(primcol)
+                alxp(self.relitable)
             return self.relitable
 
     class Maintable:
@@ -1402,7 +1377,7 @@ def primFak(n: int) -> list:
     @rtype: list
     @return: alle Primfaktoren, ggf. mit Mehrfachvorkommen
     """
-    faktoren = []
+    faktoren: list = []
     z = n
     while z > 1:
         i = 2
@@ -1726,7 +1701,6 @@ class Program:
                     elif arg[2:30] == "primzahlvielfachesuniversum=":
                         for word in arg[30:].split(","):
                             if word.isdecimal():
-                                self.tables.primUniverse = True
                                 self.tables.primUniversePrimsSet.add(int(word))
                     elif arg[2:29] == "primzahlvielfachesuniversum":
                         self.tables.primUniverseRow = True
