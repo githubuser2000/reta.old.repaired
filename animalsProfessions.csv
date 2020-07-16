@@ -1,6 +1,6 @@
 ;Lebewesen;Beruf;Kreativität und Intelligenz;Liebe
-3,8,10;Mensch, Menschenaffe;;;Objektliebe, Gegenstandsliebe
-7;Hund, Wolf, Fuchs;Tischler;bloßes Verallgemeinern;
+3,8,10;Mensch, Menschenaffe;;Intelligenz stark auf Objekte und Gegenstände bezogen;Objektliebe, Gegenstandsliebe
+7;Hund, Wolf, Fuchs;Tischler;bloßes Verallgemeinern, ohne Sicherheit;
 6;Elefant, Bär, Nilpferd;Kaufmann, Richter, Soziologe, Bänker;;
 5,9;Katze;;;
 5,9,13;;Arzt;;
@@ -17,8 +17,9 @@
 1;vielleicht Parasit;Zauberkünstler;;
 9;;Hase;;
 7,12;;;abstrakte Induktionsverfahren, die es erst in 1000 Jahren geben wird, höher als Mathematik, keine Mathematik;
-10,6;;;vollständige Abduktion;
-10,5;;;komplette Axiome;
-10,9;;;vollständige Impliatkion, z.B. KI-Korrektheit und KI-Vollständigkeit;
-10,8;;;vollständige Deduktion;Ideenliebe
-10,14;;;induktives Problemlösen in 2000 Jahren;
+7,6;;;vollständige Abduktion;
+7,5;;;komplette Axiome;
+7,9;;;vollständige Impliatkion, z.B. KI-Korrektheit und KI-Vollständigkeit;
+7,8;;;vollständige Deduktion;Ideenliebe
+7,14;;;induktives Problemlösen in 2000 Jahren;
+7,8;;;die Realität verallgemeinern zu können;
