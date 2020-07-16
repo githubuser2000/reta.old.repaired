@@ -7,7 +7,6 @@ import pprint
 import re
 import sys
 from copy import deepcopy
-from pathlib import Path
 # from collections.abc import Iterable
 from typing import Iterable, Union
 
@@ -34,6 +33,7 @@ def render_color(tag_name, value, options, parent, context):
     return '<span style="color:%s;">%s</span>' % (tag_name, value)
 
 
+# print(os.path.dirname(__file__))
 for color in ("red", "blue", "green", "yellow", "black", "white"):
     parser.add_formatter(color, render_color)
 
@@ -995,7 +995,9 @@ class Tables:
             return kombiTable, self.relitable, kombiTable_Kombis, maintable2subtable_Relation
             """
             global folder
-            place = os.path.join(os.getcwd(), os.path.basename("./kombi.csv"))
+            place = os.path.join(
+                os.getcwd(), os.path.dirname(__file__), os.path.basename("./kombi.csv")
+            )
             self.sumOfAllCombiRowsAmount += len(rowsOfcombi)
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
@@ -1295,7 +1297,11 @@ class Tables:
             @return: relitable + weitere Tabelle daneben
             """
             global folder
-            place = os.path.join(os.getcwd(), os.path.basename("./primenumbers.csv"))
+            place = os.path.join(
+                os.getcwd(),
+                os.path.dirname(__file__),
+                os.path.basename("./primenumbers.csv"),
+            )
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
             if len(self.puniverseprims) > 0:
@@ -1924,7 +1930,9 @@ class Program:
 
     def help(self):
         global folder
-        place = os.path.join(os.getcwd(), os.path.basename("./readme.txt"))
+        place = os.path.join(
+            os.getcwd(), os.path.dirname(__file__), os.path.basename("./readme.txt")
+        )
         with open(place) as f:
             read_data = f.read()
         html = parser.format(read_data, somevar="somevalue")
@@ -1935,7 +1943,9 @@ class Program:
 
     def start(self) -> tuple:
         global folder
-        place = os.path.join(os.getcwd(), os.path.basename("./religion.csv"))
+        place = os.path.join(
+            os.getcwd(), os.path.dirname(__file__), os.path.basename("./religion.csv")
+        )
         """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
         aller anderen csv dateien
         Parameter werden in Befehle und Nummernlisten gewandelt
