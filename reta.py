@@ -1014,7 +1014,8 @@ class Tables:
             self.sumOfAllCombiRowsAmount += len(rowsOfcombi)
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
-            if not rowsOfcombi.isdisjoint({1, 2}):
+            maintable2subtable_Relation: tuple = ({}, {})
+            if len(rowsOfcombi) > 0:
                 with open("animalsProfessions.csv", mode="r") as csv_file:
                     kombiTable: list = []
                     kombiTable_Kombis: list = []
@@ -1036,7 +1037,6 @@ class Tables:
                     )
                     lastlen = 0
                     maxlen = 0
-                    maintable2subtable_Relation: tuple = ({}, {})
                     for i, (animcol, relicol) in enumerate(
                         zip(animalsProfessionsCol, self.relitable)
                     ):
@@ -1900,6 +1900,14 @@ class Program:
                                 rowsOfcombi |= {1}
                             elif thing in [neg + "berufe", neg + "beruf"]:
                                 rowsOfcombi |= {2}
+                            elif thing in [
+                                neg + "kreativität",
+                                neg + "intelligenz",
+                                neg + "kreativitaet",
+                            ]:
+                                rowsOfcombi |= {3}
+                            elif thing in [neg + "liebe"]:
+                                rowsOfcombi |= {4}
                 else:  # oberes Kommando
                     if arg[1:] in ["zeilen", "spalten", "kombination"]:
                         bigParamaeter += [arg[1:]]
