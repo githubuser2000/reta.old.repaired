@@ -1868,7 +1868,7 @@ class Program:
                     and bigParamaeter[-1] == "kombination"
                 ):  # unteres Kommando
                     self.ifCombi = True
-                    if arg[2:6] == "und=":
+                    """if arg[2:6] == "und=":
                         for word in arg[6:].split(","):
                             if (
                                 word.isdecimal()
@@ -1889,8 +1889,10 @@ class Program:
                             ):
                                 paramLines.add(str(abs(int(word))) + "ko")
                     elif arg[2:] == "vonangezeigten" + neg:
-                        paramLines.add("ka")
-                    elif arg[2:6] == "was=":
+                        paramLines.add("ka")"""
+                    if arg[2:6] == "was=":
+                        if neg == "":
+                            paramLines.add("ka")
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [
                                 neg + "tiere",
@@ -2041,7 +2043,7 @@ class Program:
                 finallyDisplayLines,
                 kombiTable_Kombis,
             )
-
+            alxp(animalsProfessionsTable)
             (
                 finallyDisplayLines_kombi,
                 newTable_kombi_1,
