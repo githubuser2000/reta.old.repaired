@@ -1,25 +1,44 @@
-;Lebewesen;Beruf;Kreativität und Intelligenz;Liebe
-3,8,10;Mensch, Menschenaffe;;Intelligenz stark auf Objekte und Gegenstände bezogen;Objektliebe, Gegenstandsliebe
-7;Hund, Wolf, Fuchs;Tischler;bloßes Verallgemeinern, ohne Sicherheit;
-6;Elefant, Bär, Nilpferd;Kaufmann, Richter, Soziologe, Bänker;;
-5,9;Katze;;;
-5,9,13;;Arzt;;
-10;Rabe, Greifvogel;Mathematiker, Informatiker, Strukturwissenschaftler;;
-10,7;Delphin;Philosoph, Laufsteg-Model, Architekt, 3D-Software-Künstler;mathematische Induktionsverfahren und aus Informatik;Partnerschaftsliebe
-11;Kanarienvogel;Systemtheoretiker, Darsteller;;
-2,4,7,14,15,18;Hundeaußerirdische;;;
-5,9,19;Katzenaußerirdische;;;
-5;Reptil;Lehrer, Professor;;
-3,6,10,12;Elefantenaußerirdische;;;
-7,9;Vielleicht Schafe, Ziegen, Kühe;Nicht kommerzielle Berufe / Vereine;;
-3;;Handwerker, Wissen-Verwalter;;
-8;;Kriegsherr, Pfandleihausbetreiber;;
-1;vielleicht Parasit;Zauberkünstler;;
-9;;Hase;;
-7,12;;;abstrakte Induktionsverfahren, die es erst in 1000 Jahren geben wird, höher als Mathematik, keine Mathematik;
-7,6;;;vollständige Abduktion;
-7,5;;;komplette Axiome;
-7,9;;;vollständige Impliatkion, z.B. KI-Korrektheit und KI-Vollständigkeit;
-7,8;;;vollständige Deduktion;Ideenliebe
-7,14;;;induktives Problemlösen in 2000 Jahren;
-7,8;;;die Realität verallgemeinern zu können;
+;Lebewesen;Beruf;Kreativität und Intelligenz;Liebe;Transzendenz-Sachen
+3,8,10;Mensch, Menschenaffe;;Intelligenz stark auf Objekte und Gegenstände bezogen;Objektliebe, Gegenstandsliebe;das existierende Ding, die existierende Sache
+7;Hund, Wolf, Fuchs;Tischler;bloßes Verallgemeinern, ohne Sicherheit;;
+6;Elefant, Bär, Nilpferd;Kaufmann, Richter, Soziologe, Bänker;;;
+5,9;Katze;;;jeden zum Fressen gern haben;das Allgemeine
+5,9,13;;Arzt;;;
+10;Rabe, Greifvogel;Mathematiker, Informatiker, Strukturwissenschaftler;;;
+10,7;Delphin;Philosoph, Laufsteg-Model, Architekt, 3D-Software-Künstler;mathematische Induktionsverfahren und aus Informatik;Partnerschaftsliebe;Schönheit
+11;Kanarienvogel;Systemtheoretiker, Darsteller;;;
+2,4,7,14,15,18;Hundeaußerirdische;;;;
+5,9,19;Katzenaußerirdische;;;;
+5;Reptil;Lehrer, Professor;;;
+3,6,10,12;Elefantenaußerirdische;;;;
+7,9;Vielleicht Schafe, Ziegen, Kühe;Nicht kommerzielle Berufe / Vereine;;;Naivität, Konstruktivität, Unbescholtenheit
+3;;Handwerker, Wissen-Verwalter;;;
+8;;Kriegsherr, Pfandleihausbetreiber;;;
+1;vielleicht Parasit;Zauberkünstler;;;
+9;;Hase;;;
+7,12;;;abstrakte Induktionsverfahren, die es erst in 1000 Jahren geben wird, höher als Mathematik, keine Mathematik;;
+7,6;;;vollständige Abduktion;;
+7,5;;;komplette Axiome;;
+7,9;;;vollständige Impliatkion, z.B. KI-Korrektheit und KI-Vollständigkeit;;
+7,8;;;vollständige Deduktion;Ideenliebe;Realität
+7,14;;;induktives Problemlösen in 2000 Jahren;;
+7,8;;;die Realität verallgemeinern zu können;;
+10,9;;;Vollkommenheit;;Vollkommenheit
+10,8;;;;;Idee
+6,7;;;;;das Wohl
+5,6;;;;;das Besondere
+5,11;;;;;das Sonderbare
+10,5;;;;;die Ausnahme
+6,8;;;;;Abgebrühtheit, Anti-naivität, Destruktivität
+5,5;;;;;Einzigartigkeit
+9,9;;;;;jegliches Alles
+7,7;;;;;das Gute selbst
+8,9;;;;;Phantasie
+10,6;;;;;Wichtigkeit
+9,6;;;;;Ausmessung, Vermessung
+10,7,8;;;;;Realismus bzw. Wirklichkeit
+8,10,6;;;;;Welten
+10,5,8;;;;;Eigenheit
+10,8,9;;;;;Modelle
+10,8,3,7;;;;;Tatsächlichkeit
+10,6,5,5;;;;;die einzige, nicht nur das eine, aller wichtigste Sache, Ding, Lebewesen oder was es auch immer die einzige, nicht nur das eine, aller wichtigste Sache, Ding, Lebewesen oder was es auch immer ist, jedenfalls nur 1 ist es. Der monotheistische Gott selbst? (die 4 Buchstaben des jüdischen Gottes)st?

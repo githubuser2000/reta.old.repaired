@@ -1876,6 +1876,13 @@ class Program:
                                 rowsOfcombi |= {3}
                             elif thing in [neg + "liebe"]:
                                 rowsOfcombi |= {4}
+                            elif thing in [
+                                neg + "transzendenz",
+                                neg + "transzendentalien",
+                                neg + "strukturalien",
+                                neg + "alien",
+                            ]:
+                                rowsOfcombi |= {5}
                 else:  # oberes Kommando
                     if arg[1:] in ["zeilen", "spalten", "kombination"]:
                         bigParamaeter += [arg[1:]]
