@@ -1602,6 +1602,8 @@ class Program:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "liebe", neg + "ethik"]:
                                 rowsAsNumbers |= {8, 9, 28}
+                            if thing in [neg + "glauben", neg + "erkenntnis", neg + "glaube"]:
+                                rowsAsNumbers |= {59}
                             elif thing in [
                                 neg + "angreifbar",
                                 neg + "angreifbarkeit",
