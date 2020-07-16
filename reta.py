@@ -1549,6 +1549,7 @@ class Program:
                                 rowsAsNumbers.add(36)
                             elif religion in [
                                 neg + "gleichfoermigespolygon",
+                                neg + "gleichförmigespolygon",
                                 neg + "nichtsternpolygon",
                                 neg + "polygon",
                             ]:
@@ -1622,16 +1623,19 @@ class Program:
                                 neg + "intelligenz",
                                 neg + "kreativität",
                                 neg + "kreativitaet",
+                                neg + "kreativ",
                             ]:
-                                rowsAsNumbers |= {12, 47, 51}
+                                rowsAsNumbers |= {12, 47, 51, 27}
                             elif thing in [
                                 neg + "brauchen",
                                 neg + "benoetigen",
+                                neg + "benötigen",
                                 neg + "notwendig",
                             ]:
                                 rowsAsNumbers |= {13, 14}
                             elif thing in [
                                 neg + "krankheit",
+                                neg + "krankheiten",
                                 neg + "pathologisch",
                                 neg + "pathologie",
                                 neg + "psychiatrisch",
@@ -1644,13 +1648,16 @@ class Program:
                                 neg + "sigma",
                             ]:
                                 rowsAsNumbers.add(46)
-                            elif thing in [neg + "kreativ", neg + "kreativitaet"]:
-                                rowsAsNumbers.add(27)
                             elif thing in [neg + "anfuehrer", neg + "chef"]:
                                 rowsAsNumbers.add(29)
                             elif thing in [neg + "beruf", neg + "berufe"]:
                                 rowsAsNumbers.add(30)
-                            elif thing in [neg + "loesungen", neg + "loesung"]:
+                            elif thing in [
+                                neg + "loesungen",
+                                neg + "loesung",
+                                neg + "lösungen",
+                                neg + "lösungen",
+                            ]:
                                 rowsAsNumbers.add(31)
                             elif thing in [neg + "musik"]:
                                 rowsAsNumbers.add(33)
@@ -1675,7 +1682,12 @@ class Program:
                                 neg + "anwendungenfuermonde",
                             ]:
                                 rowsAsNumbers.add(22)
-                            elif thing in [neg + "zaehlung", neg + "zaehlungen"]:
+                            elif thing in [
+                                neg + "zaehlung",
+                                neg + "zaehlungen",
+                                neg + "zählungen",
+                                neg + "zählung",
+                            ]:
                                 rowsAsNumbers |= {25, 45}
                             elif thing in [
                                 neg + "jura",
