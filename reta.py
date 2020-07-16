@@ -10,6 +10,8 @@ from copy import deepcopy
 # from collections.abc import Iterable
 from typing import Iterable, Union
 
+import bbcode
+import html2text
 import pyphen
 
 pp = pprint.PrettyPrinter(indent=4)
@@ -22,6 +24,20 @@ originalLinesRange = range(120)  # Maximale Zeilenanzahl
 output = True
 
 
+parser = bbcode.Parser()
+parser.add_simple_formatter("hr", "<hr />", standalone=True)
+parser.add_simple_formatter("sub", "<sub>%(value)s</sub>")
+parser.add_simple_formatter("sup", "<sup>%(value)s</sup>")
+
+
+def render_color(tag_name, value, options, parent, context):
+    return '<span style="color:%s;">%s</span>' % (tag_name, value)
+
+
+for color in ("red", "blue", "green", "yellow", "black", "white"):
+    parser.add_formatter(color, render_color)
+
+
 def alxp(text):
     global output
     """Für mich, damit ich mal alle prints ausschalten kann zum vorführen,
@@ -31,6 +47,11 @@ def alxp(text):
             print(text)
         else:
             pp.pprint(text)
+
+
+def cliout(text):
+    if output:
+        print(text)
 
 
 class Tables:
@@ -315,8 +336,7 @@ class Tables:
                     if rowsEmpty != len(self.rowsAsNumbers) and (
                         iterWholeLine < self.textheight or self.textheight == 0
                     ):  # and m < actualPartLineLen:
-                        if output:
-                            print(line)
+                        cliout(line)
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
@@ -1602,7 +1622,11 @@ class Program:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "liebe", neg + "ethik"]:
                                 rowsAsNumbers |= {8, 9, 28}
-                            if thing in [neg + "glauben", neg + "erkenntnis", neg + "glaube"]:
+                            if thing in [
+                                neg + "glauben",
+                                neg + "erkenntnis",
+                                neg + "glaube",
+                            ]:
                                 rowsAsNumbers |= {59}
                             elif thing in [
                                 neg + "angreifbar",
@@ -1888,9 +1912,20 @@ class Program:
                 else:  # oberes Kommando
                     if arg[1:] in ["zeilen", "spalten", "kombination"]:
                         bigParamaeter += [arg[1:]]
-                if arg[1:] in ["debug"]:
-                    infoLog = True
+                    elif arg[1:] in ["debug"]:
+                        infoLog = True
+                    elif arg[1:] in ["h", "help"] and neg == "":
+                        self.help()
         return paramLines, rowsAsNumbers, rowsOfcombi
+
+    def help(self):
+        with open("readme.txt") as f:
+            read_data = f.read()
+        html = parser.format(read_data, somevar="somevalue")
+        h = html2text.HTML2Text()
+        h.ignore_links = True
+        plaintext = h.handle(html)
+        cliout(plaintext)
 
     def start(self) -> tuple:
         """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
