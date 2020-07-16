@@ -162,7 +162,7 @@ class Tables:
         self.getPrepare.religionNumbers = self.religionNumbers
         self.getCombis.religionNumbers = self.religionNumbers
         self.getPrepare.ifprimmultis = False
-        self.getCombis.rowsOfcombi = 0
+        self.getCombis.rowsOfcombi = set()
         # self.getPrepare.rowsAsNumbers = set()
         self.getConcat.concatRowsAmount = 0
         self.__generRows__: set = set()
@@ -1020,6 +1020,10 @@ class Tables:
                     kombiTable: list = []
                     kombiTable_Kombis: list = []
                     for z, col in enumerate(csv.reader(csv_file, delimiter=";")):
+                        for i, c in enumerate(col):
+                            if i not in rowsOfcombi and i != 0:
+                                col[i] = ""
+
                         for i, row in enumerate(col):
                             if i > 0 and col[i].strip() != "":
                                 col[i] += " (" + col[0] + ")"
@@ -2043,7 +2047,6 @@ class Program:
                 finallyDisplayLines,
                 kombiTable_Kombis,
             )
-            alxp(animalsProfessionsTable)
             (
                 finallyDisplayLines_kombi,
                 newTable_kombi_1,
