@@ -669,6 +669,11 @@ class Tables:
             for condition in paramLines:
                 if "mond" in condition:
                     numRangeYesZ, ifTypAtAll = moonsun(True, numRangeYesZ), True
+                elif "schwarzesonne" in condition:
+                    ifTypAtAll = True
+                    for n in numRange:
+                        if n % 3 == 0:
+                            numRangeYesZ.add(n)
                 elif "sonne" in condition:
                     numRangeYesZ, ifTypAtAll = moonsun(False, numRangeYesZ), True
                 elif "planet" in condition:
