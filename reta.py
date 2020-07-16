@@ -20,12 +20,14 @@ ColumnsRowsAmount, shellRowsAmount = (
 infoLog = False
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
 realLinesRange = range(100)  # Maximale Zeilenanzahl pro Tabellenzelle
+output = True
 
 
 def alxp(text):
+    global output
     """Für mich, damit ich mal alle prints ausschalten kann zum vorführen,
     wenn ich noch beim Entwicklen war."""
-    if infoLog:
+    if infoLog and output:
         if type(text) is str:
             print(text)
         else:
@@ -209,6 +211,7 @@ class Tables:
             @rtype:
             @return: nichts
             """
+            global output
 
             def findMaxCellTextLen(
                 finallyDisplayLines: set, newTable: list, rowsRange: range
@@ -274,9 +277,9 @@ class Tables:
                     )
                     rowsEmpty = 0
                     # for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
-                    maxRowsPossible = math.floor(
-                        int(shellRowsAmount) / int(self.textwidth + 1)
-                    )
+                    # maxRowsPossible = math.floor(
+                    #    int(shellRowsAmount) / int(self.textwidth + 1)
+                    # )
                     # maxCellTextLen = 0
                     # for i in self.rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                     for i, c in enumerate(
@@ -313,7 +316,8 @@ class Tables:
                     if rowsEmpty != len(self.rowsAsNumbers) and (
                         iterWholeLine < self.textheight or self.textheight == 0
                     ):  # and m < actualPartLineLen:
-                        print(line)
+                        if output:
+                            print(line)
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
@@ -1217,11 +1221,11 @@ class Tables:
                             else "generierte Multiplikationen " + polytypename
                         )
                         for k, multi in enumerate(primMultiples[1:]):
-                            alxp("i")
                             if k > 0:
                                 into += ", außerdem: "
                             into += (
-                                (
+                                "("
+                                + (
                                     self.transzendentalien[multi[0]]
                                     if self.transzendentalien[multi[0]].strip() != ""
                                     else "..."
@@ -1232,7 +1236,7 @@ class Tables:
                                     if self.rolle[multi[0]].strip() != ""
                                     else "..."
                                 )
-                                + " * "
+                                + ") * ("
                                 + (
                                     self.motivation[multi[1]]
                                     if self.motivation[multi[1]].strip() != ""
@@ -1248,6 +1252,7 @@ class Tables:
                                     if polytype == 10
                                     else ""
                                 )
+                                + ")"
                             )
                         self.relitable[i] += [into]
             return self.relitable, rowsAsNumbers
