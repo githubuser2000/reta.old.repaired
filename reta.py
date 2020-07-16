@@ -906,8 +906,6 @@ class Tables:
                                             len(table2[colNum][row]) == 1
                                             and table2[colNum][row][0] == ""
                                         ):
-                                            alxp(subTableCell)
-                                            alxp("|")
                                             table2[colNum][row] = deepcopy(
                                                 subTableCell[
                                                     rowsOfcombi.index(subRowNum + 1)
@@ -995,10 +993,10 @@ class Tables:
                     kombiTable: list = []
                     kombiTable_Kombis: list = []
                     for z, col in enumerate(csv.reader(csv_file, delimiter=";")):
-                        for i, c in enumerate(col):
+                        """for i, c in enumerate(col):
                             if i not in rowsOfcombi and i != 0:
                                 col[i] = ""
-
+                        """
                         for i, row in enumerate(col):
                             if i > 0 and col[i].strip() != "":
                                 col[i] += " (" + col[0] + ")"
@@ -1034,10 +1032,6 @@ class Tables:
                                 maxlen - len(animcol)
                             )
                         else:
-                            """alxp("---")
-                            alxp(type(animcol[1:]))
-                            alxp(type(maxlen))
-                            alxp(type(animcol))"""
                             self.relitable[i] += len(animcol[1:]) * [""] + [""] * (
                                 maxlen - len(animcol)
                             )
@@ -1183,7 +1177,6 @@ class Tables:
                 for cols in self.relitable:
                     first += [cols[paar[0]]]
                     second += [cols[paar[1]]]
-                    # alxp(cols[paar[0]])
                 rowsAsNumbers |= {len(self.relitable[0]) + i}
             for concept in self.concepts:
                 for i, (cols, row1, row2) in enumerate(
