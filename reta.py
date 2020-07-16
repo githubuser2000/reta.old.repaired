@@ -965,33 +965,6 @@ class Tables:
                                         }
             return self.ChosenKombiLines
 
-        def cursorOf_2Tables(
-            self, table1: list, table2: list, key: str
-        ) -> Iterable[Union[list, list]]:
-            """2 Tabellen, beide je erste Spalte muss der gleiche string key sein
-            erstes Vorkommen jeweils dann stelle in Liste merken bei beiden
-            Ergebnis sind 2 Listen mit den Stellen wo key:str in der ersten Spalte jeweils übereinstimmend ist
-
-            @type table1: list
-            @param table1: erste Tabell
-            @type table2: list
-            @param table2: zweite Tabelle
-            @type key: str
-            @param key: text bei dem beide Tabellen gleich sein sollen
-            @rtype: tuple(list[int],list[int])
-            @return: 2 Listen mit Zahlen wo Stellen sind wo key in beiden Tabellen vorkommt in der ersten Spalte
-            """
-
-            def perTable(table: list, key: str):
-                result: list = []
-                if len(table) > 0:
-                    for i, row in enumerate(table[0]):
-                        if key == row:
-                            result += [i]
-                return result
-
-            return perTable(table1, key), perTable(table2, key)
-
         def readKombiCsv(
             self, relitable: list, rowsAsNumbers: set, rowsOfcombi: set
         ) -> tuple:
