@@ -7,6 +7,7 @@ import pprint
 import re
 import sys
 from copy import deepcopy
+from pathlib import Path
 # from collections.abc import Iterable
 from typing import Iterable, Union
 
@@ -22,7 +23,6 @@ ColumnsRowsAmount, shellRowsAmount = (
 infoLog = False
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
 output = True
-
 
 parser = bbcode.Parser()
 parser.add_simple_formatter("hr", "<hr />", standalone=True)
@@ -994,12 +994,14 @@ class Tables:
                 das mit Komma getrennt wurde , was zu was gehört als Info für den join später
             return kombiTable, self.relitable, kombiTable_Kombis, maintable2subtable_Relation
             """
+            global folder
+            place = os.path.join(os.getcwd(), os.path.basename("./kombi.csv"))
             self.sumOfAllCombiRowsAmount += len(rowsOfcombi)
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
             maintable2subtable_Relation: tuple = ({}, {})
             if len(rowsOfcombi) > 0:
-                with open("animalsProfessions.csv", mode="r") as csv_file:
+                with open(place, mode="r") as csv_file:
                     kombiTable: list = []
                     kombiTable_Kombis: list = []
                     for z, col in enumerate(csv.reader(csv_file, delimiter=";")):
@@ -1292,10 +1294,12 @@ class Tables:
             @rtype: list[list]
             @return: relitable + weitere Tabelle daneben
             """
+            global folder
+            place = os.path.join(os.getcwd(), os.path.basename("./primenumbers.csv"))
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
             if len(self.puniverseprims) > 0:
-                with open("primenumbers.csv", mode="r") as csv_file:
+                with open(place, mode="r") as csv_file:
                     self.relitable, primUniverseLine = Tables.fillBoth(
                         self.relitable, list(csv.reader(csv_file, delimiter=";"))
                     )
@@ -1919,7 +1923,9 @@ class Program:
         return paramLines, rowsAsNumbers, rowsOfcombi
 
     def help(self):
-        with open("readme.txt") as f:
+        global folder
+        place = os.path.join(os.getcwd(), os.path.basename("./readme.txt"))
+        with open(place) as f:
             read_data = f.read()
         html = parser.format(read_data, somevar="somevalue")
         h = html2text.HTML2Text()
@@ -1928,6 +1934,8 @@ class Program:
         cliout(plaintext)
 
     def start(self) -> tuple:
+        global folder
+        place = os.path.join(os.getcwd(), os.path.basename("./religion.csv"))
         """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
         aller anderen csv dateien
         Parameter werden in Befehle und Nummernlisten gewandelt
@@ -1937,7 +1945,7 @@ class Program:
         @rtype: tuple(int,set,set,list,set,list,set,list,list)
         @return: Spaltenanzahl, Zeilen Ja, Zeilen Nein, Religionstabelle, Spalten, weitere Tabelle daneben, spalten weitere Tabelle, weitere Tabelle für wie sql-join, deren spalten
         """
-        with open("religion.csv", mode="r") as csv_file:
+        with open(place, mode="r") as csv_file:
             self.relitable: list = []
             for i, col in enumerate(csv.reader(csv_file, delimiter=";")):
                 self.relitable += [col]
