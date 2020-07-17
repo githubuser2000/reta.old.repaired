@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html data-react-helmet="lang" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/hotjar-1088957.js"></script><script type="text/javascript" async="" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/conversion_async.js"></script><script type="text/javascript" async="" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/js.js"></script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/cmp.js" async="" type="text/javascript"></script><script type="text/javascript" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/cmpui-banner.js" integrity="sha256-VHPfUqFMA1auwBZ4xOt7FsExGhhRn3wfyNN7t8r+ndo=" crossorigin="anonymous"></script><meta charset="utf-8"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="generator" content="Gatsby 2.20.25"><title>12 Amazing jQuery Tables - SitePoint</title><style type="text/css">svg:not(:root).svg-inline--fa {
+  overflow: visible;
+}
+
+.svg-inline--fa {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+}
+.svg-inline--fa.fa-lg {
+  vertical-align: -0.225em;
+}
+.svg-inline--fa.fa-w-1 {
+  width: 0.0625em;
+}
+.svg-inline--fa.fa-w-2 {
+  width: 0.125em;
+}
+.svg-inline--fa.fa-w-3 {
+  width: 0.1875em;
+}
+.svg-inline--fa.fa-w-4 {
+  width: 0.25em;
+}
+.svg-inline--fa.fa-w-5 {
+  width: 0.3125em;
+}
+.svg-inline--fa.fa-w-6 {
+  width: 0.375em;
+}
+.svg-inline--fa.fa-w-7 {
+  width: 0.4375em;
+}
+.svg-inline--fa.fa-w-8 {
+  width: 0.5em;
+}
+.svg-inline--fa.fa-w-9 {
+  width: 0.5625em;
+}
+.svg-inline--fa.fa-w-10 {
+  width: 0.625em;
+}
+.svg-inline--fa.fa-w-11 {
+  width: 0.6875em;
+}
+.svg-inline--fa.fa-w-12 {
+  width: 0.75em;
+}
+.svg-inline--fa.fa-w-13 {
+  width: 0.8125em;
+}
+.svg-inline--fa.fa-w-14 {
+  width: 0.875em;
+}
+.svg-inline--fa.fa-w-15 {
+  width: 0.9375em;
+}
+.svg-inline--fa.fa-w-16 {
+  width: 1em;
+}
+.svg-inline--fa.fa-w-17 {
+  width: 1.0625em;
+}
+.svg-inline--fa.fa-w-18 {
+  width: 1.125em;
+}
+.svg-inline--fa.fa-w-19 {
+  width: 1.1875em;
+}
+.svg-inline--fa.fa-w-20 {
+  width: 1.25em;
+}
+.svg-inline--fa.fa-pull-left {
+  margin-right: 0.3em;
+  width: auto;
+}
+.svg-inline--fa.fa-pull-right {
+  margin-left: 0.3em;
+  width: auto;
+}
+.svg-inline--fa.fa-border {
+  height: 1.5em;
+}
+.svg-inline--fa.fa-li {
+  width: 2em;
+}
+.svg-inline--fa.fa-fw {
+  width: 1.25em;
+}
+
+.fa-layers svg.svg-inline--fa {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.fa-layers {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  text-align: center;
+  vertical-align: -0.125em;
+  width: 1em;
+}
+.fa-layers svg.svg-inline--fa {
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+
+.fa-layers-counter, .fa-layers-text {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+}
+
+.fa-layers-text {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+
+.fa-layers-counter {
+  background-color: #ff253a;
+  border-radius: 1em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #fff;
+  height: 1.5em;
+  line-height: 1;
+  max-width: 5em;
+  min-width: 1.5em;
+  overflow: hidden;
+  padding: 0.25em;
+  right: 0;
+  text-overflow: ellipsis;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top right;
+          transform-origin: top right;
+}
+
+.fa-layers-bottom-right {
+  bottom: 0;
+  right: 0;
+  top: auto;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: bottom right;
+          transform-origin: bottom right;
+}
+
+.fa-layers-bottom-left {
+  bottom: 0;
+  left: 0;
+  right: auto;
+  top: auto;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: bottom left;
+          transform-origin: bottom left;
+}
+
+.fa-layers-top-right {
+  right: 0;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top right;
+          transform-origin: top right;
+}
+
+.fa-layers-top-left {
+  left: 0;
+  right: auto;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+}
+
+.fa-lg {
+  font-size: 1.3333333333em;
+  line-height: 0.75em;
+  vertical-align: -0.0667em;
+}
+
+.fa-xs {
+  font-size: 0.75em;
+}
+
+.fa-sm {
+  font-size: 0.875em;
+}
+
+.fa-1x {
+  font-size: 1em;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+
+.fa-3x {
+  font-size: 3em;
+}
+
+.fa-4x {
+  font-size: 4em;
+}
+
+.fa-5x {
+  font-size: 5em;
+}
+
+.fa-6x {
+  font-size: 6em;
+}
+
+.fa-7x {
+  font-size: 7em;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.fa-9x {
+  font-size: 9em;
+}
+
+.fa-10x {
+  font-size: 10em;
+}
+
+.fa-fw {
+  text-align: center;
+  width: 1.25em;
+}
+
+.fa-ul {
+  list-style-type: none;
+  margin-left: 2.5em;
+  padding-left: 0;
+}
+.fa-ul > li {
+  position: relative;
+}
+
+.fa-li {
+  left: -2em;
+  position: absolute;
+  text-align: center;
+  width: 2em;
+  line-height: inherit;
+}
+
+.fa-border {
+  border: solid 0.08em #eee;
+  border-radius: 0.1em;
+  padding: 0.2em 0.25em 0.15em;
+}
+
+.fa-pull-left {
+  float: left;
+}
+
+.fa-pull-right {
+  float: right;
+}
+
+.fa.fa-pull-left,
+.fas.fa-pull-left,
+.far.fa-pull-left,
+.fal.fa-pull-left,
+.fab.fa-pull-left {
+  margin-right: 0.3em;
+}
+.fa.fa-pull-right,
+.fas.fa-pull-right,
+.far.fa-pull-right,
+.fal.fa-pull-right,
+.fab.fa-pull-right {
+  margin-left: 0.3em;
+}
+
+.fa-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+          animation: fa-spin 2s infinite linear;
+}
+
+.fa-pulse {
+  -webkit-animation: fa-spin 1s infinite steps(8);
+          animation: fa-spin 1s infinite steps(8);
+}
+
+@-webkit-keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+.fa-rotate-90 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.fa-rotate-180 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.fa-rotate-270 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+}
+
+.fa-flip-horizontal {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+  -webkit-transform: scale(-1, 1);
+          transform: scale(-1, 1);
+}
+
+.fa-flip-vertical {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  -webkit-transform: scale(1, -1);
+          transform: scale(1, -1);
+}
+
+.fa-flip-both, .fa-flip-horizontal.fa-flip-vertical {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  -webkit-transform: scale(-1, -1);
+          transform: scale(-1, -1);
+}
+
+:root .fa-rotate-90,
+:root .fa-rotate-180,
+:root .fa-rotate-270,
+:root .fa-flip-horizontal,
+:root .fa-flip-vertical,
+:root .fa-flip-both {
+  -webkit-filter: none;
+          filter: none;
+}
+
+.fa-stack {
+  display: inline-block;
+  height: 2em;
+  position: relative;
+  width: 2.5em;
+}
+
+.fa-stack-1x,
+.fa-stack-2x {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.svg-inline--fa.fa-stack-1x {
+  height: 1em;
+  width: 1.25em;
+}
+.svg-inline--fa.fa-stack-2x {
+  height: 2em;
+  width: 2.5em;
+}
+
+.fa-inverse {
+  color: #fff;
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.sr-only-focusable:active, .sr-only-focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}
+
+.svg-inline--fa .fa-primary {
+  fill: var(--fa-primary-color, currentColor);
+  opacity: 1;
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa .fa-secondary {
+  fill: var(--fa-secondary-color, currentColor);
+  opacity: 0.4;
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-primary {
+  opacity: 0.4;
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-secondary {
+  opacity: 1;
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa mask .fa-primary,
+.svg-inline--fa mask .fa-secondary {
+  fill: black;
+}
+
+.fad.fa-inverse {
+  color: #fff;
+}</style><link data-react-helmet="true" rel="preload" href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/css_002.css" as="style"><link data-react-helmet="true" rel="stylesheet" href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/css_002.css" type="text/css"><link data-react-helmet="true" href="https://dab1nmslvvntp.cloudfront.net/"><link data-react-helmet="true" href="https://d2sis3lil8ndrq.cloudfront.net/"><link data-react-helmet="true" href="https://bid.g.doubleclick.net/"><meta data-react-helmet="true" name="description" content="This article on jQuery tables runs through a selection of jQuery-powered plugins to create, extend or enhance your tables. These plugins range in their scope from light restyling to fully feature-packed solutions."><meta data-react-helmet="true" property="og:title" content="12 Amazing jQuery Tables - SitePoint"><meta data-react-helmet="true" property="og:description" content="This article on jQuery tables runs through a selection of jQuery-powered plugins to create, extend or enhance your tables. These plugins range in their scope from light restyling to fully feature-packed solutions."><meta data-react-helmet="true" property="og:type" content="website"><meta data-react-helmet="true" property="og:image" content="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/11/1478766912stock-exchange.jpg"><meta data-react-helmet="true" property="twitter:account_id" content="15743570"><meta data-react-helmet="true" name="twitter:card" content="summary"><meta data-react-helmet="true" name="twitter:image" content="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/11/1478766912stock-exchange.jpg"><meta data-react-helmet="true" name="twitter:title" content="12 Amazing jQuery Tables - SitePoint"><meta data-react-helmet="true" name="twitter:description" content="This article on jQuery tables runs through a selection of jQuery-powered plugins to create, extend or enhance your tables. These plugins range in their scope from light restyling to fully feature-packed solutions."><script type="text/javascript" async="" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/analytics.js"></script><script type="text/javascript" async="" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/analytics.js"></script><script type="text/javascript" async="" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/recaptcha__de.js"></script><script async="" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/gtm.js"></script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/cmp.js" async="" type="text/javascript"></script><script data-react-helmet="true" type="application/ld+json">{"@context":"http://schema.org","@type":"Article","headline":"12 Amazing jQuery Tables - SitePoint","url":"https://www.sitepoint.com/12-amazing-jquery-tables/","articleSection":"JavaScript","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.sitepoint.com/12-amazing-jquery-tables/"},"author":[{"@type":"Person","name":"Simon Codrington"}],"publisher":{"@type":"Organization","name":"SitePoint","logo":{"@type":"ImageObject","url":"https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2019/12/1576634464sitepoint-app-icon-512.png"}},"dateCreated":"2016-11-10T01:00:50","datePublished":"2016-11-10T01:00:50","dateModified":"2019-02-25 20:55:20","thumbnailUrl":"https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/11/1478766912stock-exchange.jpg","image":{"@type":"ImageObject","url":"https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/11/1478766912stock-exchange.jpg"},"keywords":"best jquery table,jamesh,jQuery plugin,useful jquery tables"}</script><script data-react-helmet="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Blog","item":"https://sitepoint.com/blog"},{"@type":"ListItem","position":2,"name":"JavaScript","item":"https://sitepoint.com/javascript"},{"@type":"ListItem","position":3,"name":"12 Amazing jQuery Tables","item":"https://sitepoint.com/12-amazing-jquery-tables"}]}</script><script>window.dataLayer = window.dataLayer || [];window.dataLayer.push({"platform":"gatsby"}); (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer', 'GTM-KL8PMMW');</script><link rel="icon" href="https://www.sitepoint.com/icons/icon-48x48.png?v=5ffb031539806d560ce4a4510a588e7d"><link rel="manifest" href="https://www.sitepoint.com/manifest.webmanifest"><meta name="theme-color" content="#3a3a3a"><link rel="apple-touch-icon" sizes="48x48" href="https://www.sitepoint.com/icons/icon-48x48.png?v=5ffb031539806d560ce4a4510a588e7d"><link rel="apple-touch-icon" sizes="72x72" href="https://www.sitepoint.com/icons/icon-72x72.png?v=5ffb031539806d560ce4a4510a588e7d"><link rel="apple-touch-icon" sizes="96x96" href="https://www.sitepoint.com/icons/icon-96x96.png?v=5ffb031539806d560ce4a4510a588e7d"><link rel="apple-touch-icon" sizes="144x144" href="https://www.sitepoint.com/icons/icon-144x144.png?v=5ffb031539806d560ce4a4510a588e7d"><link rel="apple-touch-icon" sizes="192x192" href="https://www.sitepoint.com/icons/icon-192x192.png?v=5ffb031539806d560ce4a4510a588e7d"><link rel="apple-touch-icon" sizes="256x256" href="https://www.sitepoint.com/icons/icon-256x256.png?v=5ffb031539806d560ce4a4510a588e7d"><link rel="apple-touch-icon" sizes="384x384" href="https://www.sitepoint.com/icons/icon-384x384.png?v=5ffb031539806d560ce4a4510a588e7d"><link rel="apple-touch-icon" sizes="512x512" href="https://www.sitepoint.com/icons/icon-512x512.png?v=5ffb031539806d560ce4a4510a588e7d"><link rel="preconnect" href="https://cdn.sanity.io/"><link rel="sitemap" type="application/xml" href="https://www.sitepoint.com/sitemap.xml"><style data-styled="active" data-styled-version="5.1.0"></style><link rel="alternate" type="application/rss+xml" title="SitePoint" href="https://www.sitepoint.com/sitepoint.rss"><link as="script" rel="preload" href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/f5827caf6186e5c689d2efec58e563be7dc9b201-bdc44ac800df40a8df65.js"><link as="script" rel="preload" href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/framework-d58e6aa01b2ba4423f5b.js"><link as="script" rel="preload" href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/component---src-templates-post-post-js-a3160622af1acc146d47.js"><link as="script" rel="preload" href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/app-86ced1fcfe0e78ddca6b.js"><link as="script" rel="preload" href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/2d8ac727346d4e900ecfe8987d1f9b61459727ca-2483f95af36840c7129d.js"><link as="script" rel="preload" href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/a9a7754c-af332f070836f35a283d.js"><link as="script" rel="preload" href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/ec1189df-0fa34f9c7c4814c5cf93.js"><link as="script" rel="preload" href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/webpack-runtime-38b8944268b31d776993.js"><link as="fetch" rel="preload" href="https://www.sitepoint.com/page-data/12-amazing-jquery-tables/page-data.json?v=1" crossorigin="anonymous"><link as="fetch" rel="preload" href="https://www.sitepoint.com/page-data/app-data.json?v=1" crossorigin="anonymous"><style type="text/css">.qc-cmp-ui-container{background:rgba(33,41,52,.85)!important;bottom:0!important;display:flex!important;left:0!important;opacity:0;overflow-y:scroll;position:fixed!important;right:0!important;top:0!important;transition:opacity .15s ease;visibility:hidden;will-change:visibility,opacity;z-index:2147483647!important;transition:background .6s;-webkit-transition:background .6s}.qc-cmp-alert-publisher-logo{height:50px;width:150px;padding:0}.qc-cmp-alert-main-messaging{padding-bottom:15px}.qc-cmp-ui-container.softOptIn{visibility:hidden;background:none}.softOptIn{overflow-y:hidden!important}.qc-cmp-ui.soft-opt-in-alert{display:flex;display:-webkit-flex;display:-ms-flexbox;visibility:visible;flex-direction:column;-ms-flex-direction:column;-webkit-flex-direction:column;justify-content:space-between;-webkit-justify-content:space-between;-ms-flex-pack:distribute;align-items:center;-webkit-align-items:center;-ms-flex-align:center;margin:auto;z-index:214748369!important;padding:60px 30px;text-align:center;overflow:hidden;top:0;width:100%;height:100%;max-width:770px;min-width:320px!important;max-height:340px!important;min-height:240px!important;box-shadow:0 1px 3px rgba(33,41,52,.75)}.soft-opt-in-alert .qc-cmp-publisher-logo{margin-top:0;margin:25px auto;padding-top:0}.soft-opt-in-alert .qc-cmp-main-messaging{margin:25px auto}.qc-cmp-ui{background-color:#368bd6;bottom:0;box-sizing:border-box;color:#fff;font-family:Arial,Verdana,sans-serif;justify-content:space-between;left:0;max-height:100vh;min-height:300px!important;opacity:0;overflow-x:hidden;overflow-y:scroll;position:fixed;right:0;visibility:hidden;will-change:visibility,opacity;-webkit-font-smoothing:antialiased}.qc-cmp-ui-content{display:flex;padding:60px;overflow-y:scroll}.qc-cmp-publisher-logo{display:block;margin:0 0 24px;max-height:90px;max-width:170px;width:auto}.qc-cmp-alert-publisher-logo-image{display:block;margin:auto;max-height:50px;width:100%;max-width:150px;box-sizing:content-box;width:auto}.qc-cmp-title{color:#fff;font-size:34px;font-weight:700;line-height:41px;margin:0 0 24px}.qc-cmp-main-messaging,.qc-cmp-messaging{font-size:14px;font-weight:400;line-height:21px;margin:0;-webkit-font-smoothing:antialiased}.qc-cmp-messaging{margin-bottom:20px}.qc-cmp-buttons{display:flex!important;align-content:center;flex-direction:column;justify-content:center;padding-left:60px}.qc-cmp-button{background-color:#fff;border:2px solid #fff;border-radius:3px;box-shadow:0 1px 1px 0 rgba(0,0,0,.2);box-sizing:border-box;color:#368bd6;cursor:pointer!important;font-family:Arial,sans-serif;font-size:14px;font-weight:600;height:55px!important;letter-spacing:2px;line-height:34px;margin:0 0 15px;padding:0 13px;text-align:center;text-decoration:none;text-transform:uppercase;transition:all .2s ease-in-out;white-space:nowrap;-webkit-font-smoothing:antialiased}.qc-cmp-button:hover{background-color:#1e4b73;color:#fff}.qc-cmp-button.qc-cmp-secondary-button{background-color:#eee;color:#999;border-color:transparent}.qc-cmp-button.qc-cmp-secondary-button:hover{background-color:#fff;color:#368bd6}.qc-cmp-buttons .qc-cmp-button{min-width:315px!important}.qc-cmp-alt-action,.qc-cmp-alt-action:not([href]):not([tabindex]){color:#fff;cursor:pointer;text-align:center;text-decoration:underline;font-size:14px;line-height:21px;margin:0 15px}.qc-cmp-alt-action:hover{opacity:.6}.qc-cmp-alt-buttons{align-self:center;margin:30px 0 0;line-height:normal}.qc-cmp-alt-buttons .qc-cmp-alt-action{margin:0}.qc-cmp-alt-buttons .qc-cmp-alt-action+.qc-cmp-alt-action{padding-left:20px;margin-left:20px;border-left:1px solid #fff}.qc-cmp-consent-content{padding:60px 60px 0}.qc-cmp-qc-link-container{position:absolute;bottom:0;right:0;font-size:10px!important;display:flex;align-items:center;padding:0 30px 30px 0}.qc-cmp-qc-link{margin-left:5px}.qc-cmp-qc-link #qcLogo{width:70px}.qc-cmp-link-text{margin:1em 0}.qc-cmp-back{font-weight:600;left:65px;position:absolute;text-align:left;text-decoration:none;top:25px}.qc-cmp-back:before{content:"";display:inline-block;position:relative;top:1px;right:6px;width:12px;height:12px;background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 5l6 6 6-6'/%3E%3C/svg%3E") 50% no-repeat;transform:rotate(90deg)}.qc-cmp-purposes-header{display:flex;justify-content:space-between}.qc-cmp-bold-messaging{margin:10px 0 20px;font-size:14px;font-weight:700;line-height:normal}.qc-cmp-button-small{flex:0 1 auto;height:40px!important;font-size:12px}.qc-cmp-google-purposes-table,.qc-cmp-vendors-purposes-table{border-bottom:1px solid #fff;margin-bottom:20px}.qc-cmp-purpose-row{border:1px solid #fff;border-bottom:none;padding:10px 20px;position:relative}.qc-cmp-purpose-info{position:relative}.qc-cmp-purpose-description{margin:10px 0;width:calc(100% - 200px);line-height:normal}.qc-cmp-purpose-actions{align-items:center;bottom:20px;display:flex;position:absolute;right:0;top:20px}.qc-cmp-show-vendors-link{font-size:12px}.qc-cmp-show-google-vendors-link{font-size:12px;text-decoration:none}.qc-cmp-toggler{display:inline-block;margin:0 0 0 20px;width:60px}.qc-cmp-toggle{background-color:#1e4b73;border:1px solid #1e4b73;border-radius:11px;cursor:pointer;display:block;height:16px;margin:0 auto;position:relative;width:34px}.qc-cmp-toggle-off{background-color:#368bd6}.qc-cmp-toggle-switch{background-color:#fff;border-radius:50%;display:inline-block;height:16px;position:absolute;right:18px;top:0;transition:all .1s ease-in-out 0ms;width:16px}.qc-cmp-toggle-on .qc-cmp-toggle-switch{right:0}.qc-cmp-toggle-status{color:#fff;font-family:Arial,Verdana,sans-serif;font-size:12px;font-weight:700;opacity:.8;margin:0;padding:6px 0 0;text-align:center}.qc-cmp-scrolling-section{border-bottom:1px solid hsla(0,0%,100%,.3);border-top:1px solid hsla(0,0%,100%,.3);height:calc(100vh - 400px);max-height:1000px;min-height:200px!important;overflow-y:scroll}.qc-cmp-scrolling-section table:first-child{border-top:none}.qc-cmp-nav-bar{display:flex;width:100%;justify-content:flex-end}.qc-cmp-table{border:1px solid hsla(0,0%,100%,.3);border-collapse:collapse;color:#fff;font-family:Arial,Verdana,sans-serif;font-size:14px;width:100%;margin:0 0 20px}.qc-cmp-table tr{background:none}.qc-cmp-table-header{color:hsla(0,0%,100%,.8);font-size:14px;font-weight:700;line-height:30px;letter-spacing:1px;margin:0;padding:0 20px;text-align:left;text-transform:uppercase;border:none}.qc-cmp-table-row{border:none;border-top:1px solid hsla(0,0%,100%,.3);padding:10px 20px}.qc-cmp-table-row:last-child{border-bottom:1px solid hsla(0,0%,100%,.3)}.qc-cmp-publisher-purposes-table{margin-bottom:20px}.qc-cmp-purposes-vendor-list{margin:20px 0 10px}.qc-hide-table{display:none}.qc-cmp-company-cell{font-weight:700;line-height:45px;padding:0 20px}.qc-cmp-enabled-cell{text-align:right;padding:0 20px}.qc-cmp-nav-bar.qc-cmp-bottom{flex-wrap:wrap}.qc-cmp-left-nav-link{flex:1 1 auto;line-height:75px;position:relative;text-align:left;white-space:nowrap}.qc-cmp-cancel{flex:0 1 100px;line-height:75px}.qc-cmp-save-and-exit{flex:1 1 200px;margin:10px 0;max-width:265px}.qc-cmp-sub-title-container{display:flex;flex:0 0 auto}.qc-cmp-sub-title{flex:1 1 auto;font-family:Arial,Verdana,sans-serif;font-size:24px;font-weight:600;line-height:24px;margin:10px 20px 20px 0}.qc-cmp-horizontal-buttons{align-content:center;display:flex!important;flex:0 1 auto!important;flex-wrap:wrap!important;justify-content:center!important;margin:-7px 0 7px!important}.qc-cmp-horizontal-buttons .qc-cmp-button{flex:1 0 auto!important;max-width:300px!important;margin:7px 7px 0!important}.qc-cmp-vendor-row{height:45px!important}.qc-cmp-on-off-column{width:50px}.qc-cmp-on-off-column .qc-cmp-table-header{padding:0}.qc-cmp-dropdown-column{width:50px}.qc-cmp-arrow-down{width:16px;height:16px;margin:auto;background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23FFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 5l6 6 6-6'/%3E%3C/svg%3E") 50% no-repeat}.qc-cmp-flip-up{transform:rotate(180deg)}.qc-cmp-vendor-info-content{padding:0 20px 15px;line-height:16px}.qc-cmp-bold{font-weight:700}.qc-cmp-vendor-info-list-title{font-weight:700;line-height:1.5;font-size:14px;margin:12px 0 0}.qc-cmp-vendor-info-list{line-height:1.5;list-style-type:none;margin:0;padding:0}@media screen and (max-width:850px){.qc-cmp-qc-link-container{padding:0 5px 5px 0}.qc-cmp-ui-content{flex-wrap:wrap}.qc-cmp-initial-info{width:100%}.qc-cmp-buttons{width:100%;padding:60px 0 0}.qc-cmp-buttons .qc-cmp-button{width:100%}.qc-cmp-consent-content{padding:60px 30px 0}.qc-cmp-back{left:35px}}.qc-cmp-ui-showing{overflow:hidden}.qc-cmp-showing{opacity:1;visibility:visible}.qc-cmp-hidden{display:none}.qc-cmp-close-icon{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M.5.5l23 23m0-23l-23 23' fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10'/%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3C/svg%3E") 50% no-repeat;border:none;height:38px;outline:none;position:absolute;top:17px;right:24px;width:38px}.qc-cmp-close-icon-first-view{right:20px;position:absolute;top:20px}.qc-cmp-close-icon:hover{cursor:pointer}</style><script charset="utf-8" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/18-a8a9ceddb3aab1ddb8f0.js"></script><link rel="canonical" key="https://www.sitepoint.com/12-amazing-jquery-tables/" href="https://www.sitepoint.com/12-amazing-jquery-tables/" data-react-helmet="true"><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/ads.js" defer="true" data-react-helmet="true"></script><script type="text/javascript" async="true" data-react-helmet="true">var elem = document.createElement('script');
+elem.src = 'https://quantcast.mgr.consensu.org/cmp.js';
+elem.async = true;
+elem.type = "text/javascript";
+var scpt = document.getElementsByTagName('script')[0];
+scpt.parentNode.insertBefore(elem, scpt);
+(function() {
+var gdprAppliesGlobally = true;
+function addFrame() {
+  if (!window.frames['__cmpLocator']) {
+  if (document.body) {
+    var body = document.body,
+    iframe = document.createElement('iframe');
+    iframe.style.cssText = "display:none";
+    iframe.name = '__cmpLocator';
+    body.appendChild(iframe);
+  } else {
+    // In the case where this stub is located in the head,
+    // this allows us to inject the iframe more quickly than
+    // relying on DOMContentLoaded or other events.
+    setTimeout(addFrame, 5);
+  }
+  }
+}
+addFrame();
+function cmpMsgHandler(event) {
+  var msgIsString = typeof event.data === "string";
+  var json;
+  if(msgIsString) {
+  json = event.data.indexOf("__cmpCall") != -1 ? JSON.parse(event.data) : {};
+  } else {
+  json = event.data;
+  }
+  if (json.__cmpCall) {
+  var i = json.__cmpCall;
+  window.__cmp(i.command, i.parameter, function(retValue, success) {
+    var returnMsg = {"__cmpReturn": {
+    "returnValue": retValue,
+    "success": success,
+    "callId": i.callId
+    }};
+    event.source.postMessage(msgIsString ?
+    JSON.stringify(returnMsg) : returnMsg, '*');
+  });
+  }
+}
+window.__cmp = function (c) {
+  var b = arguments;
+  if (!b.length) {
+  return __cmp.a;
+  }
+  else if (b[0] === 'ping') {
+  b[2]({"gdprAppliesGlobally": gdprAppliesGlobally,
+    "cmpLoaded": false}, true);
+  } else if (c == '__cmp')
+  return false;
+  else {
+  if (typeof __cmp.a === 'undefined') {
+    __cmp.a = [];
+  }
+  __cmp.a.push([].slice.apply(b));
+  }
+}
+window.__cmp.gdprAppliesGlobally = gdprAppliesGlobally;
+window.__cmp.msgHandler = cmpMsgHandler;
+if (window.addEventListener) {
+  window.addEventListener('message', cmpMsgHandler, false);
+}
+else {
+  window.attachEvent('onmessage', cmpMsgHandler);
+}
+})();
+window.__cmp('init', {
+  'Language': 'en',
+  'Initial Screen Reject Button Text': 'I do not accept',
+  'Initial Screen Accept Button Text': 'I accept',
+  'Purpose Screen Body Text': 'You can set your consent preferences and determine how you want your data to be used based on the purposes below. You may set your preferences for us independently from those of third-party partners. Each purpose has a description so that you know how we and partners use your data.',
+  'Vendor Screen Body Text': 'You can set consent preferences for each individual third-party company below. Expand each company list item to see what purposes they use data for to help make your choices. In some cases, companies may disclose that they use your data without asking for your consent, based on their legitimate interests. You can click on their privacy policies for more information and to opt out.',
+  'Vendor Screen Accept All Button Text': 'Accept all',
+  'Vendor Screen Reject All Button Text': 'Reject all',
+  'Initial Screen Body Text': "We use cookies to provide you the best possible experience of SitePoint. Want to know more? Read our Terms of Service and privacy policy. Have questions? Please contact support@sitepoint.com, we're happy to help!",
+  'Publisher Name': 'Sitepoint',
+  'Display UI': 'inEU',
+  'Publisher Purpose IDs': [1,2,4,5],
+  'UI Layout': 'banner',
+  'Non-Consent Display Frequency': 15,
+  'Consent Scope': 'global',
+  'Display Persistent Consent Link': true,
+  'Off On Label': 'Off',
+  'Custom Links Displayed on Initial Screen': [ "[Terms of Services](https://www.sitepoint.com/legals/)", "[Privacy Policy](https://www.sitepoint.com/privacy-policy/)"],
+});</script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/sitepoint.js" id="bsaSP" type="text/javascript" async=""></script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/a"></script><script async="" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/modules.js" charset="utf-8"></script><style type="text/css">iframe#_hjRemoteVarsFrame {display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;}</style><style>._hj-mMo1P__styles__resetStyles * {
+  line-height: normal;
+  font-family: Arial, sans-serif, Tahoma !important;
+  text-transform: initial !important;
+  letter-spacing: normal !important; }
+
+._hj-mMo1P__styles__resetStyles *::before,
+._hj-mMo1P__styles__resetStyles *::after {
+  box-sizing: initial; }
+
+._hj-mMo1P__styles__resetStyles div {
+  height: auto; }
+
+._hj-mMo1P__styles__resetStyles div,
+._hj-mMo1P__styles__resetStyles span,
+._hj-mMo1P__styles__resetStyles p,
+._hj-mMo1P__styles__resetStyles a,
+._hj-mMo1P__styles__resetStyles button {
+  font-weight: normal !important; }
+
+._hj-mMo1P__styles__resetStyles div,
+._hj-mMo1P__styles__resetStyles span,
+._hj-mMo1P__styles__resetStyles p,
+._hj-mMo1P__styles__resetStyles a,
+._hj-mMo1P__styles__resetStyles img,
+._hj-mMo1P__styles__resetStyles strong,
+._hj-mMo1P__styles__resetStyles form,
+._hj-mMo1P__styles__resetStyles label {
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  float: none !important; }
+
+._hj-mMo1P__styles__resetStyles span {
+  color: inherit; }
+
+._hj-mMo1P__styles__resetStyles ol,
+._hj-mMo1P__styles__resetStyles ul,
+._hj-mMo1P__styles__resetStyles li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important; }
+
+._hj-mMo1P__styles__resetStyles li:before,
+._hj-mMo1P__styles__resetStyles li:after {
+  content: none !important; }
+
+._hj-mMo1P__styles__resetStyles hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0; }
+
+._hj-mMo1P__styles__resetStyles input[type='submit'],
+._hj-mMo1P__styles__resetStyles input[type='button'],
+._hj-mMo1P__styles__resetStyles button {
+  margin: 0;
+  padding: 0;
+  float: none !important; }
+
+._hj-mMo1P__styles__resetStyles input,
+._hj-mMo1P__styles__resetStyles select,
+._hj-mMo1P__styles__resetStyles a img {
+  vertical-align: middle; }
+
+._hj-10MNR__styles__globalStyles *,
+._hj-10MNR__styles__globalStyles *::before,
+._hj-10MNR__styles__globalStyles *::after {
+  box-sizing: border-box; }
+
+@font-face {
+  font-family: 'hotjar';
+  src: url(https://script.hotjar.com/font-hotjar_5.fdcf0e.eot);
+  src: url(https://script.hotjar.com/font-hotjar_5.fdcf0e.eot#iefix) format("embedded-opentype"), url(https://script.hotjar.com/font-hotjar_5.c9fb91.woff2) format("woff2"), url(https://script.hotjar.com/font-hotjar_5.8598c5.ttf) format("truetype"), url(https://script.hotjar.com/font-hotjar_5.6da396.woff) format("woff"), url(https://script.hotjar.com/font-hotjar_5.a6049d.svg#hotjar) format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@keyframes _hj-CvZ6d__styles__spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes _hj-19ojv__styles__colors {
+  0% {
+    border-color: #f4364c;
+    border-top-color: transparent; }
+  25% {
+    border-color: #00a2f2;
+    border-top-color: transparent; }
+  50% {
+    border-color: #efb60c;
+    border-top-color: transparent; }
+  75% {
+    border-color: #42ca49;
+    border-top-color: transparent; }
+  100% {
+    border-color: #f4364c;
+    border-top-color: transparent; } }
+
+._hj-10MNR__styles__globalStyles p {
+  color: inherit !important; }
+
+._hj-10MNR__styles__globalStyles a,
+._hj-10MNR__styles__globalStyles a:link,
+._hj-10MNR__styles__globalStyles a:hover,
+._hj-10MNR__styles__globalStyles a:active {
+  color: inherit !important;
+  text-decoration: underline; }
+
+._hj-10MNR__styles__globalStyles ._hj-1EbBs__styles__icon {
+  speak: none !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  word-wrap: normal !important;
+  white-space: nowrap !important;
+  line-height: normal !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  vertical-align: middle !important; }
+
+._hj-10MNR__styles__globalStyles ._hj-1EbBs__styles__icon,
+._hj-10MNR__styles__globalStyles ._hj-1EbBs__styles__icon:before,
+._hj-10MNR__styles__globalStyles ._hj-1EbBs__styles__icon:after,
+._hj-10MNR__styles__globalStyles ._hj-1EbBs__styles__icon *,
+._hj-10MNR__styles__globalStyles ._hj-1EbBs__styles__icon *:before,
+._hj-10MNR__styles__globalStyles ._hj-1EbBs__styles__icon *:after {
+  font-family: 'hotjar' !important;
+  display: inline-block !important;
+  direction: ltr !important; }
+
+._hj-10MNR__styles__globalStyles ._hj-1EbBs__styles__icon:before {
+  color: inherit !important; }
+
+._hj-10MNR__styles__globalStyles ._hj-WPdPO__styles__iconX:before {
+  content: '\E803'; }
+
+._hj-10MNR__styles__globalStyles ._hj-2WW4P__styles__iconOk:before {
+  content: '\E804'; }
+
+._hj-10MNR__styles__globalStyles ._hj-34EZP__styles__iconError:before {
+  content: '\E90C'; }
+
+._hj-10MNR__styles__globalStyles ._hj-lAAAw__styles__iconLogo:before {
+  content: '\E806'; }
+
+._hj-10MNR__styles__globalStyles ._hj-FxxIA__styles__surveyIcons {
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  display: inline-block !important;
+  zoom: 1;
+  vertical-align: middle; }
+
+._hj-widget-theme-light ._hj-10MNR__styles__globalStyles ._hj-FxxIA__styles__surveyIcons {
+  background-image: url(https://script.hotjar.com/widget_icons_light.ddcd59.png); }
+
+._hj-widget-theme-dark ._hj-10MNR__styles__globalStyles ._hj-FxxIA__styles__surveyIcons {
+  background-image: url(https://script.hotjar.com/widget_icons_dark.3a8118.png); }
+
+._hj-10MNR__styles__globalStyles ._hj-1oY0c__styles__inputField {
+  font-family: Arial, sans-serif, Tahoma;
+  font-size: 14px;
+  color: #333 !important;
+  padding: 6px !important;
+  text-indent: 0 !important;
+  height: 30px;
+  width: 100%;
+  min-width: 100%;
+  background: white;
+  border: 1px solid !important;
+  outline: none !important;
+  max-width: none !important;
+  float: none;
+  border-radius: 3px; }
+
+._hj-10MNR__styles__globalStyles ._hj-2xXAa__styles__textarea {
+  resize: none;
+  height: 100px; }
+
+._hj-10MNR__styles__globalStyles ._hj-12tLZ__styles__basicButton, ._hj-10MNR__styles__globalStyles ._hj-21tno__styles__primaryButton {
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 7px 10px;
+  border: 0;
+  outline: 0;
+  display: inline-block;
+  vertical-align: top;
+  width: auto;
+  zoom: 1;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  color: white; }
+  ._hj-10MNR__styles__globalStyles ._hj-12tLZ__styles__basicButton:hover, ._hj-10MNR__styles__globalStyles ._hj-21tno__styles__primaryButton:hover, ._hj-10MNR__styles__globalStyles ._hj-12tLZ__styles__basicButton:focus, ._hj-10MNR__styles__globalStyles ._hj-21tno__styles__primaryButton:focus, ._hj-10MNR__styles__globalStyles ._hj-12tLZ__styles__basicButton:active, ._hj-10MNR__styles__globalStyles ._hj-21tno__styles__primaryButton:active {
+    background: #00a251; }
+  ._hj-10MNR__styles__globalStyles ._hj-12tLZ__styles__basicButton[disabled], ._hj-10MNR__styles__globalStyles ._hj-21tno__styles__primaryButton[disabled] {
+    cursor: default; }
+
+._hj-10MNR__styles__globalStyles ._hj-21tno__styles__primaryButton {
+  font-size: 13px !important;
+  font-weight: bold !important;
+  padding: 7px 10px !important;
+  border: 0 !important;
+  outline: 0 !important;
+  min-height: initial !important;
+  width: auto !important;
+  min-width: initial !important;
+  background: #00c764 !important; }
+  ._hj-10MNR__styles__globalStyles ._hj-21tno__styles__primaryButton:hover, ._hj-10MNR__styles__globalStyles ._hj-21tno__styles__primaryButton:focus, ._hj-10MNR__styles__globalStyles ._hj-21tno__styles__primaryButton:active {
+    background: #00a251 !important; }
+
+._hj-10MNR__styles__globalStyles ._hj-2VnCa__styles__clearButton {
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 13px !important;
+  padding: 7px 10px !important;
+  border: 0 !important; }
+  ._hj-10MNR__styles__globalStyles ._hj-2VnCa__styles__clearButton, ._hj-10MNR__styles__globalStyles ._hj-2VnCa__styles__clearButton:hover, ._hj-10MNR__styles__globalStyles ._hj-2VnCa__styles__clearButton:focus, ._hj-10MNR__styles__globalStyles ._hj-2VnCa__styles__clearButton:active {
+    background: transparent !important; }
+
+._hj-10MNR__styles__globalStyles ._hj-29HmU__styles__answersContentWrapper {
+  padding: 0 12px 12px 12px; }
+
+._hj-10MNR__styles__globalStyles ._hj-1KgX2__styles__spinner {
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-top-color: transparent !important;
+  border-radius: 50%;
+  transform: rotate(0deg);
+  animation: _hj-CvZ6d__styles__spin 0.4s linear infinite, _hj-19ojv__styles__colors 5.6s ease-in-out infinite; }
+
+._hj-2xXAa__styles__textarea { }
+
+._hj-WPdPO__styles__iconX,
+._hj-2WW4P__styles__iconOk,
+._hj-34EZP__styles__iconError,
+._hj-lAAAw__styles__iconLogo { }
+
+._hj-3v_Mp__styles__rtl,
+._hj-3v_Mp__styles__rtl * {
+  direction: rtl !important; }
+</style><style>._hj-3Qhhk__Notification__container {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif, Tahoma !important;
+  transition-duration: 350ms;
+  opacity: 0;
+  transform: scale(0.9);
+  display: flex;
+  background: #263345;
+  border-radius: 2px;
+  position: fixed;
+  z-index: 2147483646;
+  top: 20px;
+  left: 20px;
+  width: 400px;
+  padding: 25px;
+  box-shadow: "0 2px 4px 0 rgba(0,0,0,.3)"; }
+  ._hj-3Qhhk__Notification__container * {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif, Tahoma !important; }
+
+._hj-ldyOW__Notification__active {
+  opacity: 1;
+  transform: scale(1); }
+
+._hj-3e98A__Notification__status {
+  margin: 0 20px 0 0;
+  border-radius: 50%;
+  min-width: 50px;
+  height: 50px;
+  box-shadow: "0 2px 4px 0 rgba(0,0,0,.3)"; }
+
+._hj-2rMkS__Notification__good {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAABOCAYAAADIHIO3AAAAAXNSR0IArs4c6QAAB85JREFUeAHtnWmMFEUUgKcQEUFY1IBGVIhG4z9PVBQN8YpHQliEhaAGJYQYr0SNxn/4w6iJASGGoEYURcWAXIIciwZBwOgqkYQfGhPPxINTw+Gqu5Tfa7omvbM7R09Xd9dsdyVv6+g63nvfVE91V/esKuQhFg9orfvS8XXIjci5yNmIhH3Ib8gWZLNS6iBxHpL2AICGIfOQA1ofI6okupMKq5ArktYzs+PhbIU8hRyqDKccOL2ctqdl1oFJGI6DByIr6gMUBKd/op+rktA5c2PILEC+ig7JANNH6O/qzDkyToNx6Kl2IRVh7aPfi+LUPTN9+5C+tDeTDCQT652M0cc4tJgwBXlc3QM4cAi1NhUK+vLqteutoS+l5UzTWplEHtfmgQCkBJbUag9aDedaqyOfUbXx8WoBqYlEKzMpAUgypB7Gn5sklYMSL9QQApBG1VDdZpUW6SwHVYNLgTSYahv5hF9ZQ3XbVS6WDnNQVdwKpEFUEUhpXYieJyrmi4kKoAKQRleolsAh1TefUWXc7EPawExKG9JhVn2dOageQAHpFIrXA+maHg4nXXRABsxBlbg9AOnakkNpZdtk4BxUwP1AGkh2HTNpTKA47SSn33wxUYQQgHR9sTD1hGpHhZF8R/2Rzyg8AaQBRGtJOQTJ+5QsEEiSyvzy3If0IZDGeq5x5o/6E1UuBNReUSnTMwpIJ+ODNQ5C6kSvKQZSpkEFIN0gjnAsPAkk7oZkPAgkZFN8m35m86+eWD+dcTzHzQdQf6TVUUjP5JDwgA9po6OQnrUOyTf4HGK51dIQAV1PQjY4Cuk5K07EwCbkPkSe6tzf1Vh54FDO9/phRHYknQvoJZDWd9W7nu+PONro5yM7zDfwceISOOUU9qDNor7cinEi+DascxTSC5GdhIEjkF31Gah3S/vISkTsAB36IWvrs6Hch9FWuZ4d0TzvS3cUBu6JZqD+nT5Se+LTh7Qmmg22oJT2o+fYgCSLBJxc2nk9ed1OX9MjKxWyAx/SB3ZsqMfuSm303JDmdK+OgSciFp+jNgrr+dJ39xHtl/g2rHYU0jwrFmPkg/EZqLfSf6yrQh8SK1PzAXEp1i/ZgiSvjlg65ZVzkP6FMWJ5eNGHtNJRSPOjQgrePR/PMuKMqB1Wbq/l9chPceq0yvXCHaU/eQ3zPfTHBteCehmNHoqqVRBUc9TOamuv++PQRThXXp8UB0cKAUgTInUUS2P1Ct0+wJ1wHbX74sYhBrNR5T1bHbXPEO3VJ1RuCe67hGgs9+4E9BL0nhimXTJ11auMc78NSKKvBwqDeXdU70/GgNJR1M+UNGPQztIjlfI+pHfRe1KleukcU68x7kxbkMQGc+pL8S6Cllf7t+H4u0WhWgJ1T6De245CWohuViGJTwwo2fpNMciWuF4MgDk+hLK6BCBNLlsptQPqDYa2DknMMaAOpWZbl4H1o2TZ1NOndyn2Mz6kxUCd0tPxdMvUm4w/g9PdsTj0MN9RrMQKf+GAfnEMEr5P9SNt5Hvra9PWh/QWOk41Ze7EHqTpcUESO70ZxQDyoF+bO4brkeiyHTjezCEWPRc5ConvykKskOi/ELyO+Yi8K89bo4r3UOQSIF1G5kzyNS82qJ9QUO8w0L1xziRjSPA66iwKf8Ahjpz+jIquxorrt8I9QEpkIWYWEwUG/JWB+aLOQ3UPKG5XJQdJ9CnOKMlwmpHV1i5SwyWfh548oJZSOjWpmWQ0KM4oKWBwuTtxF6lEprNRonFitUz8kzQk8U8XUFKAEluIWkj9K/k8GA+o5aRkJnWYkiTjLqe+4MCcBm8mv5LToDNPFAX1SzatVjDe5LQgia1lQclBYMmLxvIG3hDJZzOoVdgtd/j/S9P+iqBEMWDJD1LwZkHcm4ppuqHc2Go1RyalDUm0qwpKKgHrAiIuiL073VKUgaDWYOSdLkASZ3dbTPREAGW/o3wMXL/t6XjvK1O8JlqY6Aok8W9NM8qAYGYNJd3KzLrElPW+WPGaaGECkJxa9dY0owwMlN9Leix8t5uy3hUrfgTEO905BUl8HAqUNAAW2yGFW0ixwOhNQW3AGtla+cdFq0KDEiMw5ijROFLvu2hUeJ28D52zkMSeukBJQ2DJ6YH9IvW65Bs3qE3oPh572l22oW5QYhTGyT3BGaRedNnI8ropLjkK41yHJPpHAiUdYKRGHiM1S/KNE9TH6NoQkMSnoZbn1SCwfH+EOnNZvlvtt9q44Y+rzbS5gw/Y3+HbptPCukOBNQ1TFgJLnr1zMHhP5wokWRA1TLAOSiwHVjORPLTv2La+t4Vze6NBEp/GAko6BpZj2yRqK2oJpCOiX6OF2ECJI4A1msiBbRK1DT1uA9Jh0asRQ6ygxCHASnmbxLvddWsjQxI/xg7Kh5XSNonawfgCyZFHtsUbjgdmlrxt/01yr27qHYw3yHG3uKkejhuK8H+Ryr3ja6tcf8Y4g930QoNohQPld5V4j9cWlNJ+9Oc5JEsfBhw5AInhl770F/TbZEnNvBvxAA6V3ylaam9m6Tb6y/DTUjF+rnBsH2RBdFgyO/OZFCOq413j5CeQo/UB07Np6+h9xdhdl/wAOHsEsgzpqA2Y/FBinP8MMnkfVBoxkQveSgqUHsP58usxLYjcKzwfGYnIbvJB5HukFVnHRexu4syE/wEDavfJf4zW9AAAAABJRU5ErkJggg==") no-repeat 52% 53% #3acc40;
+  background-size: 25px 18px; }
+
+._hj-38oE1__Notification__bad {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAB4CAYAAADsduKfAAAAAXNSR0IArs4c6QAABEZJREFUaAXtWt9vDUEU7q2iQjVtpEFDECqER31AIoKQePEm4qEvnohI/waJRLz5IzzwJqVJk4YI6YsIFVGiqVaFVlDakP7g+r65O9vd7uze2d05bTR7ku/O7OyZ891z5szsr6mpWSQp2fCUy+U66B0AtgAtwGpgDPgMDJRKpVGU2QUE7cBtYAKIk7848Ri4CKxMxYYOG4A7QFrpQ4dtVmRQbAPepWUI6I+jvjGRDAqbgbFAp6zVe7FEsLgCeJjVsqHf6SBZbeDgAupHAsd5q7Tni0pv/BuWA0CbfyZ/ZRYmWpH6X2hKe3QSdZcktM1UP8oKRRMdqxw6/z2oLWqiw7rBcekT6TH6BYI1jklobhJjtJ6VWiRCPUoJEtpvgP0mVhi6ZlYEZSttk2idIAlNt/KHRH9YEZS1tE0iTixJYQ4oohlJFthWiUaPmNqSwqux8ui3JAtsK0dqMaE4RnOCZD9pm6GjTFYKkV9le1kRLU3oFKvICHnjr8doQoiEZkPJ8EOIaBrTR6080h7500YTSXn0TUdKE33XDY5LPnEokSYaX3ZEkdD5g6ZddVQuXeik0jvskXfx8yeXo7DRTGSM2Cgxl8IekQXimmgGkfIXaz1hJYh8b2i8IGIUbMXPOHYoQmcbNuoVoUsTrZBubOhcXpPKoFSvZjR1ML1dXiomvCuC5pmfR44vFaF1jmxBj3jsagUPjY8k0aJ5tGhEReiYL5mkCF2msPFxMrKcSawMkTnEv/tfE0UyzuSRfwubaXQqnaqHzrtU5CWz8oj/aSSHN+z60dR/YTJQZ9ikmKLN+GFxSYlep/j3C1V5U/JmYSOPTR71mxQt24aRUMZXciailzDKf5ZFnsd1ihB561RWrx5YE3mKvXEdqrT3xJ2PeOQpdsV1SGh/hWjwg6S98CsmMASkkcv2DAFNMFxKwfIeuurzTcCEXRUd+VnuiQXZLHSO21mN0YIBfqPrSiD7inMnYrqHmtVXy1CL4QDG2tF8FtgO8FPdB6APuIUEkP4sBJpCiggUESgiUEQgFAHb1XsXenGjCvdkNQN80OI99lOs3i9QZhdcGlYBV4C3QJKM4uRVoDE1GzodAoaANMKL4DlrMih3ANNAVrmOjslDAoUzAHcA5pVrsZ7B8l5gKi9DoP95IxkUugNKLqrcENigydSdKhq4d+uUbnRUtsBOp7alb4l5hyMhfhaq7IBHg2DZIcEEmzsxqQd5N1qHA96vScluGmboGMvkvKdmdlFbSUlEjyRF2SdR6I27AKOyzw1I3OlkfMB1RPqJdugR5VGlcP47BYvPaFUTdTunqBjsRcTmd7shxZsALvOuJbotFQydjlnuG6MEEm5avuuIjM+0m4xEbMTJeqAnJ9kI+qvVIJbII+OjfweQdt83H5pvAOmeztGhEbgJzAHVhE/v+5M8qLrGwUATDOwLYA/qfG/K90V8QdWPFB5GmSj/AFf+LeTG2bgWAAAAAElFTkSuQmCC") no-repeat center center #ea4031;
+  background-size: 6px 30px; }
+
+._hj-1Zxo9__Notification__warning {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAB4CAYAAADsduKfAAAAAXNSR0IArs4c6QAABEZJREFUaAXtWt9vDUEU7q2iQjVtpEFDECqER31AIoKQePEm4qEvnohI/waJRLz5IzzwJqVJk4YI6YsIFVGiqVaFVlDakP7g+r65O9vd7uze2d05bTR7ku/O7OyZ891z5szsr6mpWSQp2fCUy+U66B0AtgAtwGpgDPgMDJRKpVGU2QUE7cBtYAKIk7848Ri4CKxMxYYOG4A7QFrpQ4dtVmRQbAPepWUI6I+jvjGRDAqbgbFAp6zVe7FEsLgCeJjVsqHf6SBZbeDgAupHAsd5q7Tni0pv/BuWA0CbfyZ/ZRYmWpH6X2hKe3QSdZcktM1UP8oKRRMdqxw6/z2oLWqiw7rBcekT6TH6BYI1jklobhJjtJ6VWiRCPUoJEtpvgP0mVhi6ZlYEZSttk2idIAlNt/KHRH9YEZS1tE0iTixJYQ4oohlJFthWiUaPmNqSwqux8ui3JAtsK0dqMaE4RnOCZD9pm6GjTFYKkV9le1kRLU3oFKvICHnjr8doQoiEZkPJ8EOIaBrTR6080h7500YTSXn0TUdKE33XDY5LPnEokSYaX3ZEkdD5g6ZddVQuXeik0jvskXfx8yeXo7DRTGSM2Cgxl8IekQXimmgGkfIXaz1hJYh8b2i8IGIUbMXPOHYoQmcbNuoVoUsTrZBubOhcXpPKoFSvZjR1ML1dXiomvCuC5pmfR44vFaF1jmxBj3jsagUPjY8k0aJ5tGhEReiYL5mkCF2msPFxMrKcSawMkTnEv/tfE0UyzuSRfwubaXQqnaqHzrtU5CWz8oj/aSSHN+z60dR/YTJQZ9ikmKLN+GFxSYlep/j3C1V5U/JmYSOPTR71mxQt24aRUMZXciailzDKf5ZFnsd1ihB561RWrx5YE3mKvXEdqrT3xJ2PeOQpdsV1SGh/hWjwg6S98CsmMASkkcv2DAFNMFxKwfIeuurzTcCEXRUd+VnuiQXZLHSO21mN0YIBfqPrSiD7inMnYrqHmtVXy1CL4QDG2tF8FtgO8FPdB6APuIUEkP4sBJpCiggUESgiUEQgFAHb1XsXenGjCvdkNQN80OI99lOs3i9QZhdcGlYBV4C3QJKM4uRVoDE1GzodAoaANMKL4DlrMih3ANNAVrmOjslDAoUzAHcA5pVrsZ7B8l5gKi9DoP95IxkUugNKLqrcENigydSdKhq4d+uUbnRUtsBOp7alb4l5hyMhfhaq7IBHg2DZIcEEmzsxqQd5N1qHA96vScluGmboGMvkvKdmdlFbSUlEjyRF2SdR6I27AKOyzw1I3OlkfMB1RPqJdugR5VGlcP47BYvPaFUTdTunqBjsRcTmd7shxZsALvOuJbotFQydjlnuG6MEEm5avuuIjM+0m4xEbMTJeqAnJ9kI+qvVIJbII+OjfweQdt83H5pvAOmeztGhEbgJzAHVhE/v+5M8qLrGwUATDOwLYA/qfG/K90V8QdWPFB5GmSj/AFf+LeTG2bgWAAAAAElFTkSuQmCC") no-repeat center center #f39c11;
+  background-size: 6px 30px; }
+
+._hj-1h3WZ__Notification__content {
+  color: #dedede;
+  font-size: 13px; }
+
+._hj-2KcMV__Notification__title {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px; }
+
+._hj-3-rwN__Notification__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+  line-height: 11px; }
+</style></head><body class=""><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KL8PMMW" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div display="block" role="smartbar" class="styleSmartbar__SmartBar-sc-1xwunlh-0 aLNtM"><div class="sbBody" data-gtm-vis-recent-on-screen-9559795_447="1027" data-gtm-vis-first-on-screen-9559795_447="1027" data-gtm-vis-total-visible-time-9559795_447="100" data-gtm-vis-has-fired-9559795_447="1"><div class="sbText" data-gtm-vis-has-fired-9559795_447="1"><span role="img" aria-label="flame" data-gtm-vis-has-fired-9559795_447="1">🔥</span> Get <strong data-gtm-vis-has-fired-9559795_447="1">3 months</strong> access to 400+ books and courses for <strong class="underline" data-gtm-vis-has-fired-9559795_447="1">$3/m</strong></div><div class="sbCountdown" data-gtm-vis-has-fired-9559795_447="1"><span class="hours" data-gtm-vis-has-fired-9559795_447="1">07</span><span data-gtm-vis-has-fired-9559795_447="1">:</span><span class="minutes" data-gtm-vis-has-fired-9559795_447="1">59</span><span data-gtm-vis-has-fired-9559795_447="1">:</span><span class="seconds" data-gtm-vis-has-fired-9559795_447="1">06</span></div><div class="sbButton" data-gtm-vis-has-fired-9559795_447="1"><a href="https://www.sitepoint.com/premium/products/Z2lkOi8vbGVhcm5hYmxlL1Byb2R1Y3QvMzcz?utm_source=smartbar&amp;utm_medium=home&amp;utm_campaign=3-dollar-deal" data-gtm-vis-has-fired-9559795_447="1">Access Now</a></div><button class="sbClose" aria-label="Aria Close Button" data-gtm-vis-has-fired-9559795_447="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 22.6 22.6" style="height: 1em; width: 1em;" data-gtm-vis-has-fired-9559795_447="1"><rect x="8.3" y="-1.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 11.3137 -4.6863)" width="6" height="26" data-gtm-vis-has-fired-9559795_447="1"></rect><rect x="8.3" y="-1.7" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 27.3137 11.3137)" width="6" height="26" data-gtm-vis-has-fired-9559795_447="1"></rect></svg></button></div></div><header class="styledHeader__StyledHeader-vt4ff6-10 fEOfly" style="margin-top: 67px;"><a id="skip-navigation" href="#main-content" class="styledHeader__SkipNavigation-vt4ff6-0 bVclpN">Skip to main content</a><nav aria-label="Menu bar" class="styledHeader__NavigationBar-vt4ff6-3 eNFJfX"><div class="styledHeader__Container-vt4ff6-11 RzLru"><a aria-label="SitePoint" class="styledHeader__LogoLink-vt4ff6-1 oGXMj" href="https://www.sitepoint.com/"><svg viewBox="0 0 123 27" role="img" focusable="false"><title>SitePoint</title><g fill-rule="evenodd"><path d="M31.36,16.75 C31.56,17.07 31.82,17.31 32.14,17.50 C32.46,17.68 32.82,17.82 33.23,17.89 C33.63,17.97 34.05,18.01 34.48,18.01 C34.81,18.01 35.16,17.99 35.52,17.94 C35.89,17.89 36.22,17.81 36.53,17.68 C36.83,17.55 37.08,17.36 37.28,17.11 C37.48,16.87 37.58,16.55 37.58,16.17 C37.58,15.64 37.37,15.24 36.96,14.97 C36.55,14.69 36.03,14.47 35.41,14.31 C34.79,14.14 34.12,13.99 33.39,13.85 C32.66,13.71 31.99,13.52 31.37,13.27 C30.75,13.03 30.23,12.68 29.82,12.23 C29.41,11.78 29.20,11.16 29.20,10.36 C29.20,9.73 29.34,9.20 29.63,8.75 C29.92,8.30 30.30,7.94 30.75,7.66 C31.20,7.38 31.72,7.17 32.29,7.03 C32.86,6.90 33.42,6.83 33.99,6.83 C34.71,6.83 35.38,6.89 35.99,7.01 C36.61,7.13 37.15,7.34 37.62,7.63 C38.09,7.93 38.46,8.33 38.75,8.83 C39.03,9.34 39.19,9.96 39.24,10.72 L37.13,10.72 C37.10,10.32 36.99,9.98 36.81,9.72 C36.63,9.46 36.40,9.25 36.12,9.08 C35.84,8.92 35.53,8.81 35.19,8.74 C34.85,8.66 34.51,8.63 34.16,8.63 C33.84,8.63 33.53,8.65 33.20,8.70 C32.88,8.75 32.59,8.83 32.32,8.95 C32.06,9.07 31.84,9.23 31.68,9.43 C31.51,9.63 31.43,9.89 31.43,10.21 C31.43,10.56 31.56,10.86 31.82,11.09 C32.07,11.32 32.40,11.51 32.80,11.66 C33.19,11.82 33.64,11.95 34.13,12.05 C34.63,12.15 35.13,12.26 35.62,12.37 C36.15,12.49 36.67,12.62 37.17,12.78 C37.67,12.94 38.12,13.15 38.51,13.42 C38.90,13.68 39.21,14.01 39.45,14.41 C39.69,14.81 39.81,15.31 39.81,15.90 C39.81,16.66 39.65,17.28 39.33,17.77 C39.01,18.27 38.58,18.67 38.06,18.98 C37.54,19.28 36.96,19.49 36.30,19.61 C35.65,19.73 35.00,19.79 34.36,19.79 C33.65,19.79 32.97,19.72 32.32,19.58 C31.68,19.43 31.11,19.20 30.61,18.87 C30.12,18.54 29.72,18.11 29.42,17.57 C29.13,17.03 28.96,16.38 28.93,15.61 L31.03,15.61 C31.05,16.06 31.16,16.44 31.36,16.75" id="Fill-1"></path><path d="M42.27,7.12 L44.37,7.12 L44.37,19.53 L42.27,19.53 L42.27,7.12 Z" id="Fill-2"></path><path d="M53.13,7.12 L53.13,8.92 L50.57,8.92 L50.57,16.62 C50.57,16.86 50.59,17.05 50.63,17.20 C50.67,17.34 50.75,17.46 50.87,17.54 C50.99,17.62 51.15,17.67 51.35,17.69 C51.56,17.71 51.83,17.73 52.16,17.73 L53.13,17.73 L53.13,19.53 L51.51,19.53 C50.97,19.53 50.50,19.49 50.11,19.42 C49.72,19.35 49.41,19.22 49.17,19.02 C48.93,18.83 48.75,18.56 48.64,18.21 C48.52,17.86 48.46,17.39 48.46,16.81 L48.46,8.92 L46.28,8.92 L46.28,7.12 L48.46,7.12 L48.46,3.39 L50.57,3.39 L50.57,7.12 L53.13,7.12" id="Fill-3"></path><path d="M64.53,18.73 C63.57,19.44 62.36,19.79 60.91,19.79 C59.89,19.79 59.00,19.63 58.25,19.31 C57.49,18.99 56.86,18.54 56.35,17.97 C55.84,17.39 55.45,16.70 55.20,15.90 C54.94,15.10 54.80,14.23 54.76,13.29 C54.76,12.34 54.91,11.48 55.21,10.69 C55.51,9.91 55.92,9.23 56.46,8.65 C57.00,8.08 57.63,7.63 58.37,7.31 C59.11,6.99 59.91,6.83 60.79,6.83 C61.93,6.83 62.87,7.05 63.63,7.51 C64.38,7.97 64.98,8.55 65.44,9.25 C65.89,9.96 66.20,10.73 66.38,11.56 C66.55,12.39 66.62,13.18 66.59,13.93 L56.99,13.93 C56.98,14.48 57.04,14.99 57.19,15.48 C57.34,15.97 57.58,16.40 57.91,16.78 C58.24,17.16 58.66,17.46 59.18,17.68 C59.69,17.90 60.29,18.01 60.98,18.01 C61.88,18.01 62.61,17.82 63.18,17.41 C63.75,17.02 64.13,16.41 64.31,15.59 L66.39,15.59 C66.11,16.98 65.49,18.03 64.53,18.73 L64.53,18.73 Z M64.02,10.76 C63.83,10.33 63.58,9.96 63.25,9.65 C62.93,9.34 62.55,9.09 62.11,8.90 C61.68,8.72 61.19,8.63 60.66,8.63 C60.12,8.63 59.62,8.72 59.19,8.90 C58.75,9.09 58.37,9.34 58.06,9.66 C57.75,9.98 57.50,10.35 57.32,10.78 C57.13,11.20 57.03,11.65 56.99,12.13 L64.36,12.13 C64.32,11.65 64.21,11.20 64.02,10.76 L64.02,10.76 Z" id="Fill-4"></path><path d="M70.95,7.12 L70.95,8.80 L71.00,8.80 C71.35,8.11 71.89,7.61 72.64,7.30 C73.38,6.98 74.20,6.83 75.09,6.83 C76.09,6.83 76.95,7.00 77.68,7.36 C78.42,7.71 79.03,8.18 79.52,8.78 C80.01,9.38 80.37,10.08 80.62,10.86 C80.87,11.65 80.99,12.48 80.99,13.36 C80.99,14.24 80.87,15.07 80.63,15.85 C80.39,16.64 80.03,17.32 79.54,17.91 C79.06,18.49 78.44,18.95 77.71,19.29 C76.97,19.62 76.12,19.79 75.14,19.79 C74.83,19.79 74.48,19.76 74.09,19.70 C73.70,19.63 73.32,19.53 72.94,19.38 C72.56,19.24 72.20,19.04 71.86,18.79 C71.52,18.55 71.23,18.24 71.00,17.87 L70.95,17.87 L70.95,24.26 L68.84,24.26 L68.84,7.12 L70.95,7.12 L70.95,7.12 Z M78.53,11.52 C78.37,10.97 78.13,10.48 77.81,10.04 C77.49,9.61 77.07,9.27 76.57,9.01 C76.06,8.76 75.47,8.63 74.79,8.63 C74.08,8.63 73.48,8.76 72.98,9.04 C72.49,9.31 72.08,9.67 71.77,10.10 C71.46,10.55 71.23,11.05 71.09,11.60 C70.95,12.17 70.88,12.73 70.88,13.31 C70.88,13.92 70.95,14.51 71.10,15.07 C71.25,15.64 71.48,16.14 71.81,16.57 C72.13,17.01 72.55,17.35 73.06,17.62 C73.57,17.88 74.19,18.01 74.92,18.01 C75.65,18.01 76.25,17.88 76.74,17.61 C77.23,17.34 77.62,16.98 77.92,16.53 C78.22,16.08 78.43,15.57 78.56,14.99 C78.70,14.41 78.76,13.82 78.76,13.21 C78.76,12.64 78.68,12.07 78.53,11.52 L78.53,11.52 Z" id="Fill-5"></path><path d="M83.17,10.78 C83.44,9.98 83.84,9.30 84.36,8.71 C84.89,8.13 85.55,7.67 86.33,7.33 C87.10,7.00 87.99,6.83 89.00,6.83 C90.03,6.83 90.92,7.00 91.69,7.33 C92.46,7.67 93.11,8.13 93.64,8.71 C94.17,9.30 94.56,9.98 94.83,10.78 C95.09,11.57 95.23,12.42 95.23,13.33 C95.23,14.25 95.09,15.09 94.83,15.88 C94.56,16.66 94.17,17.35 93.64,17.93 C93.11,18.52 92.46,18.97 91.69,19.30 C90.92,19.63 90.03,19.79 89.00,19.79 C87.99,19.79 87.10,19.63 86.33,19.30 C85.55,18.97 84.89,18.52 84.36,17.93 C83.84,17.35 83.44,16.66 83.17,15.88 C82.91,15.09 82.78,14.25 82.78,13.33 C82.78,12.42 82.91,11.57 83.17,10.78 L83.17,10.78 Z M85.32,15.34 C85.53,15.92 85.81,16.41 86.18,16.80 C86.54,17.19 86.96,17.49 87.45,17.70 C87.94,17.91 88.46,18.01 89.00,18.01 C89.55,18.01 90.06,17.91 90.55,17.70 C91.04,17.49 91.46,17.19 91.83,16.80 C92.19,16.41 92.48,15.92 92.68,15.34 C92.89,14.75 92.99,14.09 92.99,13.33 C92.99,12.58 92.89,11.91 92.68,11.33 C92.48,10.75 92.19,10.25 91.83,9.85 C91.46,9.45 91.04,9.15 90.55,8.94 C90.06,8.73 89.55,8.63 89.00,8.63 C88.46,8.63 87.94,8.73 87.45,8.94 C86.96,9.15 86.54,9.45 86.18,9.85 C85.81,10.25 85.53,10.75 85.32,11.33 C85.11,11.91 85.01,12.58 85.01,13.33 C85.01,14.09 85.11,14.75 85.32,15.34 L85.32,15.34 Z" id="Fill-6"></path><path d="M97.83,7.12 L99.94,7.12 L99.94,19.53 L97.83,19.53 L97.83,7.12 Z" id="Fill-7"></path><path d="M105.19,7.12 L105.19,9.08 L105.24,9.08 C106.12,7.58 107.51,6.83 109.41,6.83 C110.25,6.83 110.95,6.94 111.51,7.16 C112.08,7.39 112.53,7.70 112.88,8.10 C113.23,8.50 113.47,8.98 113.61,9.53 C113.75,10.08 113.82,10.69 113.82,11.36 L113.82,19.53 L111.71,19.53 L111.71,11.12 C111.71,10.36 111.48,9.75 111.02,9.30 C110.56,8.85 109.92,8.63 109.11,8.63 C108.46,8.63 107.91,8.72 107.43,8.92 C106.96,9.11 106.57,9.38 106.26,9.73 C105.94,10.08 105.71,10.50 105.55,10.97 C105.39,11.44 105.32,11.96 105.32,12.52 L105.32,19.53 L103.21,19.53 L103.21,7.12 L105.19,7.12" id="Fill-8"></path><path d="M122.47,7.12 L122.47,8.92 L119.92,8.92 L119.92,16.62 C119.92,16.86 119.94,17.05 119.98,17.20 C120.02,17.34 120.10,17.46 120.22,17.54 C120.33,17.62 120.49,17.67 120.70,17.69 C120.91,17.71 121.18,17.73 121.50,17.73 L122.47,17.73 L122.47,19.53 L120.86,19.53 C120.32,19.53 119.85,19.49 119.46,19.42 C119.07,19.35 118.76,19.22 118.52,19.02 C118.28,18.83 118.10,18.56 117.99,18.21 C117.87,17.86 117.81,17.39 117.81,16.81 L117.81,8.92 L115.63,8.92 L115.63,7.12 L117.81,7.12 L117.81,3.39 L119.92,3.39 L119.92,7.12 L122.47,7.12" id="Fill-9"></path><path d="M0.67,11.87 L2.62,13.76 L8.76,19.50 L11.41,16.94 C11.65,16.61 11.64,16.16 11.36,15.84 L8.94,13.72 L8.95,13.72 L6.34,11.19 C6.04,10.84 6.04,10.32 6.37,9.99 L13.38,3.21 L10.20,0.12 L0.68,9.31 C-0.05,10.02 -0.05,11.17 0.67,11.87" id="Fill-10"></path><path d="M21.60,15.15 L19.66,13.27 L13.51,7.53 L10.86,10.08 C10.62,10.42 10.64,10.87 10.91,11.19 L13.33,13.31 L13.33,13.31 L15.93,15.84 C16.24,16.19 16.23,16.70 15.91,17.04 L8.89,23.82 L12.08,26.91 L19.65,19.60 L21.60,17.71 C22.33,17.01 22.33,15.86 21.60,15.15" id="Fill-11"></path><path d="M44.55,4.58 C44.55,5.24 44.00,5.77 43.32,5.77 C42.64,5.77 42.09,5.24 42.09,4.58 C42.09,3.93 42.64,3.39 43.32,3.39 C44.00,3.39 44.55,3.93 44.55,4.58" id="Fill-12"></path><path d="M100.11,4.58 C100.11,5.24 99.56,5.77 98.88,5.77 C98.20,5.77 97.65,5.24 97.65,4.58 C97.65,3.93 98.20,3.39 98.88,3.39 C99.56,3.39 100.11,3.93 100.11,4.58" id="Fill-13"></path></g></svg></a><button type="button" data-toggle="main-nav" aria-label="Toggle navigation" aria-controls="main-nav" class="styledHeader__Hamburger-vt4ff6-9 bWwBOK"><span></span></button><ul id="main-nav" class="styledHeader__NavList-vt4ff6-4 kbsvjX"><li class="styledHeader__NavListItem-vt4ff6-5 jpQa-DU"><a data-text="Blog" class="styledHeader__NavLink-vt4ff6-6 kSaGil" href="https://www.sitepoint.com/blog/">Blog</a></li><li class="styledHeader__NavListItem-vt4ff6-5 jpQa-DU"><a data-text="Community" href="https://www.sitepoint.com/community/" class="styledHeader__NavLink-vt4ff6-6 kSaGil">Community</a></li><li class="styledHeader__NavListItem-vt4ff6-5 jpQa-DU"><a data-text="Jobs" href="https://www.sitepoint.com/jobs/" class="styledHeader__NavLink-vt4ff6-6 kSaGil">Jobs</a></li><li class="styledHeader__NavListItem-vt4ff6-5 jpQa-DU"><a data-text="Library" href="https://www.sitepoint.com/premium/library/" class="styledHeader__NavLink-vt4ff6-6 kSaGil">Library</a></li><li class="styledHeader__NavListItem-vt4ff6-5 jpQa-DU"><a data-text="Login" href="https://www.sitepoint.com/premium/sign-in/" class="styledHeader__NavLink-vt4ff6-6 kSaGil">Login</a></li></ul><a id="join-premium" href="https://www.sitepoint.com/premium/products/Z2lkOi8vbGVhcm5hYmxlL1Byb2R1Y3QvMzA3?ref_source=sitepoint&amp;ref_medium=topnav" target="_blank" color="pink" type="default" class="button__Button-tmcfcj-0 styledHeader__JoinPremium-vt4ff6-2 gXVqYV">Join Premium</a></div></nav></header><main id="main-content" class="layout__Wrapper-ii2kc2-0 gnSOWC"><div><article aria-label="Article title: 12 Amazing jQuery Tables" class="cG9zdDo4MTc0NA=="><section aria-label="Article header for 12 Amazing jQuery Tables" color="javascript" class="styledHeader__StyledHeader-sc-1ei2vfl-0 hfCOkg"><div class="styledHeader__Wrapper-sc-1ei2vfl-1 cHUmue"><header class="styledHeader__Info-sc-1ei2vfl-2 LTMfA"><h1 class="styledHeader__Title-sc-1ei2vfl-4 jNIbMf">12 Amazing jQuery Tables</h1><div class="styledHeader__Metabox-sc-1ei2vfl-3 ciGkhP"><div><p class="styledHeader__Meta-sc-1ei2vfl-5 dvfXdt">By&nbsp;<a href="https://www.sitepoint.com/author/scodrington">Simon Codrington</a></p><p class="styledHeader__Meta-sc-1ei2vfl-5 dvfXdt"><a href="https://www.sitepoint.com/javascript">JavaScript</a></p><time datetime="2016-11-10" class="styledHeader__Meta-sc-1ei2vfl-5 dvfXdt">November 10, 2016</time></div><div><p class="styledHeader__Meta-sc-1ei2vfl-5 dvfXdt">Share:</p><button aria-label="Share Sitepoint on facebook" data-network="facebook" class="styledSocialShare__StyledButton-sc-1slciz-0 knfKwu social-share-button"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" class="svg-inline--fa fa-facebook-square fa-w-14 fa-lg share-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"></path></svg></button><button aria-label="Share Sitepoint on reddit" data-network="reddit" class="styledSocialShare__StyledButton-sc-1slciz-0 knfKwu social-share-button"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="reddit" class="svg-inline--fa fa-reddit fa-w-16 fa-lg share-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"></path></svg></button><button aria-label="Share Sitepoint on twitter" data-network="twitter" class="styledSocialShare__StyledButton-sc-1slciz-0 knfKwu social-share-button"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter-square" class="svg-inline--fa fa-twitter-square fa-w-14 fa-lg share-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-48.9 158.8c.2 2.8.2 5.7.2 8.5 0 86.7-66 186.6-186.6 186.6-37.2 0-71.7-10.8-100.7-29.4 5.3.6 10.4.8 15.8.8 30.7 0 58.9-10.4 81.4-28-28.8-.6-53-19.5-61.3-45.5 10.1 1.5 19.2 1.5 29.6-1.2-30-6.1-52.5-32.5-52.5-64.4v-.8c8.7 4.9 18.9 7.9 29.6 8.3a65.447 65.447 0 0 1-29.2-54.6c0-12.2 3.2-23.4 8.9-33.1 32.3 39.8 80.8 65.8 135.2 68.6-9.3-44.5 24-80.6 64-80.6 18.9 0 35.9 7.9 47.9 20.7 14.8-2.8 29-8.3 41.6-15.8-4.9 15.2-15.2 28-28.8 36.1 13.2-1.4 26-5.1 37.8-10.2-8.9 13.1-20.1 24.7-32.9 34z"></path></svg></button><button aria-label="Share Sitepoint on email" data-network="email" class="styledSocialShare__StyledButton-sc-1slciz-0 knfKwu social-share-button"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope" class="svg-inline--fa fa-envelope fa-w-16 fa-lg share-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg></button></div></div></header><div type="book" class="styledPromoteBox__StyledPromoteBox-sc-1lx5aae-0 WbpJY" id="article_header_w2bg7g1594960373581"><div id="ad_article_header_w2bg7g1594960373581" type="book" class="styledPromoteBox__AdContainer-sc-1lx5aae-1 fgQlWc"></div><div><div class="styledBook__StyledBook-sc-1f7vk4f-0 bQrfaY"><h4 class="styledBook__Title-sc-1f7vk4f-4 gRAkBD">Free JavaScript Book!</h4><div><div class="styledBook__BookCoverContainer-sc-1f7vk4f-1 drALMd"><div class="book-cover cover-spine-overlay gatsby-image-wrapper" style="position:relative;overflow:hidden"><div aria-hidden="true" style="width:100%;padding-bottom:125%"></div><img aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAZCAIAAAC+dZmEAAAACXBIWXMAAAsSAAALEgHS3X78AAAC8klEQVQ4y42UW08TQRTH9/u03V6hlAIWBMSq3CSKJGpUIBKjMSS8aaI+mPhgvDyZSOKDT0Y/BKEzsy29bLm0SHhQCRFCb2x32+6sL86ZdktLm0Dyy8nc/jNnzjkzgo6t58CmkyrWWoOPC+cSE7se7tQj3SZduuRmO55T7KBrvTQ2xBmk0X7K9EQUznYYxCIcFfbC+UCHTpytJ1tMa2kebOXUndn2xAFbgnXokovjZlBG2ANWYraTssPZeIPbNj3io4krVJ6kiWuAPAEkJ6k8bsgTxvq0sXELWGfcoPHLuuQRTkISHzFS88b2YyP10EgtQAN4At2tWdb4t7Nk7CzCms3bhjxOw9662EmjF2lyyti4A9OgnwfSC0aai7ceQHdrlq5P0+R1IzFKI91C04XDXpoYM1JzINi8S8HVGVN2D9rcecoaySmWPKEpqsROowEqj7F70niQRgfAndgIlUdhMD4CSY5fgqnYMMuZ0FKGdh5wF4+53cSpS86TRNQ4VSTkVG7bdtvluYKsZWSrcMzaqrZrlJFYCtmZrZVdXVzCjiIJKJExRhEPlLGrgh0a8StkUCM9FShGaxH5MqGggnoaxWx7i4r9heRS8fc35df3XPIZ20jFfXn5aS79Pi8vqiRQRo5CZPow+Tq3dr+E3dxzm0AJiIvSwPHuJ13dq6h/C7tfFSlYwMGj7eXsfuJo+0seXy0if27jZfbPSjb1kbmjI35yTUz6Cz8/lPJpLb+b21lWyCUF9R3EX+ynfhwkXh2HAsfoQmbzTWYvlEl/PibBalwEfgGLirrysbl8+m0u/S4be6QifxnZM6tD+ys3s6vDzOcS9uQiM4eJ59m1WQ35mgJWwaKGvZoUUEm/hrvK2A5RDInqqquE7NUIacitoF4NdVZw+2/IVo8kT7uN8mIw08tLCIv1BULLLyfyaZPa6npXbNxdaPPX1X6c+qdTxQt/AxEbF7cVd7DnxvEBYW5ZV/KcJQavRLP0+avA5vPATT4z/gP7deMY2smaEgAAAABJRU5ErkJggg==" alt="" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition-delay:500ms"><noscript><picture><source type='image/webp' srcset="https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=165&h=206&fit=crop&fm=webp 165w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=248&h=310&fit=crop&fm=webp 248w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=330&h=413&fit=crop&fm=webp 330w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=495&h=619&fit=crop&fm=webp 495w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?fm=webp 1056w" sizes="(max-width: 165px) 100vw, 165px" /><source srcset="https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=165&h=206&fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=248&h=310&fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=330&h=413&fit=crop 330w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=495&h=619&fit=crop 495w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png 1056w" sizes="(max-width: 165px) 100vw, 165px" /><img loading="lazy" sizes="(max-width: 165px) 100vw, 165px" srcset="https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=165&h=206&fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=248&h=310&fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=330&h=413&fit=crop 330w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=495&h=619&fit=crop 495w,
+https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png 1056w" src="https://cdn.sanity.io/images/708bnrs8/production/8cfcee85cbdd739f3b607a82caba174f953e5c20-1056x1320.png?w=165&h=206&fit=crop" alt="" style="position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center"/></picture></noscript></div></div><div class="styledBook__PContainer-sc-1f7vk4f-2 jBmLww"><p font-weight="400" class="p__P-j9v9zk-0 gDhSTQ">Write powerful, clean and maintainable JavaScript.<br><br><s>RRP $11.95</s> </p></div></div><div class="styledBook__CTAContainer-sc-1f7vk4f-3 gBefjl"><a id="article_header-button" href="https://www.sitepoint.com/premium/books/javascript-best-practice/read/?preview=true&amp;fromBlog=true&amp;campaign=js-best-practice-reader" color="pink" data-network="JavaScript: Best Practice" data-unit="article_header" type="default" class="button__Button-tmcfcj-0 dIuXpw">Get the book free!</a></div></div></div></div></div></section><div class="styledPost__StyledPost-sc-4qaqpu-0 letBtp"><section aria-label="Article content for 12 Amazing jQuery Tables" class="styledBody__StyledBody-kvy0sj-0 enxCuw"><p><em>This popular article on jQuery Tables was updated on 10th November, 2016 to reflect the current state of jQuery table plugins.</em></p>
+<p><strong>Tables are one of the oldest elements in HTML. There was a 
+time when tables were used extensively for both content and for web 
+layouts. Thankfully, table-based layouts are primarily dead (with the 
+exclusion of HTML email), and when you need a table nowadays, it’s for 
+the purpose it was originally created for — to show tabular data.</strong></p>
+<p>Being an older part of the HTML spec, tables generally aren’t suited 
+to mobile-centric designs, nor do they offer any advanced functionality 
+out of the box. Tables basically just display your data, and for some 
+use cases, that’s just fine.</p>
+<p>However, often you’ll want tables to be more modern, either fully 
+supporting the mobile ecosystem by proving a responsive layout or by 
+providing additional functions such as searching, filtering, sorting or 
+other advanced features.</p>
+<p>In this article, we’re going to run through a selection of 
+jQuery-powered plugins to create, extend or enhance your tables. These 
+plugins range in their scope from light restyling to fully 
+feature-packed solutions.</p>
+<h2 id="dynatable">Dynatable</h2>
+<p>Dynatable is an incredibly powerful and in-depth table plugin that, 
+among other things, creates tables with powerful features such as 
+filtering, sorting and pagination. Dynatable is very developer focused, 
+letting you control how the table is rendered, how filtering and 
+searches will operate and overall provides you with a highly 
+customizable solution.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811108dynatable.webp" alt="A table showing how Dynatable operates" loading="lazy" width="1006" height="557"></p>
+<p>If you’re looking for a plugin that gives you control over how 
+everything works, then this plugin is definitely worth a look. If you’re
+ entirely new to <a href="https://www.sitepoint.com/premium/topics/all?q=&amp;limit=400&amp;offset=0&amp;page=1&amp;content_types%5B%5D=Book&amp;slugs%5B%5D=javascript&amp;states%5B%5D=available&amp;order=">JavaScript</a>/jQuery
+ then some of the examples, and/or the author’s documentation, might 
+scare you away. However, everything can be set up and works perfectly by
+ using the default configuration, so there’s no need to customize 
+further.</p>
+<p>One surprising thing is that the plugin is relatively old (with its 
+last major commit back in 2014). There have been several commits along 
+the way, and involvement from the community, but it’s hard to tell if 
+the plugin is still actively being developed (which might affect if you 
+wanted to get help or contribute). Besides all that, it’s a good plugin 
+and offers heaps of features, most of which should work great in any 
+website.</p>
+<p><a href="https://www.dynatable.com/">Website</a><br><a href="https://github.com/alfajango/jquery-dynatable">Github</a></p>
+<h2 id="bootstraptable">Bootstrap Table</h2>
+<p>CSS frameworks are still popular, and Bootstrap is right up there. 
+The Bootstrap Table plugin is used as a feature-rich, yet lightweight 
+drop-and-play table plugin that offers all the features you need with 
+minimal dev work.</p>
+<p>The power and scope of this plugin is fairly impressive. You can use 
+it to restyle your tables to make them responsive and pretty, and in 
+addition add new functionality such as filtering, searching, conditional
+ display of columns (e.g you can hide columns for simplicity) along with
+ other useful tidbits like exporting to CSV and JSON.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811100bootstrap_table.webp" alt="An example of Bootstrap table in action" loading="lazy" width="1262" height="730"></p>
+<p>The <a href="http://bootstrap-table.wenzhixin.net.cn/examples/">example page outlines how these elements can be configured</a>.
+ You’ll have to spend some time getting to know the documentation, but 
+it’s well worth it when the result is an awesome table that’s as feature
+ packed as these.</p><div class="proper-ad-unit">
+          <div id="proper-ad-sitepoint_content_1">
+            <script>
+              if ( !!window.propertag ) {
+                window.propertag.cmd.push(function() {
+                  proper_display('sitepoint_content_1');
+                });
+              }
+            </script></div>
+        </div><p></p>
+<p>You’ll either need to be running a Bootstrap project or optionally 
+add the Bootstrap CSS and JS file to your project. The plugin works 
+either via standard HTMTL <code>data</code> attributes on your tables 
+(outlining the functionality/options you want) or via a more traditional
+ JS approach. If you’re already in a Bootstrap project, this is a great 
+start. If you’re working on something other than Bootstrap, you’ll need 
+to weigh up the pros and cons.</p>
+<p>The plugin has been extensively maintained over the years with dozens
+ of contributors and thousands of commits. It’s very much an ongoing and
+ evolving open-source project. It’s hard to say if this will be extended
+ into Bootstrap 4 (as it requires Bootstrap 2/3) but for now it’s a good
+ bet it will continue to be maintained.</p>
+<p>If you’re looking for a plugin that has historically great support 
+and has been iterated continually (and by extension you’d assume they’ve
+ ironed out most of the bugs), then this plugin might be right for you. 
+You can also look at the interesting “extensions” that some developers 
+have <a href="http://bootstrap-table.wenzhixin.net.cn/extensions/">made for it here.</a></p>
+<p><a href="http://bootstrap-table.wenzhixin.net.cn/">Website</a><br><a href="http://bootstrap-table.wenzhixin.net.cn/examples/">Demo</a></p>
+<h2 id="fixedheadertable">Fixed Header Table</h2>
+<div class="styledRollerDoor__StyledRollerDoor-sc-16spu5e-1 jpqESm" style="height: 313px;"><div class="styledRollerDoor__Content-sc-16spu5e-0 fznjz"><div type="book_form" class="styledPromoteBox__StyledPromoteBox-sc-1lx5aae-0 gOWFaY" id="article_rollerdoor_y3f8u1594960373581"><div class="styledBookForm__StyledBookForm-sc-12b2f31-0 gWwHuS"><div class="styledBookForm__BookCoverContainer-sc-12b2f31-1 gBjVzq"><div class="book-cover  gatsby-image-wrapper" style="position: relative; overflow: hidden;"><div aria-hidden="true" style="width: 100%; padding-bottom: 131.455%;"></div><img aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAaCAIAAAA44esqAAAACXBIWXMAAAsSAAALEgHS3X78AAAEJElEQVQ4y3VU+VNaZxTlH0xBQRRrFI1NKxqeBHjsi6JITDXue0TxsasgbohATW2aWE00g5nUxCAmYsUlTTQZW/tLzwfaZAhlzry57+O795y7PZaEY23m3ZsU0AxPpeN0UZzRnKjNy3HIgicjMDqKDRZum5QznNNTkj9GCxzKb50ExU5FsVPGZ2rzbKxJgcIh0N8paJfmWf+PVlrAGG54G0S+hiqf6YfJupsTquuu2nwbi+GpM5xi9ijFJlcvDfYXmvNtCoFTfd2tKnGpSgj5JbM+r5vmWhH7NncMkPKIIcm3ZUAOeQS4ICtg8JTyyL9UugQsRNWVe8y3/JDUWO2ziAP1308YvxsHiNQqX9OtKZyba/wAjIaqSa3QjShENqLitEu30GNYHGyM9psiP0pn2pRzOGlXzffXh4fM0d66xV7jIv4iRt1iCz2rKXVDFEvCHdOVexGyRTaDG53aBQsV6FAH+01h2N2GUI9xsV0d7NTiJDLQEBlojHTpQigb0mYhb8SQF9lRTPiArUU+26kJwqdNOd8sCUAI0ErP9hhCiAiBENUsmVYUO1hXnSSZW8RTQFONH887VKBR5NNXeIyV46gCkr8rne5Qz3dqFqDo7u0ZZYnz0rmWM0r4CxkZwCegC+1yPvO51HxGU+pCdVpks63yWXO1/zMzwVWTM6DYI+IrZC4girrEZajwGm6Ma8vcJOev50l8NRjSNO1/XUV1LjuPQeDayJB8Mfo2eRFjqPSYROPmGt895dygOTrUFEV5TFU+WaE9x2JkNgZsSLhVGfAO/7zgW10OPo+tvElsHe6+OnyxkYz6N/vqw5oyN1GR5Qxt4DRVjU+M/LL+9MXOztuT4/fnn/66uPjn4uLi/Pzvk8OztQev++pDtMCe7Uw8Rd5BS+hhJBaP7+7/cfDhw+nZ6cfT07Ozj/h9Ok6drkRf9RiDOZxRGLN4wm97tPV8N5U6Ojn589279wcHh8Dh0XEqdfzscWKwMYJ9ypaNhDGhFsof9m8k36aOjk/gv7u7F4+/SSZTicRe/PVeNBDDPIq/GclRMBnfjnF/trKzn0xtxl6uPtp8shrb3k4k4vvrq1uxje15zxN0AQ3P+hgRZzB3aOZXln5fW9l0WUPOofBvv8a2XyYehNamXEuPl2MTo8t0qbX62uBXzOlgugrPcEt4qHVGJ7rfrHIuBZ8+/Gm9td5mVtz3WCO9TQGK3ye6NkBxRrKZKY4N3dIIncoyW01+r7x0qNs03W+Zo4UDYn63/qZdXW6v5VrFbCuVJRuDhbmni+wEAru8aExRzCCQvtKjKnXgFY1UCBz4YuJJE8MBAy6XznjBxhCUubRCj07o0ZR5YOgrvGnbrUsfajN2OV7ddJGDzDYKCM1YEWkBVi9tXCGzm+l9tMsKCDK7iS8hFgPM/wJe8VIRPeOuYwAAAABJRU5ErkJggg==" alt="" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 0; transition-delay: 500ms;"><picture><source type="image/webp" srcset="https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=165&amp;h=217&amp;fit=crop&amp;fm=webp 165w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=248&amp;h=326&amp;fit=crop&amp;fm=webp 248w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=330&amp;h=434&amp;fit=crop&amp;fm=webp 330w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=495&amp;h=651&amp;fit=crop&amp;fm=webp 495w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?fm=webp 1402w" sizes="(max-width: 165px) 100vw, 165px"><source srcset="https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=165&amp;h=217&amp;fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=248&amp;h=326&amp;fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=330&amp;h=434&amp;fit=crop 330w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=495&amp;h=651&amp;fit=crop 495w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png 1402w" sizes="(max-width: 165px) 100vw, 165px"><img sizes="(max-width: 165px) 100vw, 165px" srcset="https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=165&amp;h=217&amp;fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=248&amp;h=326&amp;fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=330&amp;h=434&amp;fit=crop 330w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=495&amp;h=651&amp;fit=crop 495w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png 1402w" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png" alt="" loading="lazy" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1; transition: opacity 500ms ease 0s;"></picture><noscript><picture><source type='image/webp' srcset="https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=165&h=217&fit=crop&fm=webp 165w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=248&h=326&fit=crop&fm=webp 248w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=330&h=434&fit=crop&fm=webp 330w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=495&h=651&fit=crop&fm=webp 495w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?fm=webp 1402w" sizes="(max-width: 165px) 100vw, 165px" /><source srcset="https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=165&h=217&fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=248&h=326&fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=330&h=434&fit=crop 330w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=495&h=651&fit=crop 495w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png 1402w" sizes="(max-width: 165px) 100vw, 165px" /><img loading="lazy" sizes="(max-width: 165px) 100vw, 165px" srcset="https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=165&h=217&fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=248&h=326&fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=330&h=434&fit=crop 330w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=495&h=651&fit=crop 495w,
+https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png 1402w" src="https://cdn.sanity.io/images/708bnrs8/production/ae4da31c7000675da4d2091a4d0a1a41a79a7e4d-1402x1843.png?w=165&h=217&fit=crop" alt="" style="position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center"/></picture></noscript></div></div><div class="styledBookForm__FormContainer-sc-12b2f31-2 kyRVuf"><h3>Learn PHP for free!</h3><p font-weight="400" class="p__P-j9v9zk-0 gDhSTQ">Make the leap into server-side programming with a comprehensive cover of PHP &amp; MySQL.<br><br>Normally <s>RRP $11.95</s> <strong>Yours absolutely free</strong></p><form name="rollerdoor-book-form" id="rollerdoor-book-form" action="/premium/register-user"><input type="text" name="name" placeholder="Name" required=""><input type="email" name="email" placeholder="Email" required=""><input type="hidden" name="campaign" value="php-mysql-n2n6-reader"><button type="submit" id="article_rollerdoor-button" color="pink" data-network="PHP &amp; MySQL: Novice to Ninja, 6th Edition" data-unit="article_rollerdoor" class="button__Button-tmcfcj-0 jUvCR">Get the book free</button></form></div></div></div></div></div><p>The
+ fixed header table does exactly what you think it might do: it displays
+ a fixed header at the top of your tables so you don’t lose track of 
+your columns as you scroll.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811066fixed_header.webp" alt="Fixed Header jQuery plugin example table" loading="lazy" width="952" height="523"></p>
+<p>This plugin works with standard HTML table markup. It will use your <code>&lt;thead&gt;</code> or optionally your <code>&lt;tfoot&gt;</code>
+ tag to create a fixed header for your table. There are a few other 
+options, such as the ability to clone your header to the footer and 
+optionally show/hide your table. Overall, the purpose of this plugin is 
+simple, and with few elements to minimize complexity. Styling and 
+functionality will need to be added manually if you need it.</p>
+<p>If you’re after a solution that provides extra functionality, then 
+other libraries might be more suitable. Also, note that this is an older
+ plugin (back from 2011) so it’s safe to assume the developer won’t be 
+actively updating or extending this plugin going forward. It’s up to you
+ if you’re happy with using a legacy plugin.</p>
+<p><a href="http://www.fixedheadertable.com/#demo">Website/Demo</a></p>
+<h2 id="datatables">DataTables</h2>
+<p>This highly flexible jQuery table aims to extend basic HTML tables to make them more intuitive and useful.</p>
+<p>DataTables is an extensive plugin used to provide additional 
+functionality for your tables such as sorting, filtering, pagination and
+ custom theming.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811106datatables_jquery.webp" alt="jQuery DataTables example image with search, pagination and number of entries" loading="lazy" width="1103" height="554"></p>
+<p>The plugin works straight out of the box as you would expect, but it also offers a <a href="https://datatables.net/manual/">comprehensive amount of documentation</a> so you can control how your table will look, feel and operate.</p><div class="proper-ad-unit">
+          <div id="proper-ad-sitepoint_content_2">
+            <script>
+              if ( !!window.propertag ) {
+                window.propertag.cmd.push(function() {
+                  proper_display('sitepoint_content_2');
+                });
+              }
+            </script></div>
+        </div><p></p>
+<p>The wide range of features and customization makes this a very 
+developer-focused extension. Not only does this plugin offer several 
+options, but they are backed with solid documentation and a <a href="https://datatables.net/forums/">robust forum system</a> on their site.</p>
+<p>The ability to integrate with CSS frameworks to change-up the styling
+ of the plugin is fairly impressive. It’s compatible with Bootstrap, 
+Foundation, jQuery UI and others. Other aspects such as access to 
+Events, an API system and dynamic data via AJAX makes DataTables a solid
+ choice.</p>
+<p>Another aspect of the plugin is that they offer premium support. Most
+ plugins will have some type of support via GitHub bug reports or via 
+direct contact with the dev, but these guys they offer support via their
+ forum which you get access to by purchasing one of their licenses. 
+While some might find the thought of paying for support off-putting, 
+from looking at the forum it appears most issues have been resolved 
+relatively quickly.</p>
+<p>On the topic of support, if you’re interested in integrating 
+DataTables into an enterprise system or something mission critical, you 
+can purchase enterprises licenses that give you direct support from the 
+developers and access to request features.</p>
+<p>Overall, it’s an interesting plugin that offers very 
+developer-centric features with the optional element of support and 
+assistance if you need it.</p>
+<p><a href="https://datatables.net/">Website/Demos</a></p>
+<h2 id="jqueryhighcharttable">jQuery HighchartTable</h2>
+<p>HighchartTable is a useful plugin that works by dynamically creating a <a href="http://www.highcharts.com/">Highcharts</a> interactive chart from your table data.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811075highcharttable.webp" alt="Simple table element with an extracted Highchart" loading="lazy" width="1048" height="485"></p>
+<p>This plugin places a series of <code>data</code> attributes on your table elements. It leverages Highcharts to render your table data into a dynamic/interactive chart.</p>
+<p>Its website <a href="http://highcharttable.org/#documentation">showcases all of the options</a>,
+ outlining a simple JSFiddle for each so you can see how it all works. 
+You can control the type of graph, colors, labels and other interactive 
+elements to suit your needs.</p>
+<p>One thing to consider is that this plugin doesn’t actually do the 
+chart transformations. That’s handled by Highcharts, meaning that you 
+also need to include their JS and CSS file to get it to work. Also, 
+while this plugin has some activity/development, it looks like its 
+developers aren’t overly active on GitHub, meaning if a new update or 
+feature comes out for Highcharts, it will be up to them whether they 
+update this plugin to support it.</p>
+<p>Also another factor to consider is that Highcharts isn’t free for 
+commercial use. To use it legally, you need a license (and if you’re 
+developing for a client you fall into that category). To be fair, 
+Highcharts is fairly fancy and provides <a href="http://www.highcharts.com/docs">heaps of options</a>, so it’s reasonable to pay to use the library if you’re going to profit from it.</p>
+<p><a href="http://highcharttable.org/">Website</a><br><a href="http://highcharttable.org/#demo">Demo</a><br><a href="https://github.com/highchartTable/jquery-highchartTable-plugin">GitHub</a></p><div class="proper-ad-unit">
+          <div id="proper-ad-sitepoint_content_3">
+            <script>
+              if ( !!window.propertag ) {
+                window.propertag.cmd.push(function() {
+                  proper_display('sitepoint_content_3');
+                });
+              }
+            </script></div>
+        </div><p></p>
+<h2 id="tabulator">Tabulator</h2>
+<p>Tabulator is a jQuery plugin used to dynamically generate 
+interactive, extensible tables from either HTML, a JavaScript array, an 
+Ajax data source, or JSON data. Tabulator has a wide range of features, 
+such as filtering, sorting, adjustable column widths, smart loading of 
+table data, pagination and direct table input editing.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811097tabulator.webp" alt="Showcases how Tabulator can be used to create interactive tables" loading="lazy" width="1243" height="370"></p>
+<p>Tabulator is on this list because of its in-depth documentation, its 
+various features, and its flexibility as a whole. Its website outlines 
+all of the features it can provide, with easy-to-understand docs that 
+work together with the multiple inline examples. Even though the 
+documentation is long and involved, it provides everything you need to 
+know to get up and running with the plugin.</p>
+<p>The extensibility of the plugin means that you can customize your 
+tables the way you want. You might want to group rows in your table 
+together under a header, create simple tooltips to explain your data on 
+hover, paginate through your row content, or leverage several other 
+great features to help improve user experience. It’s a great tool for 
+developers, and one I’ve used several times before.</p>
+<p>The developers of Tabulator are fairly active on GitHub, with updates
+ every few months and a heap of commits and bug fixes over the year. 
+Version 2.7 of the plugin was released in October 2016, and it’s safe to
+ assume that the plugin itself will continue to evolve over time. This 
+might be an important factor for you when choosing your table plugin, as
+ sometimes you might need support or run into bugs.</p>
+<p><a href="http://olifolkerd.github.io/tabulator/">Website</a><br><a href="http://olifolkerd.github.io/tabulator/examples/">Demos</a><br><a href="https://github.com/olifolkerd/tabulator">GitHub</a></p>
+<h2 id="fancygrid">FancyGrid</h2>
+<p>FancyGrid powers your standard tables with additional functionality 
+and features. Whether you want a simple, lightly styled table, or one 
+with filtering, sorting or paginating functionality, FancyGrid has 
+options to create a great table experience for your users.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811063FancyGrid.webp" alt="A sample twin grid image showcasing FancyGrid" loading="lazy" width="902" height="533"></p>
+<p>There’s <a href="http://fancygrid.com/gallery/">several ways in which you can use Fancy Grid</a>,
+ depending on how you want to use the plugin. You could use it to style 
+your tables, to provide new functionality, or to integrate it with 
+Highcharts to provide data visualizations.</p>
+<p>FancyGrid’s documentation outlines all of the various table features 
+you can customize, including paging, grouping, custom events, data 
+validation and more. There’s a heap of documentation here — enough to 
+overwhelm you — but they provide several quick examples to get you up 
+and running fast. It works out of the box with its default settings just
+ fine.</p>
+<p>An interesting thing to consider is that there’s no open GitHub repo 
+for the plugin. You can download it for free from their website for 
+personal use, but for commercial use you’ll need to purchase a license 
+to use it. Highcharts (used for the 2D charting) also requires licensing
+ for its use, so you’ll need to consider if you’re willing to purchase 
+these elements for your project.</p>
+<p>Another few points of interest: I found loading their website was hit
+ and miss (sometimes it would fail to load or the examples would take a 
+while to generate). This could very well just be an isolated issue, but 
+it’s important to note (as no one likes waiting ages for docs/examples 
+to load). In addition, the mobile support is hit and miss and not 
+documented. It’s hard to tell if this is because the plugin was never 
+designed to cater to mobiles or just the documentation isn’t up to date.
+ If you’re looking for a seamless, awesome table experience with mobile 
+support, then other plugins might be more suitable.</p>
+<p>Overall, however, FancyGrid is a fairly comprehensive plugin with 
+extensive customization options you can leverage for your site.</p><div class="proper-ad-unit">
+          <div id="proper-ad-sitepoint_content_4">
+            <script>
+              if ( !!window.propertag ) {
+                window.propertag.cmd.push(function() {
+                  proper_display('sitepoint_content_4');
+                });
+              }
+            </script></div>
+        </div><p></p>
+<p><a href="http://fancygrid.com/">Website/Demos</a></p>
+<h2 id="jquerykingtable">jQuery KingTable</h2>
+<p>KingTable is a complex, developer-focused table solution that you can
+ leverage to create complex searching/filtering conditions, perfect for 
+accounts, project management or other heavily data-focused activities.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811082jQuery_Kingtable.webp" alt="KingTable jQuery table plugin example" loading="lazy" width="1487" height="690"></p>
+<p>Unlike some of our other plugins, KingTable is documented entirely on GitHub, <a href="https://github.com/RobertoPrevato/jQuery-KingTable/wiki/">with a dedicated Wiki page</a> that outlines all of the various settings and use cases for the plugin.</p>
+<p>Feature-wise, the plugin comes with theming support (but the overall 
+goal is to customize it for your own needs), and several filters and 
+events that you can hook into to make your data management easier. To be
+ transparent, this plugin feels very much like a heavily focused 
+developer plugin with the assumption you’re comfortable with <a href="https://github.com/RobertoPrevato/jQuery-KingTable/wiki/Implementing-custom-filters">creating your own custom filters and data mechanisms</a>.
+ If you’re looking for a plugin that provides basic settings, then other
+ plugins might be more suitable. However, if you want strong control 
+over how your table will operate, then this is a great solution.</p>
+<p>Mobile responsiveness is another element that’s worth discussing. The
+ plugin doesn’t do anything special for mobile, so your table will be as
+ responsive as they normally are (i.e scrolling sideways or squishing 
+the columns on smaller devices). You could possibly adjust this 
+yourself, but it’s not something the plugin will handle for you. On a 
+similar topic though, KingTable has excellent desktop support for 
+traditional keyboard users, with tab support, pagination control via the
+ left and right (or A/D) keys along with other small improvements.</p>
+<p>KingTable has been worked on for a while, with several commits and 
+updates across the year. It might be smaller than some of the other 
+plugins mentioned here, but it’s still a robust and useful plugin that 
+you might find use for in your upcoming projects.</p>
+<p><a href="https://github.com/RobertoPrevato/jQuery-KingTable">Website/GitHub</a></p>
+<p><a href="https://github.com/RobertoPrevato/jQuery-KingTable/wiki/Themes">Documentation (Wiki)</a></p>
+<p><a href="http://ugrose.com/content/demos/kingtable/index.html">Simple Demo</a>/<a href="http://ugrose.com/content/demos/kingtable/datetime-filters.html">Complex Demo</a></p>
+<h2 id="stackablejs">Stackable.js</h2>
+<p>Stackable.js is a mobile-centric jQuery plugin that aims to make your
+ tables mobile friendly by adjusting their layout for smaller devices.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811090jquery_stackable.webp" alt="Side by side comparison of desktop and mobile jQuery Stackable" loading="lazy" width="1465" height="539"></p>
+<p>Unlike other plugins that add additional functionality, stackable.js 
+is used just to ensure that on mobile devices your table elements are 
+useful. It stacks each row entry one on top of the other with key/value 
+elements listed side by side for simplicity.</p><div class="proper-ad-unit">
+          <div id="proper-ad-sitepoint_content_5">
+            <script>
+              if ( !!window.propertag ) {
+                window.propertag.cmd.push(function() {
+                  proper_display('sitepoint_content_5');
+                });
+              }
+            </script></div>
+        </div><p></p>
+<p>There are only a few options and the documentation is limited, but 
+its whole purpose is to transform your standard table elements into 
+something more mobile friendly.</p>
+<p>The developer has been maintaining and adjusting the plugin over the 
+last year, so it doesn’t look like a legacy plugin. However, since it’s a
+ relatively small/basic plugin, I wouldn’t expect there to be too many 
+feature changes upcoming. If you’re looking for a complex, all 
+encompassing plugin to give you additional functionality, you might be 
+best to try a few others on our list.</p>
+<p><a href="https://github.com/johnpolacek/stacktable.js/">GitHub</a><br><a href="http://johnpolacek.github.io/stacktable.js/">Website/Demo</a></p>
+<h2 id="jqueryrestable">JQuery ReStable</h2>
+<p>This plugin works to make your tables more mobile responsive, converting each row entry into a series of <code>li</code> items to improve the layout and its scrollability.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811086jquery_restable.webp" alt="Comparison image of jQuery ReStable on desktop and mobile" loading="lazy" width="1043" height="385"></p>
+<p>Much like stackable.js, this plugin aims to make your tables more 
+mobile friendly. The plugin works by adjusting the layout of each row 
+when viewed on a small screen display. It stacks the columns one on top 
+of the other for each row, making them easy to read.</p>
+<p>The plugin itself only caters to mobile adjustments: it doesn’t add 
+any features or have any real options to configure; it’s a simple 
+drop-and-go style plugin. So long as you have your HTML markup correct 
+and add some basic jQuery to kickstart everything, it all sorts itself 
+out.</p>
+<p>ReStable is a fairly small plugin, and as such it has a few commits 
+on GitHub. It’s not a community/team project, which itself is fine, but 
+you might want to factor that in if you ever need support for 
+assistance. Like most smaller projects, you should use it “as is” and 
+hope for the best.</p>
+<p><a href="https://codeb.it/restable/">Website/Demo</a><br><a href="https://github.com/micc83/ReStable">GitHub</a></p>
+<h2 id="footable">FooTable</h2>
+<p>FooTable is a Boostrap-inspired table extension plugin that provides 
+searching, filtering and other goodies to enhance your tables.</p>
+<p><img class="aligncenter" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1477811070footable.webp" alt="A simple jQuery FooTable" loading="lazy" width="1211" height="562"></p>
+<p>FooTable might look like the Boostrap table we looked at earlier, but
+ the difference with FooTable is that it works both with and without 
+Boostrap, meaning don’t need to include any bootstrap files to get up 
+and running.</p>
+<p>The plugin supports filtering, paging, sorting and inline editing. 
+All of those functions when used together give you a great table that 
+you could potentially leverage as a front-end table editing solution.</p><div class="proper-ad-unit">
+          <div id="proper-ad-sitepoint_content_6">
+            <script>
+              if ( !!window.propertag ) {
+                window.propertag.cmd.push(function() {
+                  proper_display('sitepoint_content_6');
+                });
+              }
+            </script></div>
+        </div><p></p>
+<p>The website outlines the various settings you can play with, but the <a href="http://fooplugins.github.io/FooTable/docs/jsdocs/index.html">FooTable dedicated docs</a>
+ are where you’ll find the majority of what you need. To be upfront, the
+ documentation is very developer focused and assumes you’re comfortable 
+with events, settings and other in-depth elements. If you’re looking for
+ a simple plugin that can be used both as a simple out-of-the-box 
+activation but also customized, this is a good one to look at.</p>
+<p>FooTable is a long standard project, with several hundred commits 
+across dozens of contributors. There is continual activity and 
+improvement. If you’re looking for a plugin that’s been tested, iterated
+ and improved (with the ability to leverage a team of skilled 
+contributors), then this plugin might be perfect for you. Version 3 of 
+this plugin saw a full re-work, so you might find the occasional 
+bug/issue, but from what I’ve seen, it works pretty much out of the box 
+with little configuration.</p>
+<p><a href="http://fooplugins.github.io/FooTable/index.html">Website/Demo</a><br><a href="https://github.com/fooplugins/FooTable">GitHub</a></p>
+<h2 id="tabellajs">Tabella.js</h2>
+<p>Tabella is a dynamic table generation plugin that focuses on 
+providing a touch/swipe functionality to easily scroll through 
+long/complex tables.</p>
+<p><img class="aligncenter size-large wp-image-143060" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1478579905taberellajs-1024x298.webp" alt="An example of Tabella.js in use" loading="lazy" width="1024" height="298"></p>
+<p>Unlike other plugins, you use Tabella to generate your table. You 
+select the element you want to use as the container for your table and 
+then supply your data as an object (outlining your headers and column 
+values). It would be good if this plugin could take raw JSON data or be 
+passed in an existing table to scrape and render, but overall it works 
+well, giving you a mobile-friendly table.</p>
+<p>If your main goal is to make your long table responsive, then this 
+plugin provides the solution in a visually simple, yet interactive 
+package.</p>
+<p>The plugin repo on Github hasn’t seen any action since 2015, but 
+considering its basic feature set, that’s perfectly fine. If you need to
+ customize it or need support, you might have to fend for yourself, but 
+that’s to be expected with smaller plugins.</p>
+<p>This one is definitely worth a look if you want something fancy to ensure your table works on mobiles.</p>
+<p><a href="https://github.com/iliketomatoes/tabellajs">GitHub</a><br><a href="http://iliketomatoes.github.io/tabellajs/">Website/Demo</a></p>
+<h2 id="wrappingup">Wrapping Up</h2>
+<p>Those are just some of the plugins that you can use in your projects 
+to extend and improve the functionality and appearance of your tables. 
+Whether you’re interested in just light styling or if you need extra 
+features such as searching, filtering, column sorting, Ajax/JSON 
+loading, there’s a jQuery plugin out there to make your life easier and 
+improve user experience.</p>
+<p>Are there any other table-based plugins that you use? We’d love to 
+hear from you if you’ve used an awesome table plugin that’s not listed 
+above.</p>
+<p>Lastly, if you’d like to improve your JavaScript skills, check out our library of <a href="https://www.sitepoint.com/premium/topics/all?q=&amp;limit=400&amp;offset=0&amp;page=1&amp;content_types%5B%5D=Book&amp;slugs%5B%5D=javascript&amp;states%5B%5D=available&amp;order=">JavaScript books</a>!</p>
+</section><div aria-label="Article sidebar" class="styledSidebar__StyledSidebar-dk1f5i-0 gUPsYy"><div class="styledSidebar__Authors-dk1f5i-1 flVAfR"><div class="styledSidebar__Author-dk1f5i-2 gUssep"><div class="styledSidebar__AuthorMeta-dk1f5i-3 bUmtIR dXNlcjo3MTg2NA=="><img src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1431651654simon_codrington-96x96.webp" alt="Simon Codrington" loading="lazy" class="styledSidebar__AuthorAvatar-dk1f5i-4 bStwAa"><div><h3 class="styledSidebar__AuthorName-dk1f5i-5 jDFjfW"><a href="https://www.sitepoint.com/author/scodrington">Simon Codrington</a></h3><a href="http://codepen.io/simoncodrington/" rel="noreferrer noopener" target="_blank" aria-label="Simon Codrington's codepen account" class="styledSidebar__AuthorContact-dk1f5i-6 gbhdoX"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="codepen" class="svg-inline--fa fa-codepen fa-w-16 fa-lg share-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.285 159.704l-234-156c-7.987-4.915-16.511-4.96-24.571 0l-234 156C3.714 163.703 0 170.847 0 177.989v155.999c0 7.143 3.714 14.286 9.715 18.286l234 156.022c7.987 4.915 16.511 4.96 24.571 0l234-156.022c6-3.999 9.715-11.143 9.715-18.286V177.989c-.001-7.142-3.715-14.286-9.716-18.285zM278 63.131l172.286 114.858-76.857 51.429L278 165.703V63.131zm-44 0v102.572l-95.429 63.715-76.857-51.429L234 63.131zM44 219.132l55.143 36.857L44 292.846v-73.714zm190 229.715L61.714 333.989l76.857-51.429L234 346.275v102.572zm22-140.858l-77.715-52 77.715-52 77.715 52-77.715 52zm22 140.858V346.275l95.429-63.715 76.857 51.429L278 448.847zm190-156.001l-55.143-36.857L468 219.132v73.714z"></path></svg></a><a href="https://www.facebook.com/simonrcodrington" rel="noreferrer noopener" target="_blank" aria-label="Simon Codrington's facebook account" class="styledSidebar__AuthorContact-dk1f5i-6 gbhdoX"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" class="svg-inline--fa fa-facebook-square fa-w-14 fa-lg share-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"></path></svg></a><a href="https://github.com/simonrcodrington" rel="noreferrer noopener" target="_blank" aria-label="Simon Codrington's github account" class="styledSidebar__AuthorContact-dk1f5i-6 gbhdoX"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github-square" class="svg-inline--fa fa-github-square fa-w-14 fa-lg share-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM277.3 415.7c-8.4 1.5-11.5-3.7-11.5-8 0-5.4.2-33 .2-55.3 0-15.6-5.2-25.5-11.3-30.7 37-4.1 76-9.2 76-73.1 0-18.2-6.5-27.3-17.1-39 1.7-4.3 7.4-22-1.7-45-13.9-4.3-45.7 17.9-45.7 17.9-13.2-3.7-27.5-5.6-41.6-5.6-14.1 0-28.4 1.9-41.6 5.6 0 0-31.8-22.2-45.7-17.9-9.1 22.9-3.5 40.6-1.7 45-10.6 11.7-15.6 20.8-15.6 39 0 63.6 37.3 69 74.3 73.1-4.8 4.3-9.1 11.7-10.6 22.3-9.5 4.3-33.8 11.7-48.3-13.9-9.1-15.8-25.5-17.1-25.5-17.1-16.2-.2-1.1 10.2-1.1 10.2 10.8 5 18.4 24.2 18.4 24.2 9.7 29.7 56.1 19.7 56.1 19.7 0 13.9.2 36.5.2 40.6 0 4.3-3 9.5-11.5 8-66-22.1-112.2-84.9-112.2-158.3 0-91.8 70.2-161.5 162-161.5S388 165.6 388 257.4c.1 73.4-44.7 136.3-110.7 158.3zm-98.1-61.1c-1.9.4-3.7-.4-3.9-1.7-.2-1.5 1.1-2.8 3-3.2 1.9-.2 3.7.6 3.9 1.9.3 1.3-1 2.6-3 3zm-9.5-.9c0 1.3-1.5 2.4-3.5 2.4-2.2.2-3.7-.9-3.7-2.4 0-1.3 1.5-2.4 3.5-2.4 1.9-.2 3.7.9 3.7 2.4zm-13.7-1.1c-.4 1.3-2.4 1.9-4.1 1.3-1.9-.4-3.2-1.9-2.8-3.2.4-1.3 2.4-1.9 4.1-1.5 2 .6 3.3 2.1 2.8 3.4zm-12.3-5.4c-.9 1.1-2.8.9-4.3-.6-1.5-1.3-1.9-3.2-.9-4.1.9-1.1 2.8-.9 4.3.6 1.3 1.3 1.8 3.3.9 4.1zm-9.1-9.1c-.9.6-2.6 0-3.7-1.5s-1.1-3.2 0-3.9c1.1-.9 2.8-.2 3.7 1.3 1.1 1.5 1.1 3.3 0 4.1zm-6.5-9.7c-.9.9-2.4.4-3.5-.6-1.1-1.3-1.3-2.8-.4-3.5.9-.9 2.4-.4 3.5.6 1.1 1.3 1.3 2.8.4 3.5zm-6.7-7.4c-.4.9-1.7 1.1-2.8.4-1.3-.6-1.9-1.7-1.5-2.6.4-.6 1.5-.9 2.8-.4 1.3.7 1.9 1.8 1.5 2.6z"></path></svg></a></div></div><p class="styledSidebar__AuthorDescription-dk1f5i-7 drpYYF">Full
+ stack developer and overall web enthusiast. I love everything to do 
+with web / design and my passion revolves around creating awesome 
+websites.
+
+Focusing primarily on WordPress, I create themes, plugins and bespoke 
+solutions.</p></div></div><div type="books_new" class="styledPromoteBox__StyledPromoteBox-sc-1lx5aae-0 iYjbBU" id="article_sidebar_x8wqx51594960373581"><div id="ad_article_sidebar_x8wqx51594960373581" type="books_new" class="styledPromoteBox__AdContainer-sc-1lx5aae-1 jctLBb"></div><div><div class="styledBooksNew__StyledBooksNew-sc-1wtbcbh-0 bMoqNr"><h4> New books out now!</h4><div class="styledBook__StyledBook-sc-1f7vk4f-0 VKBmw"><div><div class="styledBook__BookCoverContainer-sc-1f7vk4f-1 drALMd"><div class="book-cover cover-spine-overlay gatsby-image-wrapper" style="position:relative;overflow:hidden"><div aria-hidden="true" style="width:100%;padding-bottom:123.25%"></div><img aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAZCAIAAAC+dZmEAAAACXBIWXMAAA9hAAAPYQGoP6dpAAAEdElEQVQ4y52U2W8bRRzH9yFuCQGVkpKIkhaRwyU+Eqe29/Sxu7Z3vetjHd9HYnvX9q7vOElzOKFp2qRpm5ZAJKAqSCBekFohWkGLSgxvlfg/kECVgIdKhGfGTqGo9AGQvvrqOzO/z+z8RtqBEASD/6+gp8ZmGP0PMIJiKE5guAVBcSAUI4D/WxjDCTfHB4Nhj9fv9QnBUNjnD3C8l/P4XC6WsNgO6p65I0RYrNFYolSuyMUS8GqtXiyVlWJZVorxRJKkHKCRg14OgvnvME5YJoMhUcrlCzKwrCiBXJAV4NFojGHdVhsJZCdpm50CslM0GILuHsPBcASUAgTAkpRTiqVqta4oRTCZyYrT6exUOgPCwb6gJh5PUpTjMSwEglPTGQCDD8qyAsjZ2TlwfnByINBKuwu52Olpplavgy3AdbRhFMXBMWgHw7h5lvOwbp73+MDNAWdYjnFzbt4LJl0sCB7e6wfzIBNWewdGUKQt7Cl1ruTJEvzXEvqkBsq7TDnGnGOQjmAgyQXcLHVyZwn+p/KMGYDQd1ndt/mJVhFplbBWGWuV0JZibsmmlmJqu2z8M3SybNoDoWBsSeOtjBa6XzDuAaxia83Qe03um3Xv/fOer89xd89x99a5eyCsub9cZe4s0XeWqNtnyM/rxC0Fvpkdv5nSQMGYM5XkxSivJP3lYqLcLMhbtezVRmpnfvqD5dT1ldjuYmCzyi9L3GLaPZekc4IlQGE0jFoMUC9Dngh5NfEQHI+SiSQrSmyl5FyaIzffsl3fxj7dNXx0bejK2YFmY2Ch8mq9cDQR6aach42YaswIqQz6HtrSHxcGc3G9lMLEtCub9eULQrkirDaZqxvou5ujW6uvr84OzJf75MyLfv9h3K4ah7s0BqhreFil1/SQ+Mth/rgYVTdy6EqDbc77KpWwXArXasLygmNlYWK+NqhIfdFwD+08dBpVaQxdIzqoe0SrGlartJoeK3Es5D9Rzug2F4n3LpKX19j5hlAqRsvleLXmU4pkVhoPxwdo90sm4rk3x7reOAUdHYWfH9YeGlK/cBruZ72vRWNDNcW4vW65cc26u2VdbzoX53zV2qSYj4iFyXTeEZmC+eAgRvaOGqBjWuLIKWP30OgRvfk46TnpiQ7G0traDHJpw/r+28Q729jWBtlsRpR8XYw1s5FVMbKcS2RiYZIPQP1a4hUt0atB+iZsJ638IBMe9iXVUVFfrKNra5ati+iFDefy8tlG6u6M80Hd+n3d+mCGulHgpNQUpJtAdSaLHrEbCIeRZGHGC/MC7A+ikYRNyjEzVddsPVIpfDwr/LDBPbrie3TZ83CNup0ncgIDMbiZsxEe2u51kH4XJbgdAu8UPIzgZScDfCTiD8UFMcp9Jtsfnnf9vhPc35n89YLzqxxSYDGIxFGnzcKQdoZqi6VJN02yDgoEhraD7KTsIQf+SWLipznD/orpt1XzL2cMX6QNSQcMgT8L7TyazxKOtd89nLMiH0bGfqyq9xsj+7MjP9fUt5K6IAn/Aekv0VSOdYP6AAAAAElFTkSuQmCC" alt="" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition-delay:500ms"><noscript><picture><source type='image/webp' srcset="https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?w=165&h=203&fit=crop&fm=webp 165w,
+https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?w=248&h=306&fit=crop&fm=webp 248w,
+https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?w=330&h=407&fit=crop&fm=webp 330w,
+https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?fm=webp 400w" sizes="(max-width: 165px) 100vw, 165px" /><source srcset="https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?w=165&h=203&fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?w=248&h=306&fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?w=330&h=407&fit=crop 330w,
+https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png 400w" sizes="(max-width: 165px) 100vw, 165px" /><img loading="lazy" sizes="(max-width: 165px) 100vw, 165px" srcset="https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?w=165&h=203&fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?w=248&h=306&fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?w=330&h=407&fit=crop 330w,
+https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png 400w" src="https://cdn.sanity.io/images/708bnrs8/production/e990c46fd9e601c8ce620573329194d127a22e54-400x493.png?w=165&h=203&fit=crop" alt="" style="position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center"/></picture></noscript></div></div><div class="styledBook__PContainer-sc-1f7vk4f-2 jBmLww"><p font-weight="400" class="p__P-j9v9zk-0 gDhSTQ">Learn valuable skills with a practical introduction to Python programming!</p></div></div><div class="styledBook__CTAContainer-sc-1f7vk4f-3 gBefjl"><a id="article_sidebar1-button" href="https://www.sitepoint.com/premium/books/python-fundamentals/read/" color="pink" data-unit="article_sidebar1" type="default" class="button__Button-tmcfcj-0 dIuXpw">Learn more</a></div></div><hr><div class="styledBook__StyledBook-sc-1f7vk4f-0 VKBmw"><div><div class="styledBook__BookCoverContainer-sc-1f7vk4f-1 drALMd"><div class="book-cover cover-spine-overlay gatsby-image-wrapper" style="position:relative;overflow:hidden"><div aria-hidden="true" style="width:100%;padding-bottom:159.7444089456869%"></div><img aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAgCAIAAACdAM/hAAAACXBIWXMAAAsSAAALEgHS3X78AAAD9klEQVQ4y4WVy2/cRBzH569I1o/d9fo1noe9G6+zz2x2U7UKpEhLQajtoRInuCBaNU0jJJQDoF65IiHEAUVcuEHhgMSl4lbEATgV9dIDUiIOiIYKsfaPmVk78WYr1fpo5BmP/Xt8f78xynSa6awMCAwGFgOfAVHQ4gardUPt0RlKtXBWItVDENRCcEMIQiAh0AIxtUMw1QZNjugx6/9cpQ81/6GGf6r4jzX/HzPIbJJhkpECSrKAZA6BKgGdgKbQCfr02o3bzeRtJ3iHRrcx/7zmPWkEKWYpYSktCFjqsLQqguKgsRzh9nt7e5ONUYvzYb9/qdt9H5Nf3OBpwE4ERI2YndjspMqe6WymcZDvq1HnaHd3dzAY+L5POYsZveE0PrNq9xt1Re1bu/Gd1biv179ZqT1Ysf6oeDOt5PbenTuj0YgzFkVR3GxuhnxK8OuB/5qA4GsRv8r5Fc+f2s5Nw3qw6j7TeCYTJu2j/f398Xgcx/Gmunq93nqSdNvtrW5ve7hxeXOyPRhe6HQn7eRNl3xf8U40KiOfS7V/9+5kPGaUNqOIEuKIq26NLeeWF97Da/dw/JHb/NBtfmCHnxjBrxX8r3yZQpWCRdHBwcH01Wmn22m328LzgFLiedd16+sV71GFPqowMf4uxlX6ZJU+nftcVYL7Ifr43VtvvfTy1cHw+mDjjU53GidXwtaBhX+TuQkyneRocgRh0yTQIOATIAT9eGnnq1ZySKIvWeuQNL9ww0OL/6CTY7m7qFa90Pa0bANZrejveP3PpHMUJ8dxctTuH4W9Y7f9lxn+p5QEI5c0p87B4xBwIBKUdjrp9sWZYLI1G12c9S6k4SCtR8rJEgaBOgGXQCAdnoOy/jDbeSW9PE0nO2m8leF+ZieZ2VwwaCib7pnN3DKsxdDbgO4EmhvgJqpp2AIizjoDN48zJ5CRI/Ao2OrDJpf7DCpTeoqY1qncE1CgFIgiUCtCZ6gpr7SCeT8bBfUQvKKrSYGn1o0QwVy9nKUMeSo3VEFUtsSKpZ6KxjiTcTlOrziDaHES+YvHUJ5PbSm3nkopLeFzaKjUFDsRnNNTUCv0pCUwAZvI2iztROf1rHJwSnrObWIuFanyBTc1jhZCrTKw1flKSmC1aJZSUxxj6CzVokVtCrgQc46YOurRfI+2cINyYU3VonhRUjF1VPfqzwfJb5gUGoVNWlTSqc1zNVcqPiSDaSz+WaiK01EpMNj5Up9jSsGRzK30ttQuWCW8utTMp5hKcF9kO4ygtQZhmHepkHf+WzHIc0pAJwvHECRdGG5CvK5+Zaqwai+yiZWDgbDcWof1PrQSoE3AETQiMCLQl9DUei0CLwIaAZH8D/7WB40Q6G13AAAAAElFTkSuQmCC" alt="" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 0; transition-delay: 500ms;"><picture><source type="image/webp" srcset="https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=165&amp;h=264&amp;fit=crop&amp;fm=webp 165w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=248&amp;h=396&amp;fit=crop&amp;fm=webp 248w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?fm=webp 313w" sizes="(max-width: 165px) 100vw, 165px"><source srcset="https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=165&amp;h=264&amp;fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=248&amp;h=396&amp;fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png 313w" sizes="(max-width: 165px) 100vw, 165px"><img sizes="(max-width: 165px) 100vw, 165px" srcset="https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=165&amp;h=264&amp;fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=248&amp;h=396&amp;fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png 313w" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png" alt="" loading="lazy" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1; transition: opacity 500ms ease 0s;"></picture><noscript><picture><source type='image/webp' srcset="https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=165&h=264&fit=crop&fm=webp 165w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=248&h=396&fit=crop&fm=webp 248w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?fm=webp 313w" sizes="(max-width: 165px) 100vw, 165px" /><source srcset="https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=165&h=264&fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=248&h=396&fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png 313w" sizes="(max-width: 165px) 100vw, 165px" /><img loading="lazy" sizes="(max-width: 165px) 100vw, 165px" srcset="https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=165&h=264&fit=crop 165w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=248&h=396&fit=crop 248w,
+https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png 313w" src="https://cdn.sanity.io/images/708bnrs8/production/7017cf88e4bf0e84dbb8882b31123cae46ba060b-313x500.png?w=165&h=264&fit=crop" alt="" style="position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center"/></picture></noscript></div></div><div class="styledBook__PContainer-sc-1f7vk4f-2 jBmLww"><p font-weight="400" class="p__P-j9v9zk-0 gDhSTQ">Give yourself more options and write higher quality CSS with CSS Optimization Basics.</p></div></div><div class="styledBook__CTAContainer-sc-1f7vk4f-3 gBefjl"><a id="article_sidebar2-button" href="https://www.sitepoint.com/premium/books/css-optimization-basics/read/" color="pink" data-unit="article_sidebar2" type="default" class="button__Button-tmcfcj-0 dIuXpw">Learn more</a></div></div></div></div></div><div class="styledPopularBooks__StyledPopularBooks-sc-98zu2f-0 dCTqAQ"><h3 class="styledPopularBooks__StyledPopularBooksTitle-sc-98zu2f-1 jijLNq">Popular Books</h3><a href="https://www.sitepoint.com/premium/books/jump-start-git-2nd-edition/read" rel="noreferrer noopener" target="_blank" aria-label="Jump Start Git, 2nd Edition's page" id="article_popular1-link" data-network="Jump Start Git, 2nd Edition" data-unit="article_popular" class="styledPopularBooks__Book-sc-98zu2f-2 bVMLhN"><div class="styledPopularBooks__BookImgContainer-sc-98zu2f-3 dNTEUy"><div class="cover-spine-overlay gatsby-image-wrapper" style="position:relative;overflow:hidden;display:inline-block;width:70px;height:88px"><picture><source srcset="/static/45ecc43f76686d026e04762563a57aa9/2dc59/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 1x,
+/static/45ecc43f76686d026e04762563a57aa9/1e140/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 1.5x,
+/static/45ecc43f76686d026e04762563a57aa9/23039/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 2x"><img srcset="/static/45ecc43f76686d026e04762563a57aa9/2dc59/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 1x,
+/static/45ecc43f76686d026e04762563a57aa9/1e140/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 1.5x,
+/static/45ecc43f76686d026e04762563a57aa9/23039/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 2x" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/79dfd065-842d-46cb-ae1b-bec2322bbd02.png" alt="jump-start-git-2nd-edition" loading="lazy" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1; transition: opacity 500ms ease 0s;" width="70" height="88"></picture><noscript><picture><source srcset="/static/45ecc43f76686d026e04762563a57aa9/2dc59/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 1x,
+/static/45ecc43f76686d026e04762563a57aa9/1e140/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 1.5x,
+/static/45ecc43f76686d026e04762563a57aa9/23039/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 2x" /><img loading="lazy" width="70" height="88" srcset="/static/45ecc43f76686d026e04762563a57aa9/2dc59/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 1x,
+/static/45ecc43f76686d026e04762563a57aa9/1e140/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 1.5x,
+/static/45ecc43f76686d026e04762563a57aa9/23039/79dfd065-842d-46cb-ae1b-bec2322bbd02.png 2x" src="/static/45ecc43f76686d026e04762563a57aa9/2dc59/79dfd065-842d-46cb-ae1b-bec2322bbd02.png" alt="jump-start-git-2nd-edition" style="position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center"/></picture></noscript></div></div><p class="styledPopularBooks__BookTitle-sc-98zu2f-5 fefnBN">Jump Start Git, 2nd Edition</p></a><a href="https://www.sitepoint.com/premium/books/visual-studio-code-end-to-end-editing-and-debugging-tools-for-web-developers/read" rel="noreferrer noopener" target="_blank" aria-label="Visual Studio Code: End-to-End Editing and Debugging Tools for Web Developers's page" id="article_popular2-link" data-network="Visual Studio Code: End-to-End Editing and Debugging Tools for Web Developers" data-unit="article_popular" class="styledPopularBooks__Book-sc-98zu2f-2 bVMLhN"><div class="styledPopularBooks__BookImgContainer-sc-98zu2f-3 dNTEUy"><div class="cover-spine-overlay gatsby-image-wrapper" style="position:relative;overflow:hidden;display:inline-block;width:70px;height:88px"><picture><source srcset="/static/646d34878fae9a7e42e8727ae91de74e/2dc59/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 1x,
+/static/646d34878fae9a7e42e8727ae91de74e/1e140/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 1.5x,
+/static/646d34878fae9a7e42e8727ae91de74e/23039/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 2x"><img srcset="/static/646d34878fae9a7e42e8727ae91de74e/2dc59/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 1x,
+/static/646d34878fae9a7e42e8727ae91de74e/1e140/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 1.5x,
+/static/646d34878fae9a7e42e8727ae91de74e/23039/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 2x" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/ca8e7cc0-370b-4af2-b973-97955befbeb7.png" alt="visual-studio-code-end-to-end-editing-and-debugging-tools-for-web-developers" loading="lazy" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1; transition: opacity 500ms ease 0s;" width="70" height="88"></picture><noscript><picture><source srcset="/static/646d34878fae9a7e42e8727ae91de74e/2dc59/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 1x,
+/static/646d34878fae9a7e42e8727ae91de74e/1e140/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 1.5x,
+/static/646d34878fae9a7e42e8727ae91de74e/23039/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 2x" /><img loading="lazy" width="70" height="88" srcset="/static/646d34878fae9a7e42e8727ae91de74e/2dc59/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 1x,
+/static/646d34878fae9a7e42e8727ae91de74e/1e140/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 1.5x,
+/static/646d34878fae9a7e42e8727ae91de74e/23039/ca8e7cc0-370b-4af2-b973-97955befbeb7.png 2x" src="/static/646d34878fae9a7e42e8727ae91de74e/2dc59/ca8e7cc0-370b-4af2-b973-97955befbeb7.png" alt="visual-studio-code-end-to-end-editing-and-debugging-tools-for-web-developers" style="position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center"/></picture></noscript></div></div><p class="styledPopularBooks__BookTitle-sc-98zu2f-5 fefnBN">Visual Studio Code: End-to-End Editing and Debugging Tools for Web Developers</p></a><a href="https://www.sitepoint.com/premium/books/design-systems/read" rel="noreferrer noopener" target="_blank" aria-label="Design Systems's page" id="article_popular3-link" data-network="Design Systems" data-unit="article_popular" class="styledPopularBooks__Book-sc-98zu2f-2 bVMLhN"><div class="styledPopularBooks__BookImgContainer-sc-98zu2f-3 dNTEUy"><div class="cover-spine-overlay gatsby-image-wrapper" style="position:relative;overflow:hidden;display:inline-block;width:70px;height:91px"><picture><source srcset="/static/0e6a0188495f97bb7ce3956c4e471548/2dc59/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 1x,
+/static/0e6a0188495f97bb7ce3956c4e471548/1e140/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 1.5x,
+/static/0e6a0188495f97bb7ce3956c4e471548/23039/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 2x"><img srcset="/static/0e6a0188495f97bb7ce3956c4e471548/2dc59/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 1x,
+/static/0e6a0188495f97bb7ce3956c4e471548/1e140/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 1.5x,
+/static/0e6a0188495f97bb7ce3956c4e471548/23039/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 2x" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/b9952e0b-23a7-41b5-9ca9-d887440499b1.png" alt="design-systems" loading="lazy" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1; transition: opacity 500ms ease 0s;" width="70" height="91"></picture><noscript><picture><source srcset="/static/0e6a0188495f97bb7ce3956c4e471548/2dc59/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 1x,
+/static/0e6a0188495f97bb7ce3956c4e471548/1e140/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 1.5x,
+/static/0e6a0188495f97bb7ce3956c4e471548/23039/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 2x" /><img loading="lazy" width="70" height="91" srcset="/static/0e6a0188495f97bb7ce3956c4e471548/2dc59/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 1x,
+/static/0e6a0188495f97bb7ce3956c4e471548/1e140/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 1.5x,
+/static/0e6a0188495f97bb7ce3956c4e471548/23039/b9952e0b-23a7-41b5-9ca9-d887440499b1.png 2x" src="/static/0e6a0188495f97bb7ce3956c4e471548/2dc59/b9952e0b-23a7-41b5-9ca9-d887440499b1.png" alt="design-systems" style="position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center"/></picture></noscript></div></div><p class="styledPopularBooks__BookTitle-sc-98zu2f-5 fefnBN">Design Systems</p></a></div><div type="no_fallback" class="styledPromoteBox__StyledPromoteBox-sc-1lx5aae-0 eEREJF" id="side_1_2cy9mm1594960373581"><div id="ad_side_1_2cy9mm1594960373581" type="no_fallback" class="styledPromoteBox__AdContainer-sc-1lx5aae-1 bsDcSK"></div><div></div></div><div type="no_fallback" class="styledPromoteBox__StyledPromoteBox-sc-1lx5aae-0 eEREJF" id="side_2_obb3fh1594960373581"><div id="ad_side_2_obb3fh1594960373581" type="no_fallback" class="styledPromoteBox__AdContainer-sc-1lx5aae-1 bsDcSK"></div><div></div></div><div id="side_3_12sxd81594960373581" class="styledSticky__StyledSticky-x82kw-0 jZtjwB sticky"></div></div></div></article><div class="styledLoader__StyledLoader-sc-1siylp2-1 dPwlS"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner fa-w-16 fa-pulse fa-2x " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg></div></div></main><footer class="styledFooter__StyledFooter-sc-1xzv3gd-0 cRFzjC"><nav aria-label="Footer navigation"><div class="styledFooter__Container-sc-1xzv3gd-2 gkisFa"><div class="footer-links"><ul><li><h2>Stuff we do</h2></li><li><a href="https://www.sitepoint.com/premium">Premium</a></li><li><a href="https://www.sitepoint.com/community">Forums</a></li><li><a href="https://sitepoint.typeform.com/to/fNY7XG">Corporate memberships</a></li><li><a href="https://sitepoint.tapfiliate.com/">Become an affiliate</a></li><li><a href="https://www.sitepoint.com/jobs">Remote Jobs</a></li></ul><ul><li><h2>About</h2></li><li><a href="https://www.sitepoint.com/about-us">Our story</a></li></ul><ul><li><h2>Contact</h2></li><li><a href="https://www.sitepoint.com/contact-us">Contact us</a></li><li><a href="https://sitepoint.zendesk.com/hc/en-us">FAQ</a></li><li><a href="https://sitepoint.typeform.com/to/HtAXVN">Publish your book with us</a></li><li><a href="https://sitepoint.typeform.com/to/DMmYfn">Write an article for us</a></li><li><a href="https://www.sitepoint.com/advertise">Advertise</a></li></ul><ul><li><h2>Legals</h2></li><li><a href="https://www.sitepoint.com/legals">Terms of use</a></li><li><a href="https://www.sitepoint.com/privacy-policy">Privacy policy</a></li></ul></div><div class="styledFooter__Separator-sc-1xzv3gd-1 eXYzNg"></div><div class="footer-extra"><ul><li><h2>Connect</h2></li><li><a href="https://www.facebook.com/sitepoint" rel="noopener noreferrer" target="_blank" aria-label="See sitepoint facebook account"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" class="svg-inline--fa fa-facebook-square fa-w-14 fa-lg " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"></path></svg></a><a href="http://twitter.com/sitepointdotcom" rel="noopener noreferrer" target="_blank" aria-label="See sitepoint twitter account"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter-square" class="svg-inline--fa fa-twitter-square fa-w-14 fa-lg " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-48.9 158.8c.2 2.8.2 5.7.2 8.5 0 86.7-66 186.6-186.6 186.6-37.2 0-71.7-10.8-100.7-29.4 5.3.6 10.4.8 15.8.8 30.7 0 58.9-10.4 81.4-28-28.8-.6-53-19.5-61.3-45.5 10.1 1.5 19.2 1.5 29.6-1.2-30-6.1-52.5-32.5-52.5-64.4v-.8c8.7 4.9 18.9 7.9 29.6 8.3a65.447 65.447 0 0 1-29.2-54.6c0-12.2 3.2-23.4 8.9-33.1 32.3 39.8 80.8 65.8 135.2 68.6-9.3-44.5 24-80.6 64-80.6 18.9 0 35.9 7.9 47.9 20.7 14.8-2.8 29-8.3 41.6-15.8-4.9 15.2-15.2 28-28.8 36.1 13.2-1.4 26-5.1 37.8-10.2-8.9 13.1-20.1 24.7-32.9 34z"></path></svg></a><a href="https://www.sitepoint.com/feed" rel="noopener noreferrer" target="_blank" aria-label="See sitepoint RSS feed"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="rss-square" class="svg-inline--fa fa-rss-square fa-w-14 fa-lg " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM112 416c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm157.533 0h-34.335c-6.011 0-11.051-4.636-11.442-10.634-5.214-80.05-69.243-143.92-149.123-149.123-5.997-.39-10.633-5.431-10.633-11.441v-34.335c0-6.535 5.468-11.777 11.994-11.425 110.546 5.974 198.997 94.536 204.964 204.964.352 6.526-4.89 11.994-11.425 11.994zm103.027 0h-34.334c-6.161 0-11.175-4.882-11.427-11.038-5.598-136.535-115.204-246.161-251.76-251.76C68.882 152.949 64 147.935 64 141.774V107.44c0-6.454 5.338-11.664 11.787-11.432 167.83 6.025 302.21 141.191 308.205 308.205.232 6.449-4.978 11.787-11.432 11.787z"></path></svg></a></li></ul><div><p>© 2000 – <!-- -->2020<!-- --> SitePoint Pty. Ltd.</p><p class="recaptcha-branding">This site is protected by reCAPTCHA and the Google<a href="https://policies.google.com/privacy"> Privacy Policy </a>and<a href="https://policies.google.com/terms"> Terms of Service </a>apply.</p></div></div></div></nav></footer></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script type="text/javascript" defer="defer" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/api.js"></script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/12-amazing-jquery-tables/";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-86ced1fcfe0e78ddca6b.js"],"component---src-pages-404-js":["/component---src-pages-404-js-a23ffbd254d1f6aaa44a.js"],"component---src-pages-about-us-js":["/component---src-pages-about-us-js-1373d25976d191775a34.js"],"component---src-pages-advertise-js":["/component---src-pages-advertise-js-47498e78140a0e060ed6.js"],"component---src-pages-contact-us-js":["/component---src-pages-contact-us-js-f2c92bb0b2293f431422.js"],"component---src-pages-index-js":["/component---src-pages-index-js-e324a38f8606b2fdf6cf.js"],"component---src-pages-legals-js":["/component---src-pages-legals-js-3f78340e5ddc7b50669f.js"],"component---src-pages-privacy-policy-js":["/component---src-pages-privacy-policy-js-144e23e0eaf6bd3f712d.js"],"component---src-templates-author-index-js":["/component---src-templates-author-index-js-4e5d08e9cfd4cb1fffb2.js"],"component---src-templates-post-list-index-js":["/component---src-templates-post-list-index-js-114b977a6e14918c55ea.js"],"component---src-templates-post-post-js":["/component---src-templates-post-post-js-a3160622af1acc146d47.js"]};/*]]>*/</script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/webpack-runtime-38b8944268b31d776993.js" async=""></script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/ec1189df-0fa34f9c7c4814c5cf93.js" async=""></script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/a9a7754c-af332f070836f35a283d.js" async=""></script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/2d8ac727346d4e900ecfe8987d1f9b61459727ca-2483f95af36840c7129d.js" async=""></script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/app-86ced1fcfe0e78ddca6b.js" async=""></script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/component---src-templates-post-post-js-a3160622af1acc146d47.js" async=""></script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/framework-d58e6aa01b2ba4423f5b.js" async=""></script><script src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/f5827caf6186e5c689d2efec58e563be7dc9b201-bdc44ac800df40a8df65.js" async=""></script><iframe style="display: none;" name="__cmpLocator"></iframe>    <link href="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/css.css" rel="stylesheet">
+    <style type="text/css">
+      #bottom-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background-color: #333333;
+        width: 100%;
+        height: 160px;
+        padding: 10px 0;
+        transition: all 0.3s ease-out;
+        z-index: 9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      #bottom-bar .free-book {
+        display: flex;
+        width: 100%;
+        height: 140px;
+        justify-content: space-between;
+        overflow: hidden;
+        transition: all 0.4s ease-out;
+      }
+      #bottom-bar .free-book .book-form-cover {
+        position: relative;
+        display: none;
+        margin: 0 20px;
+        height: 164px;
+        transform: translatey(0rem) rotate(0deg);
+        transition: all 0.4s ease-out;
+      }
+      #bottom-bar .free-book .book-form-cover::-webkit-scrollbar {
+        display: none;
+      }
+      #bottom-bar .free-book .book-form-cover img {
+        /* height: 164px;
+          width: auto; */
+      }
+      #bottom-bar .free-book .book-form-cover::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: -2px;
+        width: calc(100% + 4px);
+        height: 101%;
+        background-size: 104% auto;
+        border-bottom: 1px solid #554435;
+        border-radius: 0 0 4px 4px;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 118 146' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='lgrad' x1='0%25' x2='0%25' y1='0%25' y2='20%25' %3E%3Cstop offset='20%25' style='stop-color:%23BF9773' /%3E%3Cstop offset='30%25' style='stop-color:%23C8A17E' /%3E%3Cstop offset='70%25' style='stop-color:%23C8A17E' /%3E%3Cstop offset='80%25' style='stop-color:%23BF9773' /%3E%3C/linearGradient%3E%3Cpattern id='stripe-pattern-horz' width='600' height='10' patternUnits='userSpaceOnUse' patternTransform='scale(0.3) rotate(90)'%3E%3Crect x='0' y='0' width='600' height='50' fill='url(%23lgrad)'/%3E%3C/pattern%3E%3Cfilter id='paper-shadow' x='-3' y='63' width='124' height='82' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeColorMatrix in='SourceAlpha' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'/%3E%3CfeOffset dy='-4'/%3E%3CfeGaussianBlur stdDeviation='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3CfeBlend in2='BackgroundImageFix' result='effect1_dropShadow'/%3E%3CfeBlend in='SourceGraphic' in2='effect1_dropShadow' result='shape'/%3E%3C/filter%3E%3Cfilter id='string-shadow' x='0' y='0' width='100%25' height='100%25' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeColorMatrix in='SourceAlpha' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'/%3E%3CfeOffset dx='.5' dy='1'/%3E%3CfeGaussianBlur stdDeviation='.5'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0'/%3E%3CfeBlend in2='BackgroundImageFix' result='effect1_dropShadow'/%3E%3CfeBlend in='SourceGraphic' in2='effect1_dropShadow' result='shape'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23paper-shadow)'%3E%3Cpath d='M1 143V71l11.7 2 5.8 4.5c.5-2.3 4.2-5.1 16 .5 14.6 7 34.4 24 49 25 11.8.8 27.3 1.3 33.5 1.5V143a2 2 0 01-2 2H3a2 2 0 01-2-2z' fill='url(%23stripe-pattern-horz)'/%3E%3C/g%3E%3Cpath d='M12.7 72L1 70l-1 3.5 7.5-1 11 5c.5-2.3 4-2.1 15.8 3.5 5 2.4 12.3 4.3 18.2 8 11 7 22 14.3 31.5 15 11.7.8 26.8.3 33 .5l.5-1c-6.2-.2-22.2-.7-34-1.5-9.5-.7-21.3-8.1-32.4-15.2-5.9-3.7-11.6-7.4-16.7-9.8-11.7-5.6-15.7-2.3-16.2 0l-5.5-5z' fill='%23F2D3B6' fill-opacity='.9'/%3E%3Cg class='string' filter='url(%23string-shadow)'%3E%3Cpath d='M21.5 0v145.5' stroke='%23F2EDDE' stroke-linecap='round'/%3E%3Cpath d='M12.5 123c4.7-1.3 6.7-3 8.5-8.5h2c0-1.5.6-4.8 3-6 3-1.5 5-1 6-3' stroke='%23F2EDDE' stroke-linecap='round'/%3E%3Cpath d='M1 114.7l21-.2c1.9 0-.1-5-1.3-2.7-1 2.3.5 3.6 1.5 3.9 2.5-1.6 8-3.9 10.3-3.9 3 0 9.4 3 8.5 4.9-1 2-18.5-3.2-19.5-3.2s.1.2-4.5 3.2c-6 3.9-10.2 4.5-10.8 2.9-.7-1.6 7-6.6 10.8-6.6 3.8 0 5.6 1.2 6.5 1.5l94 .2' stroke='%23F2EDDE' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E");
+      }
+      #bottom-bar .book-info {
+        padding: 0 8px;
+        width: 100%;
+        height: 140px;
+        transition: all 0.4s ease-out;
+      }
+      #bottom-bar .book-info .book-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        height: 40px;
+        transition: all 0.4s ease-out;
+      }
+      #bottom-bar .book-info .book-header .book-form-title {
+        color: #fff;
+        font-size: 1rem;
+        margin: 0 18px 0 0;
+        font-weight: 400;
+        transition: all 0.2s ease-out;
+      }
+      #bottom-bar .shrink-button {
+        height: 18px;
+        width: 18px;
+        cursor: pointer;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 22 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.3 3.7c.4-.4.4-.9 0-1.2L19.1.3a.8.8 0 00-1.2 0l-7.1 7-7.1-7a.8.8 0 00-1.2 0L.3 2.5c-.4.3-.4.8 0 1.2l9.9 9.9c.3.3.9.3 1.2 0l10-10z' fill='%23fff'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        transition: all 0.4s ease-out;
+      }
+      #bottom-bar .book-info .book-form-description {
+        color: #fff;
+        font-size: 0.8rem;
+        margin: 0 0 12px;
+        font-weight: 300;
+        opacity: 1;
+        transition: all 0.4s ease-out;
+      }
+      #bottom-bar .book-info .book-form {
+        display: flex;
+        opacity: 1;
+        transition: all 0.4s ease-out;
+      }
+      #bottom-bar .book-info .book-form input {
+        font-size: 11px;
+        height: 28px;
+        width: 100px;
+        border: none;
+        border-radius: 4px;
+        margin: 0 10px 0 0;
+      }
+      #bottom-bar .book-info .book-form button {
+        height: 28px;
+        margin: 0 18px;
+        font-size: 11px;
+        padding: 0 12px;
+        background: #10a59e;
+        color: #fff;
+        border-radius: 4px;
+        font-weight: 400;
+        border: none;
+        cursor: pointer;
+      }
+      #bottom-bar .hidden {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 1s ease-out;
+      }
+      #bottom-bar .show {
+        opacity: 1;
+        visibility: visible;
+        transition: all 1s ease-out;
+      }
+      #bottom-bar .sp-recaptcha {
+        line-height: 1.5;
+        font-size: 9px;
+        margin: 12px 0 0;
+        color: #fff;
+      }
+      #bottom-bar .sp-recaptcha a {
+        color: #10a59e;
+      }
+      #bottom-bar.shrinked {
+        height: 40px;
+        padding: 0;
+        overflow: hidden;
+        transition: all 0.3s ease-out;
+      }
+      #bottom-bar.shrinked .free-book {
+        justify-content: flex-start;
+        align-items: center;
+        height: 45px;
+        transition: all 0.2s ease-in;
+      }
+      #bottom-bar.shrinked .shrink-button {
+        transform: rotate(180deg);
+        transition: all 0.4s ease-out;
+      }
+      #bottom-bar.shrinked .free-book .book-form-cover {
+        transform: translatey(0.2rem) rotate(-5deg);
+        position: relative;
+        top: 63px;
+        margin: 0 15px;
+        transition: all 0.2s ease-out;
+      }
+      #bottom-bar.shrinked .book-info {
+        height: 30px;
+        transition: all 0.2s ease-out;
+      }
+      #bottom-bar.shrinked .book-info .book-header {
+        align-items: center;
+        justify-content: flex-start;
+        height: 30px;
+        transition: all 0.2s ease-out;
+      }
+      #bottom-bar.shrinked .book-info .book-header .book-form-title {
+        margin: 0 18px 0 0;
+        font-size: 16px;
+        transition: all 0.2s ease-out;
+      }
+      #bottom-bar.shrinked .book-info .book-form-description {
+        opacity: 0;
+        transition: all 0.2s ease-out;
+      }
+      #bottom-bar.shrinked .book-form {
+        opacity: 0;
+        transform: scale3d(0, 0, 0);
+        transition: all 0.2s ease-out;
+      }
+      #bottom-bar.shrinked .sp-recaptcha {
+        opacity: 0;
+        visibility: hidden;
+      }
+      @media (min-width: 624px) {
+        #bottom-bar {
+          height: 170px;
+          padding: 15px 0;
+        }
+        #bottom-bar .free-book {
+          height: 140px;
+        }
+        #bottom-bar .book-info {
+          height: 140px;
+          padding: 0 15px;
+        }
+        #bottom-bar .book-info .book-form input {
+          width: 250px;
+          margin: 0 20px 0 0;
+        }
+        #bottom-bar .book-info .book-form button {
+          font-size: 15px;
+          padding: 0px 22px;
+        }
+      }
+      @media (min-width: 936px) {
+        #bottom-bar {
+          height: 205px;
+          padding: 20px 0;
+        }
+        #bottom-bar .free-book {
+          height: 164px;
+          width: 740px;
+        }
+        #bottom-bar .free-book .book-form-cover {
+          display: flex;
+        }
+        #bottom-bar .book-info {
+          padding: 0 20px;
+          height: 164px;
+        }
+        #bottom-bar .book-info .book-header {
+          height: 50px;
+        }
+        #bottom-bar .book-info .book-header .book-form-title {
+          font-size: 31px;
+        }
+        #bottom-bar .book-info .book-form-description {
+          margin: 0 0 12px;
+          font-size: 20px;
+        }
+        #bottom-bar .shrink-button {
+          height: 22px;
+          width: 22px;
+        }
+        #bottom-bar .book-info .book-form input {
+          font-size: 20px;
+          height: 36px;
+          width: 180px;
+          margin: 0 10px 0 0;
+        }
+        #bottom-bar .book-info .book-form button {
+          margin: 0 20px;
+          padding: 0 18px;
+          font-size: 20px;
+          height: 36px;
+        }
+        #bottom-bar .sp-recaptcha {
+          margin: 14px 0 0;
+          font-size: 11px;
+        }
+      }
+    </style>
+    <div id="bottom-bar" data-gtm-vis-recent-on-screen-9559795_502="407" data-gtm-vis-first-on-screen-9559795_502="407" data-gtm-vis-total-visible-time-9559795_502="100" data-gtm-vis-has-fired-9559795_502="1">
+      <div class="free-book">
+        <div class="book-form-cover">
+          <img src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/1590728973vuecomponent.webp">
+        </div>
+        <div class="book-info">
+          <div class="book-header">
+            <h4 class="book-form-title">FREE Vue.js Book</h4>
+            <div class="shrink-button"></div>
+          </div>
+          <p class="book-form-description">Valued at $4.99. Yours free!</p>
+          <form name="book-form" id="book-form" class="book-form" action="https://www.sitepoint.com/premium/register-user">
+            <input type="hidden" name="campaign" value="how-to-build-resuable-component-with-vue">
+            <input type="text" name="name" placeholder="Name" required="">
+            <input type="email" name="email" placeholder="Enter your Email" required="">
+            <button type="submit">
+              Submit
+            </button>
+          </form>
+          <div class="sp-recaptcha show">
+            This site is protected by reCAPTCHA and the Google
+            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+            <a href="https://policies.google.com/terms">Terms of Service</a>
+            apply.
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" id="">var BottomBar=document.querySelector("#bottom-bar"),ShrinkButton=document.querySelector("#bottom-bar .shrink-button"),Meta={heading:"FREE Vue.js Book",bookSlug:"how-to-build-resuable-component-with-vue",bookCover:"https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2020/05/1590728973vuecomponent.png",bookInfo:"Valued at $4.99. Yours free!"};
+function grecaptchaSubmitHandler(a){a.preventDefault();var b=this;"undefined"!=typeof grecaptcha?grecaptcha.execute("6LfEw7cUAAAAABIV8YABIbOzqBJ3zr4BpjVbDXDK",{action:"free_book_bottomBar"}).then(function(c){inputToken=document.createElement("input");inputToken.setAttribute("name","recaptcha_token");inputToken.setAttribute("value",c);inputToken.setAttribute("type","hidden");b.appendChild(inputToken);b.submit()}):b.submit()}
+function checkRecaptcha(){"undefined"!=typeof grecaptcha&&(document.querySelector(".sp-recaptcha").classList.remove("hidden"),document.querySelector(".sp-recaptcha").classList.add("show"),document.querySelector(".book-form").addEventListener("submit",grecaptchaSubmitHandler))}function toggleBottomBar(){BottomBar.classList.toggle("shrinked")}
+(function(){document.forms["book-form"].campaign.value=Meta.bookSlug;document.querySelector("#bottom-bar .book-form-cover img").src=Meta.bookCover;document.querySelector("#bottom-bar .book-form-title").innerHTML=Meta.heading;document.querySelector("#bottom-bar .book-form-description").innerHTML=Meta.bookInfo;checkRecaptcha();ShrinkButton.addEventListener("click",toggleBottomBar);document.addEventListener("keydown",function(a){"Escape"===a.key&&(BottomBar.classList.contains("shrinked")||toggleBottomBar())})})();</script><div><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/anchor.htm" role="presentation" name="a-5xtn8zjc8yuc" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" width="256" height="60" frameborder="0"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response-100000" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div><iframe style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;" name="_hjRemoteVarsFrame" title="_hjRemoteVarsFrame" id="_hjRemoteVarsFrame" src="12%20Amazing%20jQuery%20Tables%20-%20SitePoint-Dateien/box-469cf41adb11dc78be68c1ae7f9457a4.htm"></iframe><a class="qc-cmp-persistent-link" style="cursor: pointer; position: fixed; background-color: rgb(54, 139, 214); padding: 5px 15px; color: rgb(255, 255, 255); display: flex; align-items: center; max-height: 30px; z-index: 2147483640; bottom: 0px; right: 0px; border-top-left-radius: 3px; border-top-right-radius: 3px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" style="height:17px;width:16px;margin-right:5px" fill="#FFF"><path d="M15.6 10L14.5 9.3C14.6 8.8 14.6 8.2 14.5 7.7L15.6 7C15.9 6.8 16.1 6.4 16 6.1 15.6 4.8 14.9 3.6 14 2.7 13.8 2.4 13.4 2.3 13.1 2.5L12 3.2C11.5 2.8 11 2.5 10.5 2.3L10.5 1C10.5 0.6 10.3 0.3 9.9 0.2 8.7-0.1 7.3-0.1 6.1 0.2 5.7 0.3 5.5 0.6 5.5 1L5.5 2.3C5 2.5 4.5 2.8 4 3.2L2.9 2.5C2.6 2.3 2.2 2.4 2 2.7 1.1 3.6 0.4 4.8 0 6.1 -0.1 6.4 0.1 6.8 0.4 7L1.5 7.7C1.4 8.2 1.4 8.8 1.5 9.3L0.4 10C0.1 10.2-0.1 10.6 0 10.9 0.4 12.2 1.1 13.4 2 14.3 2.2 14.6 2.6 14.7 2.9 14.5L4 13.8C4.5 14.2 5 14.5 5.5 14.7L5.5 16C5.5 16.4 5.7 16.7 6.1 16.8 7.3 17.1 8.7 17.1 9.9 16.8 10.3 16.7 10.5 16.4 10.5 16L10.5 14.7C11 14.5 11.5 14.2 12 13.8L13.1 14.5C13.4 14.7 13.8 14.6 14 14.3 14.9 13.4 15.6 12.2 16 10.9 16.1 10.6 15.9 10.2 15.6 10ZM13.4 13.4L11.9 12.5C10.9 13.3 10.6 13.5 9.5 13.9L9.5 15.8C8.5 16 7.5 16 6.5 15.8L6.5 13.9C5.4 13.5 5.1 13.3 4.1 12.5L2.6 13.4C1.9 12.7 1.4 11.8 1.1 10.8L2.7 9.9C2.5 8.7 2.5 8.3 2.7 7.1L1.1 6.2C1.4 5.2 1.9 4.3 2.6 3.6L4.1 4.5C5.1 3.7 5.4 3.5 6.5 3.1L6.5 1.2C7.5 1 8.5 1 9.5 1.2L9.5 3.1C10.6 3.5 10.9 3.7 11.9 4.5L13.4 3.6C14.1 4.3 14.6 5.2 14.9 6.2L13.3 7.1C13.5 8.3 13.5 8.7 13.3 9.9L14.9 10.8C14.6 11.8 14.1 12.7 13.4 13.4ZM8 5.2C6.2 5.2 4.8 6.7 4.8 8.5 4.8 10.3 6.2 11.8 8 11.8 9.8 11.8 11.2 10.3 11.2 8.5 11.2 6.7 9.8 5.2 8 5.2ZM8 10.7C6.8 10.7 5.9 9.7 5.9 8.5 5.9 7.3 6.8 6.3 8 6.3 9.2 6.3 10.1 7.3 10.1 8.5 10.1 9.7 9.2 10.7 8 10.7Z"></path></svg>Privacy</a></body></html>

@@ -1791,6 +1791,12 @@ class Program:
                                 neg + "räumlich",
                             ]:
                                 self.tables.generRows |= {(49, 50)}
+                            elif word in [
+                                neg + "meinungen",
+                                neg + "anderemenschen",
+                                neg + "ruf",
+                            ]:
+                                self.tables.generRows |= {(60, 61)}
                     elif arg[2:17] == "inkrementieren=":
                         for word in arg[17:].split(","):
                             if word in [

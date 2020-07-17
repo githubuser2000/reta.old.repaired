@@ -1,0 +1,3 @@
+Entscheidung:
+Twitter Bootstrap mit jQuery
+und Brython
