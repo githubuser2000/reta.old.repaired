@@ -1666,7 +1666,7 @@ class Program:
                                 neg + "kreativitaet",
                                 neg + "kreativ",
                             ]:
-                                rowsAsNumbers |= {12, 47, 51, 27}
+                                rowsAsNumbers |= {12, 47, 27}
                             elif thing in [
                                 neg + "brauchen",
                                 neg + "benoetigen",
@@ -1709,7 +1709,7 @@ class Program:
                             elif thing in [neg + "contra", neg + "dagegen"]:
                                 rowsAsNumbers |= {15, 26}
                     elif arg[2 : 7 + len(neg)] == "licht" + neg:
-                        rowsAsNumbers |= {20, 51}
+                        rowsAsNumbers |= {20, 27}
                     elif arg[2:12] == "bedeutung=":
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [
