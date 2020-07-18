@@ -1950,6 +1950,9 @@ class Program:
         plaintext = h.handle(html)
         plaintext = re.sub(r"\\--", "--", plaintext)
         plaintext = re.sub(r"(\*\s+[^\-])", r"\t\1", plaintext)
+        plaintext = re.sub(r" \*\*", r"", plaintext)
+        plaintext = re.sub(r"\*\s\*", r"", plaintext)
+        plaintext = re.sub(r"(\n)([^\s])", r"\1\t\t\2", plaintext)
         cliout(plaintext)
 
     def start(self) -> tuple:
