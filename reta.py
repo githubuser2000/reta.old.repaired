@@ -1941,9 +1941,10 @@ class Program:
         )
         with open(place) as f:
             read_data = f.read()
-        html = parser.format(read_data, somevar="somevalue")
+        parser.REPLACE_COSMETIC = ()
+        html = parser.format(read_data, replace_cosmetic=False)
         h = html2text.HTML2Text()
-        h.ignore_links = True
+        h.style = "compact"
         plaintext = h.handle(html)
         cliout(plaintext)
 
