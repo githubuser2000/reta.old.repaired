@@ -1946,6 +1946,8 @@ class Program:
         h = html2text.HTML2Text()
         h.style = "compact"
         plaintext = h.handle(html)
+        plaintext = re.sub(r"\\--", "--", plaintext)
+        plaintext = re.sub(r"(\*\s+[^\-])", r"\t\1", plaintext)
         cliout(plaintext)
 
     def start(self) -> tuple:
