@@ -1546,6 +1546,8 @@ class Program:
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
         global infoLog
+        if len(argv) == 1 and neg == "":
+            cliout("Versuche Parameter -h")
         rowsAsNumbers = set()
         paramLines = set()
         bigParamaeter: list = []
