@@ -19,7 +19,7 @@ dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenum
 ColumnsRowsAmount, shellRowsAmount = (
     os.popen("stty size", "r").read().split()
 )  # Wie viele Zeilen und Spalten hat die Shell ?
-infoLog = False
+infoLog = True
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
 output = True
 
@@ -504,11 +504,13 @@ class Tables:
                 certaintextwidth = self.textwidth
             return certaintextwidth
 
-        def parametersBereich(self, bereiche1: str, symbol: str, neg: str) -> set:
+        def parametersCmdWithSomeBereich(
+            self, MehrereBereiche: str, symbol: str, neg: str
+        ) -> set:
             """Erstellen des Befehls: Bereich
 
-            @type bereiche1: str
-            @param bereiche1: der Bereich von bis
+            @type MehrereBereiche: str
+            @param MehrereBereiche: der Bereich von bis
             @type symbol: str
             @param symbol: welche Art Bereich soll es werden, symbol typisiert den Bereich
             @type neg: string
@@ -517,43 +519,31 @@ class Tables:
             @return: Alle Zeilen die dann ausgegeben werden sollen
             """
             results = set()
-            #    if bereiche1[:len(neg)] == neg:
-            #        bereiche2 = bereiche1[len(neg):].split(',')
-            #    else:
-            #        bereiche2 = bereiche1[len(neg):].split(',')
-            for bereiche3 in (
-                bereiche1[len(neg) :].split(",")
-                if bereiche1[: len(neg)] == neg
-                else bereiche1.split(",")
-            ):
-                if bereiche3.isdecimal():
-                    bereiche3 = bereiche3 + "-" + bereiche3
-                elif bereiche3[: len(neg)] == neg and bereiche3[len(neg) :].isdecimal():
-                    bereiche3 = (
-                        neg + bereiche3[len(neg) :] + "-" + bereiche3[len(neg) :]
-                    )
+            for EinBereich in MehrereBereiche.split(","):
                 if (
-                    len(bereiche3) > len(neg)
-                    and bereiche3 == neg + bereiche3[len(neg) :]
-                    and len(neg) > 0
-                ) or (len(bereiche3) > 0 and (neg + bereiche3[0]).isdigit()):
-                    maybeAmounts = bereiche3[len(neg) :].split("-")
+                    (neg == "" and EinBereich[0].isdecimal())
+                    or (neg == EinBereich[: len(neg)] and len(neg) > 0)
+                ) and len(EinBereich) > 0:
+                    EinBereich = (
+                        EinBereich[len(neg) :]
+                        if neg == EinBereich[: len(neg)]
+                        else EinBereich
+                    )
+                    if EinBereich.isdecimal():
+                        EinBereich = EinBereich + "-" + EinBereich
+                    BereichCouple = EinBereich.split("-")
                     if (
-                        len(maybeAmounts) == 1
-                        and maybeAmounts[0].isdecimal()
-                        and maybeAmounts[0] != "0"
-                    ):
-                        results.add("1-" + symbol + "-" + maybeAmounts[0])
-                    elif (
-                        len(maybeAmounts) == 2
-                        and maybeAmounts[0].isdecimal()
-                        and maybeAmounts[0] != "0"
-                        and maybeAmounts[1].isdecimal()
-                        and maybeAmounts[1] != "0"
+                        len(BereichCouple) == 2
+                        and BereichCouple[0].isdecimal()
+                        and BereichCouple[0] != "0"
+                        and BereichCouple[1].isdecimal()
+                        and BereichCouple[1] != "0"
                     ):
                         results.add(
-                            maybeAmounts[0] + "-" + symbol + "-" + maybeAmounts[1]
+                            BereichCouple[0] + "-" + symbol + "-" + BereichCouple[1]
                         )
+                        alxp(BereichCouple[0] + "-" + symbol + "-" + BereichCouple[1])
+
             return results
 
         def deleteDoublesInSets(
@@ -1864,11 +1854,11 @@ class Program:
                             ):
                                 paramLines.add(str(abs(int(word))) + "p")
                     elif arg[2:22] == "vorhervonausschnitt=":
-                        paramLines |= self.tables.getPrepare.parametersBereich(
+                        paramLines |= self.tables.getPrepare.parametersCmdWithSomeBereich(
                             arg[22:], "a", neg
                         )
                     elif arg[2:21] == "nachtraeglichdavon=":
-                        paramLines |= self.tables.getPrepare.parametersBereich(
+                        paramLines |= self.tables.getPrepare.parametersCmdWithSomeBereich(
                             arg[21:], "z", neg
                         )
                 elif (
