@@ -1668,7 +1668,7 @@ class Program:
                                 neg + "kreativitaet",
                                 neg + "kreativ",
                             ]:
-                                rowsAsNumbers |= {12, 47, 27}
+                                rowsAsNumbers |= {12, 47, 27, 13}
                             elif thing in [
                                 neg + "brauchen",
                                 neg + "benoetigen",
