@@ -521,7 +521,7 @@ class Tables:
             results = set()
             for EinBereich in MehrereBereiche.split(","):
                 if (
-                    (neg == "" and EinBereich[0].isdecimal())
+                    (neg == "" and len(EinBereich) > 0 and EinBereich[0].isdecimal())
                     or (neg == EinBereich[: len(neg)] and len(neg) > 0)
                 ) and len(EinBereich) > 0:
                     EinBereich = (
@@ -542,7 +542,6 @@ class Tables:
                         results.add(
                             BereichCouple[0] + "-" + symbol + "-" + BereichCouple[1]
                         )
-                        alxp(BereichCouple[0] + "-" + symbol + "-" + BereichCouple[1])
 
             return results
 
@@ -597,7 +596,7 @@ class Tables:
                         return result
                 return a
 
-            numRange.remove(0)
+            numRange -= {0}
 
             def cutset(wether, a: set, b: set) -> set:
                 if wether:
@@ -781,7 +780,7 @@ class Tables:
             )
             if not len(paramLinesNot) == 0:
                 finallyDisplayLines2 = self.FilterOriginalLines(
-                    set(originalLinesRange), paramLinesNot
+                    deepcopy(finallyDisplayLines), paramLinesNot
                 )
                 hasAnythingCanged = set(originalLinesRange) - finallyDisplayLines2 - {0}
                 if len(hasAnythingCanged) > 0:
