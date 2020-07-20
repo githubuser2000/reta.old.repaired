@@ -19,7 +19,7 @@ dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenum
 ColumnsRowsAmount, shellRowsAmount = (
     os.popen("stty size", "r").read().split()
 )  # Wie viele Zeilen und Spalten hat die Shell ?
-infoLog = True
+infoLog = False
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
 output = True
 

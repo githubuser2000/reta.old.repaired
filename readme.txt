@@ -31,14 +31,14 @@ Anmerkenung: Anführungszeichen setzen, weil < > sind in Unix Steuersymbole![/li
 [*]--galaxien=[list][*]tierkreiszeichen,thomasevangelium[/list]
 [*]--strukturgroesse
 [*]--universum
-[*]--menschliches=[list][*]liebe,ethik,angreifbarkeit,motivation,erhalten,erwerben,benoetigen,krankheit,alpha,kreativ,chef,beruf,loesungen,musik,glaube,erkenntnis[/list]
+[*]--menschliches=[list][*]liebe,ethik,angreifbarkeit,motivation,erhalten,erwerben,benoetigen,krankheit,alpha,kreativ,chef,beruf,loesungen,musik,glaube,erkenntnis,angreifbar,glaube[/list]
 [*]--procontra=[list][*]pro,contra[/list]
 [*]--licht
 [*]--bedeutung=[list][*]primzahlen,anwendungdersonnen,zaehlungen,jura,geist,gestirn,primvielfache[/list]
 [*]--symbole
 [*]--primzahlvielfachesuniversum=[list][*]2,3,5,7,11
 also Primzahlen[/list]
-[*]--konzept=[list][*]weisheit,gut,zeit[/list]
+[*]--konzept=[list][*]weisheit,gut,zeit,ruf[/list]
 [*]--inkrementieren=[list][*]universum[/list]
 [/list]
 [*]-kombination
