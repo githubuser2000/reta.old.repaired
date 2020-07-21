@@ -213,7 +213,7 @@ class Tables:
         def textWidth(self, value):
             self.textwidth = value
 
-        def oneTabletoMany(self, table: list, ifmany: bool, rowsRange: range) -> tuple:
+        def oneTableToMany(self, table: list, ifmany: bool, rowsRange: range) -> tuple:
             if ifmany:
                 lens: int = 0
                 tables: list = []
@@ -243,7 +243,7 @@ class Tables:
             newTable: list,
             numlen: int,
             rowsRange: range,
-            rowAmount: int,
+            rowAmounts: int,
         ):
             """gibt eine Tabelle aus
 
@@ -256,7 +256,7 @@ class Tables:
             @rtype:
             @return: nichts
             """
-            global output, shellRowsAmount
+            global output
 
             def findMaxCellTextLen(
                 finallyDisplayLines: set, newTable: list, rowsRange: range
@@ -303,65 +303,77 @@ class Tables:
             )
             finallyDisplayLines = list(finallyDisplayLines)
             finallyDisplayLines.sort()
-            for k, (f, r) in enumerate(
-                zip(newTable, finallyDisplayLines)
-            ):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
-                #        actualPartLineLen = 0
-                for iterWholeLine, m in enumerate(
-                    rowsRange
-                ):  # eine Bildhschirm-Zeile immer
-                    #            actualPartLineLen += 1
-                    line = (
-                        ""
-                        if not self.nummerierung
-                        else (
-                            "".rjust(numlen + 1)
-                            if iterWholeLine != 0
-                            else (str(r) + " ").rjust(numlen + 1)
+            breiten: list = []
+            last_r = 0
+            # FOLGENDES NOCH UNFERTIG
+            for i, r in enumerate(rowAmounts):
+                breiten += [self.breiten[last_r:r]]
+                last_r = r
+            # NOCH UNFERTIG
+            rowAmounts, breitenNeu = Tables.fillBoth(
+                deepcopy(rowAmounts), deepcopy(breiten)
+            )
+            for rowAmount, breite in zip(rowAmounts, breitenNeu):
+                for k, (f, r) in enumerate(
+                    zip(newTable, finallyDisplayLines)
+                ):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
+                    #        actualPartLineLen = 0
+                    for iterWholeLine, m in enumerate(
+                        rowsRange
+                    ):  # eine Bildhschirm-Zeile immer
+                        #            actualPartLineLen += 1
+                        line = (
+                            ""
+                            if not self.nummerierung
+                            else (
+                                "".rjust(numlen + 1)
+                                if iterWholeLine != 0
+                                else (str(r) + " ").rjust(numlen + 1)
+                            )
                         )
-                    )
-                    rowsEmpty = 0
-                    # for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
-                    # maxRowsPossible = math.floor(
-                    #    int(shellRowsAmount) / int(self.textwidth + 1)
-                    # )
-                    # maxCellTextLen = 0
-                    # for i in self.rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                    for i, c in enumerate(
-                        newTable[k]
-                    ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                        # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
-                        # if i < maxRowsPossible and k < 6:
-                        # if i < maxRowsPossible:
-                        if i < len(self.breiten):
-                            # if i + (1 if self.nummerierung else 0) <= len(self.breiten):
-                            certaintextwidth = self.breiten[i]
-                        else:
-                            certaintextwidth = self.textwidth
-                        if certaintextwidth > maxCellTextLen[i]:
-                            i_textwidth = maxCellTextLen[i]
-                        else:
-                            i_textwidth = certaintextwidth
-                        try:
-                            line += (
-                                self.colorize(
-                                    newTable[k][i][m]
-                                    .replace("\n", "")
-                                    .ljust(i_textwidth),
-                                    r,
-                                    i,
-                                )
-                                + " "
-                            )  # neben-Einander
-                        except:
-                            rowsEmpty += 1
-                            line += (
-                                self.colorize("".ljust(i_textwidth), r, i, True) + " "
-                            )  # neben-Einander
-                    if rowsEmpty != len(self.rowsAsNumbers) and (
-                        iterWholeLine < self.textheight or self.textheight == 0
-                    ):  # and m < actualPartLineLen:
-                        cliout(line)
+                        rowsEmpty = 0
+                        # for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
+                        # maxRowsPossible = math.floor(
+                        #    int(shellRowsAmount) / int(self.textwidth + 1)
+                        # )
+                        # maxCellTextLen = 0
+                        # for i in self.rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+                        for i, c in enumerate(
+                            newTable[k]
+                        ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+                            # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
+                            # if i < maxRowsPossible and k < 6:
+                            # if i < maxRowsPossible:
+                            if i < len(self.breiten):
+                                # if i + (1 if self.nummerierung else 0) <= len(self.breiten):
+                                certaintextwidth = self.breiten[i]
+                            else:
+                                certaintextwidth = self.textwidth
+                            if certaintextwidth > maxCellTextLen[i]:
+                                i_textwidth = maxCellTextLen[i]
+                            else:
+                                i_textwidth = certaintextwidth
+                            try:
+                                line += (
+                                    self.colorize(
+                                        newTable[k][i][m]
+                                        .replace("\n", "")
+                                        .ljust(i_textwidth),
+                                        r,
+                                        i,
+                                    )
+                                    + " "
+                                )  # neben-Einander
+                            except:
+                                rowsEmpty += 1
+                                line += (
+                                    self.colorize("".ljust(i_textwidth), r, i, True)
+                                    + " "
+                                )  # neben-Einander
+                        if rowsEmpty != len(self.rowsAsNumbers) and (
+                            iterWholeLine < self.textheight or self.textheight == 0
+                        ):  # and m < actualPartLineLen:
+                            cliout(line)
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
@@ -2135,11 +2147,10 @@ class Program:
                 rowsOfcombi,
             )
 
-        rowAmounts = self.tables.getOut.oneTabletoMany(newTable, True, rowsRange)
-        for rowAmount in rowAmounts:
-            self.tables.getOut.cliOut(
-                finallyDisplayLines, newTable, numlen, rowsRange, rowAmount
-            )
+        rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
+        self.tables.getOut.cliOut(
+            finallyDisplayLines, newTable, numlen, rowsRange, rowAmounts
+        )
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
 
 
