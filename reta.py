@@ -213,12 +213,37 @@ class Tables:
         def textWidth(self, value):
             self.textwidth = value
 
+        def oneTabletoMany(self, table: list, ifmany: bool, rowsRange: range) -> tuple:
+            if ifmany:
+                lens: int = 0
+                tables: list = []
+                last_i: int = 0
+                lenBefore: int
+                rowAmounts: list = []
+                # Zelle, Bildschirmzeile, Subzelle - ist die Reihenfolge, auch
+                # wenn schwer vorstellbar, dann so: 2. ganze Zeile 3. Subzelle
+                # 1. der INDEX der Zelle
+                for i, c in enumerate(
+                    table[0]
+                ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+                    lens += len(table[0][i][0])
+                    if lens > int(shellRowsAmount) and i != len(table[0]) - 1:
+                        # tables += [table[last_i : i - 1]]
+                        last_i = i
+                        rowAmounts += [i - 1 - last_i]
+                    elif i == len(table[0]) - 1:
+                        # tables += [table[last_i:i]]
+                        rowAmounts += [i - last_i]
+                return rowAmounts
+            return [len(rowsRange)]
+
         def cliOut(
             self,
             finallyDisplayLines: set,
             newTable: list,
             numlen: int,
             rowsRange: range,
+            rowAmount: int,
         ):
             """gibt eine Tabelle aus
 
@@ -231,7 +256,7 @@ class Tables:
             @rtype:
             @return: nichts
             """
-            global output
+            global output, shellRowsAmount
 
             def findMaxCellTextLen(
                 finallyDisplayLines: set, newTable: list, rowsRange: range
@@ -2109,10 +2134,17 @@ class Program:
                 old2newTable,
                 rowsOfcombi,
             )
-        self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
+
+        rowAmounts = self.tables.getOut.oneTabletoMany(newTable, True, rowsRange)
+        for rowAmount in rowAmounts:
+            self.tables.getOut.cliOut(
+                finallyDisplayLines, newTable, numlen, rowsRange, rowAmount
+            )
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
 
 
 Program()
+# alxp(ColumnsRowsAmount)
+# alxp(shellRowsAmount)
 # inverted:
 # \e[7mi
