@@ -172,6 +172,17 @@ class Tables:
         self.__generRows__: set = set()
 
     class Output:
+        def __init__(self):
+            self.oneTable = False
+
+        @property
+        def oneTable(self):
+            return self.__oneTable
+
+        @oneTable.setter
+        def oneTable(self, value: bool):
+            self.__oneTable = value
+
         @property
         def primUniversePrimsSet(self):
             return self.puniverseprims
@@ -344,8 +355,8 @@ class Tables:
             )  # Wie viele Zeilen und Spalten hat die Shell ?
             shellRowsAmount: int = int(shellRowsAmount1)
             lastSubCellIndex = -1
-            for x, t in enumerate(newTable[0]):
-                alxp(newTable[0][x][0])
+            # for x, t in enumerate(newTable[0]):
+            #    alxp(newTable[0][x][0])
             while len(newTable) > 0 and lastSubCellIndex < len(newTable[0]) - 1:
                 lastlastSubCellIndex = lastSubCellIndex
                 for (
@@ -390,12 +401,15 @@ class Tables:
                                 alxp(lastSubCellIndex)
                                 alxp(subCellIndexRightLeft)
                                 exit()"""
-                            if subCellIndexRightLeft > lastlastSubCellIndex:
+                            if (
+                                subCellIndexRightLeft > lastlastSubCellIndex
+                                or self.__oneTable
+                            ):
                                 subCellWidth = determineRowWidth(
                                     subCellIndexRightLeft, maxCellTextLen
                                 )
                                 sumWidths += subCellWidth + 1
-                                if sumWidths < shellRowsAmount:
+                                if sumWidths < shellRowsAmount or self.__oneTable:
                                     lastSubCellIndex = subCellIndexRightLeft
                                     try:
                                         line += (
@@ -430,6 +444,8 @@ class Tables:
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
                             cliout(line)
+                if self.__oneTable:
+                    break
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
@@ -2016,6 +2032,11 @@ class Program:
                         infoLog = True
                     elif arg[1:] in ["h", "help"] and neg == "":
                         self.help()
+                    elif (
+                        arg[1:] in ["endlessscreen", "endless", "dontwrap", "onetable"]
+                        and neg == ""
+                    ):
+                        self.tables.getOut.oneTable = True
         return paramLines, rowsAsNumbers, rowsOfcombi
 
     def help(self):
