@@ -213,33 +213,33 @@ class Tables:
         def textWidth(self, value):
             self.textwidth = value
 
-        def oneTableToMany(self, table: list, ifmany: bool, rowsRange: range) -> tuple:
-            """Gibt eine Liste zurück. Anzahl der Elemente ist die Anzahl der
-            Tabellen, die es mehrfach geben muss, weil die Bildschirmbreite
-            nicht ausreiht. Die Interger Zahlen in der Liste sind die Anzahlen
-            der Zellen, die ausgegeben werde pro Teil-Tabelle.
-            """
-            if ifmany:
-                lens: int = 0
-                last_i: int = 0
-                lenBefore: int
-                rowAmounts: list = []
-                # Zelle, Bildschirmzeile, Subzelle - ist die Reihenfolge, auch
-                # wenn schwer vorstellbar, dann so: 2. ganze Zeile 3. Subzelle
-                # 1. der INDEX der Zelle
-                for i, c in enumerate(
-                    table[0]
-                ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                    lens += len(table[0][i][0])
-                    if lens > int(shellRowsAmount) and i != len(table[0]) - 1:
-                        # tables += [table[last_i : i - 1]]
-                        last_i = i
-                        rowAmounts += [i - 1 - last_i]
-                    elif i == len(table[0]) - 1:
-                        # tables += [table[last_i:i]]
-                        rowAmounts += [i - last_i]
-                return rowAmounts
-            return [len(rowsRange)]
+        #        def oneTableToMany(self, table: list, ifmany: bool, rowsRange: range) -> tuple:
+        #            """Gibt eine Liste zurück. Anzahl der Elemente ist die Anzahl der
+        #            Tabellen, die es mehrfach geben muss, weil die Bildschirmbreite
+        #            nicht ausreiht. Die Interger Zahlen in der Liste sind die Anzahlen
+        #            der Zellen, die ausgegeben werde pro Teil-Tabelle.
+        #            """
+        #            if ifmany:
+        #                lens: int = 0
+        #                last_i: int = 0
+        #                lenBefore: int
+        #                rowAmounts: list = []
+        #                # Zelle, Bildschirmzeile, Subzelle - ist die Reihenfolge, auch
+        #                # wenn schwer vorstellbar, dann so: 2. ganze Zeile 3. Subzelle
+        #                # 1. der INDEX der Zelle
+        #                for i, c in enumerate(
+        #                    table[0]
+        #                ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+        #                    lens += len(table[0][i][0])
+        #                    if lens > int(shellRowsAmount) and i != len(table[0]) - 1:
+        #                        # tables += [table[last_i : i - 1]]
+        #                        last_i = i
+        #                        rowAmounts += [i - 1 - last_i]
+        #                    elif i == len(table[0]) - 1:
+        #                        # tables += [table[last_i:i]]
+        #                        rowAmounts += [i - last_i]
+        #                return rowAmounts
+        #            return [len(rowsRange)]
 
         def cliOut(
             self,
@@ -247,7 +247,6 @@ class Tables:
             newTable: list,
             numlen: int,
             rowsRange: range,
-            rowAmounts: int,
         ):
             """gibt eine Tabelle aus
 
@@ -265,7 +264,10 @@ class Tables:
             def findMaxCellTextLen(
                 finallyDisplayLines: set, newTable: list, rowsRange: range
             ) -> dict:
-                """Gibt eine Liste zurück mit allen maximalen Zellhoehen pro alle Zellen einer Zeile
+                """Gibt eine Liste mit Integern zurück, bzw. eigentlich ein Dict.
+                Die Integer sind die Zellbreite, die an einer Stelle mindestens
+                maximal war. Dieses Maximum wird zurück gegeben, als eine Zahl,
+                bestimmt durch Überprüfung mehrerer Felder.
 
                 @type finallyDisplayLines: set
                 @param finallyDisplayLines: Zeilen die ausgegeben werden sollen
@@ -274,7 +276,7 @@ class Tables:
                 @type rowsRange: set
                 @param rowsRange: range(spaltenanzahl)
                 @rtype: dict[int,int]
-                @return: Zellhöhen pro Zeile
+                @return: Zellbreiten
                 """
                 maxCellTextLen: dict = {}
                 # for k in finallyDisplayLines: # n Linien einer Zelle, d.h. 1 EL = n Zellen
@@ -314,20 +316,26 @@ class Tables:
             # [4,6,3]
             # [4]
             # 0-4,
-            for i, r in enumerate(rowAmounts[1:]):
-                breiten += [self.breiten[last_i:i]]
-                last_i = i
-                rsum += r
-            # NOCH UNFERTIG
-            rowAmounts, breitenNeu = Tables.fillBoth(
-                deepcopy(rowAmounts), deepcopy(breiten)
-            )
-            for rowAmount, breite in zip(rowAmounts, breitenNeu):
-                for k, (f, r) in enumerate(
+            #            for subCellIndexRightLeft, filteredLineNumbersofOrignal in enumerate(
+            #                rowAmounts[1:]
+            #            ):
+            #                breiten += [self.breiten[last_i:subCellIndexRightLeft]]
+            #                last_i = subCellIndexRightLeft
+            #                rsum += filteredLineNumbersofOrignal
+            #            # NOCH UNFERTIG
+            #            rowAmounts, breitenNeu = Tables.fillBoth(
+            #                deepcopy(rowAmounts), deepcopy(breiten)
+            #            )
+            #            for rowAmount, breite in zip(rowAmounts, breitenNeu):
+            for rowAmount, breite in zip([1], [1]):
+                for (
+                    BigCellLineNumber,
+                    (TablesLineOfBigCells, filteredLineNumbersofOrignal),
+                ) in enumerate(
                     zip(newTable, finallyDisplayLines)
                 ):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
                     #        actualPartLineLen = 0
-                    for iterWholeLine, m in enumerate(
+                    for iterWholeLine, OneWholeScreenLine_AllSubCells in enumerate(
                         rowsRange
                     ):  # eine Bildhschirm-Zeile immer
                         #            actualPartLineLen += 1
@@ -337,7 +345,9 @@ class Tables:
                             else (
                                 "".rjust(numlen + 1)
                                 if iterWholeLine != 0
-                                else (str(r) + " ").rjust(numlen + 1)
+                                else (str(filteredLineNumbersofOrignal) + " ").rjust(
+                                    numlen + 1
+                                )
                             )
                         )
                         rowsEmpty = 0
@@ -347,42 +357,55 @@ class Tables:
                         # )
                         # maxCellTextLen = 0
                         # for i in self.rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                        for i, c in enumerate(
-                            newTable[k]
+                        for subCellIndexRightLeft, subCellContentLeftRight in enumerate(
+                            newTable[BigCellLineNumber]
                         ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                             # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
                             # if i < maxRowsPossible and k < 6:
                             # if i < maxRowsPossible:
-                            if i < len(self.breiten):
-                                # if i + (1 if self.nummerierung else 0) <= len(self.breiten):
-                                certaintextwidth = self.breiten[i]
-                            else:
-                                certaintextwidth = self.textwidth
-                            if certaintextwidth > maxCellTextLen[i]:
-                                i_textwidth = maxCellTextLen[i]
-                            else:
-                                i_textwidth = certaintextwidth
+                            subCellWidth = self.determineRowWidth(
+                                subCellIndexRightLeft, maxCellTextLen
+                            )
                             try:
                                 line += (
                                     self.colorize(
-                                        newTable[k][i][m]
+                                        newTable[BigCellLineNumber][
+                                            subCellIndexRightLeft
+                                        ][OneWholeScreenLine_AllSubCells]
                                         .replace("\n", "")
-                                        .ljust(i_textwidth),
-                                        r,
-                                        i,
+                                        .ljust(subCellWidth),
+                                        filteredLineNumbersofOrignal,
+                                        subCellIndexRightLeft,
                                     )
                                     + " "
                                 )  # neben-Einander
                             except:
                                 rowsEmpty += 1
                                 line += (
-                                    self.colorize("".ljust(i_textwidth), r, i, True)
+                                    self.colorize(
+                                        "".ljust(subCellWidth),
+                                        filteredLineNumbersofOrignal,
+                                        subCellIndexRightLeft,
+                                        True,
+                                    )
                                     + " "
                                 )  # neben-Einander
                         if rowsEmpty != len(self.rowsAsNumbers) and (
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
                             cliout(line)
+
+        def determineRowWidth(self, i, maxCellTextLen):
+            if i < len(self.breiten):
+                # if i + (1 if self.nummerierung else 0) <= len(self.breiten):
+                certaintextwidth = self.breiten[i]
+            else:
+                certaintextwidth = self.textwidth
+            if certaintextwidth > maxCellTextLen[i]:
+                i_textwidth = maxCellTextLen[i]
+            else:
+                i_textwidth = certaintextwidth
+            return i_textwidth
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
@@ -2156,10 +2179,8 @@ class Program:
                 rowsOfcombi,
             )
 
-        rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
-        self.tables.getOut.cliOut(
-            finallyDisplayLines, newTable, numlen, rowsRange, rowAmounts
-        )
+        # rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
+        self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
 
 
