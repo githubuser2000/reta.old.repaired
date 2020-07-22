@@ -343,7 +343,9 @@ class Tables:
                 os.popen("stty size", "r").read().split()
             )  # Wie viele Zeilen und Spalten hat die Shell ?
             shellRowsAmount: int = int(shellRowsAmount1)
-            for rowAmount, breite in zip([1], [1]):
+            lastSubCellIndex = 0
+            while len(newTable) > 0 and lastSubCellIndex < len(newTable[0]) - 1:
+                lastlastSubCellIndex = lastSubCellIndex
                 for (
                     BigCellLineNumber,
                     (TablesLineOfBigCells, filteredLineNumbersofOrignal),
@@ -374,41 +376,51 @@ class Tables:
                         # maxCellTextLen = 0
                         # for i in self.rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                         sumWidths = 0
+                        lastSubCellIndex = 0
                         for subCellIndexRightLeft, subCellContentLeftRight in enumerate(
                             newTable[BigCellLineNumber]
                         ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                             # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
                             # if i < maxRowsPossible and k < 6:
                             # if i < maxRowsPossible:
-                            subCellWidth = determineRowWidth(
-                                subCellIndexRightLeft, maxCellTextLen
-                            )
-                            sumWidths += subCellWidth + 1
-                            if sumWidths < shellRowsAmount:
-                                try:
-                                    line += (
-                                        self.colorize(
-                                            newTable[BigCellLineNumber][
-                                                subCellIndexRightLeft
-                                            ][OneWholeScreenLine_AllSubCells]
-                                            .replace("\n", "")
-                                            .ljust(subCellWidth),
-                                            filteredLineNumbersofOrignal,
-                                            subCellIndexRightLeft,
-                                        )
-                                        + " "
-                                    )  # neben-Einander
-                                except:
+                            # subCellIndexRightLeft += lastSubCellIndex
+                            """if lastSubCellIndex > 0:
+                                alxp(lastSubCellIndex)
+                                alxp(subCellIndexRightLeft)
+                                exit()"""
+                            if subCellIndexRightLeft > lastlastSubCellIndex:
+                                subCellWidth = determineRowWidth(
+                                    subCellIndexRightLeft, maxCellTextLen
+                                )
+                                sumWidths += subCellWidth + 1
+                                if sumWidths < shellRowsAmount:
+                                    lastSubCellIndex = subCellIndexRightLeft
+                                    try:
+                                        line += (
+                                            self.colorize(
+                                                newTable[BigCellLineNumber][
+                                                    subCellIndexRightLeft
+                                                ][OneWholeScreenLine_AllSubCells]
+                                                .replace("\n", "")
+                                                .ljust(subCellWidth),
+                                                filteredLineNumbersofOrignal,
+                                                subCellIndexRightLeft,
+                                            )
+                                            + " "
+                                        )  # neben-Einander
+                                    except:
+                                        rowsEmpty += 1
+                                        line += (
+                                            self.colorize(
+                                                "".ljust(subCellWidth),
+                                                filteredLineNumbersofOrignal,
+                                                subCellIndexRightLeft,
+                                                True,
+                                            )
+                                            + " "
+                                        )  # neben-Einander
+                                else:
                                     rowsEmpty += 1
-                                    line += (
-                                        self.colorize(
-                                            "".ljust(subCellWidth),
-                                            filteredLineNumbersofOrignal,
-                                            subCellIndexRightLeft,
-                                            True,
-                                        )
-                                        + " "
-                                    )  # neben-Einander
                             else:
                                 rowsEmpty += 1
 
