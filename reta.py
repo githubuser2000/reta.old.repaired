@@ -214,9 +214,13 @@ class Tables:
             self.textwidth = value
 
         def oneTableToMany(self, table: list, ifmany: bool, rowsRange: range) -> tuple:
+            """Gibt eine Liste zurück. Anzahl der Elemente ist die Anzahl der
+            Tabellen, die es mehrfach geben muss, weil die Bildschirmbreite
+            nicht ausreiht. Die Interger Zahlen in der Liste sind die Anzahlen
+            der Zellen, die ausgegeben werde pro Teil-Tabelle.
+            """
             if ifmany:
                 lens: int = 0
-                tables: list = []
                 last_i: int = 0
                 lenBefore: int
                 rowAmounts: list = []
@@ -304,11 +308,16 @@ class Tables:
             finallyDisplayLines = list(finallyDisplayLines)
             finallyDisplayLines.sort()
             breiten: list = []
-            last_r = 0
+            rsum = 0
+            last_i = 0
             # FOLGENDES NOCH UNFERTIG
-            for i, r in enumerate(rowAmounts):
-                breiten += [self.breiten[last_r:r]]
-                last_r = r
+            # [4,6,3]
+            # [4]
+            # 0-4,
+            for i, r in enumerate(rowAmounts[1:]):
+                breiten += [self.breiten[last_i:i]]
+                last_i = i
+                rsum += r
             # NOCH UNFERTIG
             rowAmounts, breitenNeu = Tables.fillBoth(
                 deepcopy(rowAmounts), deepcopy(breiten)
@@ -2153,9 +2162,8 @@ class Program:
         )
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     Program()
-# alxp(ColumnsRowsAmount)
-# alxp(shellRowsAmount)
 # inverted:
 # \e[7mi
