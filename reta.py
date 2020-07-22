@@ -343,8 +343,9 @@ class Tables:
                 os.popen("stty size", "r").read().split()
             )  # Wie viele Zeilen und Spalten hat die Shell ?
             shellRowsAmount: int = int(shellRowsAmount1)
-            lastSubCellIndex = 0
-            alxp(len(newTable[0]))
+            lastSubCellIndex = -1
+            for x, t in enumerate(newTable[0]):
+                alxp(newTable[0][x][0])
             while len(newTable) > 0 and lastSubCellIndex < len(newTable[0]) - 1:
                 lastlastSubCellIndex = lastSubCellIndex
                 for (
