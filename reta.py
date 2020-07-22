@@ -316,6 +316,25 @@ class Tables:
                     i_textwidth = certaintextwidth
                 return i_textwidth
 
+            def emptyLinePart(
+                filteredLineNumbersofOrignal,
+                line,
+                rowsEmpty,
+                subCellIndexRightLeft,
+                subCellWidth,
+            ):
+                rowsEmpty += 1
+                line += (
+                    self.colorize(
+                        "".ljust(subCellWidth),
+                        filteredLineNumbersofOrignal,
+                        subCellIndexRightLeft,
+                        True,
+                    )
+                    + " "
+                )  # neben-Einander
+                return line, rowsEmpty
+
             maxCellTextLen = findMaxCellTextLen(
                 finallyDisplayLines, newTable, rowsRange
             )
@@ -399,16 +418,21 @@ class Tables:
                                         + " "
                                     )  # neben-Einander
                                 except:
-                                    rowsEmpty += 1
-                                    line += (
-                                        self.colorize(
-                                            "".ljust(subCellWidth),
-                                            filteredLineNumbersofOrignal,
-                                            subCellIndexRightLeft,
-                                            True,
-                                        )
-                                        + " "
-                                    )  # neben-Einander
+                                    line, rowsEmpty = emptyLinePart(
+                                        filteredLineNumbersofOrignal,
+                                        line,
+                                        rowsEmpty,
+                                        subCellIndexRightLeft,
+                                        subCellWidth,
+                                    )
+                            else:
+                                lineWeDoNotWant, rowsEmpty = emptyLinePart(
+                                    filteredLineNumbersofOrignal,
+                                    line,
+                                    rowsEmpty,
+                                    subCellIndexRightLeft,
+                                    subCellWidth,
+                                )
                         if rowsEmpty != len(self.rowsAsNumbers) and (
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
