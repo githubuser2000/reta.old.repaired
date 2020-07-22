@@ -1,0 +1,2 @@
+reta -onetable | less -S
+macht, dass man nach rechts scollen kann
