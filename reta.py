@@ -173,7 +173,16 @@ class Tables:
 
     class Output:
         def __init__(self):
-            self.oneTable = False
+            self.__oneTable = False
+            self.__color = True
+
+        @property
+        def color(self):
+            return self.__color
+
+        @color.setter
+        def color(self, value: bool):
+            self.__color = value
 
         @property
         def oneTable(self):
@@ -412,8 +421,8 @@ class Tables:
                                 if sumWidths < shellRowsAmount or self.__oneTable:
                                     lastSubCellIndex = subCellIndexRightLeft
                                     try:
-                                        line += (
-                                            self.colorize(
+                                        if self.color:
+                                            coloredSubCell = self.colorize(
                                                 newTable[BigCellLineNumber][
                                                     subCellIndexRightLeft
                                                 ][OneWholeScreenLine_AllSubCells]
@@ -422,19 +431,27 @@ class Tables:
                                                 filteredLineNumbersofOrignal,
                                                 subCellIndexRightLeft,
                                             )
-                                            + " "
-                                        )  # neben-Einander
+                                        else:
+                                            coloredSubCell = (
+                                                newTable[BigCellLineNumber][
+                                                    subCellIndexRightLeft
+                                                ][OneWholeScreenLine_AllSubCells]
+                                                .replace("\n", "")
+                                                .ljust(subCellWidth)
+                                            )
+                                        line += coloredSubCell + " "  # neben-Einander
                                     except:
                                         rowsEmpty += 1
-                                        line += (
-                                            self.colorize(
+                                        if self.color:
+                                            coloredSubCell = self.colorize(
                                                 "".ljust(subCellWidth),
                                                 filteredLineNumbersofOrignal,
                                                 subCellIndexRightLeft,
                                                 True,
                                             )
-                                            + " "
-                                        )  # neben-Einander
+                                        else:
+                                            coloredSubCell = "".ljust(subCellWidth)
+                                        line += coloredSubCell + " "  # neben-Einander
                                 else:
                                     rowsEmpty += 1
                             else:
@@ -2032,6 +2049,8 @@ class Program:
                         infoLog = True
                     elif arg[1:] in ["h", "help"] and neg == "":
                         self.help()
+                    elif arg[1:] in ["nocolor", "justtext"] and neg == "":
+                        self.tables.getOut.color = False
                     elif (
                         arg[1:] in ["endlessscreen", "endless", "dontwrap", "onetable"]
                         and neg == ""
