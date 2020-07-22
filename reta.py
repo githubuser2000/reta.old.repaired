@@ -316,25 +316,6 @@ class Tables:
                     i_textwidth = certaintextwidth
                 return i_textwidth
 
-            def emptyLinePart(
-                filteredLineNumbersofOrignal,
-                line,
-                rowsEmpty,
-                subCellIndexRightLeft,
-                subCellWidth,
-            ):
-                rowsEmpty += 1
-                line += (
-                    self.colorize(
-                        "".ljust(subCellWidth),
-                        filteredLineNumbersofOrignal,
-                        subCellIndexRightLeft,
-                        True,
-                    )
-                    + " "
-                )  # neben-Einander
-                return line, rowsEmpty
-
             maxCellTextLen = findMaxCellTextLen(
                 finallyDisplayLines, newTable, rowsRange
             )
@@ -418,25 +399,24 @@ class Tables:
                                         + " "
                                     )  # neben-Einander
                                 except:
-                                    line, rowsEmpty = emptyLinePart(
-                                        filteredLineNumbersofOrignal,
-                                        line,
-                                        rowsEmpty,
-                                        subCellIndexRightLeft,
-                                        subCellWidth,
-                                    )
+                                    rowsEmpty += 1
+                                        line += (
+                                                self.colorize(
+                                                    "".ljust(subCellWidth),
+                                                    filteredLineNumbersofOrignal,
+                                                    subCellIndexRightLeft,
+                                                    True,
+                                                )
+                                                + " "
+                                        )  # neben-Einander
                             else:
-                                lineWeDoNotWant, rowsEmpty = emptyLinePart(
-                                    filteredLineNumbersofOrignal,
-                                    line,
-                                    rowsEmpty,
-                                    subCellIndexRightLeft,
-                                    subCellWidth,
-                                )
+                                rowsEmpty += 1
+
                         if rowsEmpty != len(self.rowsAsNumbers) and (
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
                             cliout(line)
+
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
