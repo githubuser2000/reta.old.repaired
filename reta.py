@@ -304,14 +304,26 @@ class Tables:
                                     pass
                 return maxCellTextLen
 
+            def determineRowWidth(i, maxCellTextLen):
+                if i < len(self.breiten):
+                    # if i + (1 if self.nummerierung else 0) <= len(self.breiten):
+                    certaintextwidth = self.breiten[i]
+                else:
+                    certaintextwidth = self.textwidth
+                if certaintextwidth > maxCellTextLen[i]:
+                    i_textwidth = maxCellTextLen[i]
+                else:
+                    i_textwidth = certaintextwidth
+                return i_textwidth
+
             maxCellTextLen = findMaxCellTextLen(
                 finallyDisplayLines, newTable, rowsRange
             )
             finallyDisplayLines = list(finallyDisplayLines)
             finallyDisplayLines.sort()
-            breiten: list = []
-            rsum = 0
-            last_i = 0
+            #            breiten: list = []
+            #            rsum = 0
+            #            last_i = 0
             # FOLGENDES NOCH UNFERTIG
             # [4,6,3]
             # [4]
@@ -363,7 +375,7 @@ class Tables:
                             # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
                             # if i < maxRowsPossible and k < 6:
                             # if i < maxRowsPossible:
-                            subCellWidth = self.determineRowWidth(
+                            subCellWidth = determineRowWidth(
                                 subCellIndexRightLeft, maxCellTextLen
                             )
                             try:
@@ -394,18 +406,6 @@ class Tables:
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
                             cliout(line)
-
-        def determineRowWidth(self, i, maxCellTextLen):
-            if i < len(self.breiten):
-                # if i + (1 if self.nummerierung else 0) <= len(self.breiten):
-                certaintextwidth = self.breiten[i]
-            else:
-                certaintextwidth = self.textwidth
-            if certaintextwidth > maxCellTextLen[i]:
-                i_textwidth = maxCellTextLen[i]
-            else:
-                i_textwidth = certaintextwidth
-            return i_textwidth
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
