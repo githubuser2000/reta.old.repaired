@@ -2153,8 +2153,8 @@ class Program:
         )
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
 
-
-Program()
+if __name__ == '__main__':
+    Program()
 # alxp(ColumnsRowsAmount)
 # alxp(shellRowsAmount)
 # inverted:
