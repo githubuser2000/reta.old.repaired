@@ -339,7 +339,6 @@ class Tables:
             #                deepcopy(rowAmounts), deepcopy(breiten)
             #            )
             #            for rowAmount, breite in zip(rowAmounts, breitenNeu):
-            sumWidths = 0
             ColumnsRowsAmount, shellRowsAmount1 = (
                 os.popen("stty size", "r").read().split()
             )  # Wie viele Zeilen und Spalten hat die Shell ?
@@ -374,6 +373,7 @@ class Tables:
                         # )
                         # maxCellTextLen = 0
                         # for i in self.rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
+                        sumWidths = 0
                         for subCellIndexRightLeft, subCellContentLeftRight in enumerate(
                             newTable[BigCellLineNumber]
                         ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
@@ -383,8 +383,8 @@ class Tables:
                             subCellWidth = determineRowWidth(
                                 subCellIndexRightLeft, maxCellTextLen
                             )
-                            sumWidths += subCellWidth
-                            if True:
+                            sumWidths += subCellWidth + 1
+                            if sumWidths < shellRowsAmount:
                                 try:
                                     line += (
                                         self.colorize(
@@ -409,11 +409,10 @@ class Tables:
                                         )
                                         + " "
                                     )  # neben-Einander
-                        if True:
-                            if rowsEmpty != len(self.rowsAsNumbers) and (
-                                iterWholeLine < self.textheight or self.textheight == 0
-                            ):  # and m < actualPartLineLen:
-                                cliout(line)
+                        if rowsEmpty != len(self.rowsAsNumbers) and (
+                            iterWholeLine < self.textheight or self.textheight == 0
+                        ):  # and m < actualPartLineLen:
+                            cliout(line)
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
