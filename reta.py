@@ -16,9 +16,9 @@ import pyphen
 
 pp = pprint.PrettyPrinter(indent=4)
 dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenumbruch
-ColumnsRowsAmount, shellRowsAmount = (
-    os.popen("stty size", "r").read().split()
-)  # Wie viele Zeilen und Spalten hat die Shell ?
+# ColumnsRowsAmount, shellRowsAmount = (
+#    os.popen("stty size", "r").read().split()
+# )  # Wie viele Zeilen und Spalten hat die Shell ?
 infoLog = False
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
 output = True
@@ -339,6 +339,11 @@ class Tables:
             #                deepcopy(rowAmounts), deepcopy(breiten)
             #            )
             #            for rowAmount, breite in zip(rowAmounts, breitenNeu):
+            sumWidths = 0
+            ColumnsRowsAmount, shellRowsAmount1 = (
+                os.popen("stty size", "r").read().split()
+            )  # Wie viele Zeilen und Spalten hat die Shell ?
+            shellRowsAmount: int = int(shellRowsAmount1)
             for rowAmount, breite in zip([1], [1]):
                 for (
                     BigCellLineNumber,
@@ -378,34 +383,37 @@ class Tables:
                             subCellWidth = determineRowWidth(
                                 subCellIndexRightLeft, maxCellTextLen
                             )
-                            try:
-                                line += (
-                                    self.colorize(
-                                        newTable[BigCellLineNumber][
-                                            subCellIndexRightLeft
-                                        ][OneWholeScreenLine_AllSubCells]
-                                        .replace("\n", "")
-                                        .ljust(subCellWidth),
-                                        filteredLineNumbersofOrignal,
-                                        subCellIndexRightLeft,
-                                    )
-                                    + " "
-                                )  # neben-Einander
-                            except:
-                                rowsEmpty += 1
-                                line += (
-                                    self.colorize(
-                                        "".ljust(subCellWidth),
-                                        filteredLineNumbersofOrignal,
-                                        subCellIndexRightLeft,
-                                        True,
-                                    )
-                                    + " "
-                                )  # neben-Einander
-                        if rowsEmpty != len(self.rowsAsNumbers) and (
-                            iterWholeLine < self.textheight or self.textheight == 0
-                        ):  # and m < actualPartLineLen:
-                            cliout(line)
+                            sumWidths += subCellWidth
+                            if True:
+                                try:
+                                    line += (
+                                        self.colorize(
+                                            newTable[BigCellLineNumber][
+                                                subCellIndexRightLeft
+                                            ][OneWholeScreenLine_AllSubCells]
+                                            .replace("\n", "")
+                                            .ljust(subCellWidth),
+                                            filteredLineNumbersofOrignal,
+                                            subCellIndexRightLeft,
+                                        )
+                                        + " "
+                                    )  # neben-Einander
+                                except:
+                                    rowsEmpty += 1
+                                    line += (
+                                        self.colorize(
+                                            "".ljust(subCellWidth),
+                                            filteredLineNumbersofOrignal,
+                                            subCellIndexRightLeft,
+                                            True,
+                                        )
+                                        + " "
+                                    )  # neben-Einander
+                        if True:
+                            if rowsEmpty != len(self.rowsAsNumbers) and (
+                                iterWholeLine < self.textheight or self.textheight == 0
+                            ):  # and m < actualPartLineLen:
+                                cliout(line)
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
