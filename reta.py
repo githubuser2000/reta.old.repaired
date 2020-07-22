@@ -400,15 +400,15 @@ class Tables:
                                     )  # neben-Einander
                                 except:
                                     rowsEmpty += 1
-                                        line += (
-                                                self.colorize(
-                                                    "".ljust(subCellWidth),
-                                                    filteredLineNumbersofOrignal,
-                                                    subCellIndexRightLeft,
-                                                    True,
-                                                )
-                                                + " "
-                                        )  # neben-Einander
+                                    line += (
+                                        self.colorize(
+                                            "".ljust(subCellWidth),
+                                            filteredLineNumbersofOrignal,
+                                            subCellIndexRightLeft,
+                                            True,
+                                        )
+                                        + " "
+                                    )  # neben-Einander
                             else:
                                 rowsEmpty += 1
 
@@ -416,7 +416,6 @@ class Tables:
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
                             cliout(line)
-
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
