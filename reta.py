@@ -351,6 +351,7 @@ class Tables:
                     zip(newTable, finallyDisplayLines)
                 ):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
                     #        actualPartLineLen = 0
+                    sumWidths = 0
                     for iterWholeLine, OneWholeScreenLine_AllSubCells in enumerate(
                         rowsRange
                     ):  # eine Bildhschirm-Zeile immer
@@ -373,7 +374,6 @@ class Tables:
                         # )
                         # maxCellTextLen = 0
                         # for i in self.rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                        sumWidths = 0
                         for subCellIndexRightLeft, subCellContentLeftRight in enumerate(
                             newTable[BigCellLineNumber]
                         ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
