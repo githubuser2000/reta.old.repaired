@@ -344,6 +344,7 @@ class Tables:
             )  # Wie viele Zeilen und Spalten hat die Shell ?
             shellRowsAmount: int = int(shellRowsAmount1)
             lastSubCellIndex = 0
+            alxp(len(newTable[0]))
             while len(newTable) > 0 and lastSubCellIndex < len(newTable[0]) - 1:
                 lastlastSubCellIndex = lastSubCellIndex
                 for (
