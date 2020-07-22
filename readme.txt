@@ -43,6 +43,8 @@ also Primzahlen[/list]
 [/list]
 [*]-kombination
 [list][*]--was[list][*]tiere,berufe,intelligenz,liebe[/list][/list]
+[*]-nocolor
+[*]-onetable
 [/list]
 
 Umkehrungen:
