@@ -341,24 +341,6 @@ class Tables:
             )
             finallyDisplayLines: list = list(finallyDisplayLinesSet)
             finallyDisplayLines.sort()
-            #            breiten: list = []
-            #            rsum = 0
-            #            last_i = 0
-            # FOLGENDES NOCH UNFERTIG
-            # [4,6,3]
-            # [4]
-            # 0-4,
-            #            for subCellIndexRightLeft, filteredLineNumbersofOrignal in enumerate(
-            #                rowAmounts[1:]
-            #            ):
-            #                breiten += [self.breiten[last_i:subCellIndexRightLeft]]
-            #                last_i = subCellIndexRightLeft
-            #                rsum += filteredLineNumbersofOrignal
-            #            # NOCH UNFERTIG
-            #            rowAmounts, breitenNeu = Tables.fillBoth(
-            #                deepcopy(rowAmounts), deepcopy(breiten)
-            #            )
-            #            for rowAmount, breite in zip(rowAmounts, breitenNeu):
             ColumnsRowsAmount, shellRowsAmount1 = (
                 os.popen("stty size", "r").read().split()
             )  # Wie viele Zeilen und Spalten hat die Shell ?
@@ -366,8 +348,6 @@ class Tables:
                 len(str(finallyDisplayLines[-1])) if len(finallyDisplayLines) > 0 else 0
             )
             lastSubCellIndex = -1
-            # for x, t in enumerate(newTable[0]):
-            #    alxp(newTable[0][x][0])
             while len(newTable) > 0 and lastSubCellIndex < len(newTable[0]) - 1:
                 lastlastSubCellIndex = lastSubCellIndex
                 for (
@@ -376,11 +356,9 @@ class Tables:
                 ) in enumerate(
                     zip(newTable, finallyDisplayLines)
                 ):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
-                    #        actualPartLineLen = 0
                     for iterWholeLine, OneWholeScreenLine_AllSubCells in enumerate(
                         rowsRange
                     ):  # eine Bildhschirm-Zeile immer
-                        #            actualPartLineLen += 1
                         line = (
                             ""
                             if not self.nummerierung
@@ -393,21 +371,11 @@ class Tables:
                             )
                         )
                         rowsEmpty = 0
-                        # for i in realLinesRange: # Teil-Linien nebeneinander als Teil-Spalten
-                        # maxRowsPossible = math.floor(
-                        #    int(shellRowsAmount) / int(self.textwidth + 1)
-                        # )
-                        # maxCellTextLen = 0
-                        # for i in self.rowsAsNumbers: # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                         sumWidths = 0
                         lastSubCellIndex = 0
                         for subCellIndexRightLeft, subCellContentLeftRight in enumerate(
                             newTable[BigCellLineNumber]
                         ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                            # maxRowsPossible = math.floor( int(shellRowsAmount) / int(self.textwidth+1))
-                            # if i < maxRowsPossible and k < 6:
-                            # if i < maxRowsPossible:
-                            # subCellIndexRightLeft += lastSubCellIndex
                             """if lastSubCellIndex > 0:
                                 alxp(lastSubCellIndex)
                                 alxp(subCellIndexRightLeft)
