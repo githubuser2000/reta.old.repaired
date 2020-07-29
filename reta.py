@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import csv
+import io
 import math
 import os
 import pprint
@@ -46,7 +47,7 @@ class csvSyntax:
     begintTable = ""
     endTable = ""
     beginRow = ""
-    endRow = ";"
+    endRow = ""
     beginCol = ""
     endCol = ""
 
@@ -453,6 +454,11 @@ class Tables:
             )
             lastSubCellIndex = -1
             lastlastSubCellIndex = -2
+            if self.__outType == csvSyntax:
+                strio = io.StringIO()
+                writer = csv.writer(
+                    strio, quoting=csv.QUOTE_NONE, delimiter=";", quotechar="",
+                )
             while (
                 len(newTable) > 0
                 and lastSubCellIndex < len(newTable[0]) - 1
@@ -482,6 +488,8 @@ class Tables:
                             )
                             + self.__outType.endRow
                         )
+                        if self.__outType == csvSyntax:
+                            line = [line]
                         rowsEmpty = 0
                         sumWidths = 0
                         lastSubCellIndex = 0
@@ -516,6 +524,14 @@ class Tables:
                                                 filteredLineNumbersofOrignal,
                                                 subCellIndexRightLeft,
                                             )
+                                        elif self.__outType == csvSyntax:
+                                            coloredSubCell = newTable[
+                                                BigCellLineNumber
+                                            ][subCellIndexRightLeft][
+                                                OneWholeScreenLine_AllSubCells
+                                            ].replace(
+                                                "\n", ""
+                                            )
                                         else:
                                             coloredSubCell = (
                                                 self.__outType.beginRow
@@ -528,7 +544,12 @@ class Tables:
                                                 )
                                                 + self.__outType.endRow
                                             )
-                                        line += coloredSubCell + " "  # neben-Einander
+                                        if self.__outType == csvSyntax:
+                                            line += [coloredSubCell]
+                                        else:
+                                            line += (
+                                                coloredSubCell + " "
+                                            )  # neben-Einander
                                     except:
                                         rowsEmpty += 1
                                         if (
@@ -543,7 +564,12 @@ class Tables:
                                             )
                                         else:
                                             coloredSubCell = "".ljust(subCellWidth)
-                                        line += coloredSubCell + " "  # neben-Einander
+                                        if self.__outType == csvSyntax:
+                                            line += [coloredSubCell]
+                                        else:
+                                            line += (
+                                                coloredSubCell + " "
+                                            )  # neben-Einander
                                 else:
                                     rowsEmpty += 1
                             else:
@@ -552,10 +578,17 @@ class Tables:
                         if rowsEmpty != len(self.rowsAsNumbers) and (
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
-                            cliout(self.__outType.endCol + line + self.__outType.endCol)
+                            if self.__outType == csvSyntax:
+                                writer.writerow(line)
+                            else:
+                                cliout(
+                                    self.__outType.endCol + line + self.__outType.endCol
+                                )
                 cliout(self.__outType.endTable)
                 if self.__oneTable:
                     break
+                if self.__outType == csvSyntax:
+                    cliout(strio.getvalue())
 
         def colorize(self, text, num: int, row, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
