@@ -42,11 +42,38 @@ class OutputSyntax:
     endCol = ""
 
 
+class csvSyntax:
+    begintTable = ""
+    endTable = ""
+    beginRow = ""
+    endRow = ";"
+    beginCol = ""
+    endCol = ""
+
+
+class markdownSyntax:
+    begintTable = ""
+    endTable = ""
+    beginRow = "|"
+    endRow = ""
+    beginCol = ""
+    endCol = ""
+
+
+class bbCodeSyntax:
+    begintTable = "[table]"
+    endTable = "[/table]"
+    beginRow = "[td]"
+    endRow = "[/td]"
+    beginCol = "[tr]"
+    endCol = "[/tr]"
+
+
 class htmlSyntax(OutputSyntax):
     begintTable = "<table>"
     endTable = "</table>"
     beginRow = "<td>"
-    endRow = "</td"
+    endRow = "</td>"
     beginCol = "<tr>"
     endCol = "</tr>"
 
@@ -431,6 +458,7 @@ class Tables:
                 and lastSubCellIndex < len(newTable[0]) - 1
                 and lastSubCellIndex > lastlastSubCellIndex
             ):
+                cliout(self.__outType.begintTable)
                 lastlastSubCellIndex = lastSubCellIndex
                 for (
                     BigCellLineNumber,
@@ -444,13 +472,15 @@ class Tables:
                         line = (
                             ""
                             if not self.nummerierung
-                            else (
+                            else self.__outType.beginRow
+                            + (
                                 "".rjust(numlen + 1)
                                 if iterWholeLine != 0
                                 else (str(filteredLineNumbersofOrignal) + " ").rjust(
                                     numlen + 1
                                 )
                             )
+                            + self.__outType.endRow
                         )
                         rowsEmpty = 0
                         sumWidths = 0
@@ -473,7 +503,10 @@ class Tables:
                                 if sumWidths < shellRowsAmount or self.__oneTable:
                                     lastSubCellIndex = subCellIndexRightLeft
                                     try:
-                                        if self.color:
+                                        if (
+                                            self.color
+                                            and self.__outType == OutputSyntax
+                                        ):
                                             coloredSubCell = self.colorize(
                                                 newTable[BigCellLineNumber][
                                                     subCellIndexRightLeft
@@ -485,16 +518,23 @@ class Tables:
                                             )
                                         else:
                                             coloredSubCell = (
-                                                newTable[BigCellLineNumber][
-                                                    subCellIndexRightLeft
-                                                ][OneWholeScreenLine_AllSubCells]
-                                                .replace("\n", "")
-                                                .ljust(subCellWidth)
+                                                self.__outType.beginRow
+                                                + (
+                                                    newTable[BigCellLineNumber][
+                                                        subCellIndexRightLeft
+                                                    ][OneWholeScreenLine_AllSubCells]
+                                                    .replace("\n", "")
+                                                    .ljust(subCellWidth)
+                                                )
+                                                + self.__outType.endRow
                                             )
                                         line += coloredSubCell + " "  # neben-Einander
                                     except:
                                         rowsEmpty += 1
-                                        if self.color:
+                                        if (
+                                            self.color
+                                            and self.__outType == OutputSyntax
+                                        ):
                                             coloredSubCell = self.colorize(
                                                 "".ljust(subCellWidth),
                                                 filteredLineNumbersofOrignal,
@@ -512,7 +552,8 @@ class Tables:
                         if rowsEmpty != len(self.rowsAsNumbers) and (
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
-                            cliout(line)
+                            cliout(self.__outType.endCol + line + self.__outType.endCol)
+                cliout(self.__outType.endTable)
                 if self.__oneTable:
                     break
 
@@ -2103,16 +2144,15 @@ class Program:
                     if arg[2:6] == "art=":
                         outputtype = arg[(arg.find("=") + 1) :]
                         if outputtype == "shell":
-                            pass
+                            self.tables.outType = OutputSyntax
                         elif outputtype == "csv":
-                            pass
+                            self.tables.outType = csvSyntax
                         elif outputtype == "bbcode":
-                            pass
+                            self.tables.outType = bbCodeSyntax
                         elif outputtype == "html":
                             self.tables.outType = htmlSyntax
-                            alxp("html")
                         elif outputtype == "markdown":
-                            pass
+                            self.tables.outType = markdownSyntax
                 else:  # oberes Kommando
                     if arg[1:] in ["zeilen", "spalten", "kombination", "ausgabe"]:
                         bigParamaeter += [arg[1:]]
