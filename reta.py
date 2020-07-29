@@ -1820,8 +1820,7 @@ class Program:
                                 neg + "nichtsternpolygon",
                                 neg + "polygon",
                             ]:
-                                rowsAsNumbers.add(16)
-                                rowsAsNumbers.add(36)
+                                rowsAsNumbers |= {16, 37}
                             elif religion in [
                                 neg + "galaxien",
                                 neg + "galaxie",
