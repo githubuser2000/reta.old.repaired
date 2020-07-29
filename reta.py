@@ -33,6 +33,24 @@ parser.add_simple_formatter("sub", "<sub>%(value)s</sub>")
 parser.add_simple_formatter("sup", "<sup>%(value)s</sup>")
 
 
+class OutputSyntax:
+    begintTable = ""
+    endTable = ""
+    beginRow = ""
+    endRow = ""
+    beginCol = ""
+    endCol = ""
+
+
+class htmlSyntax(OutputSyntax):
+    begintTable = "<table>"
+    endTable = "</table>"
+    beginRow = "<td>"
+    endRow = "</td"
+    beginCol = "<tr>"
+    endCol = "</tr>"
+
+
 class Wraptype(Enum):
     pyphen = 1
     pyhyphen = 2
@@ -117,6 +135,14 @@ class Tables:
     #    @rowsSet.setter
     #    def rowsSet(self, value: set):
     #        self.getPrepare.rowsAsNumbers = value
+
+    @property
+    def outType(self) -> OutputSyntax:
+        return self.getOut.outType
+
+    @outType.setter
+    def outType(self, value: OutputSyntax):
+        self.getOut.outType = value
 
     @property
     def generRows(self):
@@ -214,6 +240,15 @@ class Tables:
         def __init__(self):
             self.__oneTable = False
             self.__color = True
+            self.__outType = OutputSyntax
+
+        @property
+        def outType(self) -> OutputSyntax:
+            return self.__outType
+
+        @outType.setter
+        def outType(self, value: OutputSyntax):
+            self.__outType = value
 
         @property
         def color(self):
@@ -2074,7 +2109,8 @@ class Program:
                         elif outputtype == "bbcode":
                             pass
                         elif outputtype == "html":
-                            pass
+                            self.tables.outType = htmlSyntax
+                            alxp("html")
                         elif outputtype == "markdown":
                             pass
                 else:  # oberes Kommando
