@@ -6,7 +6,7 @@ import os
 import pprint
 import re
 import sys
-from copy import deepcopy
+from copy import copy, deepcopy
 # from collections.abc import Iterable
 from typing import Iterable, Union
 
@@ -16,9 +16,10 @@ import pyphen
 
 pp = pprint.PrettyPrinter(indent=4)
 dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenumbruch
-# ColumnsRowsAmount, shellRowsAmount = (
-#    os.popen("stty size", "r").read().split()
-# )  # Wie viele Zeilen und Spalten hat die Shell ?
+ColumnsRowsAmount, shellRowsAmountStr = (
+    os.popen("stty size", "r").read().split()
+)  # Wie viele Zeilen und Spalten hat die Shell ?
+shellRowsAmount: int = int(shellRowsAmountStr)
 infoLog = False
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
 output = True
@@ -107,7 +108,10 @@ class Tables:
         return self.getOut.breiten
 
     @breitenn.setter
-    def breitenn(self, value: bool):
+    def breitenn(self, value: list):
+        global shellRowsAmount
+        for i, v in enumerate(copy(value)):
+            value[i] = v if shellRowsAmount > v + 7 else shellRowsAmount - 7
         self.getPrepare.breiten = value
         self.getOut.breiten = value
 
@@ -231,7 +235,10 @@ class Tables:
 
         @textWidth.setter
         def textWidth(self, value):
-            self.textwidth = value
+            global shellRowsAmount
+            self.textwidth = (
+                value if shellRowsAmount > value + 7 else shellRowsAmount - 7
+            )
 
         #        def oneTableToMany(self, table: list, ifmany: bool, rowsRange: range) -> tuple:
         #            """Gibt eine Liste zurück. Anzahl der Elemente ist die Anzahl der
@@ -279,7 +286,7 @@ class Tables:
             @rtype:
             @return: nichts
             """
-            global output
+            global output, shellRowsAmount
 
             def findMaxCellTextLen(
                 finallyDisplayLines: set, newTable: list, rowsRange: range
@@ -341,10 +348,10 @@ class Tables:
             )
             finallyDisplayLines: list = list(finallyDisplayLinesSet)
             finallyDisplayLines.sort()
-            ColumnsRowsAmount, shellRowsAmount1 = (
-                os.popen("stty size", "r").read().split()
-            )  # Wie viele Zeilen und Spalten hat die Shell ?
-            shellRowsAmount: int = int(shellRowsAmount1) - (
+            # ColumnsRowsAmount, shellRowsAmount1 = (
+            ##    os.popen("stty size", "r").read().split()
+            # )  # Wie viele Zeilen und Spalten hat die Shell ?
+            shellRowsAmount = shellRowsAmount - (
                 len(str(finallyDisplayLines[-1])) if len(finallyDisplayLines) > 0 else 0
             )
             lastSubCellIndex = -1
