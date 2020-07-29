@@ -48,8 +48,8 @@ also Primzahlen[/list]
 [*]--art=
 (nur eins erlaubt)
 [list][*]shell,html,csv,markdown,bbcode[/list]
+[*]--onetable
 [/list]
-[*]-onetable
 [/list]
 
 Umkehrungen:

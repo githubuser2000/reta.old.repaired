@@ -2176,6 +2176,11 @@ class Program:
                             self.tables.outType = markdownSyntax
                     elif arg[2:] in ["nocolor", "justtext"] and neg == "":
                         self.tables.getOut.color = False
+                    elif (
+                        arg[2:] in ["endlessscreen", "endless", "dontwrap", "onetable"]
+                        and neg == ""
+                    ):
+                        self.tables.getOut.oneTable = True
                 else:  # oberes Kommando
                     if arg[1:] in ["zeilen", "spalten", "kombination", "ausgabe"]:
                         bigParamaeter += [arg[1:]]
@@ -2183,11 +2188,6 @@ class Program:
                         infoLog = True
                     elif arg[1:] in ["h", "help"] and neg == "":
                         self.help()
-                    elif (
-                        arg[1:] in ["endlessscreen", "endless", "dontwrap", "onetable"]
-                        and neg == ""
-                    ):
-                        self.tables.getOut.oneTable = True
         return paramLines, rowsAsNumbers, rowsOfcombi
 
     def help(self):
