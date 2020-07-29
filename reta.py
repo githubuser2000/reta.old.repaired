@@ -99,7 +99,7 @@ def alxwrap(text: str, len_: int):
                 else None
             )
         )
-    except ValueError:
+    except:
         return (
             dic.wrap(text, len_)
             if wrappingType == Wraptype.pyhyphen
