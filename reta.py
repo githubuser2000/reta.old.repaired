@@ -7,15 +7,18 @@ import pprint
 import re
 import sys
 from copy import copy, deepcopy
+from enum import Enum
 # from collections.abc import Iterable
 from typing import Iterable, Union
 
 import bbcode
 import html2text
 import pyphen
+from hyphen import Hyphenator
 
 pp = pprint.PrettyPrinter(indent=4)
 dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenumbruch
+h_de = Hyphenator("de_DE")
 ColumnsRowsAmount, shellRowsAmountStr = (
     os.popen("stty size", "r").read().split()
 )  # Wie viele Zeilen und Spalten hat die Shell ?
@@ -28,6 +31,38 @@ parser = bbcode.Parser()
 parser.add_simple_formatter("hr", "<hr />", standalone=True)
 parser.add_simple_formatter("sub", "<sub>%(value)s</sub>")
 parser.add_simple_formatter("sup", "<sup>%(value)s</sup>")
+
+
+class Wraptype(Enum):
+    pyphen = 1
+    pyhyphen = 2
+
+
+wrappingType: Wraptype = Wraptype.pyhyphen
+
+
+def alxwrap(text: str, len_: int):
+    global wrappingType
+    try:
+        return (
+            dic.wrap(text, len_)
+            if wrappingType == Wraptype.pyphen
+            else (
+                tuple(h_de.wrap(text, len_))
+                if wrappingType == Wraptype.pyhyphen
+                else None
+            )
+        )
+    except ValueError:
+        return (
+            dic.wrap(text, len_)
+            if wrappingType == Wraptype.pyhyphen
+            else (
+                tuple(h_de.wrap(text, len_))
+                if wrappingType == Wraptype.pyphen
+                else None
+            )
+        )
 
 
 def render_color(tag_name, value, options, parent, context):
@@ -577,7 +612,7 @@ class Tables:
             @return: Liste aus umgebrochenen Teilstrings
             """
             if len(text) > length - 1:
-                isItNone = dic.wrap(text, length - 1)
+                isItNone = alxwrap(text, length - 1)
             else:
                 isItNone = text
             return isItNone
@@ -593,7 +628,7 @@ class Tables:
             @return: Liste aus umgebrochenen Teilstrings
             """
             if len(text) > length - 1:
-                isItNone = dic.wrap(text, length - 1)
+                isItNone = alxwrap(text, length - 1)
             else:
                 isItNone = None
             return isItNone
@@ -1844,13 +1879,13 @@ class Program:
                                 neg + "planet",
                             ]:
                                 self.tables.spalteGestirn = True
-                            elif thing in [
-                                neg + "primvielfache",
-                                neg + "primvielfacher",
-                                neg + "primzahlenvielfacher",
-                                neg + "primzahlenvielfache",
-                            ]:
-                                self.tables.ifPrimMultis = True
+                            # elif thing in [
+                            #    neg + "primvielfache",
+                            #    neg + "primvielfacher",
+                            #    neg + "primzahlenvielfacher",
+                            #    neg + "primzahlenvielfache",
+                            # ]:
+                            #    self.tables.ifPrimMultis = True
                     elif arg[2 : 11 + len(neg)] == "symbole" + neg:
                         rowsAsNumbers |= {36, 37}
                     elif arg[2:30] == "primzahlvielfachesuniversum=":
