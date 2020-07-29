@@ -263,7 +263,7 @@ class Tables:
 
         def cliOut(
             self,
-            finallyDisplayLines: set,
+            finallyDisplayLinesSet: set,
             newTable: list,
             numlen: int,
             rowsRange: range,
@@ -337,9 +337,9 @@ class Tables:
                 return i_textwidth
 
             maxCellTextLen = findMaxCellTextLen(
-                finallyDisplayLines, newTable, rowsRange
+                finallyDisplayLinesSet, newTable, rowsRange
             )
-            finallyDisplayLines = list(finallyDisplayLines)
+            finallyDisplayLines: list = list(finallyDisplayLinesSet)
             finallyDisplayLines.sort()
             #            breiten: list = []
             #            rsum = 0
@@ -362,7 +362,9 @@ class Tables:
             ColumnsRowsAmount, shellRowsAmount1 = (
                 os.popen("stty size", "r").read().split()
             )  # Wie viele Zeilen und Spalten hat die Shell ?
-            shellRowsAmount: int = int(shellRowsAmount1)
+            shellRowsAmount: int = int(shellRowsAmount1) - (
+                len(str(finallyDisplayLines[-1])) if len(finallyDisplayLines) > 0 else 0
+            )
             lastSubCellIndex = -1
             # for x, t in enumerate(newTable[0]):
             #    alxp(newTable[0][x][0])
