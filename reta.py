@@ -35,7 +35,7 @@ parser.add_simple_formatter("sup", "<sup>%(value)s</sup>")
 
 
 class OutputSyntax:
-    begintTable = ""
+    beginTable = ""
     endTable = ""
     beginRow = ""
     endRow = ""
@@ -44,7 +44,7 @@ class OutputSyntax:
 
 
 class csvSyntax:
-    begintTable = ""
+    beginTable = ""
     endTable = ""
     beginRow = ""
     endRow = ""
@@ -53,7 +53,7 @@ class csvSyntax:
 
 
 class markdownSyntax:
-    begintTable = ""
+    beginTable = ""
     endTable = ""
     beginRow = "|"
     endRow = ""
@@ -62,7 +62,7 @@ class markdownSyntax:
 
 
 class bbCodeSyntax:
-    begintTable = "[table]"
+    beginTable = "[table]"
     endTable = "[/table]"
     beginRow = "[td]"
     endRow = "[/td]"
@@ -71,7 +71,7 @@ class bbCodeSyntax:
 
 
 class htmlSyntax(OutputSyntax):
-    begintTable = "<table>"
+    beginTable = "<table>"
     endTable = "</table>"
     beginRow = "<td>"
     endRow = "</td>"
@@ -426,6 +426,7 @@ class Tables:
             )
             lastSubCellIndex = -1
             lastlastSubCellIndex = -2
+            headingfinished = False
             if self.__outType == csvSyntax:
                 strio = io.StringIO()
                 writer = csv.writer(
@@ -436,7 +437,7 @@ class Tables:
                 and lastSubCellIndex < len(newTable[0]) - 1
                 and lastSubCellIndex > lastlastSubCellIndex
             ):
-                cliout(self.__outType.begintTable)
+                cliout(self.__outType.beginTable)
                 lastlastSubCellIndex = lastSubCellIndex
                 for (
                     BigCellLineNumber,
@@ -554,6 +555,18 @@ class Tables:
                         if rowsEmpty != len(self.rowsAsNumbers) and (
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
+                            if self.__outType == markdownSyntax:
+                                line += self.__outType.beginRow
+                                if BigCellLineNumber > 0 and not headingfinished:
+                                    headingfinished = True
+                                if BigCellLineNumber == 0 and not headingfinished:
+                                    addionalLine = ""
+                                    for l in line:
+                                        if l != self.__outType.beginRow:
+                                            addionalLine += "-"
+                                        else:
+                                            addionalLine += self.__outType.beginRow
+                                    line += "\n" + addionalLine
                             if self.__outType == csvSyntax:
                                 writer.writerow(line)
                             else:
