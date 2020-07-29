@@ -2186,6 +2186,8 @@ class Program:
                             self.tables.outType = htmlSyntax
                         elif outputtype == "markdown":
                             self.tables.outType = markdownSyntax
+                    elif arg[2:] in ["nocolor", "justtext"] and neg == "":
+                        self.tables.getOut.color = False
                 else:  # oberes Kommando
                     if arg[1:] in ["zeilen", "spalten", "kombination", "ausgabe"]:
                         bigParamaeter += [arg[1:]]
@@ -2193,8 +2195,6 @@ class Program:
                         infoLog = True
                     elif arg[1:] in ["h", "help"] and neg == "":
                         self.help()
-                    elif arg[1:] in ["nocolor", "justtext"] and neg == "":
-                        self.tables.getOut.color = False
                     elif (
                         arg[1:] in ["endlessscreen", "endless", "dontwrap", "onetable"]
                         and neg == ""

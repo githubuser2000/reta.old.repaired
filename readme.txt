@@ -43,7 +43,12 @@ also Primzahlen[/list]
 [/list]
 [*]-kombination
 [list][*]--was[list][*]tiere,berufe,intelligenz,liebe[/list][/list]
-[*]-nocolor
+[*]-ausgabe
+[list][*]--nocolor
+[*]--art=
+(nur eins erlaubt)
+[list][*]shell,html,csv,markdown,bbcode[/list]
+[/list]
 [*]-onetable
 [/list]
 
