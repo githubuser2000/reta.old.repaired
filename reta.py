@@ -338,34 +338,6 @@ class Tables:
                 value if shellRowsAmount > value + 7 else shellRowsAmount - 7
             )
 
-        #        def oneTableToMany(self, table: list, ifmany: bool, rowsRange: range) -> tuple:
-        #            """Gibt eine Liste zurück. Anzahl der Elemente ist die Anzahl der
-        #            Tabellen, die es mehrfach geben muss, weil die Bildschirmbreite
-        #            nicht ausreiht. Die Interger Zahlen in der Liste sind die Anzahlen
-        #            der Zellen, die ausgegeben werde pro Teil-Tabelle.
-        #            """
-        #            if ifmany:
-        #                lens: int = 0
-        #                last_i: int = 0
-        #                lenBefore: int
-        #                rowAmounts: list = []
-        #                # Zelle, Bildschirmzeile, Subzelle - ist die Reihenfolge, auch
-        #                # wenn schwer vorstellbar, dann so: 2. ganze Zeile 3. Subzelle
-        #                # 1. der INDEX der Zelle
-        #                for i, c in enumerate(
-        #                    table[0]
-        #                ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-        #                    lens += len(table[0][i][0])
-        #                    if lens > int(shellRowsAmount) and i != len(table[0]) - 1:
-        #                        # tables += [table[last_i : i - 1]]
-        #                        last_i = i
-        #                        rowAmounts += [i - 1 - last_i]
-        #                    elif i == len(table[0]) - 1:
-        #                        # tables += [table[last_i:i]]
-        #                        rowAmounts += [i - last_i]
-        #                return rowAmounts
-        #            return [len(rowsRange)]
-
         def cliOut(
             self,
             finallyDisplayLinesSet: set,
@@ -563,7 +535,11 @@ class Tables:
                                                 True,
                                             )
                                         else:
-                                            coloredSubCell = "".ljust(subCellWidth)
+                                            coloredSubCell = (
+                                                self.__outType.beginRow
+                                                + "".ljust(subCellWidth)
+                                                + self.__outType.endRow
+                                            )
                                         if self.__outType == csvSyntax:
                                             line += [coloredSubCell]
                                         else:
