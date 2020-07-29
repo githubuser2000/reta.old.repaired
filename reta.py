@@ -348,7 +348,12 @@ class Tables:
                 len(str(finallyDisplayLines[-1])) if len(finallyDisplayLines) > 0 else 0
             )
             lastSubCellIndex = -1
-            while len(newTable) > 0 and lastSubCellIndex < len(newTable[0]) - 1:
+            lastlastSubCellIndex = -2
+            while (
+                len(newTable) > 0
+                and lastSubCellIndex < len(newTable[0]) - 1
+                and lastSubCellIndex > lastlastSubCellIndex
+            ):
                 lastlastSubCellIndex = lastSubCellIndex
                 for (
                     BigCellLineNumber,
