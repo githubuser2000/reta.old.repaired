@@ -1938,7 +1938,7 @@ class Program:
                             ]:
                                 rowsAsNumbers.add(43)
 
-                if (
+                elif (
                     len(arg) > 1
                     and arg[1] == "-"
                     and len(bigParamaeter) > 0
@@ -2059,8 +2059,26 @@ class Program:
                                 neg + "alien",
                             ]:
                                 rowsOfcombi |= {5, 55}
+                elif (
+                    len(arg) > 1
+                    and arg[1] == "-"
+                    and len(bigParamaeter) > 0
+                    and bigParamaeter[-1] == "ausgabe"
+                ):  # unteres Kommando
+                    if arg[2:6] == "art=":
+                        outputtype = arg[(arg.find("=") + 1) :]
+                        if outputtype == "shell":
+                            pass
+                        elif outputtype == "csv":
+                            pass
+                        elif outputtype == "bbcode":
+                            pass
+                        elif outputtype == "html":
+                            pass
+                        elif outputtype == "markdown":
+                            pass
                 else:  # oberes Kommando
-                    if arg[1:] in ["zeilen", "spalten", "kombination"]:
+                    if arg[1:] in ["zeilen", "spalten", "kombination", "ausgabe"]:
                         bigParamaeter += [arg[1:]]
                     elif arg[1:] in ["debug"]:
                         infoLog = True
