@@ -2041,7 +2041,7 @@ class Program:
                                 neg + "strukturalien",
                                 neg + "alien",
                             ]:
-                                rowsOfcombi |= {5}
+                                rowsOfcombi |= {5, 55}
                 else:  # oberes Kommando
                     if arg[1:] in ["zeilen", "spalten", "kombination"]:
                         bigParamaeter += [arg[1:]]
