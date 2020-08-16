@@ -1830,6 +1830,7 @@ class Program:
                             ]:
                                 rowsAsNumbers |= {16, 37}
                             elif religion in [
+                                neg + "vertreterhoehererkonzepte",
                                 neg + "galaxien",
                                 neg + "galaxie",
                                 neg + "schwarzesonne",
@@ -1849,10 +1850,9 @@ class Program:
                     ):
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "babylon", neg + "tierkreiszeichen"]:
-                                rowsAsNumbers.add(1)
-                                rowsAsNumbers.add(2)
+                                rowsAsNumbers |= {1, 2}
                             elif thing in [neg + "thomas", neg + "thomasevangelium"]:
-                                rowsAsNumbers.add(3)
+                                rowsAsNumbers |= {0, 3}
                     elif arg[2:] in [
                         "groessenordnung" + neg,
                         "strukturgroesse" + neg,
