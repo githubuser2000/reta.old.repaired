@@ -2155,7 +2155,7 @@ class Program:
                                 neg + "strukturalien",
                                 neg + "alien",
                             ]:
-                                rowsOfcombi |= {5, 55}
+                                rowsOfcombi |= {5}
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"
@@ -2382,6 +2382,9 @@ class Program:
             "1. Geschwindigkeitsoptimierungen, Pythonspezifisches\n2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
         )
         alxp("1. Clean Code\n2. Vollständigkeit")
+        alxp(
+            "1. Ich muss noch Tabelleninhalte ins Programm bringen, die schon in der Tabelle stecken"
+        )
         alxp(
             "Wie erreiche ich das?: Ich mache erst Geschwindigkeitsoptimierungen. Welche Sachen kann ich optimieren?"
         )
