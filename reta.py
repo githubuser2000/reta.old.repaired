@@ -1818,6 +1818,8 @@ class Program:
                                 neg + "messias",
                                 neg + "heptagramm",
                                 neg + "hund",
+                                neg + "messiase",
+                                neg + "messiasse",
                             ]:
                                 rowsAsNumbers |= {7}
                             elif religion in [

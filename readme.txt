@@ -27,7 +27,7 @@ Anmerkenung: Anführungszeichen setzen, weil < > sind in Unix Steuersymbole![/li
 [list][*]breite=[list][*]40[*]70[/list]
 [*]--breiten=[list][*]20,50,10,70[*]30,100,20[/list]
 [*]--keinenummerierung
-[*]--religionen=[list][*]sternpolygon,dertierkreiszeichen,gleichfoermigespolygon,galaxie[/list]
+[*]--religionen=[list][*]sternpolygon,dertierkreiszeichen,gleichfoermigespolygon,galaxie,messias[/list]
 [*]--galaxien=[list][*]tierkreiszeichen,thomasevangelium[/list]
 [*]--strukturgroesse
 [*]--universum
