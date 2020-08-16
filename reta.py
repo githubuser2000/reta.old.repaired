@@ -1815,6 +1815,12 @@ class Program:
                                 rowsAsNumbers.add(0)
                                 rowsAsNumbers.add(36)
                             elif religion in [
+                                neg + "messias",
+                                neg + "heptagramm",
+                                neg + "hund",
+                            ]:
+                                rowsAsNumbers |= {7}
+                            elif religion in [
                                 neg + "gleichfoermigespolygon",
                                 neg + "gleichförmigespolygon",
                                 neg + "nichtsternpolygon",
@@ -1897,7 +1903,7 @@ class Program:
                                 neg + "kreativitaet",
                                 neg + "kreativ",
                             ]:
-                                rowsAsNumbers |= {12, 47, 27, 13}
+                                rowsAsNumbers |= {12, 47, 27, 13, 32}
                             elif thing in [
                                 neg + "brauchen",
                                 neg + "benoetigen",
