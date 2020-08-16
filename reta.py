@@ -1077,7 +1077,7 @@ class Tables:
             isItNone = self.wrapping(cell, certaintextwidth)
             cell2: tuple = tuple()
             rest: str = cell
-            while not isItNone is None:
+            while not isItNone in [None, ()]:
                 cell2 += isItNone
                 isItNone = self.wrapping(cell2[-1], certaintextwidth)
                 rest = cell2[-1]
