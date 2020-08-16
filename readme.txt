@@ -28,10 +28,10 @@ Anmerkenung: Anführungszeichen setzen, weil < > sind in Unix Steuersymbole![/li
 [*]--breiten=[list][*]20,50,10,70[*]30,100,20[/list]
 [*]--keinenummerierung
 [*]--religionen=[list][*]sternpolygon,dertierkreiszeichen,gleichfoermigespolygon,vertreterhoehererkonzepte,messias[/list]
-[*]--galaxien=[list][*]tierkreiszeichen,thomasevangelium[/list]
+[*]--galaxien=[list][*]tierkreiszeichen,thomasevangelium,universum,transzendentalien,strukturalien[/list]
 [*]--strukturgroesse
 [*]--universum
-[*]--menschliches=[list][*]liebe,ethik,angreifbarkeit,motivation,erhalten,erwerben,benoetigen,krankheit,alpha,kreativ,chef,beruf,loesungen,musik,glaube,erkenntnis,angreifbar,glaube[/list]
+[*]--menschliches=[list][*]liebe,ethik,angreifbarkeit,motivation,erhalten,erwerben,benoetigen,krankheit,alpha,kreativ,chef,beruf,loesungen,musik,glaube,erkenntnis,angreifbar[/list]
 [*]--procontra=[list][*]pro,contra[/list]
 [*]--licht
 [*]--bedeutung=[list][*]primzahlen,anwendungdersonnen,zaehlungen,jura,geist,gestirn[/list]
