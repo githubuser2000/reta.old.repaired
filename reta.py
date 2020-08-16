@@ -2378,6 +2378,25 @@ class Program:
         # rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
+        alxp(
+            "1. Geschwindigkeitsoptimierungen, Pythonspezifisches\n2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
+        )
+        alxp("1. Clean Code\n2. Vollständigkeit")
+        alxp(
+            "Wie erreiche ich das?: Ich mache erst Geschwindigkeitsoptimierungen. Welche Sachen kann ich optimieren?"
+        )
+        alxp(
+            "Concattenieren von allen Strings, listen appenden bei vorhandener veränderung lieber durch funktionale programmierung "
+        )
+        alxp(
+            "In Schleifen lieber lokale Variablen, KeyError catchen anstatt if machen für Erstinitialisierung eines dicts"
+        )
+        alxp(
+            "imports besser erst bedingt rein holen, ggf. in funktionen, Häufungen von Funktionsaufrufen minimieren, z.B. bei Rekursionen"
+        )
+        alxp(
+            "Fkt mit if drin, das irgendwann für immer gilt: besser bei Gegelenheit die funktion wie funktionszeiger überschreiben, so dass man in Schleife kein if braucht"
+        )
 
 
 if __name__ == "__main__":
