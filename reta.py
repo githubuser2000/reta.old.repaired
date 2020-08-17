@@ -96,7 +96,7 @@ def alxwrap(text: str, len_: int):
             dic.wrap(text, len_)
             if wrappingType == Wraptype.pyphen
             else (
-                tuple(fill(text, width=len_, use_hyphenator=h_de).split("\n"))
+                tuple(fill(text, width=len_, use_hyphenator=h_de).split(["\n", "-"]))
                 if wrappingType == Wraptype.pyhyphen
                 else None
             )
@@ -106,7 +106,7 @@ def alxwrap(text: str, len_: int):
             dic.wrap(text, len_)
             if wrappingType == Wraptype.pyhyphen
             else (
-                tuple(fill(text, width=len_, use_hyphenator=h_de).split("\n"))
+                tuple(fill(text, width=len_, use_hyphenator=h_de).split(["\n", "-"]))
                 if wrappingType == Wraptype.pyphen
                 else None
             )
