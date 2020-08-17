@@ -2386,31 +2386,46 @@ class Program:
         # rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
+        #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
         alxp(
-            "1. Geschwindigkeitsoptimierungen, Pythonspezifisches\n2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
+            "2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
         )
-        alxp("1. Clean Code\n2. Vollständigkeit")
+        alxp("1. Clean Code\n2. Vollständigkeit der Befehle auch")
         alxp(
             "1. Ich muss noch Tabelleninhalte ins Programm bringen, die schon in der Tabelle stecken"
         )
-        alxp(
-            "Wie erreiche ich das?: Ich mache erst Geschwindigkeitsoptimierungen. Welche Sachen kann ich optimieren?"
-        )
-        alxp(
-            "Concattenieren von allen Strings, listen appenden bei vorhandener veränderung lieber durch funktionale programmierung "
-        )
-        alxp(
-            "In Schleifen lieber lokale Variablen, KeyError catchen anstatt if machen für Erstinitialisierung eines dicts"
-        )
-        alxp(
-            "imports besser erst bedingt rein holen, ggf. in funktionen, Häufungen von Funktionsaufrufen minimieren, z.B. bei Rekursionen"
-        )
-        alxp(
-            "Fkt mit if drin, das irgendwann für immer gilt: besser bei Gegelenheit die funktion wie funktionszeiger überschreiben, so dass man in Schleife kein if braucht"
-        )
 
+
+#        alxp(
+#            "Wie erreiche ich das?: Ich mache erst Geschwindigkeitsoptimierungen. Welche Sachen kann ich optimieren?"
+#        )
+#        alxp(
+#            "Concattenieren von allen Strings, listen appenden bei vorhandener veränderung lieber durch funktionale programmierung "
+#        )
+#        alxp(
+#            "In Schleifen lieber lokale Variablen, KeyError catchen anstatt if machen für Erstinitialisierung eines dicts"
+#        )
+#        alxp(
+#            "imports besser erst bedingt rein holen, ggf. in funktionen, Häufungen von Funktionsaufrufen minimieren, z.B. bei Rekursionen"
+#        )
+#        alxp(
+#            "Fkt mit if drin, das irgendwann für immer gilt: besser bei Gegelenheit die funktion wie funktionszeiger überschreiben, so dass man in Schleife kein if braucht"
+#        )
 
 if __name__ == "__main__":
     Program()
 # inverted:
 # \e[7mi
+
+
+# Wie könnte ich Unit-Tests realisieren?
+# Ich müsste erst alles jeweilige instantiieren
+# Erst müsste ich die einfachen Funktionen durchprobieren
+# und dann die darauf aufbauenden
+# Ich sollte mich wohl auch im Netz schlau machen, wie man mit Python am Besten
+# Unit-Tests schreibt
+
+# Durch Unit-Tests lässt sich das Testen automatisieren
+# import unittest
+# from tribool import Tribool
+# libs: nose und pytest
