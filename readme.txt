@@ -38,7 +38,7 @@ Anmerkenung: Anführungszeichen setzen, weil < > sind in Unix Steuersymbole![/li
 [*]--symbole
 [*]--primzahlvielfachesuniversum=[list][*]2,3,5,7,11
 also Primzahlen[/list]
-[*]--konzept=[list][*]weisheit,gut,zeit,ruf[/list]
+[*]--konzept=[list][*]weisheit,gut,zeit,ruf,selbstgerecht[/list]
 [*]--inkrementieren=[list][*]universum[/list]
 [/list]
 [*]-kombination
