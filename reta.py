@@ -16,6 +16,7 @@ import bbcode
 import html2text
 import pyphen
 from hyphen import Hyphenator
+from textwrap2 import fill
 
 pp = pprint.PrettyPrinter(indent=4)
 dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenumbruch
@@ -85,6 +86,7 @@ class Wraptype(Enum):
 
 
 wrappingType: Wraptype = Wraptype.pyhyphen
+# wrappingType: Wraptype = Wraptype.pyphen
 
 
 def alxwrap(text: str, len_: int):
@@ -94,7 +96,7 @@ def alxwrap(text: str, len_: int):
             dic.wrap(text, len_)
             if wrappingType == Wraptype.pyphen
             else (
-                tuple(h_de.wrap(text, len_))
+                tuple(fill(text, width=len_, use_hyphenator=h_de).split("\n"))
                 if wrappingType == Wraptype.pyhyphen
                 else None
             )
@@ -104,7 +106,7 @@ def alxwrap(text: str, len_: int):
             dic.wrap(text, len_)
             if wrappingType == Wraptype.pyhyphen
             else (
-                tuple(h_de.wrap(text, len_))
+                tuple(fill(text, width=len_, use_hyphenator=h_de).split("\n"))
                 if wrappingType == Wraptype.pyphen
                 else None
             )
