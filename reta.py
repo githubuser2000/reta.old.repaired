@@ -1984,6 +1984,7 @@ class Program:
                                 neg + "planet",
                             ]:
                                 self.tables.spalteGestirn = True
+                                rowsAsNumbers |= {64}
                             # elif thing in [
                             #    neg + "primvielfache",
                             #    neg + "primvielfacher",
