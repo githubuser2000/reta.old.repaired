@@ -1846,9 +1846,9 @@ class Program:
                             ]:
                                 rowsAsNumbers.add(23)
                     elif (
-                        arg[2:11] == "galaxien="
+                        arg[2:10] == "galaxie="
                         or arg[2:16] == "alteschriften="
-                        or arg[2:9] == "kreise="
+                        or arg[2:8] == "kreis="
                     ):
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "babylon", neg + "tierkreiszeichen"]:
@@ -1861,8 +1861,7 @@ class Program:
                         "groesse" + neg,
                         "stufe" + neg,
                     ]:
-                        rowsAsNumbers.add(4)
-                        rowsAsNumbers.add(21)
+                        rowsAsNumbers |= {4, 21}
                     elif arg[2:] in [
                         "universum" + neg,
                         "transzendentalien" + neg,

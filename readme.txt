@@ -28,7 +28,7 @@ Anmerkenung: Anführungszeichen setzen, weil < > sind in Unix Steuersymbole![/li
 [*]--breiten=[list][*]20,50,10,70[*]30,100,20[/list]
 [*]--keinenummerierung
 [*]--religionen=[list][*]sternpolygon,dertierkreiszeichen,gleichfoermigespolygon,vertreterhoehererkonzepte,messias[/list]
-[*]--galaxien=[list][*]tierkreiszeichen,thomasevangelium,universum,transzendentalien,strukturalien[/list]
+[*]--galaxie= oder --kreis=[list][*]tierkreiszeichen,thomasevangelium[/list]
 [*]--strukturgroesse
 [*]--universum
 [*]--menschliches=[list][*]liebe,ethik,angreifbarkeit,motivation,erhalten,erwerben,benoetigen,krankheit,alpha,kreativ,chef,beruf,loesungen,musik,glaube,erkenntnis[/list]
