@@ -2048,7 +2048,7 @@ class Program:
                             if word in [
                                 neg + "universum",
                             ]:
-                                rowsAsNumbers.add(43)
+                                rowsAsNumbers |= {43, 54}
 
                 elif (
                     len(arg) > 1
