@@ -61,3 +61,6 @@ Umkehrungen:
 --symbole-
 [*]statt --religionen=sternpolygon
 --religionen=-sternpolygon[/list]
+
+Beispiel (eine Zeile, nicht mehrere):
+reta -zeilen --vorhervonausschnitt=1-9 -spalten --religionen=sternpolygon,gleichfoermigespolygon --galaxie=babylon --breite=50
