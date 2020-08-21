@@ -24,7 +24,8 @@ Anmerkenung: Anführungszeichen setzen, weil < > sind in Unix Steuersymbole![/li
 [*]--nachtraeglichdavon=[list][*]3-6,8[/list]
 [*][/list]
 [*]-spalten
-[list][*]breite=[list][*]40[*]70[/list]
+[list]
+[*]--breite=[list][*]40[*]70[/list]
 [*]--breiten=[list][*]20,50,10,70[*]30,100,20[/list]
 [*]--keinenummerierung
 [*]--religionen=[list][*]sternpolygon,dertierkreiszeichen,gleichfoermigespolygon,vertreterhoehererkonzepte,messias[/list]
@@ -42,7 +43,7 @@ also Primzahlen[/list]
 [*]--inkrementieren=[list][*]universum[/list]
 [/list]
 [*]-kombination
-[list][*]--was[list][*]tiere,berufe,intelligenz,liebe[/list][/list]
+[list][*]--was[list][*]tiere,berufe,intelligenz,liebe,transzendentalien,strukturalien[/list][/list]
 [*]-ausgabe
 [list][*]--nocolor
 [*]--art=

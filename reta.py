@@ -2222,6 +2222,7 @@ class Program:
         plaintext = re.sub(r" \*\*", r"", plaintext)
         plaintext = re.sub(r"\*\s\*", r"", plaintext)
         plaintext = re.sub(r"(\n)([^\s])", r"\1\t\t\2", plaintext)
+        plaintext = re.sub(r".*(\* -spalten)", r" \1", plaintext)
         cliout(plaintext)
 
     def start(self) -> tuple:
