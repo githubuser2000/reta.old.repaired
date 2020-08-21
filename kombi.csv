@@ -1,10 +1,10 @@
 ;Lebewesen;Beruf;Kreativität und Intelligenz;Liebe;Transzendenz-Sachen, von Einzelperson aus bei Sternpolygon, bei gleichförmiges Polygon von Strukturgröße aus;Primzahlkreuz von Leibnitz;Männer / Frauen (IMHO)
 3,8,10;Mensch, Menschenaffe;;Intelligenz stark auf Objekte und Gegenstände bezogen;Objektliebe, Gegenstandsliebe;das existierende Ding, die existierende Sache;;
 7;Hund, Wolf, Fuchs;Tischler;bloßes Verallgemeinern, ohne Sicherheit;;;;
-6;Elefant, Bär, Nilpferd;Kaufmann, Richter, Soziologe, Bänker;;;;;
+6;Nilpferd;Kaufmann, Richter, Soziologe, Bänker;;;;;
 5,9;Katze;;;jeden zum Fressen gern haben;das Allgemeine;;
 5,9,13;;Arzt;;;;;
-10;Rabe, Greifvogel;Mathematiker, Informatiker, Strukturwissenschaftler;;;;;
+10;Rabe, Greifvogel, Esel, Fledermaus, Affen;M.I.N.T.: Mathematiker, Informatiker, Naturwissenschaftler, Techniker;;;;;
 10,7;Delphin, Pferd, Pfau, (Möter, Wookiee);Philosoph, Laufsteg-Model, Architekt, 3D-Software-Künstler;mathematische Induktionsverfahren und aus Informatik;Partnerschaftsliebe;Schönheit;;
 11;Kanarienvogel;Systemtheoretiker, Darsteller;;;;;
 2,4,7,14,15,18;Hundeaußerirdische;;;;;;
@@ -34,7 +34,7 @@
 9,9;;;;;jegliches Alles;;
 7,7;;;;;das Gute selbst;;
 8,9;;;;;Phantasie;;
-10,6;;;;;Wichtigkeit;;
+10,6;Elefant, Bär;;;;Wichtigkeit;;
 9,6;;;;;Ausmessung, Vermessung;;
 10,7,8;;;;;Realismus bzw. Wirklichkeit;;
 8,10,6;;;;;Welten;;
