@@ -1871,6 +1871,11 @@ class Program:
                     elif arg[2:15] in ["menschliches="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [
+                                neg + "incel",
+                                neg + "incels",
+                            ]:
+                                rowsAsNumbers |= {68}
+                            if thing in [
                                 neg + "dominierendesgeschlecht",
                                 neg + "maennlich",
                                 neg + "männlich",
