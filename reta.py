@@ -2190,6 +2190,12 @@ class Program:
                                 neg + "primzahlkreuz",
                             ]:
                                 rowsOfcombi |= {6}
+                            elif thing in [
+                                neg + "männer",
+                                neg + "maenner",
+                                neg + "frauen",
+                            ]:
+                                rowsOfcombi |= {7}
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"

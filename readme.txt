@@ -43,7 +43,7 @@ also Primzahlen[/list]
 [*]--inkrementieren=[list][*]universum[/list]
 [/list]
 [*]-kombination
-[list][*]--was[list][*]tiere,berufe,intelligenz,liebe,transzendentalien,strukturalien,primzahlkreuz[/list][/list]
+[list][*]--was[list][*]tiere,berufe,intelligenz,liebe,transzendentalien,strukturalien,primzahlkreuz,frauen,maenner[/list][/list]
 [*]-ausgabe
 [list][*]--nocolor
 [*]--art=
