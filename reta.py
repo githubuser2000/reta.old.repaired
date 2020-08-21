@@ -1870,6 +1870,13 @@ class Program:
                         rowsAsNumbers |= {5, 54, 55, 65}
                     elif arg[2:15] in ["menschliches="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
+                            if thing in [
+                                neg + "dominierendesgeschlecht",
+                                neg + "maennlich",
+                                neg + "männlich",
+                                neg + "weiblich",
+                            ]:
+                                rowsAsNumbers |= {51}
                             if thing in [neg + "liebe", neg + "ethik"]:
                                 rowsAsNumbers |= {8, 9, 28}
                             if thing in [
@@ -2178,6 +2185,11 @@ class Program:
                                 neg + "alien",
                             ]:
                                 rowsOfcombi |= {5}
+                            elif thing in [
+                                neg + "leibnitz",
+                                neg + "primzahlkreuz",
+                            ]:
+                                rowsOfcombi |= {6}
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"

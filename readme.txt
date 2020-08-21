@@ -32,7 +32,7 @@ Anmerkenung: Anführungszeichen setzen, weil < > sind in Unix Steuersymbole![/li
 [*]--galaxie= oder --kreis=[list][*]tierkreiszeichen,thomasevangelium[/list]
 [*]--strukturgroesse
 [*]--universum
-[*]--menschliches=[list][*]liebe,ethik,angreifbarkeit,motivation,erhalten,erwerben,benoetigen,krankheit,alpha,kreativ,chef,beruf,loesungen,musik,glaube,erkenntnis[/list]
+[*]--menschliches=[list][*]liebe,ethik,angreifbarkeit,motivation,erhalten,erwerben,benoetigen,krankheit,alpha,kreativ,chef,beruf,loesungen,musik,glaube,erkenntnis,dominierendesgeschlecht[/list]
 [*]--procontra=[list][*]pro,contra[/list]
 [*]--licht
 [*]--bedeutung=[list][*]primzahlen,anwendungdersonnen,zaehlungen,jura,geist,gestirn[/list]
@@ -43,7 +43,7 @@ also Primzahlen[/list]
 [*]--inkrementieren=[list][*]universum[/list]
 [/list]
 [*]-kombination
-[list][*]--was[list][*]tiere,berufe,intelligenz,liebe,transzendentalien,strukturalien[/list][/list]
+[list][*]--was[list][*]tiere,berufe,intelligenz,liebe,transzendentalien,strukturalien,primzahlkreuz[/list][/list]
 [*]-ausgabe
 [list][*]--nocolor
 [*]--art=
