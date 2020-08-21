@@ -42,3 +42,7 @@
 10,8,9;;;;;Modelle
 10,8,3,7;;;;;Tatsächlichkeit
 10,6,5,5;;;;;die einzige, nicht nur das eine, aller wichtigste Sache, Ding, Lebewesen oder was es auch immer die einzige, nicht nur das eine, aller wichtigste Sache, Ding, Lebewesen oder was es auch immer ist, jedenfalls nur 1 ist es. Der monotheistische Gott selbst? (die 4 Buchstaben des jüdischen Gottes)st?
+14,15;;;;;beliebig verzweigte Graph-Datenstruktur, Baumdatenstruktur
+10,14;;;;;so genannte Prädikate aus der Prädikatenlogik und damit auch Relationen aus der Computerwissenschaft
+10,14,15;;;;;kontextfreie Sprache und Grammatik, nicht deterministischer Kellerautomat, Negation (13) muss nicht gegeben sein, da es die Bedingung nicht gibt, dass bei Komplementbildung so genannte Abgeschlossenheit gelten müsse. 
+10,14,15,13;;;;;die anderen 3 übrigen Grammatiken und Sprachen aus der Chomsky-Hierarchie, Turingmaschine, endlicher Automat, Negation (13) ist notwendig, da diese 3 Sachen bei Komplementbildung immer abgeschlossen sein müssen. Negation entspricht u.a. Komplementbildung. 
