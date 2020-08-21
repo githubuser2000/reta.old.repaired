@@ -2043,6 +2043,13 @@ class Program:
                                 neg + "selbstgerecht",
                             ]:
                                 self.tables.generRows |= {(60, 61)}
+                            elif word in [
+                                neg + "egoismus",
+                                neg + "altruismus",
+                                neg + "egoist",
+                                neg + "altruist",
+                            ]:
+                                self.tables.generRows |= {(66, 67)}
                     elif arg[2:17] == "inkrementieren=":
                         for word in arg[17:].split(","):
                             if word in [
@@ -2395,13 +2402,13 @@ class Program:
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
         #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
-        #alxp(
+        # alxp(
         #    "2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
-        #)
-        #alxp("1. Clean Code\n2. Vollständigkeit der Befehle auch")
-        #alxp(
+        # )
+        # alxp("1. Clean Code\n2. Vollständigkeit der Befehle auch")
+        # alxp(
         #    "1. Ich muss noch Tabelleninhalte ins Programm bringen, die schon in der Tabelle stecken"
-        #)
+        # )
 
 
 #        alxp(
