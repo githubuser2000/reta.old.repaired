@@ -1879,6 +1879,11 @@ class Program:
                                 neg + "funktioniert",
                             ]:
                                 rowsAsNumbers |= {70}
+                            if thing in [
+                                neg + "erklärung",
+                                neg + "erklaerung",
+                            ]:
+                                rowsAsNumbers |= {71}
                     elif arg[2:15] in ["menschliches="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [
