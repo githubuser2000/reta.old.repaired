@@ -1868,6 +1868,17 @@ class Program:
                         "strukturalien" + neg,
                     ]:
                         rowsAsNumbers |= {5, 54, 55, 65}
+                    elif arg[2:13] in ["wirtschaft="]:
+                        for thing in arg[(arg.find("=") + 1) :].split(","):
+                            if thing in [
+                                neg + "system",
+                            ]:
+                                rowsAsNumbers |= {69}
+                            if thing in [
+                                neg + "realistisch",
+                                neg + "funktioniert",
+                            ]:
+                                rowsAsNumbers |= {70}
                     elif arg[2:15] in ["menschliches="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [
