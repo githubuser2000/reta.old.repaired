@@ -28,11 +28,11 @@ Anmerkenung: Anführungszeichen setzen, weil < > sind in Unix Steuersymbole![/li
 [*]--breite=[list][*]40[*]70[/list]
 [*]--breiten=[list][*]20,50,10,70[*]30,100,20[/list]
 [*]--keinenummerierung
-[*]--religionen=[list][*]sternpolygon,dertierkreiszeichen,gleichfoermigespolygon,vertreterhoehererkonzepte,messias[/list]
+[*]--religionen=[list][*]sternpolygon,dertierkreiszeichen,gleichfoermigespolygon,vertreterhoehererkonzepte,messias,religionsgründertyp[/list]
 [*]--galaxie= oder --kreis=[list][*]tierkreiszeichen,thomasevangelium[/list]
 [*]--strukturgroesse
 [*]--universum
-[*]--menschliches=[list][*]liebe,ethik,angreifbarkeit,motivation,erhalten,erwerben,benoetigen,krankheit,alpha,kreativ,chef,beruf,loesungen,musik,glaube,erkenntnis,dominierendesgeschlecht,incel[/list]
+[*]--menschliches=[list][*]liebe,ethik,angreifbarkeit,motivation,erhalten,erwerben,benoetigen,krankheit,alpha,kreativ,chef,beruf,loesungen,musik,glaube,erkenntnis,dominierendesgeschlecht,incel,ausgangslage[/list]
 [*]--procontra=[list][*]pro,contra[/list]
 [*]--wirtschaft=[list][*]system,realistisch,funktioniert,erklaerung[/list]
 [*]--licht
@@ -65,4 +65,4 @@ Umkehrungen:
 --religionen=-sternpolygon[/list]
 
 Beispiel (eine Zeile, nicht mehrere):
-reta -zeilen --vorhervonausschnitt=1-9 -spalten --religionen=sternpolygon,gleichfoermigespolygon --galaxie=babylon --breite=50
+[code]reta -zeilen --vorhervonausschnitt=1-9 -spalten --religionen=sternpolygon,gleichfoermigespolygon --galaxie=babylon --breite=50[/code]

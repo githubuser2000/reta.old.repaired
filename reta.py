@@ -1811,11 +1811,16 @@ class Program:
                             if religion == neg + "sternpolygon":
                                 rowsAsNumbers |= {0, 6, 36}
                             elif religion in [
+                                neg + "prophet",
+                                neg + "archon",
+                                neg + "religionsgründertyp",
+                            ]:
+                                rowsAsNumbers = {72}
+                            elif religion in [
                                 neg + "babylon",
                                 neg + "dertierkreiszeichen",
                             ]:
-                                rowsAsNumbers.add(0)
-                                rowsAsNumbers.add(36)
+                                rowsAsNumbers = {0, 36}
                             elif religion in [
                                 neg + "messias",
                                 neg + "heptagramm",
@@ -1891,6 +1896,11 @@ class Program:
                                 neg + "incels",
                             ]:
                                 rowsAsNumbers |= {68}
+                            if thing in [
+                                neg + "irrationalezahlendurchwurzelbildung",
+                                neg + "ausgangslage",
+                            ]:
+                                rowsAsNumbers |= {73}
                             if thing in [
                                 neg + "dominierendesgeschlecht",
                                 neg + "maennlich",
