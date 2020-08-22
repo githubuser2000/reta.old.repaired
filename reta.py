@@ -2227,6 +2227,13 @@ class Program:
                                 neg + "frauen",
                             ]:
                                 rowsOfcombi |= {7}
+                            elif thing in [
+                                neg + "evolution",
+                                neg + "erwerben",
+                                neg + "persoenlichkeit",
+                                neg + "persönlichkeit",
+                            ]:
+                                rowsOfcombi |= {8}
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"
