@@ -2093,7 +2093,7 @@ class Program:
                             if word in [
                                 neg + "universum",
                             ]:
-                                rowsAsNumbers |= {43, 54}
+                                rowsAsNumbers |= {43, 54, 74}
 
                 elif (
                     len(arg) > 1
@@ -2450,6 +2450,9 @@ class Program:
         # rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
+        alxp(
+            "1. http://goexchange.de/viewtopic.php?f=13&t=2683#p17239 () \n    9. anderen etwas vormachen können (Bahai)\n    1/9. den anderen Strukturgrößen außer der Einheit (9, 1/9) etwas vormachen können"
+        )
         #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
         # alxp(
         #    "2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
