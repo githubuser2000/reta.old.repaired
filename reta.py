@@ -13,17 +13,22 @@ from enum import Enum
 from typing import Iterable, Union
 
 import bbcode
-import html2text
-import pyphen
-from hyphen import Hyphenator
-from textwrap2 import fill
 
+if "Brython" not in sys.version.split():
+    import html2text
+    import pyphen
+    from hyphen import Hyphenator
+    from textwrap2 import fill
+
+    h_de = Hyphenator("de_DE")
+    dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenumbruch
+
+    ColumnsRowsAmount, shellRowsAmountStr = (
+        os.popen("stty size", "r").read().split()
+    )  # Wie viele Zeilen und Spalten hat die Shell ?
+else:
+    ColumnsRowsAmount, shellRowsAmountStr = "50", "50"
 pp = pprint.PrettyPrinter(indent=4)
-dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenumbruch
-h_de = Hyphenator("de_DE")
-ColumnsRowsAmount, shellRowsAmountStr = (
-    os.popen("stty size", "r").read().split()
-)  # Wie viele Zeilen und Spalten hat die Shell ?
 shellRowsAmount: int = int(shellRowsAmountStr)
 infoLog = False
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
@@ -83,6 +88,7 @@ class htmlSyntax(OutputSyntax):
 class Wraptype(Enum):
     pyphen = 1
     pyhyphen = 2
+    nohyphen = 3
 
 
 wrappingType: Wraptype = Wraptype.pyhyphen
@@ -91,6 +97,15 @@ wrappingType: Wraptype = Wraptype.pyhyphen
 
 def alxwrap(text: str, len_: int):
     global wrappingType
+    """ Ich könnte hier beschleunigen, indem ich funktionszeiger verwende,
+    anstelle jedes mal hier ein if durch gehen zu lassen
+    """
+    try:
+        fill
+    except NameError:
+        return (text,)
+    if "Brython" in sys.version.split():
+        return (text,)
     try:
         return (
             dic.wrap(text, len_)
@@ -98,7 +113,7 @@ def alxwrap(text: str, len_: int):
             else (
                 tuple(fill(text, width=len_, use_hyphenator=h_de).split(["\n", "-"]))
                 if wrappingType == Wraptype.pyhyphen
-                else None
+                else (text,)
             )
         )
     except:
@@ -108,7 +123,7 @@ def alxwrap(text: str, len_: int):
             else (
                 tuple(fill(text, width=len_, use_hyphenator=h_de).split(["\n", "-"]))
                 if wrappingType == Wraptype.pyphen
-                else None
+                else (text,)
             )
         )
 
@@ -362,7 +377,7 @@ class Tables:
 
             def findMaxCellTextLen(
                 finallyDisplayLines: set, newTable: list, rowsRange: range
-            ) -> dict:
+            ):
                 """Gibt eine Liste mit Integern zurück, bzw. eigentlich ein Dict.
                 Die Integer sind die Zellbreite, die an einer Stelle mindestens
                 maximal war. Dieses Maximum wird zurück gegeben, als eine Zahl,
@@ -418,13 +433,15 @@ class Tables:
             maxCellTextLen = findMaxCellTextLen(
                 finallyDisplayLinesSet, newTable, rowsRange
             )
-            finallyDisplayLines: list = list(finallyDisplayLinesSet)
-            finallyDisplayLines.sort()
+            self.finallyDisplayLines: list = list(finallyDisplayLinesSet)
+            self.finallyDisplayLines.sort()
             # ColumnsRowsAmount, shellRowsAmount1 = (
             ##    os.popen("stty size", "r").read().split()
             # )  # Wie viele Zeilen und Spalten hat die Shell ?
             shellRowsAmount = shellRowsAmount - (
-                len(str(finallyDisplayLines[-1])) if len(finallyDisplayLines) > 0 else 0
+                len(str(self.finallyDisplayLines[-1]))
+                if len(self.finallyDisplayLines) > 0
+                else 0
             )
             lastSubCellIndex = -1
             lastlastSubCellIndex = -2
@@ -445,7 +462,7 @@ class Tables:
                     BigCellLineNumber,
                     (TablesLineOfBigCells, filteredLineNumbersofOrignal),
                 ) in enumerate(
-                    zip(newTable, finallyDisplayLines)
+                    zip(newTable, self.finallyDisplayLines)
                 ):  # n Linien einer Zelle, d.h. 1 EL = n Zellen
                     for iterWholeLine, OneWholeScreenLine_AllSubCells in enumerate(
                         rowsRange
@@ -1233,11 +1250,11 @@ class Tables:
             self.sumOfAllCombiRowsAmount += len(rowsOfcombi)
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
-            maintable2subtable_Relation: tuple = ({}, {})
+            self.maintable2subtable_Relation: tuple = ({}, {})
             if len(rowsOfcombi) > 0:
                 with open(place, mode="r") as csv_file:
-                    kombiTable: list = []
-                    kombiTable_Kombis: list = []
+                    self.kombiTable: list = []
+                    self.kombiTable_Kombis: list = []
                     for z, col in enumerate(csv.reader(csv_file, delimiter=";")):
                         """for i, c in enumerate(col):
                             if i not in rowsOfcombi and i != 0:
@@ -1246,17 +1263,17 @@ class Tables:
                         for i, row in enumerate(col):
                             if i > 0 and col[i].strip() != "":
                                 col[i] += " (" + col[0] + ")"
-                        kombiTable += [col]
-                        kombiTable_Kombis_Col: list = []
+                        self.kombiTable += [col]
+                        self.kombiTable_Kombis_Col: list = []
                         if len(col) > 0 and z > 0:
                             for num in col[0].split(","):
                                 if num.isdecimal():
-                                    kombiTable_Kombis_Col += [int(num)]
+                                    self.kombiTable_Kombis_Col += [int(num)]
                                 else:
                                     raise BaseException("not NUM !!!!! ")
-                            kombiTable_Kombis += [kombiTable_Kombis_Col]
+                            self.kombiTable_Kombis += [kombiTable_Kombis_Col]
                     self.relitable, animalsProfessionsCol = Tables.fillBoth(
-                        self.relitable, list(kombiTable)
+                        self.relitable, list(self.kombiTable)
                     )
                     lastlen = 0
                     maxlen = 0
@@ -1268,10 +1285,10 @@ class Tables:
                             if lastlen > maxlen:
                                 maxlen = lastlen
                             for t, ac in enumerate(animcol[1:]):
-                                maintable2subtable_Relation[0][
+                                self.maintable2subtable_Relation[0][
                                     len(self.relitable[0]) + t
                                 ] = t
-                                maintable2subtable_Relation[1][t] = (
+                                self.maintable2subtable_Relation[1][t] = (
                                     len(self.relitable[0]) + t
                                 )
                             self.relitable[0] += list(animcol[1:]) + [""] * (
@@ -1290,17 +1307,17 @@ class Tables:
                                     ):
                                         rowsAsNumbers.add(int(u))
             else:
-                kombiTable = [[]]
-                kombiTable_Kombis = [[]]
-            if len(kombiTable) > 0:
+                self.kombiTable = [[]]
+                self.kombiTable_Kombis = [[]]
+            if len(self.kombiTable) > 0:
                 self.rowsOfcombi = len(rowsAsNumbers) - 1
             else:
                 self.rowsOfcombi = 0
             return (
-                kombiTable,
+                self.kombiTable,
                 self.relitable,
                 kombiTable_Kombis,
-                maintable2subtable_Relation,
+                self.maintable2subtable_Relation,
             )
 
     class Concat:
@@ -1782,15 +1799,15 @@ class Program:
             cliout("Versuche Parameter -h")
         rowsAsNumbers = set()
         paramLines = set()
-        bigParamaeter: list = []
-        rowsOfcombi: set = set()
+        self.bigParamaeter: list = []
+        self.rowsOfcombi: set = set()
         for arg in argv[1:]:
             if len(arg) > 0 and arg[0] == "-":
                 if (
                     len(arg) > 1
                     and arg[1] == "-"
-                    and len(bigParamaeter) > 0
-                    and bigParamaeter[-1] == "spalten"
+                    and len(self.bigParamaeter) > 0
+                    and self.bigParamaeter[-1] == "spalten"
                 ):  # unteres Kommando
                     if arg[2:9] == "breite=":
                         if arg[9:].isdecimal():
@@ -1854,6 +1871,8 @@ class Program:
                         arg[2:10] == "galaxie="
                         or arg[2:16] == "alteschriften="
                         or arg[2:8] == "kreis="
+                        or arg[2:11] == "galaxien="
+                        or arg[2:9] == "kreise="
                     ):
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [neg + "babylon", neg + "tierkreiszeichen"]:
@@ -2098,8 +2117,8 @@ class Program:
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"
-                    and len(bigParamaeter) > 0
-                    and bigParamaeter[-1] == "zeilen"
+                    and len(self.bigParamaeter) > 0
+                    and self.bigParamaeter[-1] == "zeilen"
                 ):  # unteres Kommando
                     if arg[2:7] == "zeit=":
                         for subpara in arg[7:].split(","):
@@ -2163,8 +2182,8 @@ class Program:
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"
-                    and len(bigParamaeter) > 0
-                    and bigParamaeter[-1] == "kombination"
+                    and len(self.bigParamaeter) > 0
+                    and self.bigParamaeter[-1] == "kombination"
                 ):  # unteres Kommando
                     self.ifCombi = True
                     """if arg[2:6] == "und=":
@@ -2198,47 +2217,47 @@ class Program:
                                 neg + "tier",
                                 neg + "lebewesen",
                             ]:
-                                rowsOfcombi |= {1}
+                                self.rowsOfcombi |= {1}
                             elif thing in [neg + "berufe", neg + "beruf"]:
-                                rowsOfcombi |= {2}
+                                self.rowsOfcombi |= {2}
                             elif thing in [
                                 neg + "kreativität",
                                 neg + "intelligenz",
                                 neg + "kreativitaet",
                             ]:
-                                rowsOfcombi |= {3}
+                                self.rowsOfcombi |= {3}
                             elif thing in [neg + "liebe"]:
-                                rowsOfcombi |= {4}
+                                self.rowsOfcombi |= {4}
                             elif thing in [
                                 neg + "transzendenz",
                                 neg + "transzendentalien",
                                 neg + "strukturalien",
                                 neg + "alien",
                             ]:
-                                rowsOfcombi |= {5}
+                                self.rowsOfcombi |= {5}
                             elif thing in [
                                 neg + "leibnitz",
                                 neg + "primzahlkreuz",
                             ]:
-                                rowsOfcombi |= {6}
+                                self.rowsOfcombi |= {6}
                             elif thing in [
                                 neg + "männer",
                                 neg + "maenner",
                                 neg + "frauen",
                             ]:
-                                rowsOfcombi |= {7}
+                                self.rowsOfcombi |= {7}
                             elif thing in [
                                 neg + "evolution",
                                 neg + "erwerben",
                                 neg + "persoenlichkeit",
                                 neg + "persönlichkeit",
                             ]:
-                                rowsOfcombi |= {8}
+                                self.rowsOfcombi |= {8}
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"
-                    and len(bigParamaeter) > 0
-                    and bigParamaeter[-1] == "ausgabe"
+                    and len(self.bigParamaeter) > 0
+                    and self.bigParamaeter[-1] == "ausgabe"
                 ):  # unteres Kommando
                     if arg[2:6] == "art=":
                         outputtype = arg[(arg.find("=") + 1) :]
@@ -2261,38 +2280,52 @@ class Program:
                         self.tables.getOut.oneTable = True
                 else:  # oberes Kommando
                     if arg[1:] in ["zeilen", "spalten", "kombination", "ausgabe"]:
-                        bigParamaeter += [arg[1:]]
+                        self.bigParamaeter += [arg[1:]]
                     elif arg[1:] in ["debug"]:
                         infoLog = True
                     elif arg[1:] in ["h", "help"] and neg == "":
                         self.help()
-        return paramLines, rowsAsNumbers, rowsOfcombi
+            alxp("_")
+            alxp(paramLines)
+        return paramLines, rowsAsNumbers, self.rowsOfcombi
 
     def help(self):
         global folder
-        place = os.path.join(
-            os.getcwd(), os.path.dirname(__file__), os.path.basename("./readme.txt")
-        )
+        if "Brython" not in sys.version.split():
+            place = os.path.join(
+                os.getcwd(), os.path.dirname(__file__), os.path.basename("./readme.txt")
+            )
+        else:
+            place = "readme.txt"
         with open(place) as f:
             read_data = f.read()
         parser.REPLACE_COSMETIC = ()
         html = parser.format(read_data, replace_cosmetic=False)
-        h = html2text.HTML2Text()
-        h.style = "compact"
-        plaintext = h.handle(html)
-        plaintext = re.sub(r"\\--", "--", plaintext)
-        plaintext = re.sub(r"(\*\s+[^\-])", r"\t\1", plaintext)
-        plaintext = re.sub(r" \*\*", r"", plaintext)
-        plaintext = re.sub(r"\*\s\*", r"", plaintext)
-        plaintext = re.sub(r"(\n)([^\s])", r"\1\t\t\2", plaintext)
-        plaintext = re.sub(r".*(\* -spalten)", r" \1", plaintext)
-        cliout(plaintext)
+        if "Brython" not in sys.version.split():
+            h = html2text.HTML2Text()
+            h.style = "compact"
+            plaintext = h.handle(html)
+            plaintext = re.sub(r"\\--", "--", plaintext)
+            plaintext = re.sub(r"(\*\s+[^\-])", r"\t\1", plaintext)
+            plaintext = re.sub(r" \*\*", r"", plaintext)
+            plaintext = re.sub(r"\*\s\*", r"", plaintext)
+            plaintext = re.sub(r"(\n)([^\s])", r"\1\t\t\2", plaintext)
+            plaintext = re.sub(r".*(\* -spalten)", r" \1", plaintext)
+            cliout(plaintext)
+        else:
+            print(html)
 
-    def start(self) -> tuple:
+    def start(self, argv) -> tuple:
         global folder
-        place = os.path.join(
-            os.getcwd(), os.path.dirname(__file__), os.path.basename("./religion.csv")
-        )
+
+        if "Brython" not in sys.version.split():
+            place = os.path.join(
+                os.getcwd(),
+                os.path.dirname(__file__),
+                os.path.basename("./religion.csv"),
+            )
+        else:
+            place = "religion.csv"
         """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
         aller anderen csv dateien
         Parameter werden in Befehle und Nummernlisten gewandelt
@@ -2308,9 +2341,9 @@ class Program:
                 self.relitable += [col]
                 if i == 0:
                     self.RowsLen = len(col)
-        paramLines, self.rowsAsNumbers, rowsOfcombi = self.parameters(sys.argv)
-        paramLinesNot, self.rowsAsNumbersNot, rowsOfcombiNot = self.parameters(
-            sys.argv, "-"
+        paramLines, self.rowsAsNumbers, self.rowsOfcombi = self.parameters(argv)
+        paramLinesNot, self.rowsAsNumbersNot, self.rowsOfcombiNot = self.parameters(
+            argv, "-"
         )
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
@@ -2321,8 +2354,11 @@ class Program:
         ) = self.tables.getPrepare.deleteDoublesInSets(
             self.rowsAsNumbers, self.rowsAsNumbersNot
         )
-        (rowsOfcombi, rowsOfcombiNot,) = self.tables.getPrepare.deleteDoublesInSets(
-            rowsOfcombi, rowsOfcombiNot
+        (
+            self.rowsOfcombi,
+            self.rowsOfcombiNot,
+        ) = self.tables.getPrepare.deleteDoublesInSets(
+            self.rowsOfcombi, self.rowsOfcombiNot
         )
         self.tables.getPrepare.rowsAsNumbers = self.rowsAsNumbers
         self.tables.getOut.rowsAsNumbers = self.rowsAsNumbers
@@ -2362,7 +2398,7 @@ class Program:
                 kombiTable_Kombis,
                 maintable2subtable_Relation,
             ) = self.tables.getCombis.readKombiCsv(
-                self.relitable, self.rowsAsNumbers, rowsOfcombi
+                self.relitable, self.rowsAsNumbers, self.rowsOfcombi
             )
         else:
             animalsProfessionsTable = []
@@ -2375,12 +2411,12 @@ class Program:
             self.relitable,
             self.rowsAsNumbers,
             animalsProfessionsTable,
-            rowsOfcombi,
+            self.rowsOfcombi,
             kombiTable_Kombis,
             maintable2subtable_Relation,
         )
 
-    def __init__(self):
+    def __init__(self, argv):
         global Tables
         self.ifCombi = False
         self.tables = Tables()
@@ -2391,10 +2427,10 @@ class Program:
             self.relitable,
             self.rowsAsNumbers,
             animalsProfessionsTable,
-            rowsOfcombi,
+            self.rowsOfcombi,
             kombiTable_Kombis,
             maintable2subtable_Relation,
-        ) = self.start()
+        ) = self.start(argv)
         self.tables.getMainTable.createSpalteGestirn(self.relitable, self.rowsAsNumbers)
         self.tables.getPrepare.createRowPrimeMultiples(
             self.relitable,
@@ -2428,7 +2464,7 @@ class Program:
                 set(),
                 set(),
                 animalsProfessionsTable,
-                rowsOfcombi,
+                self.rowsOfcombi,
                 self.tables.getCombis.sumOfAllCombiRowsAmount,
             )
             KombiTables = []
@@ -2451,7 +2487,7 @@ class Program:
                 KombiTables,
                 maintable2subtable_Relation,
                 old2newTable,
-                rowsOfcombi,
+                self.rowsOfcombi,
             )
 
         # rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
@@ -2487,7 +2523,7 @@ class Program:
 #        )
 
 if __name__ == "__main__":
-    Program()
+    Program(sys.argv)
 # inverted:
 # \e[7mi
 
