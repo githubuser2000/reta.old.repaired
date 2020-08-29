@@ -1927,7 +1927,7 @@ class Program:
                         "transzendentalien" + neg,
                         "strukturalien" + neg,
                     ]:
-                        rowsAsNumbers |= {5, 54, 55, 65}
+                        rowsAsNumbers |= {5, 54, 55, 65, 75}
                     elif arg[2:13] in ["wirtschaft="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [
