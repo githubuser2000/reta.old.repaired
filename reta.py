@@ -30,7 +30,7 @@ else:
     ColumnsRowsAmount, shellRowsAmountStr = "50", "50"
 pp = pprint.PrettyPrinter(indent=4)
 shellRowsAmount: int = int(shellRowsAmountStr)
-infoLog = False
+infoLog = True
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
 output = True
 
@@ -449,7 +449,10 @@ class Tables:
             if self.__outType == csvSyntax:
                 strio = io.StringIO()
                 writer = csv.writer(
-                    strio, quoting=csv.QUOTE_NONE, delimiter=";", quotechar="",
+                    strio,
+                    quoting=csv.QUOTE_NONE,
+                    delimiter=";",
+                    quotechar="",
                 )
             while (
                 len(newTable) > 0
@@ -489,9 +492,9 @@ class Tables:
                             newTable[BigCellLineNumber]
                         ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
                             """if lastSubCellIndex > 0:
-                                alxp(lastSubCellIndex)
-                                alxp(subCellIndexRightLeft)
-                                exit()"""
+                            alxp(lastSubCellIndex)
+                            alxp(subCellIndexRightLeft)
+                            exit()"""
                             if (
                                 subCellIndexRightLeft > lastlastSubCellIndex
                                 or self.__oneTable
@@ -1202,8 +1205,9 @@ class Tables:
             @return: Zeilen die miteinander als Join kombiniert werden sollen zwischen Haupttabelle und weiterer
             """
 
+            alxp("prepareKombi")
             kombitypes = {"displaying": False, "or": False, "and": False}
-            self.ChosenKombiLines: dict = {}
+            # self.ChosenKombiLines: dict = {}
             for condition in paramLines:
                 if "ka" == condition:
                     kombitypes["displaying"] = True
@@ -1222,11 +1226,16 @@ class Tables:
                                         self.ChosenKombiLines[MainLineNum] = {
                                             kombiLineNumber + 1
                                         }
+            alxp("kombiLines")
+            alxp(self.ChosenKombiLines)
             return self.ChosenKombiLines
 
         def readKombiCsv(
             self, relitable: list, rowsAsNumbers: set, rowsOfcombi: set
         ) -> tuple:
+            alxp("readKombi")
+            alxp(rowsAsNumbers)
+            alxp(rowsOfcombi)
             """Fügt eine Tabelle neben der self.relitable nicht daneben sondern als join an, wie ein sql-join
             Hier wird aber noch nicht die join Operation durchgeführt
             momentan ist es noch fix auf animalsProfessions.csv
@@ -1244,34 +1253,52 @@ class Tables:
             return kombiTable, self.relitable, kombiTable_Kombis, maintable2subtable_Relation
             """
             global folder
+            self.rowsOfcombi = rowsOfcombi
             place = os.path.join(
                 os.getcwd(), os.path.dirname(__file__), os.path.basename("./kombi.csv")
             )
-            self.sumOfAllCombiRowsAmount += len(rowsOfcombi)
+            self.sumOfAllCombiRowsAmount += len(self.rowsOfcombi)
             self.relitable = relitable
             headingsAmount = len(self.relitable[0])
             self.maintable2subtable_Relation: tuple = ({}, {})
-            if len(rowsOfcombi) > 0:
+            if len(self.rowsOfcombi) > 0:
                 with open(place, mode="r") as csv_file:
                     self.kombiTable: list = []
                     self.kombiTable_Kombis: list = []
                     for z, col in enumerate(csv.reader(csv_file, delimiter=";")):
-                        """for i, c in enumerate(col):
-                            if i not in rowsOfcombi and i != 0:
-                                col[i] = ""
-                        """
                         for i, row in enumerate(col):
                             if i > 0 and col[i].strip() != "":
                                 col[i] += " (" + col[0] + ")"
                         self.kombiTable += [col]
                         self.kombiTable_Kombis_Col: list = []
                         if len(col) > 0 and z > 0:
-                            for num in col[0].split(","):
-                                if num.isdecimal():
-                                    self.kombiTable_Kombis_Col += [int(num)]
+                            for num in col[0].split("|"):
+                                if num.isdecimal() or (
+                                    num[0] in ["+", "-"] and num[1:].isdecimal()
+                                ):
+                                    self.kombiTable_Kombis_Col += [abs(int(num))]
+                                elif num[1:-1].isdecimal() or (
+                                    num[1] in ["+", "-"] and num[2:-1].isdecimal()
+                                ):
+                                    self.kombiTable_Kombis_Col += [abs(int(num[1:-1]))]
+                                    # arg[(arg.find("=") + 1) :].split(",")
+                                elif (
+                                    "/" in num and num[num.find("/") + 1 :].isdecimal()
+                                ):
+                                    self.kombiTable_Kombis_Col += [
+                                        abs(int(num[num.find("/") + 1 :]))
+                                    ]
+                                elif (
+                                    "/" in num
+                                    and num[num.find("/") + 2 : -1].isdecimal()
+                                ):
+                                    self.kombiTable_Kombis_Col += [
+                                        abs(int(num[num.find("/") + 2 : -1]))
+                                    ]
                                 else:
+                                    alxp(num)
                                     raise BaseException("not NUM !!!!! ")
-                            self.kombiTable_Kombis += [kombiTable_Kombis_Col]
+                            self.kombiTable_Kombis += [self.kombiTable_Kombis_Col]
                     self.relitable, animalsProfessionsCol = Tables.fillBoth(
                         self.relitable, list(self.kombiTable)
                     )
@@ -1300,7 +1327,7 @@ class Tables:
                             )
                         if i == 0:
                             for u, heading in enumerate(self.relitable[0]):
-                                for a in rowsOfcombi:
+                                for a in self.rowsOfcombi:
                                     if (
                                         u >= headingsAmount
                                         and u == headingsAmount + a - 1
@@ -1309,14 +1336,14 @@ class Tables:
             else:
                 self.kombiTable = [[]]
                 self.kombiTable_Kombis = [[]]
-            if len(self.kombiTable) > 0:
-                self.rowsOfcombi = len(rowsAsNumbers) - 1
-            else:
-                self.rowsOfcombi = 0
+            # if len(self.kombiTable) > 0:
+            #    self.rowsOfcombi = len(rowsAsNumbers) - 1
+            # else:
+            #    self.rowsOfcombi = 0
             return (
                 self.kombiTable,
                 self.relitable,
-                kombiTable_Kombis,
+                self.kombiTable_Kombis,
                 self.maintable2subtable_Relation,
             )
 
@@ -1800,7 +1827,7 @@ class Program:
         rowsAsNumbers = set()
         paramLines = set()
         self.bigParamaeter: list = []
-        self.rowsOfcombi: set = set()
+        self.__willBeOverwritten_rowsOfcombi: set = set()
         for arg in argv[1:]:
             if len(arg) > 0 and arg[0] == "-":
                 if (
@@ -2172,12 +2199,16 @@ class Program:
                             ):
                                 paramLines.add(str(abs(int(word))) + "p")
                     elif arg[2:22] == "vorhervonausschnitt=":
-                        paramLines |= self.tables.getPrepare.parametersCmdWithSomeBereich(
-                            arg[22:], "a", neg
+                        paramLines |= (
+                            self.tables.getPrepare.parametersCmdWithSomeBereich(
+                                arg[22:], "a", neg
+                            )
                         )
                     elif arg[2:21] == "nachtraeglichdavon=":
-                        paramLines |= self.tables.getPrepare.parametersCmdWithSomeBereich(
-                            arg[21:], "z", neg
+                        paramLines |= (
+                            self.tables.getPrepare.parametersCmdWithSomeBereich(
+                                arg[21:], "z", neg
+                            )
                         )
                 elif (
                     len(arg) > 1
@@ -2217,42 +2248,48 @@ class Program:
                                 neg + "tier",
                                 neg + "lebewesen",
                             ]:
-                                self.rowsOfcombi |= {1}
+                                self.__willBeOverwritten_rowsOfcombi |= {1}
                             elif thing in [neg + "berufe", neg + "beruf"]:
-                                self.rowsOfcombi |= {2}
+                                self.__willBeOverwritten_rowsOfcombi |= {2}
                             elif thing in [
                                 neg + "kreativität",
                                 neg + "intelligenz",
                                 neg + "kreativitaet",
                             ]:
-                                self.rowsOfcombi |= {3}
+                                self.__willBeOverwritten_rowsOfcombi |= {3}
                             elif thing in [neg + "liebe"]:
-                                self.rowsOfcombi |= {4}
+                                self.__willBeOverwritten_rowsOfcombi |= {4}
                             elif thing in [
                                 neg + "transzendenz",
                                 neg + "transzendentalien",
                                 neg + "strukturalien",
                                 neg + "alien",
                             ]:
-                                self.rowsOfcombi |= {5}
+                                self.__willBeOverwritten_rowsOfcombi |= {5}
                             elif thing in [
                                 neg + "leibnitz",
                                 neg + "primzahlkreuz",
                             ]:
-                                self.rowsOfcombi |= {6}
+                                self.__willBeOverwritten_rowsOfcombi |= {6}
                             elif thing in [
                                 neg + "männer",
                                 neg + "maenner",
                                 neg + "frauen",
                             ]:
-                                self.rowsOfcombi |= {7}
+                                self.__willBeOverwritten_rowsOfcombi |= {7}
                             elif thing in [
                                 neg + "evolution",
                                 neg + "erwerben",
                                 neg + "persoenlichkeit",
                                 neg + "persönlichkeit",
                             ]:
-                                self.rowsOfcombi |= {8}
+                                self.__willBeOverwritten_rowsOfcombi |= {8}
+                            elif thing in [
+                                neg + "religion",
+                                neg + "religionen",
+                            ]:
+                                self.__willBeOverwritten_rowsOfcombi |= {9}
+                                alxp("bla")
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"
@@ -2285,9 +2322,11 @@ class Program:
                         infoLog = True
                     elif arg[1:] in ["h", "help"] and neg == "":
                         self.help()
-            alxp("_")
-            alxp(paramLines)
-        return paramLines, rowsAsNumbers, self.rowsOfcombi
+        alxp("_")
+        alxp(paramLines)
+        alxp("blub bla2")
+        alxp(self.__willBeOverwritten_rowsOfcombi)
+        return paramLines, rowsAsNumbers, self.__willBeOverwritten_rowsOfcombi
 
     def help(self):
         global folder
@@ -2342,9 +2381,15 @@ class Program:
                 if i == 0:
                     self.RowsLen = len(col)
         paramLines, self.rowsAsNumbers, self.rowsOfcombi = self.parameters(argv)
+        alxp("blib bla1")
+        alxp(self.rowsOfcombi)
+        alxp(self.rowsAsNumbers)
         paramLinesNot, self.rowsAsNumbersNot, self.rowsOfcombiNot = self.parameters(
             argv, "-"
         )
+        alxp("blib bla2")
+        alxp(self.rowsOfcombi)
+        alxp(self.rowsAsNumbers)
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
         )
@@ -2387,10 +2432,14 @@ class Program:
         ) = self.tables.getConcat.concat1RowPrimUniverse2(
             self.relitable, self.rowsAsNumbers
         )
-        (self.relitable, self.rowsAsNumbers,) = self.tables.getConcat.concatLovePolygon(
-            self.relitable, self.rowsAsNumbers
-        )
+        (
+            self.relitable,
+            self.rowsAsNumbers,
+        ) = self.tables.getConcat.concatLovePolygon(self.relitable, self.rowsAsNumbers)
 
+        alxp("blub bla1")
+        alxp(self.rowsOfcombi)
+        alxp(self.rowsAsNumbers)
         if self.ifCombi:
             (
                 animalsProfessionsTable,
@@ -2444,7 +2493,10 @@ class Program:
             rowsRange,
             old2newTable,
         ) = self.tables.getPrepare.prepare4out(
-            paramLines, paramLinesNot, self.relitable, self.rowsAsNumbers,
+            paramLines,
+            paramLinesNot,
+            self.relitable,
+            self.rowsAsNumbers,
         )
         if self.ifCombi:
             ChosenKombiLines = self.tables.getCombis.prepare_kombi(
@@ -2496,6 +2548,13 @@ class Program:
         alxp(
             "1. http://goexchange.de/viewtopic.php?f=13&t=2683#p17239 () \n    9. anderen etwas vormachen können (Bahai)\n    1/9. den anderen Strukturgrößen außer der Einheit (9, 1/9) etwas vormachen können"
         )
+        alxp(
+            '2. Bei Kombi sollte ich noch programmieren, wegen letzter Spalte "Religionen", dass Klammern und Vorzeichen + - dennoch zu richtigen letztendlichen Zeilen der Endausgabe zugeordnet werden.'
+        )
+        alxp("Die Modallogikvielfacher müssste ich noch einprogrammieren")
+        alxp(
+            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
+        )
         #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
         # alxp(
         #    "2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
@@ -2537,5 +2596,4 @@ if __name__ == "__main__":
 
 # Durch Unit-Tests lässt sich das Testen automatisieren
 # import unittest
-# from tribool import Tribool
-# libs: nose und pytest
+# from tribool import Tribool libs: nose und pytest
