@@ -624,9 +624,15 @@ class Tables:
                     return "\033[40m" + "\033[37m" + text + "\033[0m" + "\033[0m"
             elif moonNumber(num)[1] != []:
                 # 00;33
-                return "\033[46m" + "\033[30m" + text + "\033[0m" + "\033[0m"
+                if num % 2 == 0:
+                    return "\033[106m" + "\033[30m" + text + "\033[0m" + "\033[0m"
+                else:
+                    return "\033[46m" + "\033[30m" + text + "\033[0m" + "\033[0m"
             elif len(primFak(num)) == 1:
-                return "\033[43m" + "\033[30m" + text + "\033[0m" + "\033[0m"
+                if num % 2 == 0:
+                    return "\033[103m" + "\033[30m" + "\033[1m" + text + "\033[0m"
+                else:
+                    return "\033[43m" + "\033[30m" + text + "\033[0m" + "\033[0m"
             elif num % 2 == 0:
                 if num == 0:
                     return "\033[41m" + "\033[30m" + "\033[1m" + text + "\033[0m"
