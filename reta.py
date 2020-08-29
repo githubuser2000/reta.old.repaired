@@ -637,9 +637,9 @@ class Tables:
                 if num == 0:
                     return "\033[41m" + "\033[30m" + "\033[1m" + text + "\033[0m"
                 else:
-                    return "\033[100m" + "\033[30m" + text + "\033[0m" + "\033[0m"
+                    return "\033[47m" + "\033[30m" + text + "\033[0m" + "\033[0m"
             else:
-                return "\033[40m" + "\033[37m" + text + "\033[0m" + "\033[0m"
+                return "\033[100m" + "\033[37m" + text + "\033[0m" + "\033[0m"
 
     class Prepare:
         def __init__(self):
