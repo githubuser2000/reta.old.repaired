@@ -30,7 +30,7 @@ else:
     ColumnsRowsAmount, shellRowsAmountStr = "50", "50"
 pp = pprint.PrettyPrinter(indent=4)
 shellRowsAmount: int = int(shellRowsAmountStr)
-infoLog = True
+infoLog = False
 originalLinesRange = range(120)  # Maximale Zeilenanzahl
 output = True
 
@@ -593,7 +593,9 @@ class Tables:
                                 writer.writerow(line)
                             else:
                                 cliout(
-                                    self.__outType.endCol + line + self.__outType.endCol
+                                    self.__outType.beginCol
+                                    + line
+                                    + self.__outType.endCol
                                 )
                 cliout(self.__outType.endTable)
                 if self.__oneTable:
@@ -1868,12 +1870,12 @@ class Program:
                                 neg + "archon",
                                 neg + "religionsgründertyp",
                             ]:
-                                rowsAsNumbers = {72}
+                                rowsAsNumbers |= {72}
                             elif religion in [
                                 neg + "babylon",
                                 neg + "dertierkreiszeichen",
                             ]:
-                                rowsAsNumbers = {0, 36}
+                                rowsAsNumbers |= {0, 36}
                             elif religion in [
                                 neg + "messias",
                                 neg + "heptagramm",
@@ -2334,7 +2336,7 @@ class Program:
         alxp("_")
         alxp(paramLines)
         alxp("blub bla2")
-        alxp(self.__willBeOverwritten_rowsOfcombi)
+        alxp(rowsAsNumbers)
         return paramLines, rowsAsNumbers, self.__willBeOverwritten_rowsOfcombi
 
     def help(self):
@@ -2563,6 +2565,9 @@ class Program:
         alxp("Die Modallogikvielfacher müssste ich noch einprogrammieren")
         alxp(
             "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
+        )
+        alxp(
+            "Bug: Es zeigt manchmal nicht alle Spalten an, z.B. wenn ich mehrere Kommaspalten angebe in der CLI"
         )
         #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
         # alxp(
