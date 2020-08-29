@@ -1283,17 +1283,20 @@ class Tables:
                                     self.kombiTable_Kombis_Col += [abs(int(num[1:-1]))]
                                     # arg[(arg.find("=") + 1) :].split(",")
                                 elif (
-                                    "1/" in num and num[num.find("/") + 1 :].isdecimal()
+                                    "/" in num and num[num.find("/") + 1 :].isdecimal()
                                 ):
+                                    alxp(num[: num.find("/")])
                                     self.kombiTable_Kombis_Col += [
-                                        abs(int(num[num.find("/") + 1 :]))
+                                        abs(int(num[num.find("/") + 1 :])),
+                                        abs(int(num[: num.find("/")])),
                                     ]
                                 elif (
-                                    "1/" in num
+                                    "/" in num
                                     and num[num.find("/") + 2 : -1].isdecimal()
                                 ):
                                     self.kombiTable_Kombis_Col += [
-                                        abs(int(num[num.find("/") + 2 : -1]))
+                                        abs(int(num[num.find("/") + 2 : -1])),
+                                        abs(int(num[1 : num.find("/")])),
                                     ]
                                 else:
                                     alxp(num)
