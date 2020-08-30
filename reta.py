@@ -31,7 +31,7 @@ else:
 pp = pprint.PrettyPrinter(indent=4)
 shellRowsAmount: int = int(shellRowsAmountStr)
 infoLog = False
-originalLinesRange = range(120)  # Maximale Zeilenanzahl
+originalLinesRange = range(1028)  # Maximale Zeilenanzahl
 output = True
 
 parser = bbcode.Parser()
@@ -2576,7 +2576,9 @@ class Program:
             "Es muss mein Programm sein, dass die Zeichen beim Zeilenumbruch verschluckt, da es bei beiden pyphen und pyhyphen passiert: Bereichsangabe"
         )
 
-        alxp("Die super hohen Monde aus der Kugel müsste ich noch eintragen in die Tabelle")
+        alxp(
+            "Die super hohen Monde aus der Kugel müsste ich noch eintragen in die Tabelle"
+        )
         #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
         # alxp(
         #    "2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
