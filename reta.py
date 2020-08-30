@@ -77,7 +77,7 @@ class bbCodeSyntax:
 
 
 class htmlSyntax(OutputSyntax):
-    beginTable = "<table>"
+    beginTable = "<table border=1>"
     endTable = "</table>"
     beginRow = "<td>"
     endRow = "</td>"
@@ -92,6 +92,7 @@ class Wraptype(Enum):
 
 
 wrappingType: Wraptype = Wraptype.pyhyphen
+# wrappingType: Wraptype = Wraptype.nohyphen
 # wrappingType: Wraptype = Wraptype.pyphen
 
 
@@ -1869,6 +1870,7 @@ class Program:
                                 neg + "prophet",
                                 neg + "archon",
                                 neg + "religionsgründertyp",
+                                neg + "religionsgruendertyp",
                             ]:
                                 rowsAsNumbers |= {72}
                             elif religion in [
@@ -2569,6 +2571,12 @@ class Program:
         alxp(
             "Bug: Es zeigt manchmal nicht alle Spalten an, z.B. wenn ich mehrere Kommaspalten angebe in der CLI"
         )
+        alxp("kein Wortumbruch funktioniert nicht bei Kombinationen")
+        alxp(
+            "Es muss mein Programm sein, dass die Zeichen beim Zeilenumbruch verschluckt, da es bei beiden pyphen und pyhyphen passiert: Bereichsangabe"
+        )
+
+        alxp("Die super hohen Monde aus der Kugel müsste ich noch eintragen in die Tabelle")
         #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
         # alxp(
         #    "2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
