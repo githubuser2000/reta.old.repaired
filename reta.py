@@ -2580,6 +2580,7 @@ class Program:
             "Die super hohen Monde aus der Kugel müsste ich noch eintragen in die Tabelle"
         )
         alxp("die 0 weg machen bei der ersten Zeile immer")
+        alxp("Zeilen Option machen: nicht nur vielfache, sondern auch Potenzen")
         #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
         # alxp(
         #    "2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
