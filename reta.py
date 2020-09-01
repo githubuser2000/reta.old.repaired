@@ -356,6 +356,25 @@ class Tables:
                 value if shellRowsAmount > value + 7 else shellRowsAmount - 7
             )
 
+        def onlyThatColumns(self, table, onlyThatColumns, rowsRange):
+            if len(onlyThatColumns) > 0:
+                newTable = []
+                for row in table:
+                    newCol = []
+                    for i in onlyThatColumns:
+                        try:
+                            newCol += [deepcopy(row[i - 1])]
+                        except IndexError:
+                            pass
+                    newTable += [newCol]
+                    newRowsRange = range(len(newTable[0]))
+                if len(newTable) > 0:
+                    return newTable, newRowsRange
+                else:
+                    return table, rowsRange
+            else:
+                return table, rowsRange
+
         def cliOut(
             self,
             finallyDisplayLinesSet: set,
@@ -1836,6 +1855,7 @@ class Program:
         global infoLog
         if len(argv) == 1 and neg == "":
             cliout("Versuche Parameter -h")
+        spaltenreihenfolgeundnurdiese: list = []
         rowsAsNumbers = set()
         paramLines = set()
         self.bigParamaeter: list = []
@@ -2309,6 +2329,17 @@ class Program:
                     and len(self.bigParamaeter) > 0
                     and self.bigParamaeter[-1] == "ausgabe"
                 ):  # unteres Kommando
+                    if (
+                        arg[2 : 2 + len("spaltenreihenfolgeundnurdiese=")]
+                        == "spaltenreihenfolgeundnurdiese="
+                    ):
+                        for number in arg[
+                            2 + len("spaltenreihenfolgeundnurdiese=") :
+                        ].split(","):
+                            if str(number).isdecimal():
+                                spaltenreihenfolgeundnurdiese += [int(number)]
+                        alxp("alxalx")
+                        alxp(spaltenreihenfolgeundnurdiese)
                     if arg[2:6] == "art=":
                         outputtype = arg[(arg.find("=") + 1) :]
                         if outputtype == "shell":
@@ -2339,7 +2370,12 @@ class Program:
         alxp(paramLines)
         alxp("blub bla2")
         alxp(rowsAsNumbers)
-        return paramLines, rowsAsNumbers, self.__willBeOverwritten_rowsOfcombi
+        return (
+            paramLines,
+            rowsAsNumbers,
+            self.__willBeOverwritten_rowsOfcombi,
+            spaltenreihenfolgeundnurdiese,
+        )
 
     def help(self):
         global folder
@@ -2393,13 +2429,21 @@ class Program:
                 self.relitable += [col]
                 if i == 0:
                     self.RowsLen = len(col)
-        paramLines, self.rowsAsNumbers, self.rowsOfcombi = self.parameters(argv)
+        (
+            paramLines,
+            self.rowsAsNumbers,
+            self.rowsOfcombi,
+            spaltenreihenfolgeundnurdiese,
+        ) = self.parameters(argv)
         alxp("blib bla1")
         alxp(self.rowsOfcombi)
         alxp(self.rowsAsNumbers)
-        paramLinesNot, self.rowsAsNumbersNot, self.rowsOfcombiNot = self.parameters(
-            argv, "-"
-        )
+        (
+            paramLinesNot,
+            self.rowsAsNumbersNot,
+            self.rowsOfcombiNot,
+            spaltenreihenfolgeundnurdieseNot,
+        ) = self.parameters(argv, "-")
         alxp("blib bla2")
         alxp(self.rowsOfcombi)
         alxp(self.rowsAsNumbers)
@@ -2476,6 +2520,7 @@ class Program:
             self.rowsOfcombi,
             kombiTable_Kombis,
             maintable2subtable_Relation,
+            spaltenreihenfolgeundnurdiese,
         )
 
     def __init__(self, argv):
@@ -2492,6 +2537,7 @@ class Program:
             self.rowsOfcombi,
             kombiTable_Kombis,
             maintable2subtable_Relation,
+            spaltenreihenfolgeundnurdiese,
         ) = self.start(argv)
         self.tables.getMainTable.createSpalteGestirn(self.relitable, self.rowsAsNumbers)
         self.tables.getPrepare.createRowPrimeMultiples(
@@ -2556,6 +2602,10 @@ class Program:
             )
 
         # rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
+        # spaltenreihenfolgeundnurdiese
+        newTable, rowsRange = self.tables.getOut.onlyThatColumns(
+            newTable, spaltenreihenfolgeundnurdiese, rowsRange
+        )
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
         alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
         alxp(
@@ -2581,6 +2631,11 @@ class Program:
         )
         alxp("die 0 weg machen bei der ersten Zeile immer")
         alxp("Zeilen Option machen: nicht nur vielfache, sondern auch Potenzen")
+        alxp("Feature: am Ende nur Spalte a-b anzeigen bzw. nicht anzeigen")
+        alxp("Feature: am Ende die Reihenfolge neu bestimmen")
+        alxp(
+            "Beide Features lassen sich zusammenfassen, indem man einfach eine Liste 3,4,1 anlegt, und das war es!"
+        )
         #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
         # alxp(
         #    "2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"

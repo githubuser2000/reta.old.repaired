@@ -51,6 +51,8 @@ also Primzahlen[/list]
 (nur eins erlaubt)
 [list][*]shell,html,csv,markdown,bbcode[/list]
 [*]--onetable
+[*]spaltenreihenfolgeundnurdiese=[list][*]3,5,1
+d.h. von z.B. 5 Spalten soll zuerst die 3., dann 5. und 1. angezeigt werden und die anderen nicht![/list]
 [/list]
 [/list]
 
