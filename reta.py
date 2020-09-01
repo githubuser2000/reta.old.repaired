@@ -509,13 +509,11 @@ class Tables:
                         rowsEmpty = 0
                         sumWidths = 0
                         lastSubCellIndex = 0
+                        emptyEntries: int = 0
+                        entriesHere: int = 0
                         for subCellIndexRightLeft, subCellContentLeftRight in enumerate(
                             newTable[BigCellLineNumber]
                         ):  # SUBzellen: je Teil-Linie für machen nebeneinander als Teil-Spalten
-                            """if lastSubCellIndex > 0:
-                            alxp(lastSubCellIndex)
-                            alxp(subCellIndexRightLeft)
-                            exit()"""
                             if (
                                 subCellIndexRightLeft > lastlastSubCellIndex
                                 or self.__oneTable
@@ -527,16 +525,20 @@ class Tables:
                                 if sumWidths < shellRowsAmount or self.__oneTable:
                                     lastSubCellIndex = subCellIndexRightLeft
                                     try:
+                                        entry = newTable[BigCellLineNumber][
+                                            subCellIndexRightLeft
+                                        ][OneWholeScreenLine_AllSubCells]
+                                        entriesHere += 1
+                                        if len(entry.strip()) == 0:
+                                            emptyEntries += 1
                                         if (
                                             self.color
                                             and self.__outType == OutputSyntax
                                         ):
                                             coloredSubCell = self.colorize(
-                                                newTable[BigCellLineNumber][
-                                                    subCellIndexRightLeft
-                                                ][OneWholeScreenLine_AllSubCells]
-                                                .replace("\n", "")
-                                                .ljust(subCellWidth),
+                                                entry.replace("\n", "").ljust(
+                                                    subCellWidth
+                                                ),
                                                 filteredLineNumbersofOrignal,
                                                 subCellIndexRightLeft,
                                             )
@@ -552,11 +554,9 @@ class Tables:
                                             coloredSubCell = (
                                                 self.__outType.beginRow
                                                 + (
-                                                    newTable[BigCellLineNumber][
-                                                        subCellIndexRightLeft
-                                                    ][OneWholeScreenLine_AllSubCells]
-                                                    .replace("\n", "")
-                                                    .ljust(subCellWidth)
+                                                    entry.replace("\n", "").ljust(
+                                                        subCellWidth
+                                                    )
                                                 )
                                                 + self.__outType.endRow
                                             )
@@ -610,14 +610,15 @@ class Tables:
                                         else:
                                             addionalLine += self.__outType.beginRow
                                     line += "\n" + addionalLine
-                            if self.__outType == csvSyntax:
-                                writer.writerow(line)
-                            else:
-                                cliout(
-                                    self.__outType.beginCol
-                                    + line
-                                    + self.__outType.endCol
-                                )
+                            if emptyEntries != entriesHere:
+                                if self.__outType == csvSyntax:
+                                    writer.writerow(line)
+                                else:
+                                    cliout(
+                                        self.__outType.beginCol
+                                        + line
+                                        + self.__outType.endCol
+                                    )
                 cliout(self.__outType.endTable)
                 if self.__oneTable:
                     break
@@ -1234,7 +1235,6 @@ class Tables:
             @return: Zeilen die miteinander als Join kombiniert werden sollen zwischen Haupttabelle und weiterer
             """
 
-            alxp("prepareKombi")
             kombitypes = {"displaying": False, "or": False, "and": False}
             # self.ChosenKombiLines: dict = {}
             for condition in paramLines:
@@ -1255,16 +1255,11 @@ class Tables:
                                         self.ChosenKombiLines[MainLineNum] = {
                                             kombiLineNumber + 1
                                         }
-            alxp("kombiLines")
-            alxp(self.ChosenKombiLines)
             return self.ChosenKombiLines
 
         def readKombiCsv(
             self, relitable: list, rowsAsNumbers: set, rowsOfcombi: set
         ) -> tuple:
-            alxp("readKombi")
-            alxp(rowsAsNumbers)
-            alxp(rowsOfcombi)
             """Fügt eine Tabelle neben der self.relitable nicht daneben sondern als join an, wie ein sql-join
             Hier wird aber noch nicht die join Operation durchgeführt
             momentan ist es noch fix auf animalsProfessions.csv
@@ -1318,7 +1313,6 @@ class Tables:
                                 elif (
                                     "/" in num and num[num.find("/") + 1 :].isdecimal()
                                 ):
-                                    alxp(num[: num.find("/")])
                                     self.kombiTable_Kombis_Col += [
                                         abs(int(num[num.find("/") + 1 :])),
                                         abs(int(num[: num.find("/")])),
@@ -1332,7 +1326,6 @@ class Tables:
                                         abs(int(num[1 : num.find("/")])),
                                     ]
                                 else:
-                                    alxp(num)
                                     raise BaseException("not NUM !!!!! ")
                             self.kombiTable_Kombis += [self.kombiTable_Kombis_Col]
                     self.relitable, animalsProfessionsCol = Tables.fillBoth(
@@ -2327,7 +2320,6 @@ class Program:
                                 neg + "religionen",
                             ]:
                                 self.__willBeOverwritten_rowsOfcombi |= {9}
-                                alxp("bla")
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"
@@ -2343,8 +2335,6 @@ class Program:
                         ].split(","):
                             if str(number).isdecimal():
                                 spaltenreihenfolgeundnurdiese += [int(number)]
-                        alxp("alxalx")
-                        alxp(spaltenreihenfolgeundnurdiese)
                     if arg[2:6] == "art=":
                         outputtype = arg[(arg.find("=") + 1) :]
                         if outputtype == "shell":
@@ -2371,10 +2361,6 @@ class Program:
                         infoLog = True
                     elif arg[1:] in ["h", "help"] and neg == "":
                         self.help()
-        alxp("_")
-        alxp(paramLines)
-        alxp("blub bla2")
-        alxp(rowsAsNumbers)
         return (
             paramLines,
             rowsAsNumbers,
@@ -2440,18 +2426,12 @@ class Program:
             self.rowsOfcombi,
             spaltenreihenfolgeundnurdiese,
         ) = self.parameters(argv)
-        alxp("blib bla1")
-        alxp(self.rowsOfcombi)
-        alxp(self.rowsAsNumbers)
         (
             paramLinesNot,
             self.rowsAsNumbersNot,
             self.rowsOfcombiNot,
             spaltenreihenfolgeundnurdieseNot,
         ) = self.parameters(argv, "-")
-        alxp("blib bla2")
-        alxp(self.rowsOfcombi)
-        alxp(self.rowsAsNumbers)
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
         )
@@ -2499,9 +2479,6 @@ class Program:
             self.rowsAsNumbers,
         ) = self.tables.getConcat.concatLovePolygon(self.relitable, self.rowsAsNumbers)
 
-        alxp("blub bla1")
-        alxp(self.rowsOfcombi)
-        alxp(self.rowsAsNumbers)
         if self.ifCombi:
             (
                 animalsProfessionsTable,
@@ -2623,17 +2600,17 @@ class Program:
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
-        alxp(
-            "Bug: Es zeigt manchmal nicht alle Spalten an, z.B. wenn ich mehrere Kommaspalten angebe in der CLI"
-        )
-        alxp("kein Wortumbruch funktioniert nicht bei Kombinationen")
+        # alxp(
+        #    "Bug: Es zeigt manchmal nicht alle Spalten an, z.B. wenn ich mehrere Kommaspalten angebe in der CLI"
+        # )
+        # alxp("kein Wortumbruch funktioniert nicht bei Kombinationen")
         #        alxp(
         #            "Es muss mein Programm sein, dass die Zeichen beim Zeilenumbruch verschluckt, da es bei beiden pyphen und pyhyphen passiert: Bereichsangabe"
         #        )
         #        alxp(
         #            "Die super hohen Monde aus der Kugel müsste ich noch eintragen in die Tabelle"
         #        )
-        alxp("die 0 weg machen bei der ersten Zeile immer")
+        # alxp("die 0 weg machen bei der ersten Zeile immer")
         alxp("Zeilen Option machen: nicht nur vielfache, sondern auch Potenzen")
         alxp(
             "Leere Zeilen bei Kombis einer Tabelle auf mehrere wegen Bildschirmbreite: löschen bei Ausgabe!"
