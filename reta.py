@@ -1825,12 +1825,24 @@ def primCreativity(num: int):
     if num == 0:
         return 0
     fak = primRepeat(primFak(num))
-    if len(fak) > 1:
-        return 2
     if len(fak) == 1 and fak[0][1] == 1:
         return 1
     if len(fak) == 1:
         return 3
+    if len(fak) < 1:
+        return 0
+    amountWas = fak[0][1]
+    if amountWas > 1:
+        moon = True
+    else:
+        moon = False
+    for (prim, primsAmount) in fak:
+        if amountWas != primsAmount:
+            moon = False
+    if moon:
+        return 3
+    else:
+        return 2
     return None
 
 
