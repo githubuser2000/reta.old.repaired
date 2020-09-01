@@ -22,6 +22,7 @@ Anmerkenung: Anführungszeichen setzen, weil < > sind in Unix Steuersymbole![/li
 [*]--primzahlvielfache=[list][*]1,2,3,4,5,...[/list]
 [*]--vorhervonausschnitt=[list=][*]1-5,7-10,14,20[/list]
 [*]--nachtraeglichdavon=[list][*]3-6,8[/list]
+[*]--potenzenvonzahlen=[list][*]2,3[/list]
 [*][/list]
 [*]-spalten
 [list]

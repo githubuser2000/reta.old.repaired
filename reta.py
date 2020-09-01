@@ -30,7 +30,7 @@ else:
     ColumnsRowsAmount, shellRowsAmountStr = "50", "50"
 pp = pprint.PrettyPrinter(indent=4)
 shellRowsAmount: int = int(shellRowsAmountStr)
-infoLog = False
+infoLog = True
 originalLinesRange = range(1028)  # Maximale Zeilenanzahl
 output = True
 
@@ -1013,15 +1013,17 @@ class Tables:
                 ):
                     ifPowerAtall = True
                     toPowerIt += [int(condition[:-1])]
-            numRangeYesZ = set()
-            for base in toPowerIt:
-                for n in numRange:
-                    onePower = pow(base, n)
-                    if onePower <= n:
-                        numRangeYesZ |= {onePower}
-                    else:
-                        break
-            numRange = cutset(ifPowerAtall, numRange, numRangeYesZ)
+            if ifPowerAtall:
+                numRangeYesZ = set()
+                for base in toPowerIt:
+                    for n in numRange:
+                        onePower = pow(base, n)
+                        numRangeMax = max(numRange)
+                        if onePower <= numRangeMax:
+                            numRangeYesZ |= {onePower}
+                        else:
+                            break
+                numRange = cutset(ifPowerAtall, numRange, numRangeYesZ)
 
             numRangeYesZ = set()
 
@@ -2240,7 +2242,7 @@ class Program:
                                 (int(word) > 0 and neg == "")
                                 or (int(word) < 0 and neg != "")
                             ):
-                                paramLines.add(str(abs(int(word))) + "^setZaehlungen")
+                                paramLines.add(str(abs(int(word))) + "^")
                     elif arg[2:21] == "vielfachevonzahlen=":
                         for word in arg[21:].split(","):
                             if (
