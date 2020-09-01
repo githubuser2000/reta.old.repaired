@@ -1804,19 +1804,16 @@ def primFak(n: int) -> list:
 
 
 def primCreativity(num: int):
-    fak = primFak(num)
-    moon = True
-    if len(fak) == 0:
+    if num == 0:
         return 0
-    for f in fak[1:]:
-        if f != fak[0]:
-            moon = False
-    if len(fak) == 1:
+    fak = primRepeat(primFak(num))
+    if len(fak) == 1 and fak[0][1] == 1:
         return 1
-    if moon:
+    if len(fak) == 1:
         return 3
-    else:
-        return 2
+    if len(fak) > 1:
+        return 3
+    return None
 
 
 def getLogarithmOnlyAsPureInt(potenz: int, basis: int) -> int:
