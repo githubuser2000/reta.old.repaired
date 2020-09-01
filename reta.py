@@ -1821,6 +1821,17 @@ def primFak(n: int) -> list:
     return faktoren
 
 
+def divisorGenerator(n):
+    large_divisors = []
+    for i in range(1, int(math.sqrt(n) + 1)):
+        if n % i == 0:
+            yield i
+            if i * i != n:
+                large_divisors.append(n / i)
+    for divisor in reversed(large_divisors):
+        yield divisor
+
+
 def primCreativity(num: int):
     if num == 0:
         return 0
@@ -1831,18 +1842,21 @@ def primCreativity(num: int):
         return 3
     if len(fak) < 1:
         return 0
-    amountWas = fak[0][1]
-    if amountWas > 1:
-        moon = True
-    else:
-        moon = False
-    for (prim, primsAmount) in fak:
-        if amountWas != primsAmount:
-            moon = False
-    if moon:
-        return 3
-    else:
-        return 2
+    primAmounts = []
+    for (prim, primAmount) in fak:
+        primAmounts += [primAmount]
+    divisorMatrix = []
+    for primAmount in primAmounts:
+        divisorMatrix += [set(list(divisorGenerator(primAmount))[1:])]
+    for i, divisorsOfOneThing in enumerate(divisorMatrix):
+        if i == 0:
+            schnittmenge = divisorsOfOneThing
+        else:
+            schnittmenge &= divisorsOfOneThing
+        if len(schnittmenge) != 0:
+            return 3
+        else:
+            return 2
     return None
 
 
