@@ -656,12 +656,12 @@ class Tables:
                                         and filteredLineNumbersofOrignal == ""
                                     ):
                                         filteredLineNumbersofOrignal = 0
-                                    #if (
+                                    # if (
                                     #    not str(
                                     #        filteredLineNumbersofOrignal
                                     #    ).isdecimal()
                                     #    or True
-                                    #):
+                                    # ):
                                     #    sys.stderr.write(
                                     #        " ALXALX "
                                     #        + str(filteredLineNumbersofOrignal)
@@ -1825,11 +1825,11 @@ def primCreativity(num: int):
     if num == 0:
         return 0
     fak = primRepeat(primFak(num))
+    if len(fak) > 1:
+        return 2
     if len(fak) == 1 and fak[0][1] == 1:
         return 1
     if len(fak) == 1:
-        return 3
-    if len(fak) > 1:
         return 3
     return None
 
