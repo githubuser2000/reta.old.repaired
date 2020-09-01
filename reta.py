@@ -63,6 +63,16 @@ class csvSyntax(OutputSyntax):
 
 
 class markdownSyntax(OutputSyntax):
+
+    beginTable = ""
+    endTable = ""
+    beginRow = "|"
+    endRow = ""
+    beginCol = ""
+    endCol = ""
+
+
+class bbCodeSyntax(OutputSyntax):
     @staticmethod
     def coloredBeginCol(num: int, rest: bool = False):
         num = int(num) if str(num).isdecimal() else 0
@@ -95,15 +105,6 @@ class markdownSyntax(OutputSyntax):
         elif num == 0:
             return '[tr="background-color:#ff2222;font-size:18px;color:#002222;"]'
 
-    beginTable = ""
-    endTable = ""
-    beginRow = "|"
-    endRow = ""
-    beginCol = ""
-    endCol = ""
-
-
-class bbCodeSyntax(OutputSyntax):
     beginTable = "[table]"
     endTable = "[/table]"
     beginRow = "[td]"
