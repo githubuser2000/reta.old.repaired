@@ -638,7 +638,7 @@ class Tables:
             @return: der colorierte Text
             """
             # \033[0;34mblaues Huhn\033[0m.
-            num = int(num)
+            num = int(num) if str(num).isdecimal() else 0
             if rest:
                 if num == 0:
                     return "\033[41m" + "\033[30m" + "\033[1m" + text + "\033[0m"
