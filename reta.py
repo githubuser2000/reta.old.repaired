@@ -41,6 +41,10 @@ parser.add_simple_formatter("sup", "<sup>%(value)s</sup>")
 
 
 class OutputSyntax:
+    @staticmethod
+    def coloredBeginCol(num: int, rest: bool = False):
+        return OutputSyntax.beginRow
+
     beginTable = ""
     endTable = ""
     beginRow = ""
@@ -49,7 +53,7 @@ class OutputSyntax:
     endCol = ""
 
 
-class csvSyntax:
+class csvSyntax(OutputSyntax):
     beginTable = ""
     endTable = ""
     beginRow = ""
@@ -58,7 +62,7 @@ class csvSyntax:
     endCol = ""
 
 
-class markdownSyntax:
+class markdownSyntax(OutputSyntax):
     beginTable = ""
     endTable = ""
     beginRow = "|"
@@ -67,7 +71,7 @@ class markdownSyntax:
     endCol = ""
 
 
-class bbCodeSyntax:
+class bbCodeSyntax(OutputSyntax):
     beginTable = "[table]"
     endTable = "[/table]"
     beginRow = "[td]"
@@ -77,11 +81,42 @@ class bbCodeSyntax:
 
 
 class htmlSyntax(OutputSyntax):
+    # <tr style="background-color:#00ff00;font-size:18px;color:#000000;">
+    @staticmethod
+    def coloredBeginCol(num: int, rest: bool = False):
+        num = int(num) if str(num).isdecimal() else 0
+        if rest:
+            if num == 0:
+                return '<tr style="background-color:#00ff00;font-size:18px;color:#000000;">'
+            elif num % 2 == 0:
+                return '<tr style="background-color:#00ff00;font-size:18px;color:#000000;">'
+            else:
+                return '<tr style="background-color:#00ff00;font-size:18px;color:#000000;">'
+        elif moonNumber(num)[1] != []:
+            # 00;33
+            if num % 2 == 0:
+                return '<tr style="background-color:#00ff00;font-size:18px;color:#000000;">'
+            else:
+                return '<tr style="background-color:#00ff00;font-size:18px;color:#000000;">'
+        elif len(primFak(num)) == 1:
+            if num % 2 == 0:
+                return '<tr style="background-color:#00ff00;font-size:18px;color:#000000;">'
+            else:
+                return '<tr style="background-color:#00ff00;font-size:18px;color:#000000;">'
+        elif num % 2 == 0:
+            if num == 0:
+                return '<tr style="background-color:#00ff00;font-size:18px;color:#000000;">'
+            else:
+                return '<tr style="background-color:#00ff00;font-size:18px;color:#000000;">'
+        else:
+            return '<tr style="background-color:#00ff00;font-size:18px;color:#000000;">'
+
     beginTable = "<table border=1>"
     endTable = "</table>"
     beginRow = "<td>"
     endRow = "</td>"
-    beginCol = "<tr>"
+    # beginCol = "<tr>"
+    beginCol = ""
     endCol = "</tr>"
 
 
@@ -286,7 +321,7 @@ class Tables:
         def __init__(self):
             self.__oneTable = False
             self.__color = True
-            self.__outType = OutputSyntax
+            self.__outType: OutputSyntax = OutputSyntax
 
         @property
         def outType(self) -> OutputSyntax:
@@ -540,7 +575,6 @@ class Tables:
                                                     subCellWidth
                                                 ),
                                                 filteredLineNumbersofOrignal,
-                                                subCellIndexRightLeft,
                                             )
                                         elif self.__outType == csvSyntax:
                                             coloredSubCell = newTable[
@@ -575,7 +609,6 @@ class Tables:
                                             coloredSubCell = self.colorize(
                                                 "".ljust(subCellWidth),
                                                 filteredLineNumbersofOrignal,
-                                                subCellIndexRightLeft,
                                                 True,
                                             )
                                         else:
@@ -600,6 +633,7 @@ class Tables:
                         ):  # and m < actualPartLineLen:
                             if self.__outType == markdownSyntax:
                                 line += self.__outType.beginRow
+
                                 if BigCellLineNumber > 0 and not headingfinished:
                                     headingfinished = True
                                 if BigCellLineNumber == 0 and not headingfinished:
@@ -609,13 +643,16 @@ class Tables:
                                             addionalLine += "-"
                                         else:
                                             addionalLine += self.__outType.beginRow
+
                                     line += "\n" + addionalLine
                             if emptyEntries != entriesHere:
                                 if self.__outType == csvSyntax:
                                     writer.writerow(line)
                                 else:
                                     cliout(
-                                        self.__outType.beginCol
+                                        self.__outType.coloredBeginCol(
+                                            filteredLineNumbersofOrignal
+                                        )
                                         + line
                                         + self.__outType.endCol
                                     )
@@ -625,7 +662,7 @@ class Tables:
                 if self.__outType == csvSyntax:
                     cliout(strio.getvalue())
 
-        def colorize(self, text, num: int, row, rest=False) -> str:
+        def colorize(self, text, num: int, rest=False) -> str:
             """Die Ausagabe der Tabelle wird coloriert
 
             @type text: str
