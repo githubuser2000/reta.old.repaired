@@ -1845,18 +1845,25 @@ def primCreativity(num: int):
     primAmounts = []
     for (prim, primAmount) in fak:
         primAmounts += [primAmount]
-    divisorMatrix = []
     for primAmount in primAmounts:
-        divisorMatrix += [set(list(divisorGenerator(primAmount))[1:])]
-    for i, divisorsOfOneThing in enumerate(divisorMatrix):
-        if i == 0:
-            schnittmenge = divisorsOfOneThing
-        else:
-            schnittmenge &= divisorsOfOneThing
+        divisors = set(divisorGenerator(primAmount)) - {1}
+        if len(divisors) == 0:
+            try:
+                del schnittmenge
+            except NameError:
+                pass
+            break
+        try:
+            schnittmenge &= divisors
+        except NameError:
+            schnittmenge = divisors
+    try:
         if len(schnittmenge) != 0:
             return 3
         else:
             return 2
+    except NameError:
+        return 2
     return None
 
 
