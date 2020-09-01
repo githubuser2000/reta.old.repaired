@@ -112,7 +112,7 @@ def alxwrap(text: str, len_: int):
             dic.wrap(text, len_)
             if wrappingType == Wraptype.pyphen
             else (
-                tuple(fill(text, width=len_, use_hyphenator=h_de).split(["\n", "-"]))
+                tuple(fill(text, width=len_, use_hyphenator=h_de).split("\n"))
                 if wrappingType == Wraptype.pyhyphen
                 else (text,)
             )
@@ -122,7 +122,7 @@ def alxwrap(text: str, len_: int):
             dic.wrap(text, len_)
             if wrappingType == Wraptype.pyhyphen
             else (
-                tuple(fill(text, width=len_, use_hyphenator=h_de).split(["\n", "-"]))
+                tuple(fill(text, width=len_, use_hyphenator=h_de).split("\n"))
                 if wrappingType == Wraptype.pyphen
                 else (text,)
             )
@@ -463,6 +463,7 @@ class Tables:
                 if len(self.finallyDisplayLines) > 0
                 else 0
             )
+            self.finallyDisplayLines[0] = ""
             lastSubCellIndex = -1
             lastlastSubCellIndex = -2
             headingfinished = False
@@ -759,8 +760,8 @@ class Tables:
             @rtype: list[str]
             @return: Liste aus umgebrochenen Teilstrings
             """
-            if len(text) > length - 1:
-                isItNone = alxwrap(text, length - 1)
+            if len(text) > length:
+                isItNone = alxwrap(text, length)
             else:
                 isItNone = text
             return isItNone
@@ -775,8 +776,8 @@ class Tables:
             @rtype: list[str]
             @return: Liste aus umgebrochenen Teilstrings
             """
-            if len(text) > length - 1:
-                isItNone = alxwrap(text, length - 1)
+            if len(text) > length:
+                isItNone = alxwrap(text, length)
             else:
                 isItNone = None
             return isItNone
@@ -1295,7 +1296,11 @@ class Tables:
                     self.kombiTable_Kombis: list = []
                     for z, col in enumerate(csv.reader(csv_file, delimiter=";")):
                         for i, row in enumerate(col):
-                            if i > 0 and col[i].strip() != "":
+                            if (
+                                i > 0
+                                and col[i].strip() != ""
+                                and len(col[0].strip()) != 0
+                            ):
                                 col[i] += " (" + col[0] + ")"
                         self.kombiTable += [col]
                         self.kombiTable_Kombis_Col: list = []
@@ -2615,26 +2620,23 @@ class Program:
             '2. Bei Kombi sollte ich noch programmieren, wegen letzter Spalte "Religionen", dass Klammern und Vorzeichen + - dennoch zu richtigen letztendlichen Zeilen der Endausgabe zugeordnet werden.'
         )
         alxp("Die Modallogikvielfacher müssste ich noch einprogrammieren")
-        alxp(
-            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
-        )
+        #        alxp(
+        #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
+        #        )
         alxp(
             "Bug: Es zeigt manchmal nicht alle Spalten an, z.B. wenn ich mehrere Kommaspalten angebe in der CLI"
         )
         alxp("kein Wortumbruch funktioniert nicht bei Kombinationen")
-        alxp(
-            "Es muss mein Programm sein, dass die Zeichen beim Zeilenumbruch verschluckt, da es bei beiden pyphen und pyhyphen passiert: Bereichsangabe"
-        )
-
-        alxp(
-            "Die super hohen Monde aus der Kugel müsste ich noch eintragen in die Tabelle"
-        )
+        #        alxp(
+        #            "Es muss mein Programm sein, dass die Zeichen beim Zeilenumbruch verschluckt, da es bei beiden pyphen und pyhyphen passiert: Bereichsangabe"
+        #        )
+        #        alxp(
+        #            "Die super hohen Monde aus der Kugel müsste ich noch eintragen in die Tabelle"
+        #        )
         alxp("die 0 weg machen bei der ersten Zeile immer")
         alxp("Zeilen Option machen: nicht nur vielfache, sondern auch Potenzen")
-        alxp("Feature: am Ende nur Spalte a-b anzeigen bzw. nicht anzeigen")
-        alxp("Feature: am Ende die Reihenfolge neu bestimmen")
         alxp(
-            "Beide Features lassen sich zusammenfassen, indem man einfach eine Liste 3,4,1 anlegt, und das war es!"
+            "Leere Zeilen bei Kombis einer Tabelle auf mehrere wegen Bildschirmbreite: löschen bei Ausgabe!"
         )
         #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
         # alxp(
