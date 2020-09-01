@@ -2633,10 +2633,18 @@ class Program:
         alxp(
             "1. http://goexchange.de/viewtopic.php?f=13&t=2683#p17239 () \n    9. anderen etwas vormachen können (Bahai)\n    1/9. den anderen Strukturgrößen außer der Einheit (9, 1/9) etwas vormachen können"
         )
-        alxp(
-            '2. Bei Kombi sollte ich noch programmieren, wegen letzter Spalte "Religionen", dass Klammern und Vorzeichen + - dennoch zu richtigen letztendlichen Zeilen der Endausgabe zugeordnet werden.'
-        )
+        # alxp(
+        #    '2. Bei Kombi sollte ich noch programmieren, wegen letzter Spalte "Religionen", dass Klammern und Vorzeichen + - dennoch zu richtigen letztendlichen Zeilen der Endausgabe zugeordnet werden.'
+        # )
         alxp("Die Modallogikvielfacher müsste ich noch einprogrammieren")
+        alxp(
+            "Danach werde ich noch mal alles durchtesten und besonders die Sachen, die meine Programmierungen tangiert haben könnten"
+        )
+        alxp(
+            """Wenn ich programmiert habe, wie multipliziert wird, um zu erreichen, dass die Modallogiken umgesetzt werden, werde ich
+             programmieren, dass die bisherige Multiplikation, die man kaum verstehen kann, auch besser verständlich gemacht werden kann und sich ggf.
+             auf 2 Spalten oder mehr erstrecken wird, statt auf einer, wie bisher. So wird es verständlicher"""
+        )
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
@@ -2651,7 +2659,7 @@ class Program:
         #            "Die super hohen Monde aus der Kugel müsste ich noch eintragen in die Tabelle"
         #        )
         # alxp("die 0 weg machen bei der ersten Zeile immer")
-        alxp("Zeilen Option machen: nicht nur vielfache, sondern auch Potenzen")
+        # alxp("Zeilen Option machen: nicht nur vielfache, sondern auch Potenzen")
         # alxp(
         #    "Leere Zeilen bei Kombis einer Tabelle auf mehrere wegen Bildschirmbreite: löschen bei Ausgabe!"
         # )
