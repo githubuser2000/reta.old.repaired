@@ -651,6 +651,24 @@ class Tables:
                                 if self.__outType == csvSyntax:
                                     writer.writerow(line)
                                 else:
+                                    if (
+                                        type(filteredLineNumbersofOrignal) is str
+                                        and filteredLineNumbersofOrignal == ""
+                                    ):
+                                        filteredLineNumbersofOrignal = 0
+                                    #if (
+                                    #    not str(
+                                    #        filteredLineNumbersofOrignal
+                                    #    ).isdecimal()
+                                    #    or True
+                                    #):
+                                    #    sys.stderr.write(
+                                    #        " ALXALX "
+                                    #        + str(filteredLineNumbersofOrignal)
+                                    #        + " "
+                                    #        + line
+                                    #        + "\n"
+                                    #    )
                                     cliout(
                                         self.__outType.coloredBeginCol(
                                             filteredLineNumbersofOrignal
