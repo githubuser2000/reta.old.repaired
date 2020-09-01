@@ -2645,6 +2645,9 @@ class Program:
              programmieren, dass die bisherige Multiplikation, die man kaum verstehen kann, auch besser verständlich gemacht werden kann und sich ggf.
              auf 2 Spalten oder mehr erstrecken wird, statt auf einer, wie bisher. So wird es verständlicher"""
         )
+        alxp(
+            "HTML coloriert ausgeben und ggf. sogar besser gleich noch damit in Verbindung bbcode! Die genaue Farbgebung ist zunächst unwichtiger. Die Textfarbe sollte dabei mit coloriert werden! Ich sollte mit css arbeiten, statt mit uralten html Formatierungen!"
+        )
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
