@@ -1834,7 +1834,7 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 
 
 class Program:
-    def parameters(self, argv, neg="") -> Iterable[Union[set, set, set]]:
+    def parameters(self, argv, neg="") -> Iterable[Union[set, set, set, list]]:
         """Parameter in der Shell werden hier vorverarbeitet.
         Die Paraemter führen dazu, dass Variablen gesetzt werden, z.B.
         eine Menge die als Befehl kodiert, welche Zeilen und eine die kodiert
@@ -1850,7 +1850,7 @@ class Program:
         @rtype: set, set, set
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
-        global infoLog
+        global infoLog, shellRowsAmount
         if len(argv) == 1 and neg == "":
             cliout("Versuche Parameter -h")
         spaltenreihenfolgeundnurdiese: list = []
@@ -2361,6 +2361,12 @@ class Program:
                         infoLog = True
                     elif arg[1:] in ["h", "help"] and neg == "":
                         self.help()
+        if not self.tables.getOut.oneTable:
+            self.tables.textWidth = (
+                self.tables.textWidth
+                if shellRowsAmount > self.tables.textWidth + 7
+                else shellRowsAmount - 7
+            )
         return (
             paramLines,
             rowsAsNumbers,
