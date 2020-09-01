@@ -1003,6 +1003,26 @@ class Tables:
                     numRangeYesZ.add(n)
             numRange = cutset(ifPrimAtAll, numRange, numRangeYesZ)
 
+            toPowerIt = []
+            ifPowerAtall: bool = False
+            for condition in paramLines:
+                if (
+                    len(condition) > 1
+                    and condition[-1] == "^"
+                    and condition[:-1].isdecimal()
+                ):
+                    ifPowerAtall = True
+                    toPowerIt += [int(condition[:-1])]
+            numRangeYesZ = set()
+            for n in numRange:
+                for base in toPowerIt:
+                    onePower = pow(base, n)
+                    if onePower <= n:
+                        numRangeYesZ |= {onePower}
+            numRange = cutset(ifPowerAtall, numRange, numRangeYesZ)
+
+            numRangeYesZ = set()
+
             ifMultiplesFromAnyAtAll = False
             anyMultiples = []
             for condition in paramLines:
@@ -2209,6 +2229,16 @@ class Program:
                                 paramLines.add("planet")
                             elif word == neg + "mond":
                                 paramLines.add("mond")
+                    elif arg[2 : 2 + len("potenzenvonzahlen=")] == "potenzenvonzahlen=":
+                        for word in arg[2 + len("potenzenvonzahlen=") :].split(","):
+                            if (
+                                word.isdecimal()
+                                or (word[1:].isdecimal() and word[0] == neg)
+                            ) and (
+                                (int(word) > 0 and neg == "")
+                                or (int(word) < 0 and neg != "")
+                            ):
+                                paramLines.add(str(abs(int(word))) + "^setZaehlungen")
                     elif arg[2:21] == "vielfachevonzahlen=":
                         for word in arg[21:].split(","):
                             if (
@@ -2602,7 +2632,7 @@ class Program:
         alxp(
             '2. Bei Kombi sollte ich noch programmieren, wegen letzter Spalte "Religionen", dass Klammern und Vorzeichen + - dennoch zu richtigen letztendlichen Zeilen der Endausgabe zugeordnet werden.'
         )
-        alxp("Die Modallogikvielfacher müssste ich noch einprogrammieren")
+        alxp("Die Modallogikvielfacher müsste ich noch einprogrammieren")
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
@@ -2618,9 +2648,9 @@ class Program:
         #        )
         # alxp("die 0 weg machen bei der ersten Zeile immer")
         alxp("Zeilen Option machen: nicht nur vielfache, sondern auch Potenzen")
-        alxp(
-            "Leere Zeilen bei Kombis einer Tabelle auf mehrere wegen Bildschirmbreite: löschen bei Ausgabe!"
-        )
+        # alxp(
+        #    "Leere Zeilen bei Kombis einer Tabelle auf mehrere wegen Bildschirmbreite: löschen bei Ausgabe!"
+        # )
         #        alxp("1. Geschwindigkeitsoptimierungen, Pythonspezifisches)
         # alxp(
         #    "2. Audit, ob Doku = Befehle = Tabelleninhalte\n3. Überlegen, was noch rein in die Tabelle\n4. Debugging und ggf. Unit-Tests"
