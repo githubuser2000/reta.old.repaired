@@ -1003,7 +1003,7 @@ class Tables:
                     numRangeYesZ.add(n)
             numRange = cutset(ifPrimAtAll, numRange, numRangeYesZ)
 
-            toPowerIt = []
+            toPowerIt: list = []
             ifPowerAtall: bool = False
             for condition in paramLines:
                 if (
@@ -1014,11 +1014,13 @@ class Tables:
                     ifPowerAtall = True
                     toPowerIt += [int(condition[:-1])]
             numRangeYesZ = set()
-            for n in numRange:
-                for base in toPowerIt:
+            for base in toPowerIt:
+                for n in numRange:
                     onePower = pow(base, n)
                     if onePower <= n:
                         numRangeYesZ |= {onePower}
+                    else:
+                        break
             numRange = cutset(ifPowerAtall, numRange, numRangeYesZ)
 
             numRangeYesZ = set()
