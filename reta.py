@@ -2770,6 +2770,11 @@ class Program:
         alxp(
             "HTML coloriert ausgeben und ggf. sogar besser gleich noch damit in Verbindung bbcode! Die genaue Farbgebung ist zunächst unwichtiger. Die Textfarbe sollte dabei mit coloriert werden! Ich sollte mit css arbeiten, statt mit uralten html Formatierungen!"
         )
+        alxp(
+            "Alternative Farbgebung: gerade Zahlen und durch 3 teilbare und dazu welche Zählung es ist. Mod 2 = hell dunkel, mod 3 = rot, grün, blau; Zählung: pure Farben oder gebräunte Farben alternierend"
+        )
+        alxp("Bei mehreren Spalten beide Farbgebungen automatisch wechseln lassen, cmd cli Parameter gibt jedoch explizit beides an, aber pro Spalte oder für alle oder Alternierungsmodulotyp")
+        alxp("bei Zählungen soll auch vonbis möglich werden")
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
