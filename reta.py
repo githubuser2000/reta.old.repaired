@@ -2775,6 +2775,9 @@ class Program:
         )
         alxp("Bei mehreren Spalten beide Farbgebungen automatisch wechseln lassen, cmd cli Parameter gibt jedoch explizit beides an, aber pro Spalte oder für alle oder Alternierungsmodulotyp")
         alxp("bei Zählungen soll auch vonbis möglich werden")
+        alxp("vim: iIaAoOjJ mit Registern arbeiten wegen Löschen ohne ausschneiden")
+        alxp("Warum geht er manchmal bis ans Ende und manchmal nur bis zu 120 oder so")
+        alxp("--all für alle spalten und --all für alle zeilen")
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
