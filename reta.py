@@ -174,6 +174,31 @@ wrappingType: Wraptype = Wraptype.pyhyphen
 # wrappingType: Wraptype = Wraptype.pyphen
 
 
+def chunks(lst, n):
+    """Yield successive n-sized chunks from lst."""
+    for i in range(0, len(lst), n):
+        yield lst[i : i + n]
+
+
+def splitMoreIfNotSmall(textList: list, lenToBe: int) -> tuple:
+    newList: list = []
+    neededToBeDoneAtAll = False
+    for k, text in enumerate(textList):
+        if len(text) > lenToBe:
+            neededToBeDoneAtAll = True
+            alxp("ALXWRAPERROR going to become corrected!")
+    if neededToBeDoneAtAll:
+        for k, text in enumerate(textList):
+            if len(text) > lenToBe:
+                newList += list(chunks(text, lenToBe))
+            else:
+                newList += [text]
+    if neededToBeDoneAtAll:
+        return tuple(newList)
+    else:
+        return tuple(textList)
+
+
 def alxwrap(text: str, len_: int):
     global wrappingType
     """ Ich könnte hier beschleunigen, indem ich funktionszeiger verwende,
@@ -190,7 +215,9 @@ def alxwrap(text: str, len_: int):
             dic.wrap(text, len_)
             if wrappingType == Wraptype.pyphen
             else (
-                tuple(fill(text, width=len_, use_hyphenator=h_de).split("\n"))
+                splitMoreIfNotSmall(
+                    fill(text, width=len_, use_hyphenator=h_de).split("\n"), len_
+                )
                 if wrappingType == Wraptype.pyhyphen
                 else (text,)
             )
@@ -200,7 +227,9 @@ def alxwrap(text: str, len_: int):
             dic.wrap(text, len_)
             if wrappingType == Wraptype.pyhyphen
             else (
-                tuple(fill(text, width=len_, use_hyphenator=h_de).split("\n"))
+                splitMoreIfNotSmall(
+                    fill(text, width=len_, use_hyphenator=h_de).split("\n"), len_
+                )
                 if wrappingType == Wraptype.pyphen
                 else (text,)
             )
@@ -2827,6 +2856,7 @@ class Program:
         alxp("vim: iIaAoOjJ mit Registern arbeiten wegen Löschen ohne ausschneiden")
         alxp("Warum geht er manchmal bis ans Ende und manchmal nur bis zu 120 oder so")
         alxp("--all für alle spalten und --all für alle zeilen")
+        alxp("dass wirklich überall negierung mit neg='-' möglich wird")
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
