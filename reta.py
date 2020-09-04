@@ -186,7 +186,6 @@ def splitMoreIfNotSmall(textList: list, lenToBe: int) -> tuple:
     for k, text in enumerate(textList):
         if len(text) > lenToBe:
             neededToBeDoneAtAll = True
-            alxp("ALXWRAPERROR going to become corrected!")
     if neededToBeDoneAtAll:
         for k, text in enumerate(textList):
             if len(text) > lenToBe:
@@ -2065,6 +2064,7 @@ class Program:
                     and self.bigParamaeter[-1] == "spalten"
                 ):  # unteres Kommando
                     if arg[2:] == "alles" + neg:
+                        self.allesParameters += 1
 
                         puniverseprims = {
                             couldBePrimeNumber
@@ -2432,7 +2432,6 @@ class Program:
                     and self.bigParamaeter[-1] == "zeilen"
                 ):  # unteres Kommando
                     if arg[2:7] == "alles" and len(neg) == 0:
-                        alxp("ALLES")
                         paramLines.add("all")
                     elif arg[2:7] == "zeit=":
                         for subpara in arg[7:].split(","):
@@ -2710,17 +2709,19 @@ class Program:
             puniverseprimsNot,
             generRowsNot,
         ) = self.parameters(argv, "-")
-        alxp("-_-")
-        alxp(puniverseprims)
-        alxp(puniverseprimsNot)
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
         )
         # puniverseprims, puniverseprimsNot = self.tables.getPrepare.deleteDoublesInSets(
         #    puniverseprims, puniverseprimsNot
         # )
-        puniverseprimsNot -= puniverseprims
-        generRows -= generRowsNot
+
+        if self.allesParameters != 2:
+            puniverseprimsNot -= puniverseprims
+            generRows -= generRowsNot
+        else:
+            puniverseprims = set()
+            generRows = set()
         for prims in puniverseprims - puniverseprimsNot:
             self.tables.primUniversePrimsSet.add(prims)
         self.tables.generRows = generRows
@@ -2796,6 +2797,7 @@ class Program:
 
     def __init__(self, argv):
         global Tables
+        self.allesParameters = 0
         self.ifCombi = False
         self.tables = Tables()
         (
