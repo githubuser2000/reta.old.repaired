@@ -179,6 +179,7 @@ def chunks(lst, n):
 def splitMoreIfNotSmall(textList: list, lenToBe: int) -> tuple:
     newList: list = []
     neededToBeDoneAtAll = False
+    lenToBe -= 0
     for k, text in enumerate(textList):
         if len(text) > lenToBe:
             neededToBeDoneAtAll = True
@@ -186,6 +187,7 @@ def splitMoreIfNotSmall(textList: list, lenToBe: int) -> tuple:
         for k, text in enumerate(textList):
             if len(text) > lenToBe:
                 newList += list(chunks(text, lenToBe))
+                alxp("_" + str(newList) + "_")
             else:
                 newList += [text]
     if neededToBeDoneAtAll:
@@ -2902,6 +2904,9 @@ class Program:
         alxp("Kombinierbarkeit aller Zeilenangaben, alle durchtesten")
         alxp(
             "Alternative Farbgebung: gerade Zahlen und durch 3 teilbare und dazu welche Zählung es ist. Mod 2 = hell dunkel, mod 3 = rot, grün, blau; Zählung: pure Farben oder gebräunte Farben alternierend"
+        )
+        alxp(
+            "dass eine Zelle auch länger sein kann, als die Bildschirmbreite, aber wann das denn?"
         )
         alxp(
             "Bei mehreren Spalten beide Farbgebungen automatisch wechseln lassen, cmd cli Parameter gibt jedoch explizit beides an, aber pro Spalte oder für alle oder Alternierungsmodulotyp"
