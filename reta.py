@@ -43,33 +43,37 @@ parser.add_simple_formatter("sup", "<sup>%(value)s</sup>")
 class OutputSyntax:
     @staticmethod
     def coloredBeginCol(num: int, rest: bool = False):
-        return OutputSyntax.beginRow
+        return OutputSyntax.beginZeile
+
+    @staticmethod
+    def generateCell(num: int) -> str:
+        return OutputSyntax.beginCell
 
     beginTable = ""
     endTable = ""
-    beginRow = ""
-    endRow = ""
-    beginCol = ""
-    endCol = ""
+    beginCell = ""
+    endCell = ""
+    beginZeile = ""
+    endZeile = ""
 
 
 class csvSyntax(OutputSyntax):
     beginTable = ""
     endTable = ""
-    beginRow = ""
-    endRow = ""
-    beginCol = ""
-    endCol = ""
+    beginCell = ""
+    endCell = ""
+    beginZeile = ""
+    endZeile = ""
 
 
 class markdownSyntax(OutputSyntax):
 
     beginTable = ""
     endTable = ""
-    beginRow = "|"
-    endRow = ""
-    beginCol = ""
-    endCol = ""
+    beginCell = "|"
+    endCell = ""
+    beginZeile = ""
+    endZeile = ""
 
 
 class bbCodeSyntax(OutputSyntax):
@@ -107,15 +111,15 @@ class bbCodeSyntax(OutputSyntax):
 
     beginTable = "[table]"
     endTable = "[/table]"
-    beginRow = "[td]"
-    endRow = "[/td]"
-    beginCol = "[tr]"
-    endCol = "[/tr]"
+    beginCell = "[td]"
+    endCell = "[/td]"
+    beginZeile = "[tr]"
+    endZeile = "[/tr]"
 
 
 class htmlSyntax(OutputSyntax):
     @staticmethod
-    def coloredBeginCol(num: int, rest: bool = False):
+    def coloredBeginCol(num: int, rest: bool = False) -> str:
         num = int(num) if str(num).isdecimal() else 0
         numberType = primCreativity(num)
 
@@ -146,13 +150,17 @@ class htmlSyntax(OutputSyntax):
         elif num == 0:
             return '<tr style="background-color:#ff2222;font-size:18px;color:#002222;">'
 
+    @staticmethod
+    def generateCell(num: int) -> str:
+        return '<td class="ColNumber ' + str(num) + '">'
+
     beginTable = "<table border=1>"
     endTable = "</table>"
-    beginRow = "<td>"
-    endRow = "</td>"
-    # beginCol = "<tr>"
-    beginCol = ""
-    endCol = "</tr>"
+    beginCell = "<td>"
+    endCell = "</td>"
+    # beginZeile = "<tr>"
+    beginZeile = ""
+    endZeile = "</tr>"
 
 
 class Wraptype(Enum):
@@ -564,7 +572,7 @@ class Tables:
                         line = (
                             ""
                             if not self.nummerierung
-                            else self.__outType.beginRow
+                            else self.__outType.beginCell
                             + (
                                 "".rjust(numlen + 1)
                                 if iterWholeLine != 0
@@ -572,7 +580,7 @@ class Tables:
                                     numlen + 1
                                 )
                             )
-                            + self.__outType.endRow
+                            + self.__outType.endCell
                         )
                         if self.__outType == csvSyntax:
                             line = [line]
@@ -621,13 +629,13 @@ class Tables:
                                             )
                                         else:
                                             coloredSubCell = (
-                                                self.__outType.beginRow
+                                                self.__outType.beginCell
                                                 + (
                                                     entry.replace("\n", "").ljust(
                                                         subCellWidth
                                                     )
                                                 )
-                                                + self.__outType.endRow
+                                                + self.__outType.endCell
                                             )
                                         if self.__outType == csvSyntax:
                                             line += [coloredSubCell]
@@ -648,9 +656,9 @@ class Tables:
                                             )
                                         else:
                                             coloredSubCell = (
-                                                self.__outType.beginRow
+                                                self.__outType.beginCell
                                                 + "".ljust(subCellWidth)
-                                                + self.__outType.endRow
+                                                + self.__outType.endCell
                                             )
                                         if self.__outType == csvSyntax:
                                             line += [coloredSubCell]
@@ -667,17 +675,17 @@ class Tables:
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
                             if self.__outType == markdownSyntax:
-                                line += self.__outType.beginRow
+                                line += self.__outType.beginCell
 
                                 if BigCellLineNumber > 0 and not headingfinished:
                                     headingfinished = True
                                 if BigCellLineNumber == 0 and not headingfinished:
                                     addionalLine = ""
                                     for l in line:
-                                        if l != self.__outType.beginRow:
+                                        if l != self.__outType.beginCell:
                                             addionalLine += "-"
                                         else:
-                                            addionalLine += self.__outType.beginRow
+                                            addionalLine += self.__outType.beginCell
 
                                     line += "\n" + addionalLine
                             if emptyEntries != entriesHere:
@@ -707,7 +715,7 @@ class Tables:
                                             filteredLineNumbersofOrignal
                                         )
                                         + line
-                                        + self.__outType.endCol
+                                        + self.__outType.endZeile
                                     )
                 cliout(self.__outType.endTable)
                 if self.__oneTable:
@@ -2016,6 +2024,7 @@ class Program:
                     and self.bigParamaeter[-1] == "spalten"
                 ):  # unteres Kommando
                     if arg[2:7] == "alles":
+                        self.tables.spalteGestirn = True
                         self.__willBeOverwritten_rowsOfcombi = set(range(10))
                         self.tables.generRows |= {
                             (40, 41),
@@ -2023,13 +2032,14 @@ class Program:
                             (49, 50),
                             (60, 61),
                             (62, 63),
-                            (65, 66),
+                            (66, 67),
                         }
                         rowsAsNumbers |= set(range(76)) - {
                             67,
                             66,
                             63,
                             62,
+                            61,
                             60,
                             56,
                             44,
