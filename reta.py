@@ -152,7 +152,7 @@ class htmlSyntax(OutputSyntax):
 
     @staticmethod
     def generateCell(num: int) -> str:
-        return '<td class="ColNumber ' + str(num) + '">'
+        return '<td class="RowNumber ' + str(num) + '">'
 
     beginTable = "<table border=1>"
     endTable = "</table>"
@@ -572,7 +572,7 @@ class Tables:
                         line = (
                             ""
                             if not self.nummerierung
-                            else self.__outType.beginCell
+                            else self.__outType.generateCell(0)
                             + (
                                 "".rjust(numlen + 1)
                                 if iterWholeLine != 0
@@ -629,7 +629,9 @@ class Tables:
                                             )
                                         else:
                                             coloredSubCell = (
-                                                self.__outType.beginCell
+                                                self.__outType.generateCell(
+                                                    subCellIndexRightLeft
+                                                )
                                                 + (
                                                     entry.replace("\n", "").ljust(
                                                         subCellWidth
@@ -656,7 +658,9 @@ class Tables:
                                             )
                                         else:
                                             coloredSubCell = (
-                                                self.__outType.beginCell
+                                                self.__outType.generateCell(
+                                                    subCellIndexRightLeft
+                                                )
                                                 + "".ljust(subCellWidth)
                                                 + self.__outType.endCell
                                             )
@@ -675,17 +679,23 @@ class Tables:
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
                             if self.__outType == markdownSyntax:
-                                line += self.__outType.beginCell
+                                line += self.__outType.generateCell(
+                                    subCellIndexRightLeft
+                                )
 
                                 if BigCellLineNumber > 0 and not headingfinished:
                                     headingfinished = True
                                 if BigCellLineNumber == 0 and not headingfinished:
                                     addionalLine = ""
                                     for l in line:
-                                        if l != self.__outType.beginCell:
+                                        if l != self.__outType.generateCell(
+                                            subCellIndexRightLeft
+                                        ):
                                             addionalLine += "-"
                                         else:
-                                            addionalLine += self.__outType.beginCell
+                                            addionalLine += self.__outType.generateCell(
+                                                subCellIndexRightLeft
+                                            )
 
                                     line += "\n" + addionalLine
                             if emptyEntries != entriesHere:
