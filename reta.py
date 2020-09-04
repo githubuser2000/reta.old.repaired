@@ -2033,7 +2033,8 @@ class Program:
                     and len(self.bigParamaeter) > 0
                     and self.bigParamaeter[-1] == "spalten"
                 ):  # unteres Kommando
-                    if arg[2:7] == "alles":
+                    if arg[2 : 7 + len(neg)] == "alles" + neg:
+                        alxp("ALLES " + str(neg))
                         self.tables.spalteGestirn = True
                         self.__willBeOverwritten_rowsOfcombi = set(range(10))
                         self.tables.generRows |= {
@@ -2372,7 +2373,8 @@ class Program:
                     and len(self.bigParamaeter) > 0
                     and self.bigParamaeter[-1] == "zeilen"
                 ):  # unteres Kommando
-                    if arg[2:7] == "alles":
+                    if arg[2:7] == "alles" and len(neg) == 0:
+                        alxp("ALLES")
                         paramLines.add("all")
                     elif arg[2:7] == "zeit=":
                         for subpara in arg[7:].split(","):
