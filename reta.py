@@ -2063,7 +2063,7 @@ class Program:
                     and len(self.bigParamaeter) > 0
                     and self.bigParamaeter[-1] == "spalten"
                 ):  # unteres Kommando
-                    if arg[2 : 7 + len(neg)] == "alles" + neg:
+                    if arg[2:] == "alles" + neg:
 
                         puniverseprims = {
                             couldBePrimeNumber
@@ -2073,7 +2073,11 @@ class Program:
                         } - {
                             None,
                         }
-
+                        alxp("ööö")
+                        alxp((len(neg) == 0))
+                        alxp((arg[-1] != neg))
+                        alxp(arg[-1])
+                        alxp(puniverseprims)
                         # alxp("___" + neg)
                         # alxp(self.tables.puniverseprims)
                         # self.tables.primUniversePrimsSet = {
@@ -2360,16 +2364,20 @@ class Program:
                     elif arg[2:30] == "primzahlvielfachesuniversum=":
                         # int(value) if (len(neg) == 0) == (value > 1) and value not in (0,1,2) else None
                         puniverseprims |= {
-                            chosen
+                            abs(chosen)
                             if (len(neg) == 0) == (abs(chosen) == chosen)
                             else None
                             for chosen in [
                                 int(value) for value in (arg[30:].split(","))
                             ]
                         } - {None, 0, 1}
-                        # self.tables.primUniversePrimsSet.add(int(word))
+                        # self.tables.primUniversePrimsSet.add(int(2))
                     elif arg[2:29] == "primzahlvielfachesuniversum":
+                        # DIESE VARIABLE HAT ANSCHEINEND GAR NICHTS MEHR ZU
+                        # SAGEN
                         self.tables.primUniverseRow = True
+                        if len(neg) > 0 and arg[-1] == "-":
+                            self.tables.primUniverseRow = False
                     elif arg[2:10] == "konzept=" or arg[2:11] == "konzepte=":
                         for word in (
                             arg[10:].split(",")
@@ -2710,15 +2718,18 @@ class Program:
         ) = self.parameters(argv, "-")
         alxp("-_-")
         alxp(puniverseprims)
+        alxp(puniverseprimsNot)
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
         )
-        alxp(puniverseprims)
-        alxp(puniverseprimsNot)
-        puniverseprims, puniverseprimsNot = self.tables.getPrepare.deleteDoublesInSets(
-            puniverseprims, puniverseprimsNot
-        )
-        self.tables.puniverseprims = puniverseprims - puniverseprimsNot
+        # puniverseprims, puniverseprimsNot = self.tables.getPrepare.deleteDoublesInSets(
+        #    puniverseprims, puniverseprimsNot
+        # )
+        puniverseprimsNot -= puniverseprims
+        alxp(type(puniverseprims))
+        alxp(type(puniverseprimsNot))
+        for prims in puniverseprims - puniverseprimsNot:
+            self.tables.primUniversePrimsSet.add(prims)
         alxp(self.tables.puniverseprims)
         alxp(puniverseprims)
         alxp(puniverseprimsNot)
