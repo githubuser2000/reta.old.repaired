@@ -30,7 +30,7 @@ else:
     ColumnsRowsAmount, shellRowsAmountStr = "50", "50"
 pp = pprint.PrettyPrinter(indent=4)
 shellRowsAmount: int = int(shellRowsAmountStr)
-infoLog = True
+infoLog = False
 originalLinesRange = range(1028)  # Maximale Zeilenanzahl
 output = True
 
@@ -812,6 +812,7 @@ class Tables:
                 {},
             ]  # Strukturangaben zur Zeile wegen Mondzahlen und Sonnenzahlen
             self.religionNumbers = 0
+            self.gezaehlt = False
 
         def setZaehlungen(
             self, num: int
@@ -831,6 +832,11 @@ class Tables:
             @rtype: kein Typ
             @return: nichts
             """
+            num = originalLinesRange[-1]
+            if self.gezaehlt:
+                return
+            else:
+                self.gezaehlt = True
             wasMoon: bool = True
             if self.zaehlungen[0] == 0:
                 isMoon = True
@@ -986,7 +992,7 @@ class Tables:
             return set1 - intersection, set2 - intersection
 
         def fromUntil(self, a) -> tuple:
-            """2 Zahlen sollen ein ordentlicher Zahlenbereich sein, sonst werden sie es^
+            """2 Zahlen sollen ein ordentlicher Zahlenbereich sein, sonst werden sie es
 
             @rtype: tuple[int,int]
             @return: Eine Bereichsangabe
@@ -1077,27 +1083,24 @@ class Tables:
             numRangeYesZ = set()
             ifZaehlungenAtAll = False
             for condition in paramLines:
-                if (
-                    len(condition) > 1
-                    and condition[-1] == "z"
-                    and condition[0:-1].isdecimal()
-                ):  # ist eine von mehreren Zählungen
-                    if not ifZaehlungenAtAll:
-                        self.setZaehlungen(originalLinesRange[-1])
-                        ifZaehlungenAtAll = True
-                    zaehlungGesucht = int(
-                        condition[0:-1]
-                    )  # eine zählung = eine zahl, beginnend minimal ab 1
-                    for n in numRange:  # nur die nummern, die noch infrage kommen
-                        # self.zaehlungen = [0,{},{},{}]
-                        if self.zaehlungen[3][n] == int(
-                            zaehlungGesucht
-                        ):  # 1-4:1,5-9:2 == jetzt ?
-                            numRangeYesZ.add(n)
+                if "-n-" in condition:
+                    ifZaehlungenAtAll = True
+                    a = self.fromUntil(condition.split("-n-"))
+                    for n in numRange.copy():
+                        if a[0] <= n and a[1] >= n:
                             # numRange.remove(n)
-            numRange = cutset(ifZaehlungenAtAll, numRange, numRangeYesZ)
-            # set().add
-            # exit()
+                            numRangeYesZ.add(n)
+            if ifZaehlungenAtAll:
+                self.setZaehlungen(originalLinesRange[-1])
+                numRangeYesZ2 = set()
+                for n in numRange:  # nur die nummern, die noch infrage kommen
+                    for z in numRangeYesZ:
+                        if self.zaehlungen[3][n] == int(z):  # 1-4:1,5-9:2 == jetzt ?
+                            numRangeYesZ2.add(n)
+                            # numRange.remove(n)
+                numRange = cutset(ifZaehlungenAtAll, numRange, numRangeYesZ2)
+                # set().add
+                # exit()
             ifTypAtAll = False
             numRangeYesZ = set()
 
@@ -2442,15 +2445,20 @@ class Program:
                             elif neg + ">" == subpara:
                                 paramLines.add(">")
                     elif arg[2:11] == "zaehlung=":
-                        for word in arg[11:].split(","):
-                            if (
-                                word.isdecimal()
-                                or (word[1:].isdecimal() and word[0] == neg)
-                            ) and (
-                                (int(word) > 0 and neg == "")
-                                or (int(word) < 0 and neg != "")
-                            ):
-                                paramLines.add(str(abs(int(word))) + "z")
+                        paramLines |= (
+                            self.tables.getPrepare.parametersCmdWithSomeBereich(
+                                arg[11:], "n", neg
+                            )
+                        )
+                        # for word in arg[11:].split(","):
+                        #    if (
+                        #        word.isdecimal()
+                        #        or (word[1:].isdecimal() and word[0] == neg)
+                        #    ) and (
+                        #        (int(word) > 0 and neg == "")
+                        #        or (int(word) < 0 and neg != "")
+                        #    ):
+                        #        paramLines.add(str(abs(int(word))) + "z")
                     elif arg[2:15] == "hoehemaximal=":
                         if arg[15:].isdecimal():
                             self.tables.textHeight = abs(int(arg[15:]))
@@ -2880,7 +2888,6 @@ class Program:
             newTable, spaltenreihenfolgeundnurdiese, rowsRange
         )
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
-        alxp("4. minus-SPALTEN machen von nicht-HAUPT.csv")
         alxp(
             "1. http://goexchange.de/viewtopic.php?f=13&t=2683#p17239 () \n    9. anderen etwas vormachen können (Bahai)\n    1/9. den anderen Strukturgrößen außer der Einheit (9, 1/9) etwas vormachen können"
         )
@@ -2900,11 +2907,7 @@ class Program:
         alxp(
             "Bei mehreren Spalten beide Farbgebungen automatisch wechseln lassen, cmd cli Parameter gibt jedoch explizit beides an, aber pro Spalte oder für alle oder Alternierungsmodulotyp"
         )
-        alxp("bei Zählungen soll auch vonbis möglich werden")
         alxp("vim: iIaAoOjJ mit Registern arbeiten wegen Löschen ohne ausschneiden")
-        alxp("Warum geht er manchmal bis ans Ende und manchmal nur bis zu 120 oder so")
-        alxp("--all für alle spalten und --all für alle zeilen")
-        alxp("dass wirklich überall negierung mit neg='-' möglich wird")
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
