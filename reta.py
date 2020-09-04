@@ -2050,6 +2050,7 @@ class Program:
         if len(argv) == 1 and neg == "":
             cliout("Versuche Parameter -h")
         spaltenreihenfolgeundnurdiese: list = []
+        puniverseprims = set()
         rowsAsNumbers = set()
         paramLines = set()
         self.bigParamaeter: list = []
@@ -2064,7 +2065,7 @@ class Program:
                 ):  # unteres Kommando
                     if arg[2 : 7 + len(neg)] == "alles" + neg:
 
-                        diffPrims = {
+                        puniverseprims = {
                             couldBePrimeNumber
                             if primCreativity(couldBePrimeNumber) == 1
                             else None
@@ -2072,13 +2073,9 @@ class Program:
                         } - {
                             None,
                         }
-                        if len(neg) == 0:
-                            self.tables.puniverseprims |= diffPrims
-                        else:
-                            self.tables.puniverseprims &= diffPrims
 
-                        alxp("___" + neg)
-                        alxp(self.tables.puniverseprims)
+                        # alxp("___" + neg)
+                        # alxp(self.tables.puniverseprims)
                         # self.tables.primUniversePrimsSet = {
                         #    couldBePrimeNumber
                         #    if primCreativity(couldBePrimeNumber) == 1
@@ -2361,9 +2358,16 @@ class Program:
                     elif arg[2 : 11 + len(neg)] == "symbole" + neg:
                         rowsAsNumbers |= {36, 37}
                     elif arg[2:30] == "primzahlvielfachesuniversum=":
-                        for word in arg[30:].split(","):
-                            if word.isdecimal():
-                                self.tables.primUniversePrimsSet.add(int(word))
+                        # int(value) if (len(neg) == 0) == (value > 1) and value not in (0,1,2) else None
+                        puniverseprims |= {
+                            chosen
+                            if (len(neg) == 0) == (abs(chosen) == chosen)
+                            else None
+                            for chosen in [
+                                int(value) for value in (arg[30:].split(","))
+                            ]
+                        } - {None, 0, 1}
+                        # self.tables.primUniversePrimsSet.add(int(word))
                     elif arg[2:29] == "primzahlvielfachesuniversum":
                         self.tables.primUniverseRow = True
                     elif arg[2:10] == "konzept=" or arg[2:11] == "konzepte=":
@@ -2635,6 +2639,7 @@ class Program:
             rowsAsNumbers,
             self.__willBeOverwritten_rowsOfcombi,
             spaltenreihenfolgeundnurdiese,
+            puniverseprims,
         )
 
     def help(self):
@@ -2694,16 +2699,29 @@ class Program:
             self.rowsAsNumbers,
             self.rowsOfcombi,
             spaltenreihenfolgeundnurdiese,
+            puniverseprims,
         ) = self.parameters(argv)
         (
             paramLinesNot,
             self.rowsAsNumbersNot,
             self.rowsOfcombiNot,
             spaltenreihenfolgeundnurdieseNot,
+            puniverseprimsNot,
         ) = self.parameters(argv, "-")
+        alxp("-_-")
+        alxp(puniverseprims)
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
         )
+        alxp(puniverseprims)
+        alxp(puniverseprimsNot)
+        puniverseprims, puniverseprimsNot = self.tables.getPrepare.deleteDoublesInSets(
+            puniverseprims, puniverseprimsNot
+        )
+        self.tables.puniverseprims = puniverseprims - puniverseprimsNot
+        alxp(self.tables.puniverseprims)
+        alxp(puniverseprims)
+        alxp(puniverseprimsNot)
         (
             self.rowsAsNumbers,
             self.rowsAsNumbersNot,
