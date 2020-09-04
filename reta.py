@@ -2062,9 +2062,9 @@ class Program:
                     and len(self.bigParamaeter) > 0
                     and self.bigParamaeter[-1] == "spalten"
                 ):  # unteres Kommando
-                    if arg[2:] == "alles" + neg:
+                    if arg[2 : 7 + len(neg)] == "alles" + neg:
 
-                        self.tables.puniverseprims |= {
+                        diffPrims = {
                             couldBePrimeNumber
                             if primCreativity(couldBePrimeNumber) == 1
                             else None
@@ -2072,6 +2072,11 @@ class Program:
                         } - {
                             None,
                         }
+                        if len(neg) == 0:
+                            self.tables.puniverseprims |= diffPrims
+                        else:
+                            self.tables.puniverseprims &= diffPrims
+
                         alxp("___" + neg)
                         alxp(self.tables.puniverseprims)
                         # self.tables.primUniversePrimsSet = {
