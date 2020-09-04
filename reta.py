@@ -30,7 +30,7 @@ else:
     ColumnsRowsAmount, shellRowsAmountStr = "50", "50"
 pp = pprint.PrettyPrinter(indent=4)
 shellRowsAmount: int = int(shellRowsAmountStr)
-infoLog = False
+infoLog = True
 originalLinesRange = range(1028)  # Maximale Zeilenanzahl
 output = True
 
@@ -2062,8 +2062,29 @@ class Program:
                     and len(self.bigParamaeter) > 0
                     and self.bigParamaeter[-1] == "spalten"
                 ):  # unteres Kommando
-                    if arg[2 : 7 + len(neg)] == "alles" + neg:
+                    if arg[2:] == "alles" + neg:
+
+                        self.tables.puniverseprims |= {
+                            couldBePrimeNumber
+                            if primCreativity(couldBePrimeNumber) == 1
+                            else None
+                            for couldBePrimeNumber in range(2, 100)
+                        } - {
+                            None,
+                        }
+                        alxp("___" + neg)
+                        alxp(self.tables.puniverseprims)
+                        # self.tables.primUniversePrimsSet = {
+                        #    couldBePrimeNumber
+                        #    if primCreativity(couldBePrimeNumber) == 1
+                        #    else None
+                        #    for couldBePrimeNumber in range(2, 100)
+                        # } - {
+                        #    None,
+                        # }
+                        self.tables.primUniverseRow = True
                         alxp("ALLES " + str(neg))
+                        self.ifCombi = True
                         self.tables.spalteGestirn = True
                         self.__willBeOverwritten_rowsOfcombi = set(range(10))
                         self.tables.generRows |= {
