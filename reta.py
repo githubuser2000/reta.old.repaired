@@ -2055,6 +2055,7 @@ class Program:
         paramLines = set()
         self.bigParamaeter: list = []
         self.__willBeOverwritten_rowsOfcombi: set = set()
+        generRows = set()
         for arg in argv[1:]:
             if len(arg) > 0 and arg[0] == "-":
                 if (
@@ -2073,27 +2074,17 @@ class Program:
                         } - {
                             None,
                         }
-                        alxp("ööö")
-                        alxp((len(neg) == 0))
-                        alxp((arg[-1] != neg))
-                        alxp(arg[-1])
-                        alxp(puniverseprims)
-                        # alxp("___" + neg)
-                        # alxp(self.tables.puniverseprims)
-                        # self.tables.primUniversePrimsSet = {
-                        #    couldBePrimeNumber
-                        #    if primCreativity(couldBePrimeNumber) == 1
-                        #    else None
-                        #    for couldBePrimeNumber in range(2, 100)
-                        # } - {
-                        #    None,
-                        # }
                         self.tables.primUniverseRow = True
-                        alxp("ALLES " + str(neg))
+                        if len(neg) > 0:
+                            self.tables.primUniverseRow = False
                         self.ifCombi = True
+                        if len(neg) > 0:
+                            self.ifCombi = False
                         self.tables.spalteGestirn = True
+                        if len(neg) > 0:
+                            self.tables.spalteGestirn = False
                         self.__willBeOverwritten_rowsOfcombi = set(range(10))
-                        self.tables.generRows |= {
+                        generRows |= {
                             (40, 41),
                             (38, 39),
                             (49, 50),
@@ -2393,14 +2384,14 @@ class Program:
                                 neg + "optimal",
                                 neg + "optimum",
                             ]:
-                                self.tables.generRows |= {(40, 41)}
+                                generRows |= {(40, 41)}
                             elif word in [
                                 neg + "gut",
                                 neg + "böse",
                                 neg + "lieb",
                                 neg + "schlecht",
                             ]:
-                                self.tables.generRows |= {(38, 39)}
+                                generRows |= {(38, 39)}
                                 rowsAsNumbers |= {52, 53}
                             elif word in [
                                 neg + "zeit",
@@ -2408,25 +2399,25 @@ class Program:
                                 neg + "zeitlich",
                                 neg + "räumlich",
                             ]:
-                                self.tables.generRows |= {(49, 50)}
+                                generRows |= {(49, 50)}
                             elif word in [
                                 neg + "meinungen",
                                 neg + "anderemenschen",
                                 neg + "ruf",
                             ]:
-                                self.tables.generRows |= {(60, 61)}
+                                generRows |= {(60, 61)}
                             elif word in [
                                 neg + "selbstgerechtigkeit",
                                 neg + "selbstgerecht",
                             ]:
-                                self.tables.generRows |= {(62, 63)}
+                                generRows |= {(62, 63)}
                             elif word in [
                                 neg + "egoismus",
                                 neg + "altruismus",
                                 neg + "egoist",
                                 neg + "altruist",
                             ]:
-                                self.tables.generRows |= {(66, 67)}
+                                generRows |= {(66, 67)}
                     elif arg[2:17] == "inkrementieren=":
                         for word in arg[17:].split(","):
                             if word in [
@@ -2648,6 +2639,7 @@ class Program:
             self.__willBeOverwritten_rowsOfcombi,
             spaltenreihenfolgeundnurdiese,
             puniverseprims,
+            generRows,
         )
 
     def help(self):
@@ -2708,6 +2700,7 @@ class Program:
             self.rowsOfcombi,
             spaltenreihenfolgeundnurdiese,
             puniverseprims,
+            generRows,
         ) = self.parameters(argv)
         (
             paramLinesNot,
@@ -2715,6 +2708,7 @@ class Program:
             self.rowsOfcombiNot,
             spaltenreihenfolgeundnurdieseNot,
             puniverseprimsNot,
+            generRowsNot,
         ) = self.parameters(argv, "-")
         alxp("-_-")
         alxp(puniverseprims)
@@ -2726,13 +2720,10 @@ class Program:
         #    puniverseprims, puniverseprimsNot
         # )
         puniverseprimsNot -= puniverseprims
-        alxp(type(puniverseprims))
-        alxp(type(puniverseprimsNot))
+        generRows -= generRowsNot
         for prims in puniverseprims - puniverseprimsNot:
             self.tables.primUniversePrimsSet.add(prims)
-        alxp(self.tables.puniverseprims)
-        alxp(puniverseprims)
-        alxp(puniverseprimsNot)
+        self.tables.generRows = generRows
         (
             self.rowsAsNumbers,
             self.rowsAsNumbersNot,
