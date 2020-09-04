@@ -992,6 +992,10 @@ class Tables:
                         return result
                 return a
 
+            for condition in paramLines:
+                if "all" == condition:
+                    return set(originalLinesRange)
+
             numRangeYesZ = set()
             if_a_AtAll = False
             for condition in paramLines:
@@ -2011,7 +2015,32 @@ class Program:
                     and len(self.bigParamaeter) > 0
                     and self.bigParamaeter[-1] == "spalten"
                 ):  # unteres Kommando
-                    if arg[2:9] == "breite=":
+                    if arg[2:7] == "alles":
+                        self.__willBeOverwritten_rowsOfcombi = set(range(10))
+                        self.tables.generRows |= {
+                            (40, 41),
+                            (38, 39),
+                            (49, 50),
+                            (60, 61),
+                            (62, 63),
+                            (65, 66),
+                        }
+                        rowsAsNumbers |= set(range(76)) - {
+                            67,
+                            66,
+                            63,
+                            62,
+                            60,
+                            56,
+                            44,
+                            49,
+                            50,
+                            41,
+                            40,
+                            39,
+                            38,
+                        }
+                    elif arg[2:9] == "breite=":
                         if arg[9:].isdecimal():
                             self.tables.textWidth = abs(int(arg[9:]))
                     elif arg[2:10] == "breiten=":
@@ -2302,7 +2331,7 @@ class Program:
                                 neg + "selbstgerechtigkeit",
                                 neg + "selbstgerecht",
                             ]:
-                                self.tables.generRows |= {(60, 61)}
+                                self.tables.generRows |= {(62, 63)}
                             elif word in [
                                 neg + "egoismus",
                                 neg + "altruismus",
@@ -2323,7 +2352,9 @@ class Program:
                     and len(self.bigParamaeter) > 0
                     and self.bigParamaeter[-1] == "zeilen"
                 ):  # unteres Kommando
-                    if arg[2:7] == "zeit=":
+                    if arg[2:7] == "alles":
+                        paramLines.add("all")
+                    elif arg[2:7] == "zeit=":
                         for subpara in arg[7:].split(","):
                             if neg + "=" == subpara:
                                 paramLines.add("=")
@@ -2757,23 +2788,19 @@ class Program:
         # alxp(
         #    '2. Bei Kombi sollte ich noch programmieren, wegen letzter Spalte "Religionen", dass Klammern und Vorzeichen + - dennoch zu richtigen letztendlichen Zeilen der Endausgabe zugeordnet werden.'
         # )
-        alxp("Die Modallogikvielfacher müsste ich noch einprogrammieren")
         alxp(
-            "Danach werde ich noch mal alles durchtesten und besonders die Sachen, die meine Programmierungen tangiert haben könnten"
-        )
-        alxp(
-            """Wenn ich programmiert habe, wie multipliziert wird, um zu erreichen, dass die Modallogiken umgesetzt werden, werde ich
+            """Die Modallogikvielfacher müsste ich noch einprogrammieren
+             Wenn ich programmiert habe, wie multipliziert wird, um zu erreichen, dass die Modallogiken umgesetzt werden, werde ich
              programmieren, dass die bisherige Multiplikation, die man kaum verstehen kann, auch besser verständlich gemacht werden kann und sich ggf.
              auf 2 Spalten oder mehr erstrecken wird, statt auf einer, wie bisher. So wird es verständlicher"""
         )
         alxp("Kombinierbarkeit aller Zeilenangaben, alle durchtesten")
         alxp(
-            "HTML coloriert ausgeben und ggf. sogar besser gleich noch damit in Verbindung bbcode! Die genaue Farbgebung ist zunächst unwichtiger. Die Textfarbe sollte dabei mit coloriert werden! Ich sollte mit css arbeiten, statt mit uralten html Formatierungen!"
-        )
-        alxp(
             "Alternative Farbgebung: gerade Zahlen und durch 3 teilbare und dazu welche Zählung es ist. Mod 2 = hell dunkel, mod 3 = rot, grün, blau; Zählung: pure Farben oder gebräunte Farben alternierend"
         )
-        alxp("Bei mehreren Spalten beide Farbgebungen automatisch wechseln lassen, cmd cli Parameter gibt jedoch explizit beides an, aber pro Spalte oder für alle oder Alternierungsmodulotyp")
+        alxp(
+            "Bei mehreren Spalten beide Farbgebungen automatisch wechseln lassen, cmd cli Parameter gibt jedoch explizit beides an, aber pro Spalte oder für alle oder Alternierungsmodulotyp"
+        )
         alxp("bei Zählungen soll auch vonbis möglich werden")
         alxp("vim: iIaAoOjJ mit Registern arbeiten wegen Löschen ohne ausschneiden")
         alxp("Warum geht er manchmal bis ans Ende und manchmal nur bis zu 120 oder so")

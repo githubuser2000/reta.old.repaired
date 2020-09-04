@@ -8,7 +8,9 @@ Hauptparameter:
 [list][*]-debug
 hat keine Nebenparameter, ist nur für mich als Programmierer relevant und interesssant
 [*]-zeilen
-[list][*]--zeit=[list][*]<
+[list]
+[*]--alles
+[*]--zeit=[list][*]<
 bedeutet Religionen 1-9[*]=
 bedeutet nur Religion 10[*]>
 bedeutet Religionen >10
@@ -26,6 +28,7 @@ Anmerkenung: Anführungszeichen setzen, weil < > sind in Unix Steuersymbole![/li
 [*][/list]
 [*]-spalten
 [list]
+[*]--alles
 [*]--breite=[list][*]40[*]70[/list]
 [*]--breiten=[list][*]20,50,10,70[*]30,100,20[/list]
 [*]--keinenummerierung
