@@ -41,13 +41,11 @@ parser.add_simple_formatter("sup", "<sup>%(value)s</sup>")
 
 
 class OutputSyntax:
-    @staticmethod
-    def coloredBeginCol(num: int, rest: bool = False):
-        return OutputSyntax.beginZeile
+    def coloredBeginCol(self, num: int, rest: bool = False):
+        return self.beginZeile
 
-    @staticmethod
-    def generateCell(num: int) -> str:
-        return OutputSyntax.beginCell
+    def generateCell(self, num: int) -> str:
+        return self.beginCell
 
     beginTable = ""
     endTable = ""
@@ -77,8 +75,7 @@ class markdownSyntax(OutputSyntax):
 
 
 class bbCodeSyntax(OutputSyntax):
-    @staticmethod
-    def coloredBeginCol(num: int, rest: bool = False):
+    def coloredBeginCol(self, num: int, rest: bool = False):
         num = int(num) if str(num).isdecimal() else 0
         numberType = primCreativity(num)
 
@@ -150,8 +147,7 @@ class htmlSyntax(OutputSyntax):
         elif num == 0:
             return '<tr style="background-color:#ff2222;font-size:18px;color:#002222;">'
 
-    @staticmethod
-    def generateCell(num: int) -> str:
+    def generateCell(self, num: int) -> str:
         return '<td class="RowNumber ' + str(num) + '">'
 
     beginTable = "<table border=1>"
@@ -253,6 +249,9 @@ def alxp(text):
             print(text)
         else:
             pp.pprint(text)
+
+
+alxp(markdownSyntax().generateCell(1))
 
 
 def cliout(text):
@@ -392,7 +391,7 @@ class Tables:
         def __init__(self):
             self.__oneTable = False
             self.__color = True
-            self.__outType: OutputSyntax = OutputSyntax
+            self.__outType: OutputSyntax = OutputSyntax()
 
         @property
         def outType(self) -> OutputSyntax:
@@ -573,7 +572,7 @@ class Tables:
             lastSubCellIndex = -1
             lastlastSubCellIndex = -2
             headingfinished = False
-            if self.__outType == csvSyntax:
+            if type(self.__outType) is csvSyntax:
                 strio = io.StringIO()
                 writer = csv.writer(
                     strio,
@@ -610,7 +609,7 @@ class Tables:
                             )
                             + self.__outType.endCell
                         )
-                        if self.__outType == csvSyntax:
+                        if type(self.__outType) is csvSyntax:
                             line = [line]
                         rowsEmpty = 0
                         sumWidths = 0
@@ -639,7 +638,7 @@ class Tables:
                                             emptyEntries += 1
                                         if (
                                             self.color
-                                            and self.__outType == OutputSyntax
+                                            and type(self.__outType) is OutputSyntax
                                         ):
                                             coloredSubCell = self.colorize(
                                                 entry.replace("\n", "").ljust(
@@ -647,7 +646,7 @@ class Tables:
                                                 ),
                                                 filteredLineNumbersofOrignal,
                                             )
-                                        elif self.__outType == csvSyntax:
+                                        elif type(self.__outType) is csvSyntax:
                                             coloredSubCell = newTable[
                                                 BigCellLineNumber
                                             ][subCellIndexRightLeft][
@@ -667,7 +666,7 @@ class Tables:
                                                 )
                                                 + self.__outType.endCell
                                             )
-                                        if self.__outType == csvSyntax:
+                                        if type(self.__outType) is csvSyntax:
                                             line += [coloredSubCell]
                                         else:
                                             line += (
@@ -677,7 +676,7 @@ class Tables:
                                         rowsEmpty += 1
                                         if (
                                             self.color
-                                            and self.__outType == OutputSyntax
+                                            and type(self.__outType) is OutputSyntax
                                         ):
                                             coloredSubCell = self.colorize(
                                                 "".ljust(subCellWidth),
@@ -692,7 +691,7 @@ class Tables:
                                                 + "".ljust(subCellWidth)
                                                 + self.__outType.endCell
                                             )
-                                        if self.__outType == csvSyntax:
+                                        if type(self.__outType) is csvSyntax:
                                             line += [coloredSubCell]
                                         else:
                                             line += (
@@ -706,7 +705,7 @@ class Tables:
                         if rowsEmpty != len(self.rowsAsNumbers) and (
                             iterWholeLine < self.textheight or self.textheight == 0
                         ):  # and m < actualPartLineLen:
-                            if self.__outType == markdownSyntax:
+                            if type(self.__outType) is markdownSyntax:
                                 line += self.__outType.generateCell(
                                     subCellIndexRightLeft
                                 )
@@ -727,7 +726,7 @@ class Tables:
 
                                     line += "\n" + addionalLine
                             if emptyEntries != entriesHere:
-                                if self.__outType == csvSyntax:
+                                if type(self.__outType) is csvSyntax:
                                     writer.writerow(line)
                                 else:
                                     if (
@@ -758,7 +757,7 @@ class Tables:
                 cliout(self.__outType.endTable)
                 if self.__oneTable:
                     break
-                if self.__outType == csvSyntax:
+                if type(self.__outType) is csvSyntax:
                     cliout(strio.getvalue())
 
         def colorize(self, text, num: int, rest=False) -> str:
@@ -2611,15 +2610,15 @@ class Program:
                     if arg[2:6] == "art=":
                         outputtype = arg[(arg.find("=") + 1) :]
                         if outputtype == "shell":
-                            self.tables.outType = OutputSyntax
+                            self.tables.outType = OutputSyntax()
                         elif outputtype == "csv":
-                            self.tables.outType = csvSyntax
+                            self.tables.outType = csvSyntax()
                         elif outputtype == "bbcode":
-                            self.tables.outType = bbCodeSyntax
+                            self.tables.outType = bbCodeSyntax()
                         elif outputtype == "html":
-                            self.tables.outType = htmlSyntax
+                            self.tables.outType = htmlSyntax()
                         elif outputtype == "markdown":
-                            self.tables.outType = markdownSyntax
+                            self.tables.outType = markdownSyntax()
                     elif arg[2:] in ["nocolor", "justtext"] and neg == "":
                         self.tables.getOut.color = False
                     elif (
