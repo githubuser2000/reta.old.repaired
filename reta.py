@@ -2871,12 +2871,10 @@ class Program:
              programmieren, dass die bisherige Multiplikation, die man kaum verstehen kann, auch besser verständlich gemacht werden kann und sich ggf.
              auf 2 Spalten oder mehr erstrecken wird, statt auf einer, wie bisher. So wird es verständlicher"""
         )
-        alxp("Kombinierbarkeit aller Zeilenangaben, alle durchtesten")
         alxp(
-            "Alternative Farbgebung: gerade Zahlen und durch 3 teilbare und dazu welche Zählung es ist. Mod 2 = hell dunkel, mod 3 = rot, grün, blau; Zählung: pure Farben oder gebräunte Farben alternierend"
-        )
-        alxp(
-            "dass eine Zelle auch länger sein kann, als die Bildschirmbreite, aber wann das denn?"
+            """Alternative Farbgebung: gerade Zahlen und durch 3 teilbare und dazu welche Zählung es ist. Mod 2 = hell dunkel,
+            mod 3 = rot, grün, blau; Zählung: pure Farben oder gebräunte Farben alternierend
+            NEIN: Ich mache nur die Zahlen vorn abgwechseln hell dunkel je nach Zählung"""
         )
         alxp(
             "Bei mehreren Spalten beide Farbgebungen automatisch wechseln lassen, cmd cli Parameter gibt jedoch explizit beides an, aber pro Spalte oder für alle oder Alternierungsmodulotyp"
