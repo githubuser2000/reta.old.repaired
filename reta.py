@@ -1349,10 +1349,10 @@ class Tables:
                                                 ]
                                             )
                                         else:
-                                            table2[colNum][row] += deepcopy(
+                                            table2[colNum][row][-1] += " " + deepcopy(
                                                 subTableCell[
                                                     rowsOfcombi.index(subRowNum + 1)
-                                                ]
+                                                ][0]
                                             )
             return table2
 
