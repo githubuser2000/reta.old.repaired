@@ -1933,12 +1933,12 @@ def primCreativity(num: int):
     return None
 
 
-def getLogarithmOnlyAsPureInt(potenz: int, basis: int) -> int:
-    exponent = math.log(potenz) / math.log(basis)
-    if exponent == round(exponent):
-        return exponent
-    else:
-        return None
+#def getLogarithmOnlyAsPureInt(potenz: int, basis: int) -> int:
+#    exponent = math.log(potenz) / math.log(basis)
+#    if exponent == round(exponent):
+#        return exponent
+#    else:
+#        return None
 
 
 def primRepeat(n: list) -> list:
