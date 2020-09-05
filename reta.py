@@ -148,7 +148,7 @@ class htmlSyntax(OutputSyntax):
             return '<tr style="background-color:#ff2222;font-size:18px;color:#002222;">'
 
     def generateCell(self, num: int) -> str:
-        return '<td class="RowNumber ' + str(num) + '">'
+        return '<td  style="display:none" class="RowNumber ' + str(num) + '">'
 
     beginTable = "<table border=1>"
     endTable = "</table>"
@@ -250,9 +250,6 @@ def alxp(text):
             print(text)
         else:
             pp.pprint(text)
-
-
-alxp(markdownSyntax().generateCell(1))
 
 
 def cliout(text):
@@ -605,7 +602,7 @@ class Tables:
                         line = (
                             ""
                             if not self.nummerierung
-                            else self.__outType.generateCell(0)
+                            else self.__outType.generateCell(-1)
                             + (
                                 "".rjust(numlen + 1)
                                 if iterWholeLine != 0
@@ -2047,7 +2044,9 @@ class Program:
                     and self.bigParamaeter[-1] == "spalten"
                 ):  # unteres Kommando
                     if arg[2:] == "alles" + neg:
+                        self.ifCombi = True
                         self.allesParameters += 1
+                        paramLines.add("ka")
 
                         puniverseprims = {
                             couldBePrimeNumber
