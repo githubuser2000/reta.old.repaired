@@ -901,6 +901,9 @@ class Tables:
             return isItNone
 
         def setWidth(self, rowToDisplay: int, combiRows1: int = 0) -> int:
+            global shellRowsAmount
+            if shellRowsAmount == 0:
+                return 0
             combiRows = combiRows1 if combiRows1 != 0 else len(self.rowsAsNumbers)
             if len(self.rowsAsNumbers) - combiRows < len(self.breiten):
                 breiten: list = self.breiten[len(self.rowsAsNumbers) - combiRows :]
@@ -1271,7 +1274,10 @@ class Tables:
             isItNone = self.wrapping(cell, certaintextwidth)
             cell2: tuple = tuple()
             rest: str = cell
-            while not isItNone in [None, ()]:
+            if certaintextwidth == 0:
+                return [cell]
+
+            while isItNone not in [None, ()]:
                 cell2 += isItNone
                 isItNone = self.wrapping(cell2[-1], certaintextwidth)
                 rest = cell2[-1]
