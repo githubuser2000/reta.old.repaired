@@ -209,24 +209,24 @@ def alxwrap(text: str, len_: int):
     try:
         return (
             dic.wrap(text, len_)
-            if wrappingType == Wraptype.pyphen
+            if wrappingType == Wraptype.pypheni and len_ != 0
             else (
                 splitMoreIfNotSmall(
                     fill(text, width=len_, use_hyphenator=h_de).split("\n"), len_
                 )
-                if wrappingType == Wraptype.pyhyphen
+                if wrappingType == Wraptype.pyhyphen and len_ != 0
                 else (text,)
             )
         )
     except:
         return (
             dic.wrap(text, len_)
-            if wrappingType == Wraptype.pyhyphen
+            if wrappingType == Wraptype.pyhyphen and len_ != 0
             else (
                 splitMoreIfNotSmall(
                     fill(text, width=len_, use_hyphenator=h_de).split("\n"), len_
                 )
-                if wrappingType == Wraptype.pyphen
+                if wrappingType == Wraptype.pyphen and len_ != 0
                 else (text,)
             )
         )
@@ -324,7 +324,11 @@ class Tables:
     def breitenn(self, value: list):
         global shellRowsAmount
         for i, v in enumerate(copy(value)):
-            value[i] = v if shellRowsAmount > v + 7 else shellRowsAmount - 7
+            value[i] = (
+                v
+                if shellRowsAmount > v + 7 or shellRowsAmount == 0
+                else shellRowsAmount - 7
+            )
         self.getPrepare.breiten = value
         self.getOut.breiten = value
 
@@ -459,7 +463,9 @@ class Tables:
         def textWidth(self, value):
             global shellRowsAmount
             self.textwidth = (
-                value if shellRowsAmount > value + 7 else shellRowsAmount - 7
+                value
+                if shellRowsAmount > value + 7 or shellRowsAmount == 0
+                else shellRowsAmount - 7
             )
 
         def onlyThatColumns(self, table, onlyThatColumns):
@@ -563,9 +569,9 @@ class Tables:
             # ColumnsRowsAmount, shellRowsAmount1 = (
             ##    os.popen("stty size", "r").read().split()
             # )  # Wie viele Zeilen und Spalten hat die Shell ?
-            shellRowsAmount = shellRowsAmount - (
+            shellRowsAmount -= (
                 len(str(self.finallyDisplayLines[-1]))
-                if len(self.finallyDisplayLines) > 0
+                if len(self.finallyDisplayLines) > 0 and shellRowsAmount != 0
                 else 0
             )
             self.finallyDisplayLines[0] = ""
@@ -878,37 +884,6 @@ class Tables:
         def textWidth(self, value):
             self.textwidth = value
 
-        def createRowPrimeMultiples(
-            self, relitable: list, rowsAsNumbers: set, certaintextwidth: int
-        ):
-            self.relitable = relitable
-            if self.ifprimmultis:
-                if len(self.relitable) > 0:
-                    rowsAsNumbers.add(len(self.relitable[0]))
-                # moonNumber
-                for i, line in enumerate(self.relitable):
-                    if i == 0:
-                        line += self.wrapping2("Primzahlenvielfache", certaintextwidth)
-                    else:
-                        line += self.wrapping2("", certaintextwidth)
-                    pass
-
-        def wrapping2(self, text: str, length: int) -> list:
-            """Hier wird der Zeilenumbruch umgesetzt
-
-            @type text: str
-            @param text: Der Text dessen Zeilen umbgebrochen werden sollen
-            @type lenght: int
-            @param lenght: ab welcher Zeilenlänge umgebrochen werden soll
-            @rtype: list[str]
-            @return: Liste aus umgebrochenen Teilstrings
-            """
-            if len(text) > length:
-                isItNone = alxwrap(text, length)
-            else:
-                isItNone = text
-            return isItNone
-
         def wrapping(self, text: str, length: int) -> list:
             """Hier wird der Zeilenumbruch umgesetzt
 
@@ -919,7 +894,7 @@ class Tables:
             @rtype: list[str]
             @return: Liste aus umgebrochenen Teilstrings
             """
-            if len(text) > length:
+            if len(text) > length and length != 0:
                 isItNone = alxwrap(text, length)
             else:
                 isItNone = None
@@ -2112,7 +2087,10 @@ class Program:
                         }
                     elif arg[2:9] == "breite=":
                         if arg[9:].isdecimal():
-                            self.tables.textWidth = abs(int(arg[9:]))
+                            breite = abs(int(arg[9:]))
+                            if breite == 0:
+                                shellRowsAmount = 0
+                            self.tables.textWidth = breite
                     elif arg[2:10] == "breiten=":
                         self.tables.breitenn = []
                         for breite in arg[10:].split(","):
@@ -2345,13 +2323,6 @@ class Program:
                             ]:
                                 self.tables.spalteGestirn = True
                                 rowsAsNumbers |= {64}
-                            # elif thing in [
-                            #    neg + "primvielfache",
-                            #    neg + "primvielfacher",
-                            #    neg + "primzahlenvielfacher",
-                            #    neg + "primzahlenvielfache",
-                            # ]:
-                            #    self.tables.ifPrimMultis = True
                     elif arg[2 : 11 + len(neg)] == "symbole" + neg:
                         rowsAsNumbers |= {36, 37}
                     elif arg[2:30] == "primzahlvielfachesuniversum=":
@@ -2820,11 +2791,6 @@ class Program:
             spaltenreihenfolgeundnurdiese,
         ) = self.start(argv)
         self.tables.getMainTable.createSpalteGestirn(self.relitable, self.rowsAsNumbers)
-        self.tables.getPrepare.createRowPrimeMultiples(
-            self.relitable,
-            self.rowsAsNumbers,
-            self.tables.getPrepare.setWidth(len(self.rowsAsNumbers)),
-        )
         (
             finallyDisplayLines,
             newTable,
