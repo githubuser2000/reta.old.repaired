@@ -1933,7 +1933,7 @@ def primCreativity(num: int):
     return None
 
 
-#def getLogarithmOnlyAsPureInt(potenz: int, basis: int) -> int:
+# def getLogarithmOnlyAsPureInt(potenz: int, basis: int) -> int:
 #    exponent = math.log(potenz) / math.log(basis)
 #    if exponent == round(exponent):
 #        return exponent
@@ -2075,7 +2075,7 @@ class Program:
                             (62, 63),
                             (66, 67),
                         }
-                        rowsAsNumbers |= set(range(76)) - {
+                        rowsAsNumbers |= set(range(78)) - {
                             67,
                             66,
                             63,
@@ -2177,7 +2177,7 @@ class Program:
                         "transzendentalien" + neg,
                         "strukturalien" + neg,
                     ]:
-                        rowsAsNumbers |= {5, 54, 55, 65, 75}
+                        rowsAsNumbers |= {5, 54, 55, 65, 75, 76, 77}
                     elif arg[2:13] in ["wirtschaft="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [
