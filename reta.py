@@ -187,7 +187,6 @@ def splitMoreIfNotSmall(textList: list, lenToBe: int) -> tuple:
         for k, text in enumerate(textList):
             if len(text) > lenToBe:
                 newList += list(chunks(text, lenToBe))
-                alxp("_" + str(newList) + "_")
             else:
                 newList += [text]
     if neededToBeDoneAtAll:
@@ -463,7 +462,7 @@ class Tables:
                 value if shellRowsAmount > value + 7 else shellRowsAmount - 7
             )
 
-        def onlyThatColumns(self, table, onlyThatColumns, rowsRange):
+        def onlyThatColumns(self, table, onlyThatColumns):
             if len(onlyThatColumns) > 0:
                 newTable = []
                 for row in table:
@@ -474,13 +473,12 @@ class Tables:
                         except IndexError:
                             pass
                     newTable += [newCol]
-                    newRowsRange = range(len(newTable[0]))
                 if len(newTable) > 0:
-                    return newTable, newRowsRange
+                    return newTable
                 else:
-                    return table, rowsRange
+                    return table
             else:
-                return table, rowsRange
+                return table
 
         def cliOut(
             self,
@@ -1293,7 +1291,7 @@ class Tables:
             @rtype: list[str]
             @return: Liste aus Strings mit korrektem Zeilenumbruch
             """
-
+            # certaintextwidth -= 1
             cell = cell.strip()
             isItNone = self.wrapping(cell, certaintextwidth)
             cell2: tuple = tuple()
@@ -1304,10 +1302,10 @@ class Tables:
                 rest = cell2[-1]
                 cell2 = cell2[:-1]
                 if len(rest) > certaintextwidth and isItNone is None:
-                    cell2 += (rest[0 : certaintextwidth - 1],)
+                    cell2 += (rest[0:certaintextwidth],)
                     isItNone = (rest[certaintextwidth:],)
             else:
-                cell2 += (rest[0 : certaintextwidth - 1],)
+                cell2 += (rest[0:certaintextwidth],)
                 for k, cellInCells in enumerate(cell2):
                     if k < len(newLines):
                         newLines[k] += [cellInCells]
@@ -2885,8 +2883,8 @@ class Program:
 
         # rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
         # spaltenreihenfolgeundnurdiese
-        newTable, rowsRange = self.tables.getOut.onlyThatColumns(
-            newTable, spaltenreihenfolgeundnurdiese, rowsRange
+        newTable = self.tables.getOut.onlyThatColumns(
+            newTable, spaltenreihenfolgeundnurdiese
         )
         self.tables.getOut.cliOut(finallyDisplayLines, newTable, numlen, rowsRange)
         alxp(
