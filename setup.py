@@ -13,6 +13,12 @@ setup(
         "bbcode==1.1.0",
         "pyphen>=0.9.5",
         "PyHyphen>=3.0.1",
+        "bidict>=0.21.0",
     ],
-    package_data={".": ["*.txt", "*.csv",]},
+    package_data={
+        ".": [
+            "*.txt",
+            "*.csv",
+        ]
+    },
 )
