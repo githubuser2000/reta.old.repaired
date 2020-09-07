@@ -14,8 +14,6 @@ from typing import Iterable, Union
 
 import bbcode
 
-from bidict import bidict
-
 if "Brython" not in sys.version.split():
     import html2text
     import pyphen
@@ -2013,76 +2011,137 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 
 
 class Program:
-    # bidict({})
-    parameterMatching = bidict(
-        {
-            bidict(
-                {
-                    "zeilen": None,
-                    "spalten": bidict(
-                        {
-                            "breite": None,
-                            "keinenummerierung": None,
-                            ["religion", "religionen"]: bidict(
-                                {
-                                    ["sternpolygon"]: {0, 6, 36},
-                                    [
-                                        "prophet",
-                                        "archon",
-                                        "religionsgründertyp",
-                                        "religionsgruendertyp",
-                                    ]: {72},
-                                    ["babylon", "dertierkreiszeichen"]: {0, 36},
-                                    [
-                                        "messias",
-                                        "heptagramm",
-                                        "hund",
-                                        "messiase",
-                                        "messiasse",
-                                    ]: {7},
-                                    [
-                                        "gleichfoermigespolygon",
-                                        "gleichförmigespolygon",
-                                        "nichtsternpolygon",
-                                        "polygon",
-                                    ]: {16, 37},
-                                    [
-                                        "vertreterhoehererkonzepte",
-                                        "galaxien",
-                                        "galaxie",
-                                        "schwarzesonne",
-                                        "schwarzesonnen",
-                                        "universum",
-                                        "universen",
-                                        "kreis",
-                                        "kreise",
-                                        "kugel",
-                                        "kugeln",
-                                    ]: {23},
-                                }
-                            ),
-                            [
-                                "galaxie=",
-                                "alteschriften=",
-                                "kreis=",
-                                "galaxien=",
-                                "kreise=",
-                            ]: bidict(
-                                {
-                                    ["babylon", "tierkreiszeichen"]: {1, 2},
-                                    ["thomas", "thomasevangelium"]: {0, 3},
-                                    ["groessenordnung","strukturgroesse","groesse","stufe"]:{4, 21},["universum","transzendentalien","strukturalien"]:{5, 54, 55, 65, 75, 76, 77, 78}
-                                }
-                            ),
-                    "kombinationen": None,
-                    "ausgabe": None,
-                }
-            ): None,
-            bidict({"debug": None}): None,
-            bidict({"help": None, "h": None}): None,
-        }
-    )
+    @staticmethod
+    def intoParameterDatatype(parameternames: tuple, data: set) -> tuple:
+        """Speichert einen Parameter mit seinem DatenSet
+        in 2 Datenstrukturen (die beides kombinieren 2x2)
+        Diese werden jedoch nur zurück gegeben und nicht in der Klasse gespeichert.
+        """
+        paradict = {}
+        for name in parameternames:
+            paradict[name] = data
+        datadict = {}
+        for d in data:
+            datadict[d] = parameternames[0]
 
+        return paradict, datadict
+
+    def mergeParameterDicts(self, paradict: dict, datadict: dict) -> tuple:
+        """Merged die beiden 2x2 Datenstrukturen und speichert diese
+        in die Klasse und gibt sie dennoch mit return zurück"""
+        try:
+            self.paradict = {**self.paradict, **paradict}
+        except AttributeError:
+            self.paradict = paradict
+        for k, v in datadict.items():
+            try:
+                self.datadict[k] |= {v}
+            except AttributeError:
+                self.datadict: dict = {}
+                self.datadict[k] = {v}
+            except KeyError:
+                self.datadict[k] = {v}
+
+        return self.paradict, self.datadict
+
+    def storeParamtersForColumns(self):
+        paraNdataMatrix = (
+            (
+                ("prophet", "archon", "religionsgründertyp", "religionsgruendertyp"),
+                {72},
+            ),
+            ("sternpolygon", {0, 6, 36}),
+        )
+        for parameterEntry in paraNdataMatrix:
+            self.mergeParameterDicts(
+                *self.intoParameterDatatype(parameterEntry[0] if type(parameterEntry[0]) is tuple else: (parameterEntry[0],), parameterEntry[1])
+            )
+        print(str(self.paradict))
+        print(str(self.datadict))
+
+    #
+    #    parameterMatching = bidict(
+    #        {
+    #            "zeilen": None,
+    #            "spalten": bidict(
+    #                {
+    #                    "breite": None,
+    #                    "keinenummerierung": None,
+    #                    ["religion", "religionen"]: bidict(
+    #                        {
+    #                            ["sternpolygon"]: {0, 6, 36},
+    #                            [
+    #                                "prophet",
+    #                                "archon",
+    #                                "religionsgründertyp",
+    #                                "religionsgruendertyp",
+    #                            ]: {72},
+    #                            ["babylon", "dertierkreiszeichen"]: {0, 36},
+    #                            [
+    #                                "messias",
+    #                                "heptagramm",
+    #                                "hund",
+    #                                "messiase",
+    #                                "messiasse",
+    #                            ]: {7},
+    #                            [
+    #                                "gleichfoermigespolygon",
+    #                                "gleichförmigespolygon",
+    #                                "nichtsternpolygon",
+    #                                "polygon",
+    #                            ]: {16, 37},
+    #                            [
+    #                                "vertreterhoehererkonzepte",
+    #                                "galaxien",
+    #                                "galaxie",
+    #                                "schwarzesonne",
+    #                                "schwarzesonnen",
+    #                                "universum",
+    #                                "universen",
+    #                                "kreis",
+    #                                "kreise",
+    #                                "kugel",
+    #                                "kugeln",
+    #                            ]: {24},
+    #                        }
+    #                    ),
+    #                    [
+    #                        "galaxie=",
+    #                        "alteschriften=",
+    #                        "kreis=",
+    #                        "galaxien=",
+    #                        "kreise=",
+    #                    ]: bidict(
+    #                        {
+    #                            ["babylon", "tierkreiszeichen"]: {1, 2},
+    #                            ["thomas", "thomasevangelium"]: {0, 3},
+    #                            [
+    #                                "groessenordnung",
+    #                                "strukturgroesse",
+    #                                "groesse",
+    #                                "stufe",
+    #                            ]: {4, 21},
+    #                            ["universum", "transzendentalien", "strukturalien"]: {
+    #                                5,
+    #                                54,
+    #                                55,
+    #                                65,
+    #                                75,
+    #                                76,
+    #                                77,
+    #                                78,
+    #                            },
+    #                        }
+    #                    ),
+    #                    "kombinationen": None,
+    #                    "ausgabe": None,
+    #                }
+    #            ),
+    #            bidict({"debug": None}): None,
+    #            bidict({"help": None, "h": None}): None,
+    #        }
+    #    )
+    #
     def parameters(self, argv, neg="") -> Iterable[Union[set, set, set, list]]:
         """Parameter in der Shell werden hier vorverarbeitet.
         Die Paraemter führen dazu, dass Variablen gesetzt werden, z.B.
@@ -2852,8 +2911,10 @@ class Program:
             spaltenreihenfolgeundnurdiese,
         )
 
-    def __init__(self, argv):
+    def __init__(self, argv=[]):
         global Tables
+        if len(argv) == 0:
+            return
         self.allesParameters = 0
         self.ifCombi = False
         self.tables = Tables()
