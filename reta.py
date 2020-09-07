@@ -723,7 +723,7 @@ class Program:
                 *self.intoParameterDatatype(
                     parameterEntry[0],
                     parameterEntry[1],
-                    (
+                    tuple(
                         parameterEntryElement
                         if type(parameterEntryElement) in [tuple, set, dict]
                         else (parameterEntryElement,)
