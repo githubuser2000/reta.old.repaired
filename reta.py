@@ -445,7 +445,10 @@ class Program:
                 paraDict[(name1, name2)] = data
         dataDict = {}
         for d in data:
-            dataDict[d] = (parameterMainNames[0], parameterNames[0])
+            dataDict[d] = (
+                parameterMainNames[0] if len(parameterMainNames) > 0 else (),
+                parameterNames[0] if len(parameterNames) > 0 else (),
+            )
 
         return paraMainDict, paraDict, dataDict
 
@@ -535,36 +538,75 @@ class Program:
                     "kugeln",
                 ),
                 {24},
-                (ParametersMain[1], ("babylon", "tierkreiszeichen"), {1, 2}),
-                (ParametersMain[1], ("thomas", "thomasevangelium"), {0, 3}),
-                (ParametersMain[2], (), {4, 21}),
-                (ParametersMain[3], (), {5, 54, 55, 65, 75, 76, 77, 78}),
-                (
-                    ParametersMain[4],
-                    (
-                        "incel",
-                        "incels",
-                    ),
-                    {68},
-                ),
-                (
-                    ParametersMain[4],
-                    ("irrationalezahlendurchwurzelbildung", "ausgangslage"),
-                    {73},
-                ),
-                (
-                    ParametersMain[4],
-                    ("dominierendesgeschlecht", "maennlich", "männlich", "weiblich"),
-                    {51},
-                ),
-                (ParametersMain[4], (), {}),
-                (ParametersMain[4], (), {}),
-                (ParametersMain[4], (), {}),
-                (ParametersMain[4], (), {}),
-                (ParametersMain[4], (), {}),
-                (ParametersMain[4], (), {}),
             ),
-            (ParametersMain[0], (), {}),
+            (ParametersMain[1], ("babylon", "tierkreiszeichen"), {1, 2}),
+            (ParametersMain[1], ("thomas", "thomasevangelium"), {0, 3}),
+            (ParametersMain[2], (), {4, 21}),
+            (ParametersMain[3], (), {5, 54, 55, 65, 75, 76, 77, 78}),
+            (
+                ParametersMain[4],
+                (
+                    "incel",
+                    "incels",
+                ),
+                {68},
+            ),
+            (
+                ParametersMain[4],
+                ("irrationalezahlendurchwurzelbildung", "ausgangslage"),
+                {73},
+            ),
+            (
+                ParametersMain[4],
+                ("dominierendesgeschlecht", "maennlich", "männlich", "weiblich"),
+                {51},
+            ),
+            (ParametersMain[4], ("liebe", "ethik"), {8, 9, 28}),
+            (
+                ParametersMain[4],
+                (
+                    "glauben",
+                    "erkenntnis",
+                    "glaube",
+                ),
+                {59},
+            ),
+            (ParametersMain[4], ("angreifbar", "angreifbarkeit"), {58, 57}),
+            (ParametersMain[4], ("motive", "motivation", "motiv"), {10, 18, 42}),
+            (ParametersMain[4], ("errungenschaften", "ziele", "erhalten"), {11}),
+            (
+                ParametersMain[4],
+                (
+                    "erwerben",
+                    "erlernen",
+                    "lernen",
+                    "evolutionaer",
+                    "evolutionär",
+                    "intelligenz",
+                    "kreativität",
+                    "kreativitaet",
+                    "kreativ",
+                ),
+                {12, 47, 27, 13, 32},
+            ),
+            (
+                ParametersMain[4],
+                ("brauchen", "benoetigen", "benötigen", "notwendig"),
+                {13, 14},
+            ),
+            (
+                ParametersMain[4],
+                (
+                    "krankheit",
+                    "krankheiten",
+                    "pathologisch",
+                    "pathologie",
+                    "psychiatrisch",
+                ),
+                {24},
+            ),
+            (ParametersMain[4], ("alpha", "beta", "omega", "sigma"), {46}),
+            (ParametersMain[4], ("anfuehrer", "chef"), {29}),
         )
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
