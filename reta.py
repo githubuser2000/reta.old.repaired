@@ -440,8 +440,9 @@ class Program:
         for name in parameterMainNames:
             paraMainDict[name] = parameterNames
         paraDict = {}
-        for name in parameterNames:
-            paraDict[name] = data
+        for name1 in parameterNames:
+            for name2 in parameterMainNames:
+                paraDict[(name1, name2)] = data
         dataDict = {}
         for d in data:
             dataDict[d] = (parameterMainNames[0], parameterNames[0])
