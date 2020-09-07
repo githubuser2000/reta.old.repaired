@@ -933,10 +933,50 @@ class Program:
                     ),
                 )
             )
+        kombiParaNdataMatrix = {
+            1: (
+                "tiere",
+                "tier",
+                "lebewesen",
+            ),
+            2: ("berufe", "beruf"),
+            3: (
+                "kreativität",
+                "intelligenz",
+                "kreativitaet",
+            ),
+            4: ("liebe",),
+            5: (
+                "transzendenz",
+                "transzendentalien",
+                "strukturalien",
+                "alien",
+            ),
+            6: ("leibnitz", "primzahlkreuz"),
+            7: (
+                "männer",
+                "maenner",
+                "frauen",
+            ),
+            8: (
+                "evolution",
+                "erwerben",
+                "persoenlichkeit",
+                "persönlichkeit",
+            ),
+            9: (
+                "religion",
+                "religionen",
+            ),
+        }
+        self.kombiReverseDict: dict = {}
+        for key, value in kombiParaNdataMatrix.items():
+            self.kombiReverseDict[value[0]] = key
+        # alxp(self.kombiReverseDict)
 
-        alxp((self.paraMainDict))
-        alxp((self.paraDict))
-        alxp((self.dataDict))
+        # alxp((self.paraMainDict))
+        # alxp((self.paraDict))
+        # alxp((self.dataDict))
 
     def parameters(self, argv, neg="") -> Iterable[Union[set, set, set, list]]:
         """Parameter in der Shell werden hier vorverarbeitet.
