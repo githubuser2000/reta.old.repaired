@@ -1821,7 +1821,12 @@ class Program:
         # alxp(
         #    '2. Bei Kombi sollte ich noch programmieren, wegen letzter Spalte "Religionen", dass Klammern und Vorzeichen + - dennoch zu richtigen letztendlichen Zeilen der Endausgabe zugeordnet werden.'
         # )
-        alxp("""SCHLIMMER BUG: bei kombi Sachen kein Zeilenumbruch mehr!""")
+        alxp(
+            """SCHLIMMER BUG: bei kombi Sachen kein Zeilenumbruch mehr!
+             BUG zwar jetzt beseitigt, aber ich will doch keine Zeilenumbrüche
+             bei kombi.csv Ausgaben! Ich kümmere mich darum, wenn ich
+             geistig leistungsfähiger sein werde"""
+        )
         alxp(
             """Die Modallogikvielfacher müsste ich noch einprogrammieren
              Wenn ich programmiert habe, wie multipliziert wird, um zu erreichen, dass die Modallogiken umgesetzt werden, werde ich
