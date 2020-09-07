@@ -444,6 +444,7 @@ class Program:
         in 2 Datenstrukturen (die beides kombinieren 2x2)
         Diese werden jedoch nur zurück gegeben und nicht in der Klasse gespeichert.
         """
+        # alxp(("_", parameterMainNames, parameterNames, datas))
         paraMainDict = {}
         for name in parameterMainNames:
             paraMainDict[name] = parameterNames
@@ -458,7 +459,7 @@ class Program:
                     parameterMainNames[0] if len(parameterMainNames) > 0 else (),
                     parameterNames[0] if len(parameterNames) > 0 else (),
                 )
-
+        # alxp(("ö", paraMainDict, paraDict, dataDicts))
         return paraMainDict, paraDict, dataDicts
 
     def mergeParameterDicts(
@@ -500,26 +501,53 @@ class Program:
                 "galaxien",
                 "kreise",
             ),
-            ("groessenordnung", "strukturgroesse", "groesse", "stufe"),
-            ("universum", "transzendentalien", "strukturalien"),
-            ("wirtschaft"),
-            ("menschliches"),
-            ("procontra", "dagegendafuer"),
-            ("licht"),
-            ("bedeutung"),
-            ("symbole"),
-            ("primzahlvielfachesuniversum"),
-            ("konzept", "konzepte"),
-            ("inkrementieren"),
+            (
+                "groessenordnung",
+                "strukturgroesse",
+                "groesse",
+                "stufe",
+            ),
+            (
+                "universum",
+                "transzendentalien",
+                "strukturalien",
+            ),
+            ("wirtschaft",),
+            ("menschliches",),
+            (
+                "procontra",
+                "dagegendafuer",
+            ),
+            ("licht",),
+            ("bedeutung",),
+            ("symbole",),
+            ("primzahlvielfachesuniversum",),
+            (
+                "konzept",
+                "konzepte",
+            ),
+            ("inkrementieren",),
         )
         paraNdataMatrix = (
             (
                 ParametersMain[0],
-                ("prophet", "archon", "religionsgründertyp", "religionsgruendertyp"),
+                (
+                    "prophet",
+                    "archon",
+                    "religionsgründertyp",
+                    "religionsgruendertyp",
+                ),
                 {72},
             ),
-            (ParametersMain[0], "sternpolygon", {0, 6, 36}),
-            (ParametersMain[0], ("babylon", "dertierkreiszeichen"), {0, 36}),
+            (ParametersMain[0], ("sternpolygon",), {0, 6, 36}),
+            (
+                ParametersMain[0],
+                (
+                    "babylon",
+                    "dertierkreiszeichen",
+                ),
+                {0, 36},
+            ),
             (
                 ParametersMain[0],
                 (
@@ -558,11 +586,31 @@ class Program:
                 ),
                 {24},
             ),
-            (ParametersMain[1], ("babylon", "tierkreiszeichen"), {1, 2}),
-            (ParametersMain[1], ("thomas", "thomasevangelium"), {0, 3}),
+            (
+                ParametersMain[1],
+                (
+                    "babylon",
+                    "tierkreiszeichen",
+                ),
+                {1, 2},
+            ),
+            (
+                ParametersMain[1],
+                (
+                    "thomas",
+                    "thomasevangelium",
+                ),
+                {0, 3},
+            ),
             (ParametersMain[2], (), {4, 21}),
             (ParametersMain[3], (), {5, 54, 55, 65, 75, 76, 77, 78}),
-            (ParametersMain[4], ("system"), {69}),
+            (
+                ParametersMain[4],
+                ("system",),
+                {
+                    69,
+                },
+            ),
             (
                 ParametersMain[4],
                 (
@@ -589,15 +637,30 @@ class Program:
             ),
             (
                 ParametersMain[5],
-                ("irrationalezahlendurchwurzelbildung", "ausgangslage"),
+                (
+                    "irrationalezahlendurchwurzelbildung",
+                    "ausgangslage",
+                ),
                 {73},
             ),
             (
                 ParametersMain[5],
-                ("dominierendesgeschlecht", "maennlich", "männlich", "weiblich"),
+                (
+                    "dominierendesgeschlecht",
+                    "maennlich",
+                    "männlich",
+                    "weiblich",
+                ),
                 {51},
             ),
-            (ParametersMain[5], ("liebe", "ethik"), {8, 9, 28}),
+            (
+                ParametersMain[5],
+                (
+                    "liebe",
+                    "ethik",
+                ),
+                {8, 9, 28},
+            ),
             (
                 ParametersMain[5],
                 (
@@ -607,9 +670,32 @@ class Program:
                 ),
                 {59},
             ),
-            (ParametersMain[5], ("angreifbar", "angreifbarkeit"), {58, 57}),
-            (ParametersMain[5], ("motive", "motivation", "motiv"), {10, 18, 42}),
-            (ParametersMain[5], ("errungenschaften", "ziele", "erhalten"), {11}),
+            (
+                ParametersMain[5],
+                (
+                    "angreifbar",
+                    "angreifbarkeit",
+                ),
+                {58, 57},
+            ),
+            (
+                ParametersMain[5],
+                (
+                    "motive",
+                    "motivation",
+                    "motiv",
+                ),
+                {10, 18, 42},
+            ),
+            (
+                ParametersMain[5],
+                (
+                    "errungenschaften",
+                    "ziele",
+                    "erhalten",
+                ),
+                {11},
+            ),
             (
                 ParametersMain[5],
                 (
@@ -627,7 +713,12 @@ class Program:
             ),
             (
                 ParametersMain[5],
-                ("brauchen", "benoetigen", "benötigen", "notwendig"),
+                (
+                    "brauchen",
+                    "benoetigen",
+                    "benötigen",
+                    "notwendig",
+                ),
                 {13, 14},
             ),
             (
@@ -641,24 +732,115 @@ class Program:
                 ),
                 {24},
             ),
-            (ParametersMain[5], ("alpha", "beta", "omega", "sigma"), {46}),
-            (ParametersMain[5], ("anfuehrer", "chef"), {29}),
-            (ParametersMain[5], ("beruf", "berufe"), {30}),
-            (ParametersMain[5], ("loesungen", "loesung", "lösungen", "lösungen"), {31}),
-            (ParametersMain[5], ("musik"), {33}),
-            (ParametersMain[6], ("pro", "dafür", "dafuer"), {17, 48}),
-            (ParametersMain[6], ("contra", "dagegen"), {15, 26}),
+            (
+                ParametersMain[5],
+                (
+                    "alpha",
+                    "beta",
+                    "omega",
+                    "sigma",
+                ),
+                {46},
+            ),
+            (
+                ParametersMain[5],
+                (
+                    "anfuehrer",
+                    "chef",
+                ),
+                {29},
+            ),
+            (
+                ParametersMain[5],
+                (
+                    "beruf",
+                    "berufe",
+                ),
+                {30},
+            ),
+            (
+                ParametersMain[5],
+                (
+                    "loesungen",
+                    "loesung",
+                    "lösungen",
+                    "lösungen",
+                ),
+                {31},
+            ),
+            (ParametersMain[5], ("musik",), {33}),
+            (
+                ParametersMain[6],
+                (
+                    "pro",
+                    "dafür",
+                    "dafuer",
+                ),
+                {17, 48},
+            ),
+            (
+                ParametersMain[6],
+                (
+                    "contra",
+                    "dagegen",
+                ),
+                {15, 26},
+            ),
             (ParametersMain[7], (), {20, 27}),
-            (ParametersMain[8], ("primzahlen", "vielfache", "vielfacher"), {19}),
-            (ParametersMain[8], ("anwendungdersonnen", "anwendungenfuermonde"), {22}),
             (
                 ParametersMain[8],
-                ("zaehlung", "zaehlungen", "zählungen", "zählung"),
+                (
+                    "primzahlen",
+                    "vielfache",
+                    "vielfacher",
+                ),
+                {19},
+            ),
+            (
+                ParametersMain[8],
+                (
+                    "anwendungdersonnen",
+                    "anwendungenfuermonde",
+                ),
+                {22},
+            ),
+            (
+                ParametersMain[8],
+                (
+                    "zaehlung",
+                    "zaehlungen",
+                    "zählungen",
+                    "zählung",
+                ),
                 {25, 45},
             ),
-            (ParametersMain[8], ("jura", "gesetzeslehre", "recht"), {34}),
-            (ParametersMain[8], ("vollkommenheit", "geist"), {35}),
-            (ParametersMain[8], ("gestirn", "mond", "sonne", "planet"), {64}),
+            (
+                ParametersMain[8],
+                (
+                    "jura",
+                    "gesetzeslehre",
+                    "recht",
+                ),
+                {34},
+            ),
+            (
+                ParametersMain[8],
+                (
+                    "vollkommenheit",
+                    "geist",
+                ),
+                {35},
+            ),
+            (
+                ParametersMain[8],
+                (
+                    "gestirn",
+                    "mond",
+                    "sonne",
+                    "planet",
+                ),
+                {64},
+            ),
             (ParametersMain[9], (), {36, 37}),
             (
                 ParametersMain[10],
@@ -668,7 +850,7 @@ class Program:
                 puniverseprims
                 # {
                 #    abs(chosen) if (len(chosen) == chosen) else None
-                #    for chosen in [int(value) for value in (arg[30:].split(","))]
+                #    for chosen in [int(value) for value in (arg[30:].split(",",))]
                 # }
                 # - {None, 0, 1},
             ),
@@ -688,35 +870,58 @@ class Program:
             ),
             (
                 ParametersMain[11],
-                ("gut", "böse", "boese", "lieb", "schlecht"),
+                (
+                    "gut",
+                    "böse",
+                    "boese",
+                    "lieb",
+                    "schlecht",
+                ),
                 {52, 53},
                 {(38, 39)},
             ),
             (
                 ParametersMain[11],
-                ("zeit", "raum", "zeitlich", "räumlich"),
+                (
+                    "zeit",
+                    "raum",
+                    "zeitlich",
+                    "räumlich",
+                ),
                 {},
                 {(49, 50)},
             ),
             (
                 ParametersMain[11],
-                ("meinungen", "anderemenschen", "ruf"),
+                (
+                    "meinungen",
+                    "anderemenschen",
+                    "ruf",
+                ),
                 {},
                 {(60, 61)},
             ),
             (
                 ParametersMain[11],
-                ("selbstgerechtigkeit", "selbstgerecht"),
+                (
+                    "selbstgerechtigkeit",
+                    "selbstgerecht",
+                ),
                 {},
                 {(62, 63)},
             ),
             (
                 ParametersMain[11],
-                ("egoismus", "altruismus", "egoist", "altruist"),
+                (
+                    "egoismus",
+                    "altruismus",
+                    "egoist",
+                    "altruist",
+                ),
                 {},
                 {(66, 67)},
             ),
-            (ParametersMain[12], ("universum"), {43, 54, 74}),
+            (ParametersMain[12], ("universum",), {43, 54, 74}),
         )
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
@@ -725,8 +930,6 @@ class Program:
                     parameterEntry[1],
                     tuple(
                         parameterEntryElement
-                        if type(parameterEntryElement) in [tuple, set, dict]
-                        else (parameterEntryElement,)
                         for parameterEntryElement in parameterEntry[2:]
                     ),
                 )
