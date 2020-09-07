@@ -430,7 +430,7 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 class Program:
     @staticmethod
     def intoParameterDatatype(
-        parameterMainNames: tuple, parameterNames: tuple, data: set
+        parameterMainNames: tuple, parameterNames: tuple, data1: set, data2: set
     ) -> tuple:
         """Speichert einen Parameter mit seinem DatenSet
         in 2 Datenstrukturen (die beides kombinieren 2x2)
@@ -442,10 +442,10 @@ class Program:
         paraDict = {}
         for name1 in parameterNames:
             for name2 in parameterMainNames:
-                paraDict[(name1, name2)] = data
+                paraDict[(name1, name2)] = (data1, data2)
         dataDict = {}
-        for d in data:
-            dataDict[d] = (
+        for d1, d2 in zip(data1, data2):
+            dataDict[(d1, d2)] = (
                 parameterMainNames[0] if len(parameterMainNames) > 0 else (),
                 parameterNames[0] if len(parameterNames) > 0 else (),
             )
@@ -715,6 +715,7 @@ class Program:
                     if type(parameterEntry[1]) is tuple
                     else (parameterEntry[1],),
                     parameterEntry[2],
+                    parameterEntry[3] if len(parameterEntry) > 3 else {},
                 )
             )
 
