@@ -443,17 +443,23 @@ class Program:
         for name1 in parameterNames:
             for name2 in parameterMainNames:
                 paraDict[(name1, name2)] = (data1, data2)
-        dataDict = {}
-        for d1, d2 in zip(data1, data2):
-            dataDict[(d1, d2)] = (
+        dataDict1 = {}
+        dataDict2 = {}
+        for d1 in data1:
+            dataDict1[d1] = (
+                parameterMainNames[0] if len(parameterMainNames) > 0 else (),
+                parameterNames[0] if len(parameterNames) > 0 else (),
+            )
+        for d2 in data2:
+            dataDict2[d2] = (
                 parameterMainNames[0] if len(parameterMainNames) > 0 else (),
                 parameterNames[0] if len(parameterNames) > 0 else (),
             )
 
-        return paraMainDict, paraDict, dataDict
+        return paraMainDict, paraDict, dataDict1, dataDict2
 
     def mergeParameterDicts(
-        self, paraMainDict: dict, paraDict: dict, dataDict: dict
+        self, paraMainDict: dict, paraDict: dict, dataDict1: dict, dataDict2: dict
     ) -> tuple:
         """Merged die beiden 2x2 Datenstrukturen und speichert diese
         in die Klasse und gibt sie dennoch mit return zurück"""
@@ -465,14 +471,15 @@ class Program:
             self.paraDict = {**self.paraDict, **paraDict}
         except AttributeError:
             self.paraDict = paraDict
-        for k, v in dataDict.items():
-            try:
-                self.dataDict[k] |= {v}
-            except AttributeError:
-                self.dataDict: dict = {}
-                self.dataDict[k] = {v}
-            except KeyError:
-                self.dataDict[k] = {v}
+        for i, dataDict_ in enumerate((dataDict1, dataDict2)):
+            for k, v in dataDict_.items():
+                try:
+                    self.dataDict[i][k] |= {v}
+                except AttributeError or UnboundLocalError:
+                    self.dataDict: tuple = ({}, {})
+                    self.dataDict[i][k] = {v}
+                except KeyError:
+                    self.dataDict[i][k] = {v}
 
         return self.paraDict, self.dataDict
 
