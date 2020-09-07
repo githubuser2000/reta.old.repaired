@@ -491,6 +491,7 @@ class Program:
             ),
             ("groessenordnung", "strukturgroesse", "groesse", "stufe"),
             ("universum", "transzendentalien", "strukturalien"),
+            ("wirtschaft"),
             ("menschliches"),
             ("procontra", "dagegendafuer"),
             ("licht"),
@@ -498,6 +499,7 @@ class Program:
             ("symbole"),
             ("primzahlvielfachesuniversum"),
             ("konzept", "konzepte"),
+            ("inkrementieren"),
         )
         paraNdataMatrix = (
             (
@@ -549,8 +551,25 @@ class Program:
             (ParametersMain[1], ("thomas", "thomasevangelium"), {0, 3}),
             (ParametersMain[2], (), {4, 21}),
             (ParametersMain[3], (), {5, 54, 55, 65, 75, 76, 77, 78}),
+            (ParametersMain[4], ("system"), {69}),
             (
                 ParametersMain[4],
+                (
+                    "realistisch",
+                    "funktioniert",
+                ),
+                {70},
+            ),
+            (
+                ParametersMain[4],
+                (
+                    "erklärung",
+                    "erklaerung",
+                ),
+                {71},
+            ),
+            (
+                ParametersMain[5],
                 (
                     "incel",
                     "incels",
@@ -558,18 +577,18 @@ class Program:
                 {68},
             ),
             (
-                ParametersMain[4],
+                ParametersMain[5],
                 ("irrationalezahlendurchwurzelbildung", "ausgangslage"),
                 {73},
             ),
             (
-                ParametersMain[4],
+                ParametersMain[5],
                 ("dominierendesgeschlecht", "maennlich", "männlich", "weiblich"),
                 {51},
             ),
-            (ParametersMain[4], ("liebe", "ethik"), {8, 9, 28}),
+            (ParametersMain[5], ("liebe", "ethik"), {8, 9, 28}),
             (
-                ParametersMain[4],
+                ParametersMain[5],
                 (
                     "glauben",
                     "erkenntnis",
@@ -577,11 +596,11 @@ class Program:
                 ),
                 {59},
             ),
-            (ParametersMain[4], ("angreifbar", "angreifbarkeit"), {58, 57}),
-            (ParametersMain[4], ("motive", "motivation", "motiv"), {10, 18, 42}),
-            (ParametersMain[4], ("errungenschaften", "ziele", "erhalten"), {11}),
+            (ParametersMain[5], ("angreifbar", "angreifbarkeit"), {58, 57}),
+            (ParametersMain[5], ("motive", "motivation", "motiv"), {10, 18, 42}),
+            (ParametersMain[5], ("errungenschaften", "ziele", "erhalten"), {11}),
             (
-                ParametersMain[4],
+                ParametersMain[5],
                 (
                     "erwerben",
                     "erlernen",
@@ -596,12 +615,12 @@ class Program:
                 {12, 47, 27, 13, 32},
             ),
             (
-                ParametersMain[4],
+                ParametersMain[5],
                 ("brauchen", "benoetigen", "benötigen", "notwendig"),
                 {13, 14},
             ),
             (
-                ParametersMain[4],
+                ParametersMain[5],
                 (
                     "krankheit",
                     "krankheiten",
@@ -611,40 +630,80 @@ class Program:
                 ),
                 {24},
             ),
-            (ParametersMain[4], ("alpha", "beta", "omega", "sigma"), {46}),
-            (ParametersMain[4], ("anfuehrer", "chef"), {29}),
-            (ParametersMain[4], ("beruf", "berufe"), {30}),
-            (ParametersMain[4], ("loesungen", "loesung", "lösungen", "lösungen"), {31}),
-            (ParametersMain[4], ("musik"), {33}),
-            (ParametersMain[5], ("pro", "dafür", "dafuer"), {17, 48}),
-            (ParametersMain[5], ("contra", "dagegen"), {15, 26}),
-            (ParametersMain[6], (), {20, 27}),
-            (ParametersMain[7], ("primzahlen", "vielfache", "vielfacher"), {19}),
-            (ParametersMain[7], ("anwendungdersonnen", "anwendungenfuermonde"), {22}),
+            (ParametersMain[5], ("alpha", "beta", "omega", "sigma"), {46}),
+            (ParametersMain[5], ("anfuehrer", "chef"), {29}),
+            (ParametersMain[5], ("beruf", "berufe"), {30}),
+            (ParametersMain[5], ("loesungen", "loesung", "lösungen", "lösungen"), {31}),
+            (ParametersMain[5], ("musik"), {33}),
+            (ParametersMain[6], ("pro", "dafür", "dafuer"), {17, 48}),
+            (ParametersMain[6], ("contra", "dagegen"), {15, 26}),
+            (ParametersMain[7], (), {20, 27}),
+            (ParametersMain[8], ("primzahlen", "vielfache", "vielfacher"), {19}),
+            (ParametersMain[8], ("anwendungdersonnen", "anwendungenfuermonde"), {22}),
             (
-                ParametersMain[7],
+                ParametersMain[8],
                 ("zaehlung", "zaehlungen", "zählungen", "zählung"),
                 {25, 45},
             ),
-            (ParametersMain[7], ("jura", "gesetzeslehre", "recht"), {34}),
-            (ParametersMain[7], ("vollkommenheit", "geist"), {35}),
-            (ParametersMain[7], ("gestirn", "mond", "sonne", "planet"), {64}),
-            (ParametersMain[8], (), {36, 37}),
+            (ParametersMain[8], ("jura", "gesetzeslehre", "recht"), {34}),
+            (ParametersMain[8], ("vollkommenheit", "geist"), {35}),
+            (ParametersMain[8], ("gestirn", "mond", "sonne", "planet"), {64}),
+            (ParametersMain[9], (), {36, 37}),
             (
-                ParametersMain[9],
+                ParametersMain[10],
                 (),
-                None
+                "ERROR - TODO!"
                 # {
                 #    abs(chosen) if (len(chosen) == chosen) else None
                 #    for chosen in [int(value) for value in (arg[30:].split(","))]
                 # }
                 # - {None, 0, 1},
             ),
-            (ParametersMain[9], (), {}),
-            (ParametersMain[9], (), {}),
-            (ParametersMain[9], (), {}),
-            (ParametersMain[9], (), {}),
-            (ParametersMain[9], (), {}),
+            (
+                ParametersMain[11],
+                (
+                    "weisheit",
+                    "metaweisheit",
+                    "meta-weisheit",
+                    "idiot",
+                    "weise",
+                    "optimal",
+                    "optimum",
+                ),
+                {},
+                {(40, 41)},
+            ),
+            (
+                ParametersMain[11],
+                ("gut", "böse", "boese", "lieb", "schlecht"),
+                {52, 53},
+                {(38, 39)},
+            ),
+            (
+                ParametersMain[11],
+                ("zeit", "raum", "zeitlich", "räumlich"),
+                {},
+                {(49, 50)},
+            ),
+            (
+                ParametersMain[11],
+                ("meinungen", "anderemenschen", "ruf"),
+                {},
+                {(60, 61)},
+            ),
+            (
+                ParametersMain[11],
+                ("selbstgerechtigkeit", "selbstgerecht"),
+                {},
+                {(62, 63)},
+            ),
+            (
+                ParametersMain[11],
+                ("egoismus", "altruismus", "egoist", "altruist"),
+                {},
+                {(66, 67)},
+            ),
+            (ParametersMain[12], ("universum"), {43, 54, 74}),
         )
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
