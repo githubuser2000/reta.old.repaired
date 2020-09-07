@@ -443,23 +443,18 @@ class Program:
         for name1 in parameterNames:
             for name2 in parameterMainNames:
                 paraDict[(name1, name2)] = (data1, data2)
-        dataDict1 = {}
-        dataDict2 = {}
-        for d1 in data1:
-            dataDict1[d1] = (
-                parameterMainNames[0] if len(parameterMainNames) > 0 else (),
-                parameterNames[0] if len(parameterNames) > 0 else (),
-            )
-        for d2 in data2:
-            dataDict2[d2] = (
-                parameterMainNames[0] if len(parameterMainNames) > 0 else (),
-                parameterNames[0] if len(parameterNames) > 0 else (),
-            )
+        dataDicts: tuple = ({}, {})
+        for i, d in enumerate((data1, data2)):
+            for dd in d:
+                dataDicts[i][dd] = (
+                    parameterMainNames[0] if len(parameterMainNames) > 0 else (),
+                    parameterNames[0] if len(parameterNames) > 0 else (),
+                )
 
-        return paraMainDict, paraDict, dataDict1, dataDict2
+        return paraMainDict, paraDict, dataDicts
 
     def mergeParameterDicts(
-        self, paraMainDict: dict, paraDict: dict, dataDict1: dict, dataDict2: dict
+        self, paraMainDict: dict, paraDict: dict, dataDicts: tuple
     ) -> tuple:
         """Merged die beiden 2x2 Datenstrukturen und speichert diese
         in die Klasse und gibt sie dennoch mit return zurück"""
@@ -471,7 +466,7 @@ class Program:
             self.paraDict = {**self.paraDict, **paraDict}
         except AttributeError:
             self.paraDict = paraDict
-        for i, dataDict_ in enumerate((dataDict1, dataDict2)):
+        for i, dataDict_ in enumerate(dataDicts):
             for k, v in dataDict_.items():
                 try:
                     self.dataDict[i][k] |= {v}
