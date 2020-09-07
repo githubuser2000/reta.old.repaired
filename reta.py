@@ -2012,52 +2012,75 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 
 class Program:
     @staticmethod
-    def intoParameterDatatype(parameternames: tuple, data: set) -> tuple:
+    def intoParameterDatatype(
+        parameterMainNames: tuple, parameterNames: tuple, data: set
+    ) -> tuple:
         """Speichert einen Parameter mit seinem DatenSet
         in 2 Datenstrukturen (die beides kombinieren 2x2)
         Diese werden jedoch nur zurück gegeben und nicht in der Klasse gespeichert.
         """
-        paradict = {}
-        for name in parameternames:
-            paradict[name] = data
-        datadict = {}
+        paraMainDict = {}
+        for name in parameterMainNames:
+            paraMainDict[name] = parameterNames
+        paraDict = {}
+        for name in parameterNames:
+            paraDict[name] = data
+        dataDict = {}
         for d in data:
-            datadict[d] = parameternames[0]
+            dataDict[d] = (parameterMainNames[0], parameterNames[0])
 
-        return paradict, datadict
+        return paraMainDict, paraDict, dataDict
 
-    def mergeParameterDicts(self, paradict: dict, datadict: dict) -> tuple:
+    def mergeParameterDicts(
+        self, paraMainDict: dict, paraDict: dict, dataDict: dict
+    ) -> tuple:
         """Merged die beiden 2x2 Datenstrukturen und speichert diese
         in die Klasse und gibt sie dennoch mit return zurück"""
         try:
-            self.paradict = {**self.paradict, **paradict}
+            self.paraMainDict = {**self.paraMainDict, **paraMainDict}
         except AttributeError:
-            self.paradict = paradict
-        for k, v in datadict.items():
+            self.paraMainDict = paraMainDict
+        try:
+            self.paraDict = {**self.paraDict, **paraDict}
+        except AttributeError:
+            self.paraDict = paraDict
+        for k, v in dataDict.items():
             try:
-                self.datadict[k] |= {v}
+                self.dataDict[k] |= {v}
             except AttributeError:
-                self.datadict: dict = {}
-                self.datadict[k] = {v}
+                self.dataDict: dict = {}
+                self.dataDict[k] = {v}
             except KeyError:
-                self.datadict[k] = {v}
+                self.dataDict[k] = {v}
 
-        return self.paradict, self.datadict
+        return self.paraDict, self.dataDict
 
     def storeParamtersForColumns(self):
+        ParametersMain = (("religionen", "religion"),)
         paraNdataMatrix = (
             (
+                ParametersMain[0],
                 ("prophet", "archon", "religionsgründertyp", "religionsgruendertyp"),
                 {72},
             ),
-            ("sternpolygon", {0, 6, 36}),
+            (ParametersMain[0], "sternpolygon", {0, 6, 36}),
         )
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
-                *self.intoParameterDatatype(parameterEntry[0] if type(parameterEntry[0]) is tuple else: (parameterEntry[0],), parameterEntry[1])
+                *self.intoParameterDatatype(
+                    parameterEntry[0]
+                    if type(parameterEntry[0]) is tuple
+                    else (parameterEntry[0],),
+                    parameterEntry[1]
+                    if type(parameterEntry[1]) is tuple
+                    else (parameterEntry[1],),
+                    parameterEntry[2],
+                )
             )
-        print(str(self.paradict))
-        print(str(self.datadict))
+
+        print(str(self.paraMainDict))
+        print(str(self.paraDict))
+        print(str(self.dataDict))
 
     #
     #    parameterMatching = bidict(
