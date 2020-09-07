@@ -1555,7 +1555,7 @@ class Tables:
             self, relitable: list, rowsAsNumbers: set
         ) -> tuple:
             self.relitable = relitable
-            if self.tables.spalteGestirn:
+            if rowsAsNumbers >= {64}:
                 rowsAsNumbers |= {len(self.relitable[0])}
                 for i, cols in enumerate(deepcopy(self.relitable)):
                     primCreativityType = primCreativity(i)

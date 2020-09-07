@@ -495,6 +495,9 @@ class Program:
             ("procontra", "dagegendafuer"),
             ("licht"),
             ("bedeutung"),
+            ("symbole"),
+            ("primzahlvielfachesuniversum"),
+            ("konzept", "konzepte"),
         )
         paraNdataMatrix = (
             (
@@ -618,12 +621,21 @@ class Program:
             (ParametersMain[6], (), {20, 27}),
             (ParametersMain[7], ("primzahlen", "vielfache", "vielfacher"), {19}),
             (ParametersMain[7], ("anwendungdersonnen", "anwendungenfuermonde"), {22}),
-            (ParametersMain[7], ("zaehlung", "zaehlungen", "zählungen", "zählung"), {25,45}),
+            (
+                ParametersMain[7],
+                ("zaehlung", "zaehlungen", "zählungen", "zählung"),
+                {25, 45},
+            ),
             (ParametersMain[7], ("jura", "gesetzeslehre", "recht"), {34}),
             (ParametersMain[7], ("vollkommenheit", "geist"), {35}),
             (ParametersMain[7], ("gestirn", "mond", "sonne", "planet"), {64}),
-            (ParametersMain[8], (), {}),
-            (ParametersMain[8], (), {}),
+            (ParametersMain[8], (), {36, 37}),
+            (ParametersMain[9], (), {}),
+            (ParametersMain[9], (), {}),
+            (ParametersMain[9], (), {}),
+            (ParametersMain[9], (), {}),
+            (ParametersMain[9], (), {}),
+            (ParametersMain[9], (), {}),
         )
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
