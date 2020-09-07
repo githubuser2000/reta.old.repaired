@@ -2056,7 +2056,7 @@ class Program:
         return self.paraDict, self.dataDict
 
     def storeParamtersForColumns(self):
-        ParametersMain = (("religionen", "religion"),)
+        ParametersMain = (("religionen", "religion",),)
         paraNdataMatrix = (
             (
                 ParametersMain[0],
@@ -2064,6 +2064,11 @@ class Program:
                 {72},
             ),
             (ParametersMain[0], "sternpolygon", {0, 6, 36}),
+            ((),(),{}),
+            ((),(),{}),
+            ((),(),{}),
+            ((),(),{}),
+            ((),(),{}),
         )
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
@@ -2082,15 +2087,6 @@ class Program:
         print(str(self.paraDict))
         print(str(self.dataDict))
 
-    #
-    #    parameterMatching = bidict(
-    #        {
-    #            "zeilen": None,
-    #            "spalten": bidict(
-    #                {
-    #                    "breite": None,
-    #                    "keinenummerierung": None,
-    #                    ["religion", "religionen"]: bidict(
     #                        {
     #                            ["sternpolygon"]: {0, 6, 36},
     #                            [
