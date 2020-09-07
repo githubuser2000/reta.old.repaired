@@ -492,6 +492,9 @@ class Program:
             ("groessenordnung", "strukturgroesse", "groesse", "stufe"),
             ("universum", "transzendentalien", "strukturalien"),
             ("menschliches"),
+            ("procontra", "dagegendafuer"),
+            ("licht"),
+            ("bedeutung"),
         )
         paraNdataMatrix = (
             (
@@ -607,6 +610,20 @@ class Program:
             ),
             (ParametersMain[4], ("alpha", "beta", "omega", "sigma"), {46}),
             (ParametersMain[4], ("anfuehrer", "chef"), {29}),
+            (ParametersMain[4], ("beruf", "berufe"), {30}),
+            (ParametersMain[4], ("loesungen", "loesung", "lösungen", "lösungen"), {31}),
+            (ParametersMain[4], ("musik"), {33}),
+            (ParametersMain[5], ("pro", "dafür", "dafuer"), {17, 48}),
+            (ParametersMain[5], ("contra", "dagegen"), {15, 26}),
+            (ParametersMain[6], (), {20, 27}),
+            (ParametersMain[7], ("primzahlen", "vielfache", "vielfacher"), {19}),
+            (ParametersMain[7], ("anwendungdersonnen", "anwendungenfuermonde"), {22}),
+            (ParametersMain[7], ("zaehlung", "zaehlungen", "zählungen", "zählung"), {25,45}),
+            (ParametersMain[7], ("jura", "gesetzeslehre", "recht"), {34}),
+            (ParametersMain[7], ("vollkommenheit", "geist"), {35}),
+            (ParametersMain[7], ("gestirn", "mond", "sonne", "planet"), {64}),
+            (ParametersMain[8], (), {}),
+            (ParametersMain[8], (), {}),
         )
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
