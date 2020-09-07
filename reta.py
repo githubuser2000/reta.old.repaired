@@ -630,7 +630,16 @@ class Program:
             (ParametersMain[7], ("vollkommenheit", "geist"), {35}),
             (ParametersMain[7], ("gestirn", "mond", "sonne", "planet"), {64}),
             (ParametersMain[8], (), {36, 37}),
-            (ParametersMain[9], (), {}),
+            (
+                ParametersMain[9],
+                (),
+                None
+                # {
+                #    abs(chosen) if (len(chosen) == chosen) else None
+                #    for chosen in [int(value) for value in (arg[30:].split(","))]
+                # }
+                # - {None, 0, 1},
+            ),
             (ParametersMain[9], (), {}),
             (ParametersMain[9], (), {}),
             (ParametersMain[9], (), {}),
@@ -701,9 +710,6 @@ class Program:
                         } - {
                             None,
                         }
-                        self.tables.primUniverseRow = True
-                        if len(neg) > 0:
-                            self.tables.primUniverseRow = False
                         self.ifCombi = True
                         if len(neg) > 0:
                             self.ifCombi = False
@@ -986,12 +992,6 @@ class Program:
                             ]
                         } - {None, 0, 1}
                         # self.tables.primUniversePrimsSet.add(int(2))
-                    elif arg[2:29] == "primzahlvielfachesuniversum":
-                        # DIESE VARIABLE HAT ANSCHEINEND GAR NICHTS MEHR ZU
-                        # SAGEN
-                        self.tables.primUniverseRow = True
-                        if len(neg) > 0 and arg[-1] == "-":
-                            self.tables.primUniverseRow = False
                     elif arg[2:10] == "konzept=" or arg[2:11] == "konzepte=":
                         for word in (
                             arg[10:].split(",")
