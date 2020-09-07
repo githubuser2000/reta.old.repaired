@@ -342,7 +342,7 @@ class Tables:
 
     def __init__(self):
         self.getPrepare = self.Prepare()
-        self.getCombis = self.Combi()
+        self.getCombis = self.Combi(self)
         self.getConcat = self.Concat(self)
         self.getOut = self.Output()
         self.getMainTable = self.Maintable()
@@ -1285,9 +1285,10 @@ class Tables:
         return liste1, liste2
 
     class Combi:
-        def __init__(self):
+        def __init__(self, table):
             self.ChosenKombiLines: dict = {}
             self.sumOfAllCombiRowsAmount = 0
+            self.table = table
 
         def tableJoin(
             self,
@@ -1324,12 +1325,10 @@ class Tables:
                                                 ]
                                             )
                                         else:
-                                            table2[colNum][row][-1] += "" + " ".join(
-                                                deepcopy(
-                                                    subTableCell[
-                                                        rowsOfcombi.index(subRowNum + 1)
-                                                    ]
-                                                )
+                                            table2[colNum][row] += deepcopy(
+                                                subTableCell[
+                                                    rowsOfcombi.index(subRowNum + 1)
+                                                ]
                                             )
             return table2
 

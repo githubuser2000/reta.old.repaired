@@ -998,9 +998,9 @@ class Program:
         if len(argv) == 1 and neg == "":
             cliout("Versuche Parameter -h")
         spaltenreihenfolgeundnurdiese: list = []
-        # puniverseprims = set()
-        rowsAsNumbers = set()
-        paramLines = set()
+        puniverseprims_only: set = set()
+        rowsAsNumbers: set = set()
+        paramLines: set = set()
         self.bigParamaeter: list = []
         self.__willBeOverwritten_rowsOfcombi: set = set()
         generRows = set()
@@ -1013,7 +1013,6 @@ class Program:
                     and self.bigParamaeter[-1] == "spalten"
                 ):  # unteres Kommando
                     if arg[2:] == "alles" + neg:
-                        self.ifCombi = True
                         self.allesParameters += 1
                         paramLines.add("ka")
 
@@ -1025,9 +1024,6 @@ class Program:
                         # } - {
                         #    None,
                         # }
-                        self.ifCombi = True
-                        if len(neg) > 0:
-                            self.ifCombi = False
                         self.tables.spalteGestirn = True
                         if len(neg) > 0:
                             self.tables.spalteGestirn = False
@@ -1455,7 +1451,6 @@ class Program:
                     and len(self.bigParamaeter) > 0
                     and self.bigParamaeter[-1] == "kombination"
                 ):  # unteres Kommando
-                    self.ifCombi = True
                     """if arg[2:6] == "und=":
                         for word in arg[6:].split(","):
                             if (
@@ -1712,7 +1707,7 @@ class Program:
             self.rowsAsNumbers,
         ) = self.tables.getConcat.concatLovePolygon(self.relitable, self.rowsAsNumbers)
 
-        if self.ifCombi:
+        if len(self.rowsOfcombi) > 0:
             (
                 animalsProfessionsTable,
                 self.relitable,
@@ -1744,7 +1739,6 @@ class Program:
         if len(argv) == 0:
             return
         self.allesParameters = 0
-        self.ifCombi = False
         self.tables = Tables()
         (
             self.RowsLen,
@@ -1771,7 +1765,7 @@ class Program:
             self.relitable,
             self.rowsAsNumbers,
         )
-        if self.ifCombi:
+        if len(self.rowsOfcombi) > 0:
             ChosenKombiLines = self.tables.getCombis.prepare_kombi(
                 finallyDisplayLines,
                 animalsProfessionsTable,
@@ -1827,6 +1821,7 @@ class Program:
         # alxp(
         #    '2. Bei Kombi sollte ich noch programmieren, wegen letzter Spalte "Religionen", dass Klammern und Vorzeichen + - dennoch zu richtigen letztendlichen Zeilen der Endausgabe zugeordnet werden.'
         # )
+        alxp("""SCHLIMMER BUG: bei kombi Sachen kein Zeilenumbruch mehr!""")
         alxp(
             """Die Modallogikvielfacher müsste ich noch einprogrammieren
              Wenn ich programmiert habe, wie multipliziert wird, um zu erreichen, dass die Modallogiken umgesetzt werden, werde ich
