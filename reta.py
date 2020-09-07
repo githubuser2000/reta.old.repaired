@@ -971,7 +971,7 @@ class Program:
                                 neg + "sonne",
                                 neg + "planet",
                             ]:
-                                self.tables.spalteGestirn = True
+                                # self.tables.spalteGestirn = True
                                 rowsAsNumbers |= {64}
                     elif arg[2 : 11 + len(neg)] == "symbole" + neg:
                         rowsAsNumbers |= {36, 37}

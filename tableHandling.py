@@ -261,29 +261,12 @@ class Tables:
     def getRowAmountofAnyPart(self):
         return {
             "numerierung": 1 if self.nummeriere else 0,
-            #            "irrelevant: gestirn": 1 if self.spalteGestirn else 0,
-            #            "alltogether": len(self.puniverseprims)
-            #            + len(self.rowsAsNumbers)
-            #            + len(self.rowsOfcombi),
-            #            "main out": len(self.getOut.rowsAsNumbers),
             "main prepare relitable orignal | combi & concat-prim drin": self.getPrepare.rowsAsNumbers,
             "prim (concat)": self.puniverseprims,
             "combi": (self.getCombis.rowsOfcombi, self.getCombis.ChosenKombiLines),
             "len(AllCombiRows)": self.getCombis.sumOfAllCombiRowsAmount,
-            "row of prim multi generated": self.primUniverseRow
-            # "concat (prim)": (
-            #    self.getConcat.concatRowsAmount,
-            #    self.primUniversePrimsSet,
-            # ),
+            "row of prim multi generated": self.primUniverseRow,
         }
-
-    #    @property
-    #    def rowsSet(self):
-    #        return self.getPrepare.rowsAsNumbers
-    #
-    #    @rowsSet.setter
-    #    def rowsSet(self, value: set):
-    #        self.getPrepare.rowsAsNumbers = value
 
     @property
     def outType(self) -> OutputSyntax:
@@ -328,14 +311,6 @@ class Tables:
             )
         self.getPrepare.breiten = value
         self.getOut.breiten = value
-
-    @property
-    def spalteGestirn(self):
-        return self.getMainTable.spalteGestirn
-
-    @spalteGestirn.setter
-    def spalteGestirn(self, value: bool):
-        self.getMainTable.spalteGestirn = value
 
     @property
     def nummeriere(self):
@@ -1582,7 +1557,7 @@ class Tables:
             self, relitable: list, rowsAsNumbers: set
         ) -> tuple:
             self.relitable = relitable
-            if self.tables.spalteGestirn:
+            if rowsAsNumbers >= {64}:
                 for rownum, rowheading in zip(
                     [44, 56],
                     [
@@ -1785,14 +1760,6 @@ class Tables:
             return self.relitable, rowsAsNumbers
 
     class Maintable:
-        @property
-        def spalteGestirn(self):
-            return self.spaltegestirn
-
-        @spalteGestirn.setter
-        def spalteGestirn(self, value: bool):
-            self.spaltegestirn = value
-
         def __init__(self):
             self.spaltegestirn = False
 
