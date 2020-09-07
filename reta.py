@@ -314,6 +314,38 @@ def divisorGenerator(n):
         yield divisor
 
 
+def primRepeat(n: list) -> list:
+    """Primfaktoren werden zusammengefasst in Liste aus Primfaktor hoch n
+
+    @type n:  list
+    @param n: Primfaktoren
+    @rtype: list[tuple(n1,n2)]
+    @return: Liste aus geordneten Paaren mit Primfaktor hoch n
+    """
+    n.reverse()
+    c = 1
+    b = None
+    d: list = []
+    for a in n:
+        if b == a:
+            c += 1
+        else:
+            c = 1
+        d += [[a, c]]
+        b = a
+    d.reverse()
+    b = None
+    f: list = []
+    for e, g in d:
+        if b != e:
+            if g == 1:
+                f += [(e, 1)]
+            else:
+                f += [(e, g)]
+        b = e
+    return f
+
+
 def primCreativity(num: int):
     if num == 0:
         return 0
@@ -357,36 +389,12 @@ def primCreativity(num: int):
 #        return None
 
 
-def primRepeat(n: list) -> list:
-    """Primfaktoren werden zusammengefasst in Liste aus Primfaktor hoch n
-
-    @type n:  list
-    @param n: Primfaktoren
-    @rtype: list[tuple(n1,n2)]
-    @return: Liste aus geordneten Paaren mit Primfaktor hoch n
-    """
-    n.reverse()
-    c = 1
-    b = None
-    d: list = []
-    for a in n:
-        if b == a:
-            c += 1
-        else:
-            c = 1
-        d += [[a, c]]
-        b = a
-    d.reverse()
-    b = None
-    f: list = []
-    for e, g in d:
-        if b != e:
-            if g == 1:
-                f += [(e, 1)]
-            else:
-                f += [(e, g)]
-        b = e
-    return f
+puniverseprims = {
+    couldBePrimeNumber if primCreativity(couldBePrimeNumber) == 1 else None
+    for couldBePrimeNumber in range(2, 100)
+} - {
+    None,
+}
 
 
 def primMultiple(n: int) -> list:
@@ -430,7 +438,7 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 class Program:
     @staticmethod
     def intoParameterDatatype(
-        parameterMainNames: tuple, parameterNames: tuple, data1: set, data2: set
+        parameterMainNames: tuple, parameterNames: tuple, datas: tuple
     ) -> tuple:
         """Speichert einen Parameter mit seinem DatenSet
         in 2 Datenstrukturen (die beides kombinieren 2x2)
@@ -442,9 +450,9 @@ class Program:
         paraDict = {}
         for name1 in parameterNames:
             for name2 in parameterMainNames:
-                paraDict[(name1, name2)] = (data1, data2)
-        dataDicts: tuple = ({}, {})
-        for i, d in enumerate((data1, data2)):
+                paraDict[(name1, name2)] = datas
+        dataDicts: tuple = ({}, {}, {})
+        for i, d in enumerate(datas):
             for dd in d:
                 dataDicts[i][dd] = (
                     parameterMainNames[0] if len(parameterMainNames) > 0 else (),
@@ -471,7 +479,7 @@ class Program:
                 try:
                     self.dataDict[i][k] |= {v}
                 except AttributeError or UnboundLocalError:
-                    self.dataDict: tuple = ({}, {})
+                    self.dataDict: tuple = ({}, {}, {})
                     self.dataDict[i][k] = {v}
                 except KeyError:
                     self.dataDict[i][k] = {v}
@@ -479,6 +487,7 @@ class Program:
         return self.paraDict, self.dataDict
 
     def storeParamtersForColumns(self):
+        global puniverseprims
         ParametersMain = (
             (
                 "religionen",
@@ -654,7 +663,9 @@ class Program:
             (
                 ParametersMain[10],
                 (),
-                "ERROR - TODO!"
+                {},
+                {},
+                puniverseprims
                 # {
                 #    abs(chosen) if (len(chosen) == chosen) else None
                 #    for chosen in [int(value) for value in (arg[30:].split(","))]
@@ -710,14 +721,14 @@ class Program:
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
                 *self.intoParameterDatatype(
-                    parameterEntry[0]
-                    if type(parameterEntry[0]) is tuple
-                    else (parameterEntry[0],),
-                    parameterEntry[1]
-                    if type(parameterEntry[1]) is tuple
-                    else (parameterEntry[1],),
-                    parameterEntry[2],
-                    parameterEntry[3] if len(parameterEntry) > 3 else {},
+                    parameterEntry[0],
+                    parameterEntry[1],
+                    (
+                        parameterEntryElement
+                        if type(parameterEntryElement) in [tuple, set, dict]
+                        else (parameterEntryElement,)
+                        for parameterEntryElement in parameterEntry[2:]
+                    ),
                 )
             )
 
@@ -741,11 +752,11 @@ class Program:
         @rtype: set, set, set
         @return: Zeilen, Spalten, Spalten anderer Tabellen
         """
-        global infoLog, shellRowsAmount
+        global infoLog, shellRowsAmount, puniverseprims
         if len(argv) == 1 and neg == "":
             cliout("Versuche Parameter -h")
         spaltenreihenfolgeundnurdiese: list = []
-        puniverseprims = set()
+        # puniverseprims = set()
         rowsAsNumbers = set()
         paramLines = set()
         self.bigParamaeter: list = []
@@ -764,14 +775,14 @@ class Program:
                         self.allesParameters += 1
                         paramLines.add("ka")
 
-                        puniverseprims = {
-                            couldBePrimeNumber
-                            if primCreativity(couldBePrimeNumber) == 1
-                            else None
-                            for couldBePrimeNumber in range(2, 100)
-                        } - {
-                            None,
-                        }
+                        # puniverseprims = {
+                        #    couldBePrimeNumber
+                        #    if primCreativity(couldBePrimeNumber) == 1
+                        #    else None
+                        #    for couldBePrimeNumber in range(2, 100)
+                        # } - {
+                        #    None,
+                        # }
                         self.ifCombi = True
                         if len(neg) > 0:
                             self.ifCombi = False
@@ -1045,7 +1056,7 @@ class Program:
                         rowsAsNumbers |= {36, 37}
                     elif arg[2:30] == "primzahlvielfachesuniversum=":
                         # int(value) if (len(neg) == 0) == (value > 1) and value not in (0,1,2) else None
-                        puniverseprims |= {
+                        puniverseprims_only |= {
                             abs(chosen)
                             if (len(neg) == 0) == (abs(chosen) == chosen)
                             else None
@@ -1327,7 +1338,7 @@ class Program:
             rowsAsNumbers,
             self.__willBeOverwritten_rowsOfcombi,
             spaltenreihenfolgeundnurdiese,
-            puniverseprims,
+            puniverseprims_only,
             generRows,
         )
 
