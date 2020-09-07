@@ -479,9 +479,8 @@ class Program:
             for k, v in dataDict_.items():
                 try:
                     self.dataDict[i][k] |= {v}
-                except AttributeError or UnboundLocalError:
-                    self.dataDict: tuple = ({}, {}, {})
-                    self.dataDict[i][k] = {v}
+                # except AttributeError or UnboundLocalError:
+                #    self.dataDict[i][k] = {v}
                 except KeyError:
                     self.dataDict[i][k] = {v}
 
@@ -1701,6 +1700,7 @@ class Program:
 
     def __init__(self, argv=[]):
         global Tables
+        self.dataDict: tuple = ({}, {}, {})
         if len(argv) == 0:
             return
         self.allesParameters = 0
