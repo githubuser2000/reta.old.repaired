@@ -5,4 +5,5 @@ import sys
 import reta
 
 retaProgram = reta.Program()
+reta.infoLog = True
 retaProgram.storeParamtersForColumns()

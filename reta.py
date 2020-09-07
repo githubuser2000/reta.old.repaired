@@ -479,6 +479,13 @@ class Program:
                 "religionen",
                 "religion",
             ),
+            (
+                "galaxie",
+                "alteschriften",
+                "kreis",
+                "galaxien",
+                "kreise",
+            ),
         )
         paraNdataMatrix = (
             (
@@ -487,11 +494,60 @@ class Program:
                 {72},
             ),
             (ParametersMain[0], "sternpolygon", {0, 6, 36}),
-            ((), (), {}),
-            ((), (), {}),
-            ((), (), {}),
-            ((), (), {}),
-            ((), (), {}),
+            (ParametersMain[0], ("babylon", "dertierkreiszeichen"), {0, 36}),
+            (
+                ParametersMain[0],
+                (
+                    "messias",
+                    "heptagramm",
+                    "hund",
+                    "messiase",
+                    "messiasse",
+                ),
+                {7},
+            ),
+            (
+                ParametersMain[0],
+                (
+                    "gleichfoermigespolygon",
+                    "gleichförmigespolygon",
+                    "nichtsternpolygon",
+                    "polygon",
+                ),
+                {16, 37},
+            ),
+            (
+                ParametersMain[0],
+                (
+                    "vertreterhoehererkonzepte",
+                    "galaxien",
+                    "galaxie",
+                    "schwarzesonne",
+                    "schwarzesonnen",
+                    "universum",
+                    "universen",
+                    "kreis",
+                    "kreise",
+                    "kugel",
+                    "kugeln",
+                ),
+                {24},
+                (ParametersMain[1], ("babylon", "tierkreiszeichen"), {1, 2}),
+                (ParametersMain[1], ("thomas", "thomasevangelium"), {0, 3}),
+                (
+                    ParametersMain[1],
+                    ("groessenordnung", "strukturgroesse", "groesse", "stufe"),
+                    {4, 21},
+                ),
+                (
+                    ParametersMain[1],
+                    ("universum", "transzendentalien", "strukturalien"),
+                    {5, 54, 55, 65, 75, 76, 77, 78},
+                ),
+                (ParametersMain[1], (), {}),
+                (ParametersMain[1], (), {}),
+            ),
+            (ParametersMain[0], (), {}),
         )
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
@@ -506,84 +562,10 @@ class Program:
                 )
             )
 
-        print(str(self.paraMainDict))
-        print(str(self.paraDict))
-        print(str(self.dataDict))
+        alxp((self.paraMainDict))
+        alxp((self.paraDict))
+        alxp((self.dataDict))
 
-    #                        {
-    #                            ["sternpolygon"]: {0, 6, 36},
-    #                            [
-    #                                "prophet",
-    #                                "archon",
-    #                                "religionsgründertyp",
-    #                                "religionsgruendertyp",
-    #                            ]: {72},
-    #                            ["babylon", "dertierkreiszeichen"]: {0, 36},
-    #                            [
-    #                                "messias",
-    #                                "heptagramm",
-    #                                "hund",
-    #                                "messiase",
-    #                                "messiasse",
-    #                            ]: {7},
-    #                            [
-    #                                "gleichfoermigespolygon",
-    #                                "gleichförmigespolygon",
-    #                                "nichtsternpolygon",
-    #                                "polygon",
-    #                            ]: {16, 37},
-    #                            [
-    #                                "vertreterhoehererkonzepte",
-    #                                "galaxien",
-    #                                "galaxie",
-    #                                "schwarzesonne",
-    #                                "schwarzesonnen",
-    #                                "universum",
-    #                                "universen",
-    #                                "kreis",
-    #                                "kreise",
-    #                                "kugel",
-    #                                "kugeln",
-    #                            ]: {24},
-    #                        }
-    #                    ),
-    #                    [
-    #                        "galaxie=",
-    #                        "alteschriften=",
-    #                        "kreis=",
-    #                        "galaxien=",
-    #                        "kreise=",
-    #                    ]: bidict(
-    #                        {
-    #                            ["babylon", "tierkreiszeichen"]: {1, 2},
-    #                            ["thomas", "thomasevangelium"]: {0, 3},
-    #                            [
-    #                                "groessenordnung",
-    #                                "strukturgroesse",
-    #                                "groesse",
-    #                                "stufe",
-    #                            ]: {4, 21},
-    #                            ["universum", "transzendentalien", "strukturalien"]: {
-    #                                5,
-    #                                54,
-    #                                55,
-    #                                65,
-    #                                75,
-    #                                76,
-    #                                77,
-    #                                78,
-    #                            },
-    #                        }
-    #                    ),
-    #                    "kombinationen": None,
-    #                    "ausgabe": None,
-    #                }
-    #            ),
-    #            bidict({"debug": None}): None,
-    #            bidict({"help": None, "h": None}): None,
-    #        }
-    #    )
-    #
     def parameters(self, argv, neg="") -> Iterable[Union[set, set, set, list]]:
         """Parameter in der Shell werden hier vorverarbeitet.
         Die Paraemter führen dazu, dass Variablen gesetzt werden, z.B.
