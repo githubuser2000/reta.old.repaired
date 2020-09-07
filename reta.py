@@ -486,6 +486,9 @@ class Program:
                 "galaxien",
                 "kreise",
             ),
+            ("groessenordnung", "strukturgroesse", "groesse", "stufe"),
+            ("universum", "transzendentalien", "strukturalien"),
+            ("menschliches"),
         )
         paraNdataMatrix = (
             (
@@ -534,18 +537,32 @@ class Program:
                 {24},
                 (ParametersMain[1], ("babylon", "tierkreiszeichen"), {1, 2}),
                 (ParametersMain[1], ("thomas", "thomasevangelium"), {0, 3}),
+                (ParametersMain[2], (), {4, 21}),
+                (ParametersMain[3], (), {5, 54, 55, 65, 75, 76, 77, 78}),
                 (
-                    ParametersMain[1],
-                    ("groessenordnung", "strukturgroesse", "groesse", "stufe"),
-                    {4, 21},
+                    ParametersMain[4],
+                    (
+                        "incel",
+                        "incels",
+                    ),
+                    {68},
                 ),
                 (
-                    ParametersMain[1],
-                    ("universum", "transzendentalien", "strukturalien"),
-                    {5, 54, 55, 65, 75, 76, 77, 78},
+                    ParametersMain[4],
+                    ("irrationalezahlendurchwurzelbildung", "ausgangslage"),
+                    {73},
                 ),
-                (ParametersMain[1], (), {}),
-                (ParametersMain[1], (), {}),
+                (
+                    ParametersMain[4],
+                    ("dominierendesgeschlecht", "maennlich", "männlich", "weiblich"),
+                    {51},
+                ),
+                (ParametersMain[4], (), {}),
+                (ParametersMain[4], (), {}),
+                (ParametersMain[4], (), {}),
+                (ParametersMain[4], (), {}),
+                (ParametersMain[4], (), {}),
+                (ParametersMain[4], (), {}),
             ),
             (ParametersMain[0], (), {}),
         )
