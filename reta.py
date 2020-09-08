@@ -1767,6 +1767,21 @@ class Program:
             self.rowsAsNumbers,
         )
         if len(self.rowsOfcombi) > 0:
+            """alle  Schritte für kombi:
+            1. lesen: KombiTable und relation, was von kombitable zu haupt gehört
+                      und matrix mit zellen sind zahlen der kombinationen
+                      d.h. 3 Sachen sind das Ergebnis
+            2. prepare: die Zeilen, die infrage kommen für Kombi, d.h.:
+                                    key = haupttabellenzeilennummer
+                                    value = kombitabellenzeilennummer
+            3. Zeilenumbruch machen, wie es bei der Haupt+Anzeige-Tabelle auch gemacht wurde
+               prepare4out
+            4. Vorbereiten des Joinens beider Tabellen direkt hier rein programmiert
+               (Müsste ich unbedingt mal refactoren!)
+            5. joinen
+            6. noch mal nur das ausgeben lassen, das nur ausgegeben werden soll
+            7. letztendliche Ausagebe von allem!!
+            """
             ChosenKombiLines = self.tables.getCombis.prepare_kombi(
                 finallyDisplayLines,
                 animalsProfessionsTable,
@@ -1881,6 +1896,9 @@ class Program:
         alxp("Die meisten Listen durch Dicts ersetzen: fast immer schneller! ")
         alxp(
             "Die Geschwindigkeitsteigerugnen entstehn meist durch anschließndes Zusammenfügen zu einer dann festen Größe."
+        )
+        alxp(
+            "Ich müsste mal alles durchtesten, und zwar fast alles: ob auch alles richtig angezeigt wird, wenn ich Religion 3-n anzeigen lassen will, bzw. etwas anderes größer als 1, anstell nur zB 3"
         )
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"

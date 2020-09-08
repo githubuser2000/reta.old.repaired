@@ -1349,9 +1349,9 @@ class Tables:
                                     if rowsOfcombi.index(subRowNum + 1) < len(
                                         subTableCell
                                     ) and subTableCell != [[""]]:
-                                        """ Hier kommt jetzt endlich die Zelle in die Zelle rein:
-                                            D.h. die Sache aus der Kombitabelle kommt in die Zelle der Haupt+Anzeige-Tabelle rein.
-                                            Dabei ist die Zelle in die die Zelle rein kommt, widerum selbst eine kleine Tabelle, eigentlich.
+                                        """Hier kommt jetzt endlich die Zelle in die Zelle rein:
+                                        D.h. die Sache aus der Kombitabelle kommt in die Zelle der Haupt+Anzeige-Tabelle rein.
+                                        Dabei ist die Zelle in die die Zelle rein kommt, widerum selbst eine kleine Tabelle, eigentlich.
                                         """
                                         if (
                                             len(table2[colNum][row]) == 1
