@@ -30,7 +30,7 @@ else:
     ColumnsRowsAmount, shellRowsAmountStr = "50", "50"
 pp = pprint.PrettyPrinter(indent=4)
 shellRowsAmount: int = int(shellRowsAmountStr)
-infoLog = False
+infoLog = True
 originalLinesRange = range(1028)  # Maximale Zeilenanzahl
 output = True
 
@@ -1289,6 +1289,7 @@ class Tables:
             self.ChosenKombiLines: dict = {}
             self.sumOfAllCombiRowsAmount = 0
             self.table = table
+            # 0. read kombi 1. prepare kombi 2. prepare all 3. tablejoin
 
         def tableJoin(
             self,
@@ -1355,24 +1356,32 @@ class Tables:
             @rtype: dict[set[int]]
             @return: Zeilen die miteinander als Join kombiniert werden sollen zwischen Haupttabelle und weiterer
             """
-
-            kombitypes = {"displaying": False, "or": False, "and": False}
+            # kombitypes = {"displaying": False, "or": False, "and": False}
             # self.ChosenKombiLines: dict = {}
             for condition in paramLines:
                 if "ka" == condition:
-                    kombitypes["displaying"] = True
+                    # kombitypes["displaying"] = True
                     for MainLineNum in displayingMainLines:
                         for kombiLineNumber, kombiLine in enumerate(kombiTable_Kombis):
+                            """kombiLineNumber ist die csv Zeilennummer in der Kombitabelle
+                            kombiLine ist aus der ersten Spalte die jeweilige Liste an Zahlenkombinationen pro Zeile"""
                             for kombiNumber in kombiLine:
+                                """ kombiNumber ist demzufolge eine so eine Zahl
+                                von n*m Zahlen
+                                if: wenn eine dieser Zahlen zu denen gehört, die am Ende angezeigt werden sollen und
+                                wenn diese Zahl eine ist, die genau der richtigen Anzeigezeile entspricht"""
                                 if (
                                     kombiNumber in displayingMainLines
                                     and kombiNumber == MainLineNum
                                 ):
-                                    if MainLineNum in self.ChosenKombiLines:
+                                    try:
+                                        """ Zugehörig zur richtigen Anzeigeezeile wird diese Kombizeile ausgewählt
+                                        d.h. anzeige in zeile enthält die richtige kombizeile
+                                        """
                                         self.ChosenKombiLines[MainLineNum] |= {
                                             kombiLineNumber + 1
                                         }
-                                    else:
+                                    except KeyError:
                                         self.ChosenKombiLines[MainLineNum] = {
                                             kombiLineNumber + 1
                                         }

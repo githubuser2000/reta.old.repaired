@@ -1736,6 +1736,7 @@ class Program:
     def __init__(self, argv=[]):
         global Tables
         self.dataDict: tuple = ({}, {}, {})
+        self.storeParamtersForColumns()
         if len(argv) == 0:
             return
         self.allesParameters = 0
