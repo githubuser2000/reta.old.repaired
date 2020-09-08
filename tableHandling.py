@@ -1333,6 +1333,17 @@ class Tables:
             table2 = mainTable
             """ Hätte ich mich gleich für SQL entschieden, oder hätte ich Pandas gewählt, dann hätte ich diesen Komplizierten Mist nicht programmieren müssen!
             """
+            # if self.table.textWidth == 0 and type(self.table.getOut.outType) in [
+            if type(self.table.getOut.outType) in [
+                htmlSyntax,
+                bbCodeSyntax,
+            ]:
+                oneLinePerLine = True
+                alxp("YES")
+            else:
+                alxp(self.table.textWidth)
+                alxp(type(self.table.getOut.outType))
+                oneLinePerLine = False
             for colNum, (reliNum, col) in enumerate(
                 zip(self.religionNumbers, mainTable)
             ):
@@ -1367,21 +1378,41 @@ class Tables:
                                         D.h. die Sache aus der Kombitabelle kommt in die Zelle der Haupt+Anzeige-Tabelle rein.
                                         Dabei ist die Zelle in die die Zelle rein kommt, widerum selbst eine kleine Tabelle, eigentlich.
                                         """
-                                        if (
-                                            len(table2[colNum][row]) == 1
-                                            and table2[colNum][row][0] == ""
-                                        ):
-                                            table2[colNum][row] = deepcopy(
-                                                subTableCell[
-                                                    rowsOfcombi.index(subRowNum + 1)
-                                                ]
-                                            )
+                                        if oneLinePerLine:
+
+                                            if (
+                                                len(table2[colNum][row]) == 1
+                                                and table2[colNum][row][0] == ""
+                                            ):
+                                                table2[colNum][row] = deepcopy(
+                                                    subTableCell[
+                                                        rowsOfcombi.index(subRowNum + 1)
+                                                    ]
+                                                )
+                                            else:
+                                                table2[colNum][row][
+                                                    -1
+                                                ] += " " + deepcopy(
+                                                    subTableCell[
+                                                        rowsOfcombi.index(subRowNum + 1)
+                                                    ][0]
+                                                )
                                         else:
-                                            table2[colNum][row] += deepcopy(
-                                                subTableCell[
-                                                    rowsOfcombi.index(subRowNum + 1)
-                                                ]
-                                            )
+                                            if (
+                                                len(table2[colNum][row]) == 1
+                                                and table2[colNum][row][0] == ""
+                                            ):
+                                                table2[colNum][row] = deepcopy(
+                                                    subTableCell[
+                                                        rowsOfcombi.index(subRowNum + 1)
+                                                    ]
+                                                )
+                                            else:
+                                                table2[colNum][row] += deepcopy(
+                                                    subTableCell[
+                                                        rowsOfcombi.index(subRowNum + 1)
+                                                    ]
+                                                )
             return table2
 
         def prepare_kombi(
