@@ -1855,6 +1855,10 @@ class Program:
         alxp(
             """ Überlegen wo ich besser Hashmaps statt Listen verwenden sollte oder Tuple"""
         )
+        alxp("Die meisten Listen durch Dicts ersetzen: fast immer schneller! ")
+        alxp(
+            "Die Geschwindigkeitsteigerugnen entstehn meist durch anschließndes Zusammenfügen zu einer dann festen Größe."
+        )
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
