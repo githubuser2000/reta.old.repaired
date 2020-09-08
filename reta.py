@@ -14,7 +14,7 @@ from typing import Iterable, Union
 
 import bbcode
 
-from tableHandling import (OutputSyntax, Tables, bbCodeSyntax, csvSyntax,
+from tableHandling import (OutputSyntax, Tables, alxp, bbCodeSyntax, csvSyntax,
                            htmlSyntax, markdownSyntax)
 
 if "Brython" not in sys.version.split():
@@ -484,7 +484,7 @@ class Program:
                 {0, 3},
             ),
             (ParametersMain[2], (), {4, 21}),
-            (ParametersMain[3], (), {5, 54, 55, 65, 75, 76, 77, 78}),
+            (ParametersMain[3], (), {5, 54, 55, 65, 75, 76, 77, 78, 79, 80}),
             (
                 ParametersMain[4],
                 ("system",),
@@ -918,7 +918,7 @@ class Program:
                             (62, 63),
                             (66, 67),
                         }
-                        rowsAsNumbers |= set(range(79)) - {
+                        rowsAsNumbers |= set(range(81)) - {
                             67,
                             66,
                             63,
@@ -1020,7 +1020,7 @@ class Program:
                         "transzendentalien" + neg,
                         "strukturalien" + neg,
                     ]:
-                        rowsAsNumbers |= {5, 54, 55, 65, 75, 76, 77, 78}
+                        rowsAsNumbers |= {5, 54, 55, 65, 75, 76, 77, 78, 79, 80}
                     elif arg[2:13] in ["wirtschaft="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [

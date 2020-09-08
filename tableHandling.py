@@ -1339,10 +1339,7 @@ class Tables:
                 bbCodeSyntax,
             ]:
                 oneLinePerLine = True
-                alxp("YES")
             else:
-                alxp(self.table.textWidth)
-                alxp(type(self.table.getOut.outType))
                 oneLinePerLine = False
             for colNum, (reliNum, col) in enumerate(
                 zip(self.religionNumbers, mainTable)
@@ -1392,7 +1389,7 @@ class Tables:
                                             else:
                                                 table2[colNum][row][
                                                     -1
-                                                ] += " " + deepcopy(
+                                                ] += " | " + deepcopy(
                                                     subTableCell[
                                                         rowsOfcombi.index(subRowNum + 1)
                                                     ][0]
