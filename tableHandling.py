@@ -1293,12 +1293,27 @@ class Tables:
 
         def tableJoin(
             self,
-            mainTable,
-            manySubTables,
-            maintable2subtable_Relation,
-            old2newRows,
-            rowsOfcombi,
-        ):
+            mainTable: list,
+            manySubTables: list,
+            maintable2subtable_Relation: list,
+            old2newRows: list,
+            rowsOfcombi: list,
+        ) -> list:
+            """Verbindet kombi tabelle mit haupttabelle
+            @type mainTable: list
+            @param mainTable: Haupttabelle, die angezeigt werden soll
+            @type manySubTables: list
+            @param manySubTables: Die Teiltabellen, von denen Teile pro Spalte in die Haupttabelle als Spalten und Zeilen rein sollen
+            @type maintable2subtable_Relation: list
+            @param maintable2subtable_Relation: Wie die Kombitabelle in die Haupttabelle rein kommen soll, d.h. hier sind die Verknüpfungspunkte beider Seiten enthalten
+            @type old2newRows: list
+            @param old2newRows: list
+            @type rowsOfcombi: list
+            @param rowsOfcombi: Welche Spalten der Kombitabelle in die Haupttabelle rein sollen
+            @rtype table2: list[list]
+            @return table2: Die resultierende gesamte später anzuzeigende Haupttabelle
+
+            """
             rowsOfcombi = list(rowsOfcombi)
             rowsOfcombi.sort()
             table2 = mainTable
@@ -1366,7 +1381,7 @@ class Tables:
                             """kombiLineNumber ist die csv Zeilennummer in der Kombitabelle
                             kombiLine ist aus der ersten Spalte die jeweilige Liste an Zahlenkombinationen pro Zeile"""
                             for kombiNumber in kombiLine:
-                                """ kombiNumber ist demzufolge eine so eine Zahl
+                                """kombiNumber ist demzufolge eine so eine Zahl
                                 von n*m Zahlen
                                 if: wenn eine dieser Zahlen zu denen gehört, die am Ende angezeigt werden sollen und
                                 wenn diese Zahl eine ist, die genau der richtigen Anzeigezeile entspricht"""
@@ -1375,7 +1390,7 @@ class Tables:
                                     and kombiNumber == MainLineNum
                                 ):
                                     try:
-                                        """ Zugehörig zur richtigen Anzeigeezeile wird diese Kombizeile ausgewählt
+                                        """Zugehörig zur richtigen Anzeigeezeile wird diese Kombizeile ausgewählt
                                         d.h. anzeige in zeile enthält die richtige kombizeile
                                         """
                                         self.ChosenKombiLines[MainLineNum] |= {
@@ -1397,11 +1412,11 @@ class Tables:
             @type relitable: list
             @param relitable: Haupttabelle self.relitable
             @type rowsAsNumbers: set
-            @param rowsAsNumbers: welche Spalten der neuen Tabelle dazu kommen sollen
+            @param rowsAsNumbers: welche Spalten  der Anzeigetabelle sind gewählt
             @type rowsOfcombi: set
-            @param rowsOfcombi: welche Spalten der neuen Tabelle dazu kommen sollen
+            @param rowsOfcombi: welche Spalten der kombi Tabelle dazu kommen sollen
             @rtype: tuple[list,list,list,list]
-            @return: neue Tabelle, haupttabelle self.relitable, \
+            @return: neue Tabelle - die der kombi.csv entspricht, haupttabelle self.relitable, \
                 Liste mit allen Zeilen der neuen Tabelle aus der ersten Spalte je Liste aus allem darin \
                 das mit Komma getrennt wurde , was zu was gehört als Info für den join später
             return kombiTable, self.relitable, kombiTable_Kombis, maintable2subtable_Relation
