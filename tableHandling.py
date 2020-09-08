@@ -1176,9 +1176,9 @@ class Tables:
             @rtype: tuple[set,set,int,range,list]
             @return: Zeilen die ausgegeben werden sollen, neue Tabelle, Nummer der letzten Zeile , \
                 range aus zu zeigenden Spalten 1-n nicht alle , welche neuen Spalten welche alten waren und umgekehrt
-            return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
+            return finallyDisplayLines, newerTable, numlen, rowsRange, old2Rows
             """
-            newRows: list = []
+            newerTable: list = []
             if len(contentTable) > 0:
                 headingsAmount = len(contentTable[0])
                 rowsRange = range(headingsAmount)
@@ -1201,7 +1201,7 @@ class Tables:
             finallyDisplayLines = set(finallyDisplayLines3)
             #    maxPartLineLen = 0
             numlen = len(str(finallyDisplayLines3[-1]))
-            old2newRows: tuple = ({}, {})
+            old2Rows: tuple = ({}, {})
             reliNumbersBool = False if self.religionNumbers != [] else True
             for u, line in enumerate(contentTable):
                 if u in finallyDisplayLines:
@@ -1219,13 +1219,13 @@ class Tables:
                             if into != [""] or True:
                                 new2Lines += [into]
                             if u == 0:
-                                old2newRows[0][t] = h
-                                old2newRows[1][h] = t
+                                old2Rows[0][t] = h
+                                old2Rows[1][h] = t
                             h += 1
                     if new2Lines != []:
-                        newRows += [new2Lines]
+                        newerTable += [new2Lines]
 
-            return finallyDisplayLines, newRows, numlen, rowsRange, old2newRows
+            return finallyDisplayLines, newerTable, numlen, rowsRange, old2Rows
 
         def cellWork(self, cell: str, newLines, certaintextwidth: int, t: int) -> list:
             """aus String mach Liste aus Strings mit korrektem Zeilenumbruch
@@ -1297,7 +1297,7 @@ class Tables:
             manySubTables: list,
             maintable2subtable_Relation: list,
             old2newRows: list,
-            rowsOfcombi: list,
+            rowsOfcombi,
         ) -> list:
             """Verbindet kombi tabelle mit haupttabelle
             @type mainTable: list
@@ -1320,6 +1320,7 @@ class Tables:
             for colNum, (reliNum, col) in enumerate(
                 zip(self.religionNumbers, mainTable)
             ):
+                """geht die Zeilen der anzuzeigenden Haupttabelle durch"""
                 for subTable in manySubTables:
                     if reliNum in subTable:
                         for row, bigCell in enumerate(mainTable[colNum]):
@@ -1355,8 +1356,10 @@ class Tables:
             paramLines: set,
             displayingMainLines: set,
             kombiTable_Kombis: list,
-        ):
+        ) -> list:
             """Vorbereiten zum Kombinieren von Tabellen, wie bei einem SQL-Join
+            siehe hier Return-Value, der hiermit erstellt wird.
+            Nur darum geht es.
 
             @type finallyDisplayLines: set
             @param finallyDisplayLines: set
