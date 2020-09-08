@@ -1801,7 +1801,7 @@ class Program:
                 finallyDisplayLines_kombi,
                 newTable_kombi_1,
                 lineLen_kombi_1,
-                rowsRange_kombi_1,
+                animalsProfessionsTable,
                 old2newTableAnimalsProfessions,
             ) = self.tables.getPrepare.prepare4out(
                 set(),
@@ -1826,11 +1826,14 @@ class Program:
                     into = eine neue Tabelle mit nur erlaubten Zeilen, gemacht
                     aus der Tabelle von der kombi.csv, die schon mit Zeilenumbrüchen
                     usw. vorbereitet wurde.
-
                     """
+
                     into = self.tables.tableReducedInLinesByTypeSet(
                         newTable_kombi_1, {kombiLineNumber}
                     )
+                    """into = self.tables.tableReducedInLinesByTypeSet(
+                        animalsProfessionsTable, {kombiLineNumber}
+                    )"""
                     if len(into) > 0:
                         if key in Tables:
                             """Ergibt Matrix:
