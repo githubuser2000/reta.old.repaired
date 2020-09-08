@@ -1793,6 +1793,7 @@ class Program:
         alxp(
             "Ich müsste mal alles durchtesten, und zwar fast alles: ob auch alles richtig angezeigt wird, wenn ich Religion 3-n anzeigen lassen will, bzw. etwas anderes größer als 1, anstell nur zB 3"
         )
+        alxp("Ich muss noch --universum aufteilen!")
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
