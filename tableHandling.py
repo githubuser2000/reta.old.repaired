@@ -1317,11 +1317,13 @@ class Tables:
             rowsOfcombi = list(rowsOfcombi)
             rowsOfcombi.sort()
             table2 = mainTable
+            """ Hätte ich mich gleich für SQL entschieden, oder hätte ich Pandas gewählt, dann hätte ich diesen Komplizierten Mist nicht programmieren müssen!
+            """
             for colNum, (reliNum, col) in enumerate(
                 zip(self.religionNumbers, mainTable)
             ):
                 """geht die Zeilen der anzuzeigenden Haupttabelle durch
-                1. Zeilenummer, 2. richtige Nummer der Religion, 3. anzuzeigende Haupttabellenzeile
+                1. Zeilenummer, 2. richtige Nummer der Religion (z.B: 1-10), 3. anzuzeigende Haupttabellenzeile
                 """
                 for subTable in manySubTables:
                     """Liste aus Tabellen: eine Untertabelle = was in Haupttabellenzeilennummer rein soll aus der Kombitabelle
@@ -1330,16 +1332,27 @@ class Tables:
                     hier werden also alle Orginal-Haupt+Anzeige Zeilen durchgegangen
                     """
                     if reliNum in subTable:
-                        """"""
+                        """Wenn z.B. Religion 2 als Spalte 2 auch als Spalte 2 drin ist als Zelle der kombis die als Zelle in die Haupt+Anzeige Tabelle rein soll
+                        d.h. hier die Frage ob z.B. 2==2    viel mehr ist das nicht"""
                         for row, bigCell in enumerate(mainTable[colNum]):
+                            """HauptTabellenzeilen werden durchIteriert"""
                             if old2newRows[1][row] in maintable2subtable_Relation[0]:
+                                """Wenn Haupttabellenzeile der Kombitabellenzeile entspricht"""
                                 subRowNum = maintable2subtable_Relation[0][
                                     old2newRows[1][row]
                                 ]
                                 for subTableCell in subTable[reliNum]:
+                                    """Die zu wählenden Religionen z.B. 1-10 durchiterieren
+                                    und dessen zugehörige subTableZellen die als Zellen in die Haupt+Anzeige Tabelle rein sollen
+                                    genomen
+                                    """
                                     if rowsOfcombi.index(subRowNum + 1) < len(
                                         subTableCell
                                     ) and subTableCell != [[""]]:
+                                        """ Hier kommt jetzt endlich die Zelle in die Zelle rein:
+                                            D.h. die Sache aus der Kombitabelle kommt in die Zelle der Haupt+Anzeige-Tabelle rein.
+                                            Dabei ist die Zelle in die die Zelle rein kommt, widerum selbst eine kleine Tabelle, eigentlich.
+                                        """
                                         if (
                                             len(table2[colNum][row]) == 1
                                             and table2[colNum][row][0] == ""
