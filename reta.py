@@ -1795,17 +1795,23 @@ class Program:
                 value = kombitabellenzeilennummer
                 """
                 Tables = {}
-                """ alle Zahlen, die
-                """
                 for kombiLineNumber in value:
-                    """nur Zeilen aus dem set aus der Tabelle verwenden als Ausgabe der Tabelle"""
+                    """
+                    alle kombitabellenzeilennummern hier durchiterieren
+                    pro haupttabellenzeilennummer (diese umschließende Schleife)
+
+                    into = eine neue Tabelle mit nur erlaubten Zeilen, gemacht
+                    aus der Tabelle von der kombi.csv, die schon mit Zeilenumbrüchen
+                    usw. vorbereitet wurde.
+
+                    """
                     into = self.tables.tableReducedInLinesByTypeSet(
                         newTable_kombi_1, {kombiLineNumber}
                     )
                     if len(into) > 0:
                         if key in Tables:
                             """Ergibt Matrix:
-                            bla[kombi.csv Zeilenummer][nur die relevanten Spaltens ihre erste Spalte ]
+                            KombigesamttabelleMitZeilenumbruchVorbereitung[kombi.csv Zeilenummer][nur die relevanten Spaltens ihre erste Spalte ]
                             d.h. das ist aus kombi.csv die erste Spalte mit den Kombinationszahlen
                             die hier zugeordnet zu den kombi.csv zeilennummern gespeichert werden,
                             d.h. nicht den haupt+ausgabezeilen
@@ -1814,6 +1820,9 @@ class Program:
                         else:
                             Tables[key] = [into[0]]
                     # cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
+                    """ Liste aus Tabellen: eine Untertabelle = was in Haupttabellenzeilennummer rein soll aus der Kombitabelle
+                    Zusammen ist das die Matrix der Kombis, die an die Haupt+Anzeige Tabelle deneben ran soll
+                """
                 KombiTables += [Tables]
 
             newTable = self.tables.getCombis.tableJoin(

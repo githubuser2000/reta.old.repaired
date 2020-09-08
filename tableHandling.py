@@ -1324,7 +1324,13 @@ class Tables:
                 1. Zeilenummer, 2. richtige Nummer der Religion, 3. anzuzeigende Haupttabellenzeile
                 """
                 for subTable in manySubTables:
+                    """Liste aus Tabellen: eine Untertabelle = was in Haupttabellenzeilennummer rein soll aus der Kombitabelle
+                    Zusammen ist das die Matrix der Kombis, die an die Haupt+Anzeige Tabelle deneben ran soll
+
+                    hier werden also alle Orginal-Haupt+Anzeige Zeilen durchgegangen
+                    """
                     if reliNum in subTable:
+                        """"""
                         for row, bigCell in enumerate(mainTable[colNum]):
                             if old2newRows[1][row] in maintable2subtable_Relation[0]:
                                 subRowNum = maintable2subtable_Relation[0][
