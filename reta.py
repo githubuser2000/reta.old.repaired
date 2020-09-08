@@ -14,7 +14,8 @@ from typing import Iterable, Union
 
 import bbcode
 
-from tableHandling import Tables
+from tableHandling import (OutputSyntax, Tables, bbCodeSyntax, csvSyntax,
+                           htmlSyntax, markdownSyntax)
 
 if "Brython" not in sys.version.split():
     import html2text
@@ -40,125 +41,6 @@ parser = bbcode.Parser()
 parser.add_simple_formatter("hr", "<hr />", standalone=True)
 parser.add_simple_formatter("sub", "<sub>%(value)s</sub>")
 parser.add_simple_formatter("sup", "<sup>%(value)s</sup>")
-
-
-class OutputSyntax:
-    def coloredBeginCol(self, num: int, rest: bool = False):
-        return self.beginZeile
-
-    def generateCell(self, num: int) -> str:
-        return self.beginCell
-
-    beginTable = ""
-    endTable = ""
-    beginCell = ""
-    endCell = ""
-    beginZeile = ""
-    endZeile = ""
-
-
-class csvSyntax(OutputSyntax):
-    beginTable = ""
-    endTable = ""
-    beginCell = ""
-    endCell = ""
-    beginZeile = ""
-    endZeile = ""
-
-
-class markdownSyntax(OutputSyntax):
-
-    beginTable = ""
-    endTable = ""
-    beginCell = "|"
-    endCell = ""
-    beginZeile = ""
-    endZeile = ""
-
-
-class bbCodeSyntax(OutputSyntax):
-    def coloredBeginCol(self, num: int, rest: bool = False):
-        num = int(num) if str(num).isdecimal() else 0
-        numberType = primCreativity(num)
-
-        if rest:
-            # wenn der Fallm eintritt dass es leerer Text ist der frei ist
-            return "[tr]"
-            if num == 0:
-                return "[tr]"
-            elif num % 2 == 0:
-                return "[tr]"
-            else:
-                return "[tr]"
-        elif numberType == 1:
-            if num % 2 == 0:
-                return '[tr="background-color:#66ff66;font-size:18px;color:#000000;"]'
-            else:
-                return '[tr="background-color:#009900;font-size:18px;color:#ffffff;"]'
-        elif numberType == 2 or num == 1:
-            if num % 2 == 0:
-                return '[tr="background-color:#ffff66;font-size:18px;color:#000099;"]'
-            else:
-                return '[tr="background-color:#555500;font-size:18px;color:#aaaaff;"]'
-        elif numberType == 3:
-            if num % 2 == 0:
-                return '[tr="background-color:#9999ff;font-size:18px;color:#202000;"]'
-            else:
-                return '[tr="background-color:#000099;font-size:18px;color:#ffff66;"]'
-        elif num == 0:
-            return '[tr="background-color:#ff2222;font-size:18px;color:#002222;"]'
-
-    beginTable = "[table]"
-    endTable = "[/table]"
-    beginCell = "[td]"
-    endCell = "[/td]"
-    beginZeile = "[tr]"
-    endZeile = "[/tr]"
-
-
-class htmlSyntax(OutputSyntax):
-    @staticmethod
-    def coloredBeginCol(num: int, rest: bool = False) -> str:
-        num = int(num) if str(num).isdecimal() else 0
-        numberType = primCreativity(num)
-
-        if rest:
-            # wenn der Fallm eintritt dass es leerer Text ist der frei ist
-            return "<tr>"
-            if num == 0:
-                return "<tr>"
-            elif num % 2 == 0:
-                return "<tr>"
-            else:
-                return "<tr>"
-        elif numberType == 1:
-            if num % 2 == 0:
-                return '<tr style="background-color:#66ff66;font-size:18px;color:#000000;">'
-            else:
-                return '<tr style="background-color:#009900;font-size:18px;color:#ffffff;">'
-        elif numberType == 2 or num == 1:
-            if num % 2 == 0:
-                return '<tr style="background-color:#ffff66;font-size:18px;color:#000099;">'
-            else:
-                return '<tr style="background-color:#555500;font-size:18px;color:#aaaaff;">'
-        elif numberType == 3:
-            if num % 2 == 0:
-                return '<tr style="background-color:#9999ff;font-size:18px;color:#202000;">'
-            else:
-                return '<tr style="background-color:#000099;font-size:18px;color:#ffff66;">'
-        elif num == 0:
-            return '<tr style="background-color:#ff2222;font-size:18px;color:#002222;">'
-
-    def generateCell(self, num: int) -> str:
-        return '<td  style="display:none" class="RowNumber ' + str(num) + '">'
-
-    beginTable = "<table border=1>"
-    endTable = "</table>"
-    beginCell = "<td>"
-    endCell = "</td>"
-    # beginZeile = "<tr>"
-    beginZeile = ""
-    endZeile = "</tr>"
 
 
 class Wraptype(Enum):
@@ -1567,7 +1449,7 @@ class Program:
         if not self.tables.getOut.oneTable:
             self.tables.textWidth = (
                 self.tables.textWidth
-                if shellRowsAmount > self.tables.textWidth + 7
+                if shellRowsAmount > self.tables.textWidth + 7 or shellRowsAmount <= 0
                 else shellRowsAmount - 7
             )
         return (
