@@ -1375,6 +1375,8 @@ class Tables:
             @param kombiTable_Kombis: wird anscheinend hier gar nicht gebraucht
             @rtype: dict[set[int]]
             @return: ZeilenNummern die miteinander als Join kombiniert werden sollen zwischen Haupttabelle und weiterer
+                key = haupttabellenzeilennummer
+                value = kombitabellenzeilennummer
             """
             # kombitypes = {"displaying": False, "or": False, "and": False}
             # self.ChosenKombiLines: dict = {}
@@ -1398,6 +1400,8 @@ class Tables:
                                         """Zugehörig zur richtigen Anzeigeezeile wird diese Kombizeile ausgewählt
                                         d.h. anzeige in zeile enthält die richtige kombizeile
                                         NUMMERN werden da rein gelistet
+                                        key = haupttabellenzeilennummer
+                                        value = kombitabellenzeilennummer
                                         """
                                         self.ChosenKombiLines[MainLineNum] |= {
                                             kombiLineNumber + 1

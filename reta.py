@@ -1791,8 +1791,12 @@ class Program:
             for key, value in ChosenKombiLines.items():
                 """Zeilennummern der kombi, die hinten dran kommen sollen
                 an die Haupt- und Anzeigetabelle
+                key = haupttabellenzeilennummer
+                value = kombitabellenzeilennummer
                 """
                 Tables = {}
+                """ alle Zahlen, die
+                """
                 for kombiLineNumber in value:
                     """nur Zeilen aus dem set aus der Tabelle verwenden als Ausgabe der Tabelle"""
                     into = self.tables.tableReducedInLinesByTypeSet(
