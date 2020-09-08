@@ -1320,7 +1320,9 @@ class Tables:
             for colNum, (reliNum, col) in enumerate(
                 zip(self.religionNumbers, mainTable)
             ):
-                """geht die Zeilen der anzuzeigenden Haupttabelle durch"""
+                """geht die Zeilen der anzuzeigenden Haupttabelle durch
+                1. Zeilenummer, 2. richtige Nummer der Religion, 3. anzuzeigende Haupttabellenzeile
+                """
                 for subTable in manySubTables:
                     if reliNum in subTable:
                         for row, bigCell in enumerate(mainTable[colNum]):
@@ -1438,7 +1440,9 @@ class Tables:
                     self.kombiTable: list = []
                     self.kombiTable_Kombis: list = []
                     for z, col in enumerate(csv.reader(csv_file, delimiter=";")):
+                        """jede Zeile in der kombi.csv"""
                         for i, row in enumerate(col):
+                            """jede Spalte also dann eigentlich Zelle der kombi.csv"""
                             if (
                                 i > 0
                                 and col[i].strip() != ""
@@ -1448,6 +1452,8 @@ class Tables:
                         self.kombiTable += [col]
                         self.kombiTable_Kombis_Col: list = []
                         if len(col) > 0 and z > 0:
+                            """die Behandlung des Auslesens von Religionsnummern in Kombination
+                            in der ersten Spalte der kombi.csv"""
                             for num in col[0].split("|"):
                                 if num.isdecimal() or (
                                     num[0] in ["+", "-"] and num[1:].isdecimal()
@@ -1474,7 +1480,9 @@ class Tables:
                                         abs(int(num[1 : num.find("/")])),
                                     ]
                                 else:
-                                    raise BaseException("not NUM !!!!! ")
+                                    raise BaseException(
+                                        "Die kombi.csv ist in der ersten Spalte nicht so wie sie sein soll mit den Zahlen."
+                                    )
                             self.kombiTable_Kombis += [self.kombiTable_Kombis_Col]
                     self.relitable, animalsProfessionsCol = Tables.fillBoth(
                         self.relitable, list(self.kombiTable)
@@ -1484,7 +1492,15 @@ class Tables:
                     for i, (animcol, relicol) in enumerate(
                         zip(animalsProfessionsCol, self.relitable)
                     ):
+                        """jede Zeile bei der Haupttabellenzeile der Kombitabellenzeile (noch) NICHT richtig entspricht
+                        beide sind auf die gleiche richtig Länge vorher verlängert worden.
+                        (irgendwie komisch von mir programmiert)
+                        """
                         if i == 0:
+                            """Zur richtigen Zeile kommt der Leerraum rein,
+                            der später aufgefüllt wird durch die wirklichen
+                            Inhalte der kombi.csv
+                            """
                             lastlen = len(animcol)
                             if lastlen > maxlen:
                                 maxlen = lastlen
@@ -1499,6 +1515,10 @@ class Tables:
                                 maxlen - len(animcol)
                             )
                         else:
+                            """Zur richtigen Zeile kommt der Leerraum rein,
+                            der später aufgefüllt wird durch die wirklichen
+                            Inhalte der kombi.csv
+                            """
                             self.relitable[i] += len(animcol[1:]) * [""] + [""] * (
                                 maxlen - len(animcol)
                             )
@@ -1510,6 +1530,13 @@ class Tables:
                                         and u == headingsAmount + a - 1
                                     ):
                                         rowsAsNumbers.add(int(u))
+                                        """ rowsAsNumbers müsste hier verzeigert sein
+                                        Es kommen genau diese Spaltennummern hinzu,
+                                        (die überzählig sind) die nicht mehr in der
+                                        anzuzeigenden tabelle entahlten sind also
+                                        zu hoch wären, weil es die dazu kommenden
+                                        Spalten der kombi.csv sind.
+                                        """
             else:
                 self.kombiTable = [[]]
                 self.kombiTable_Kombis = [[]]

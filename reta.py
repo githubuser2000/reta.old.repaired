@@ -1843,6 +1843,18 @@ class Program:
             "Bei mehreren Spalten beide Farbgebungen automatisch wechseln lassen, cmd cli Parameter gibt jedoch explizit beides an, aber pro Spalte oder für alle oder Alternierungsmodulotyp"
         )
         alxp("vim: iIaAoOjJ mit Registern arbeiten wegen Löschen ohne ausschneiden")
+        alxp(
+            """Ich könnte einen schnelleren String oder Listen usw. Datentyp erschaffen. \n
+             Dazu erbe ich String oder etc. den Addieren oder so Operator schreibe ich um,\n
+             dass der sich die Stellen nur merken soll und nicht konkatenieren soll. \n
+             Dann gibt es dann am Ende nur noch so einen Extra-Befehl, der das dann erst wirklich konkatenieren soll! \n
+            Mit f-string concateniert er am Schnellsten, gut ist auch: building a list of strings, then calling "".join() \n
+            plus damit zusammen:  using a list comprehension inline \n
+            """
+        )
+        alxp(
+            """ Überlegen wo ich besser Hashmaps statt Listen verwenden sollte oder Tuple"""
+        )
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
