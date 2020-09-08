@@ -1789,13 +1789,23 @@ class Program:
             )
             KombiTables = []
             for key, value in ChosenKombiLines.items():
+                """Zeilennummern der kombi, die hinten dran kommen sollen
+                an die Haupt- und Anzeigetabelle
+                """
                 Tables = {}
                 for kombiLineNumber in value:
+                    """nur Zeilen aus dem set aus der Tabelle verwenden als Ausgabe der Tabelle"""
                     into = self.tables.tableReducedInLinesByTypeSet(
                         newTable_kombi_1, {kombiLineNumber}
                     )
                     if len(into) > 0:
                         if key in Tables:
+                            """Ergibt Matrix:
+                            bla[kombi.csv Zeilenummer][nur die relevanten Spaltens ihre erste Spalte ]
+                            d.h. das ist aus kombi.csv die erste Spalte mit den Kombinationszahlen
+                            die hier zugeordnet zu den kombi.csv zeilennummern gespeichert werden,
+                            d.h. nicht den haupt+ausgabezeilen
+                            """
                             Tables[key] += [into[0]]
                         else:
                             Tables[key] = [into[0]]

@@ -1358,7 +1358,7 @@ class Tables:
             paramLines: set,
             displayingMainLines: set,
             kombiTable_Kombis: list,
-        ) -> list:
+        ) -> dict:
             """Vorbereiten zum Kombinieren von Tabellen, wie bei einem SQL-Join
             siehe hier Return-Value, der hiermit erstellt wird.
             Nur darum geht es.
@@ -1374,7 +1374,7 @@ class Tables:
             @type kombiTable_Kombis: list
             @param kombiTable_Kombis: wird anscheinend hier gar nicht gebraucht
             @rtype: dict[set[int]]
-            @return: Zeilen die miteinander als Join kombiniert werden sollen zwischen Haupttabelle und weiterer
+            @return: ZeilenNummern die miteinander als Join kombiniert werden sollen zwischen Haupttabelle und weiterer
             """
             # kombitypes = {"displaying": False, "or": False, "and": False}
             # self.ChosenKombiLines: dict = {}
@@ -1397,6 +1397,7 @@ class Tables:
                                     try:
                                         """Zugehörig zur richtigen Anzeigeezeile wird diese Kombizeile ausgewählt
                                         d.h. anzeige in zeile enthält die richtige kombizeile
+                                        NUMMERN werden da rein gelistet
                                         """
                                         self.ChosenKombiLines[MainLineNum] |= {
                                             kombiLineNumber + 1
@@ -1455,9 +1456,9 @@ class Tables:
                             """die Behandlung des Auslesens von Religionsnummern in Kombination
                             in der ersten Spalte der kombi.csv"""
                             for num in col[0].split("|"):
-                                """ self.kombiTable_Kombis:
-                                    Liste mit allen Zeilen der neuen Tabelle aus der ersten
-                                    Spalte je Liste aus allem darin das mit Komma getrennt wurde
+                                """self.kombiTable_Kombis:
+                                Liste mit allen Zeilen der neuen Tabelle aus der ersten
+                                Spalte je Liste aus allem darin das mit Komma getrennt wurde
                                 """
                                 if num.isdecimal() or (
                                     num[0] in ["+", "-"] and num[1:].isdecimal()
