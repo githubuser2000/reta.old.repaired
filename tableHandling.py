@@ -1505,6 +1505,10 @@ class Tables:
                             if lastlen > maxlen:
                                 maxlen = lastlen
                             for t, ac in enumerate(animcol[1:]):
+                                """Spalte hinten dran und nächste usw.
+                                entspricht Spalte in Kombitabelle und umgehert
+                                genauso, also Äquivalenz!
+                                """
                                 self.maintable2subtable_Relation[0][
                                     len(self.relitable[0]) + t
                                 ] = t
