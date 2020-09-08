@@ -1779,6 +1779,14 @@ class Program:
             4. Vorbereiten des Joinens beider Tabellen direkt hier rein programmiert
                (Müsste ich unbedingt mal refactoren!)
             5. joinen
+               Wenn ich hier jetzt alles joine, und aber nicht mehrere Zellen mache pro Kombitablezeile,
+               d.h. nicht genauso viele Zeilen wie es der Kombitablezeilen entspricht,
+               d.h. ich mache nur eine Zeile, in der ich alle kombitableteilen nur konkatteniere,
+               dann ist das Ergebnis Mist in der Ausagbe, weil der Zeilenumbruch noch mal gemacht werden müsste,
+               der jedoch bereits schon gemacht wurde.
+               Der musste aber vorher gemacht werden, denn wenn man ihn jetzt machen würde,
+               dann müsste man das eigentlich WIEDER mit der ganzen Tabelle tun!
+               Also etwa alles völlig umprogrammieren?
             6. noch mal nur das ausgeben lassen, das nur ausgegeben werden soll
             7. letztendliche Ausagebe von allem!!
             """

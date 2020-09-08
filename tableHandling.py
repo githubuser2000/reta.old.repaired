@@ -1289,7 +1289,21 @@ class Tables:
             self.ChosenKombiLines: dict = {}
             self.sumOfAllCombiRowsAmount = 0
             self.table = table
-            # 0. read kombi 1. prepare kombi 2. prepare all 3. tablejoin
+            """alle  Schritte für kombi:
+            1. lesen: KombiTable und relation, was von kombitable zu haupt gehört
+                      und matrix mit zellen sind zahlen der kombinationen
+                      d.h. 3 Sachen sind das Ergebnis
+            2. prepare: die Zeilen, die infrage kommen für Kombi, d.h.:
+                                    key = haupttabellenzeilennummer
+                                    value = kombitabellenzeilennummer
+            3. Zeilenumbruch machen, wie es bei der Haupt+Anzeige-Tabelle auch gemacht wurde
+               prepare4out
+            4. Vorbereiten des Joinens beider Tabellen direkt hier ( in völlig falsche Klasse ) rein programmiert
+               (Müsste ich unbedingt mal refactoren!)
+            5. joinen
+            6. noch mal nur das ausgeben lassen, das nur ausgegeben werden soll
+            7. letztendliche Ausagebe von allem!!
+            """
 
         def tableJoin(
             self,
