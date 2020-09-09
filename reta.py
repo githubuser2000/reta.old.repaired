@@ -381,10 +381,8 @@ class Program:
                 eq = cmd.find("=")
                 try:
                     if eq != -1:
-                        alxp(
-                            self.paraDict[cmd[eq + 1] :],
-                            cmd[: eq + 2],
-                        )
+                        alxp((cmd[:eq], cmd[eq + 1 :]))
+                        alxp(self.paraDict[(cmd[:eq], cmd[eq + 1 :])])
                     else:
                         alxp(self.paraDict[(cmd, "")])
                 except KeyError:
