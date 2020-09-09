@@ -420,10 +420,11 @@ class Program:
                         + " -".join(mainParaCmds)
                     )
 
-                # elif arg[1:] in ["debug"]:
-                #    infoLog = True
-                # elif arg[1:] in ["h", "help"] and neg == "":
-                #    self.help()
+            # self.kombiReverseDict[value[0]] = key
+            # elif arg[1:] in ["debug"]:
+            #    infoLog = True
+            # elif arg[1:] in ["h", "help"] and neg == "":
+            #    self.help()
         # alxp(self.paraDict)
 
     def storeParamtersForColumns(self):
@@ -911,7 +912,8 @@ class Program:
         }
         self.kombiReverseDict: dict = {}
         for key, value in Program.kombiParaNdataMatrix.items():
-            self.kombiReverseDict[value[0]] = key
+            for valuesInValuess in value:
+                self.kombiReverseDict[valuesInValuess] = key
         # alxp(self.kombiReverseDict)
 
         # alxp((self.paraMainDict))
