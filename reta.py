@@ -348,8 +348,8 @@ class Program:
                             parameterMainName if len(parameterMainNames) > 0 else (),
                             parameterName if len(parameterNames) > 0 else (),
                         )
-        alxp(paraMainDict)
-        alxp(paraDict)
+        # alxp(paraMainDict)
+        # alxp(paraDict)
         return paraMainDict, paraDict, dataDicts
 
     def mergeParameterDicts(
@@ -431,9 +431,9 @@ class Program:
                                     alxp(cmd[:eq] + "=" + oneOfThingsAfterEqSign)
                                 except KeyError:
                                     alxp(
-                                        'Der Unter-Paramaeter --"'
+                                        'Der Unter-Paramaeter "--'
                                         + cmd[:eq]
-                                        + '"mit dem Textwert "'
+                                        + '" mit dem Textwert "'
                                         + oneOfThingsAfterEqSign
                                         + '" existiert hier nicht als Befehl für Haupt-Parameter'
                                         + " -spalten"
@@ -463,8 +463,10 @@ class Program:
                         + '" ausgeführt werden kann. Hauptparameter sind: -'
                         + " -".join(mainParaCmds)
                     )
-
-        alxp(result)
+        try:
+            alxp(result)
+        except:
+            pass
         # self.kombiReverseDict[value[0]] = key
         # elif arg[1:] in ["debug"]:
         #    infoLog = True
