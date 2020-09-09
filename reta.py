@@ -374,7 +374,7 @@ class Program:
 
         return self.paraDict, self.dataDict
 
-    def showCommandResults(self):
+    def showCommandResults(self, neg=""):
         # self.intoParameterDatatype
         mainParaCmds: dict = {"zeilen": 0, "spalten": 1, "kombination": 2, "ausgabe": 3}
         # mainParaCmds2: dict = {
@@ -403,8 +403,15 @@ class Program:
                     eq = cmd.find("=")
                     try:
                         if eq != -1:
-                            result = self.paraDict[(cmd[:eq], cmd[eq + 1 :])]
+                            for oneOfThingsAfterEqSign in cmd[eq + 1 :].split(","):
+                                result = self.paraDict[
+                                    (cmd[:eq], oneOfThingsAfterEqSign)
+                                ]
                         else:
+                            if lenb(neg) > 0 and cmd[-1] == "-" and neg == "-":
+                                negresult = True
+                            else:
+                                negresult = False
                             result = self.paraDict[(cmd, "")]
                         alxp(result)
                     except KeyError:
@@ -412,7 +419,7 @@ class Program:
                             'Der Unter-Paramaeter --"'
                             + cmd
                             + '" existiert hier nich als Befehl für Haupt-Parameter'
-                            + mainParaCmds[lastMainCmd]
+                            + " -spalten"
                             + " !"
                         )
                 else:
