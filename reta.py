@@ -406,43 +406,44 @@ class Program:
                             if (
                                 len(oneOfThingsAfterEqSign) > 0
                                 and oneOfThingsAfterEqSign[0] == "-"
-                                and neg == "-"
                             ):
                                 oneOfThingsAfterEqSign = oneOfThingsAfterEqSign[1:]
-                                pass
+                                yes1 = True if neg == "-" else False
+                            elif len(neg) == 0:
+                                yes1 = True
                             else:
-                                pass
-                            try:
-                                result = self.paraDict[
-                                    (cmd[:eq], oneOfThingsAfterEqSign)
-                                ]
-                            except KeyError:
-                                alxp(
-                                    'Der Unter-Paramaeter --"'
-                                    + cmd[:eq]
-                                    + '"mit dem Textwert "'
-                                    + oneOfThingsAfterEqSign
-                                    + '" existiert hier nich als Befehl für Haupt-Parameter'
-                                    + " -spalten"
-                                    + " !"
-                                )
+                                yes1 = False
+                            if yes1:
+                                try:
+                                    result = self.paraDict[
+                                        (cmd[:eq], oneOfThingsAfterEqSign)
+                                    ]
+                                except KeyError:
+                                    alxp(
+                                        'Der Unter-Paramaeter --"'
+                                        + cmd[:eq]
+                                        + '"mit dem Textwert "'
+                                        + oneOfThingsAfterEqSign
+                                        + '" existiert hier nicht als Befehl für Haupt-Parameter'
+                                        + " -spalten"
+                                        + " !"
+                                    )
 
-                        else:
-                            try:
-                                if len(neg) > 0 and cmd[-1] == "-" and neg == "-":
-                                    negresult = True
-                                else:
-                                    negresult = False
-                                result = self.paraDict[(cmd, "")]
-                                alxp(result)
-                            except KeyError:
-                                alxp(
-                                    'Der Unter-Paramaeter --"'
-                                    + cmd
-                                    + '" existiert hier nich als Befehl für Haupt-Parameter'
-                                    + " -spalten"
-                                    + " !"
-                                )
+                    else:
+                        try:
+                            if len(neg) > 0 and cmd[-1] == "-" and neg == "-":
+                                negresult = True
+                            else:
+                                negresult = False
+                            result = self.paraDict[(cmd, "")]
+                        except KeyError:
+                            alxp(
+                                'Der Unter-Paramaeter --"'
+                                + cmd
+                                + '" existiert hier nich als Befehl für Haupt-Parameter'
+                                + " -spalten"
+                                + " !"
+                            )
                 else:
                     alxp(
                         "Es muss ein Hauptparameter, bzw. der richtige, gesetzt sein, damit ein"
@@ -452,11 +453,12 @@ class Program:
                         + " -".join(mainParaCmds)
                     )
 
-            # self.kombiReverseDict[value[0]] = key
-            # elif arg[1:] in ["debug"]:
-            #    infoLog = True
-            # elif arg[1:] in ["h", "help"] and neg == "":
-            #    self.help()
+        alxp(result)
+        # self.kombiReverseDict[value[0]] = key
+        # elif arg[1:] in ["debug"]:
+        #    infoLog = True
+        # elif arg[1:] in ["h", "help"] and neg == "":
+        #    self.help()
         # alxp(self.paraDict)
 
     def storeParamtersForColumns(self):
@@ -1790,9 +1792,9 @@ class Program:
             KombiTables = []
             for key, value in ChosenKombiLines.items():
                 """Zeilennummern der kombi, die hinten dran kommen sollen
-                an die Haupt- und Anzeigetabelle
-                key = haupttabellenzeilennummer
-                value = kombitabellenzeilennummer
+                     an die Haupt- und Anzeigetabelle
+                     key = haupttabellenzeilennummer
+                g    value = kombitabellenzeilennummer
                 """
                 Tables = {}
                 for kombiLineNumber in value:
