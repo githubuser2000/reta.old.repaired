@@ -445,11 +445,13 @@ class Program:
                             if (cmd[-1] == "-" and neg == "-") != (
                                 len(neg) == 0 and cmd[-1] != "-"
                             ):
+                                if len(cmd) > 0 and cmd[-1] == "-":
+                                    cmd = cmd[:-1]
                                 result = self.paraDict[(cmd, "")]
                                 alxp("Befehl: " + cmd)
                         except KeyError:
                             alxp(
-                                'Der Unter-Paramaeter --"'
+                                'Der Unter-Paramaeter "--'
                                 + cmd
                                 + '" existiert hier nich als Befehl für Haupt-Parameter'
                                 + " -spalten"
