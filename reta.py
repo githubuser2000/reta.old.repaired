@@ -381,32 +381,44 @@ class Program:
         # }
         lastMainCmd: int = -1
         for cmd in self.argv[1:]:
-            if cmd[0] == "-" and cmd[1:] in mainParaCmds.keys():
-                lastMainCmd = mainParaCmds[cmd[1:]]
-            elif cmd[:2] == "--" and lastMainCmd == mainParaCmds["spalten"]:
-                cmd = cmd[2:]
-                # alxp(cmd.find("="))
-                # alxp(cmd[cmd.find("=") + 1 :])
-                # alxp(cmd[: cmd.find("=") + 2])
-                eq = cmd.find("=")
-                try:
-                    if eq != -1:
-                        result = self.paraDict[(cmd[:eq], cmd[eq + 1 :])]
-                    else:
-                        result = self.paraDict[(cmd, "")]
-                    alxp(result)
-                except KeyError:
+            if cmd[0] == "-" and cmd[1] != "-":
+                if cmd[1:] in mainParaCmds.keys():
+                    lastMainCmd = mainParaCmds[cmd[1:]]
+                else:
                     alxp(
-                        'Der Unter-Paramaeter "'
-                        + str(cmd)
+                        'Der Haupt-Paramaeter -"'
+                        + cmd
                         + '" existiert hier nich als Befehl!'
                     )
-            else:
-                alxp(
-                    'Der Haupt-Paramaeter "'
-                    + str(cmd)
-                    + '" existiert hier nich als Befehl!'
-                )
+            elif cmd[:2] == "--":
+                if lastMainCmd == mainParaCmds["spalten"]:
+                    cmd = cmd[2:]
+                    # alxp(cmd.find("="))
+                    # alxp(cmd[cmd.find("=") + 1 :])
+                    # alxp(cmd[: cmd.find("=") + 2])
+                    eq = cmd.find("=")
+                    try:
+                        if eq != -1:
+                            result = self.paraDict[(cmd[:eq], cmd[eq + 1 :])]
+                        else:
+                            result = self.paraDict[(cmd, "")]
+                        alxp(result)
+                    except KeyError:
+                        alxp(
+                            'Der Unter-Paramaeter --"'
+                            + cmd
+                            + '" existiert hier nich als Befehl für Haupt-Parameter'
+                            + mainParaCmds[lastMainCmd]
+                            + " !"
+                        )
+                else:
+                    alxp(
+                        "Es muss ein Hauptparameter, bzw. der richtige, gesetzt sein, damit ein"
+                        + ' Nebenparameter, wie möglicherweise: "'
+                        + cmd
+                        + '" ausgeführt werden kann. Hauptparameter sind: -'
+                        + " -".join(mainParaCmds)
+                    )
 
                 # elif arg[1:] in ["debug"]:
                 #    infoLog = True
