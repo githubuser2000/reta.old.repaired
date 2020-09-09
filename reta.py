@@ -346,9 +346,8 @@ class Program:
                     for parameterName in parameterNames:
                         dataDicts[i][dd] = (
                             parameterMainName if len(parameterMainNames) > 0 else (),
-                            parameterNames if len(parameterNames) > 0 else (),
+                            parameterName if len(parameterNames) > 0 else (),
                         )
-            # alxp(("ö", paraMainDict, paraDict, dataDicts))
         return paraMainDict, paraDict, dataDicts
 
     def mergeParameterDicts(
