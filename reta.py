@@ -394,6 +394,8 @@ class Program:
         #    3: "ausgabe",
         # }
         lastMainCmd: int = -1
+        kombiSpalten = set()
+        ordinarySpalten = set()
         for cmd in self.argv[1:]:
             if cmd[0] == "-" and cmd[1] != "-":
                 if cmd[1:] in mainParaCmds.keys():
@@ -425,7 +427,7 @@ class Program:
                                 yes1 = False
                             if yes1:
                                 try:
-                                    result = self.paraDict[
+                                    ordinarySpalten |= self.paraDict[
                                         (cmd[:eq], oneOfThingsAfterEqSign)
                                     ]
                                     alxp(cmd[:eq] + "=" + oneOfThingsAfterEqSign)
@@ -457,15 +459,22 @@ class Program:
                                 + " -spalten"
                                 + " !"
                             )
+
                 elif lastMainCmd == mainParaCmds["kombination"]:
-                    if cmd[:5] == '--was=':
-                        for oneKombiSpalte in cmd[:5].split(","):
+                    if cmd[:6] == "--was=":
+                        for oneKombiSpalte in cmd[6:].split(","):
                             try:
-                                kombiResult = self.kombiReverseDict[oneKombiSpalte]
+                                kombiSpalten |= {self.kombiReverseDict[oneKombiSpalte]}
                                 pass
                             except KeyError:
-                                alxp('Die Kombispalte "'+oneKombiSpalte+'" +
-                                     "existiert so nicht als Befehl.")
+                                alxp(
+                                    'Die Kombispalte "'
+                                    + oneKombiSpalte
+                                    + '" existiert so nicht als Befehl.'
+                                )
+
+                    else:
+                        alxp("NEIN")
                 else:
                     alxp(
                         "Es muss ein Hauptparameter, bzw. der richtige, gesetzt sein, damit ein"
@@ -474,17 +483,11 @@ class Program:
                         + '" ausgeführt werden kann. Hauptparameter sind: -'
                         + " -".join(mainParaCmds)
                     )
-        try:
-            alxp(result)
-        except:
-            pass
-        try:
-            alxp(kombiResult)
-        except:
-            pass
+        alxp(ordinarySpalten)
+        alxp(kombiSpalten)
 
         # self.kombiReverseDict[valuesInValuess] = key
-        alxp(self.kombiReverseDict)
+        # alxp(self.kombiReverseDict)
 
         # self.kombiReverseDict[value[0]] = key
         # elif arg[1:] in ["debug"]:
