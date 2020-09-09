@@ -337,7 +337,7 @@ class Program:
         for name1 in parameterMainNames:
             for name2 in parameterNames:
                 paraDict[(name1, name2)] = datas
-            else:
+            if len(parameterNames) == 0:
                 paraDict[(name1, "")] = datas
         dataDicts: tuple = ({}, {}, {})
         for i, d in enumerate(datas):
@@ -348,13 +348,23 @@ class Program:
                             parameterMainName if len(parameterMainNames) > 0 else (),
                             parameterName if len(parameterNames) > 0 else (),
                         )
+        alxp(paraMainDict)
+        alxp(paraDict)
         return paraMainDict, paraDict, dataDicts
 
     def mergeParameterDicts(
         self, paraMainDict: dict, paraDict: dict, dataDicts: tuple
     ) -> tuple:
         """Merged die beiden 2x2 Datenstrukturen und speichert diese
-        in die Klasse und gibt sie dennoch mit return zurück"""
+        in die Klasse und gibt sie dennoch auch mit return zurück
+        @param paraMainDict: Hauptparameter in der Kommandozeile
+        hat als Werte die Nebenparameter und keys sind die Hauptparamter
+        @param paraDict: Nebenparamteter in der Kommandozeile
+        hat als Werte die Spaltennummern dazugehörig
+        @param dataDicts: die beiden Parameter sagen welche Spaltennummern es
+        sein werden
+        @return: Spaltennummer sagt welche Parameter es ingesamt dazu sind | die
+        beiden Parameter sagen, welche Spalten es alle sind."""
         try:
             self.paraMainDict = {**self.paraMainDict, **paraMainDict}
         except AttributeError:
@@ -418,6 +428,7 @@ class Program:
                                     result = self.paraDict[
                                         (cmd[:eq], oneOfThingsAfterEqSign)
                                     ]
+                                    alxp(cmd[:eq] + "=" + oneOfThingsAfterEqSign)
                                 except KeyError:
                                     alxp(
                                         'Der Unter-Paramaeter --"'
@@ -435,6 +446,7 @@ class Program:
                                 len(neg) == 0 and cmd[-1] != "-"
                             ):
                                 result = self.paraDict[(cmd, "")]
+                                alxp("Befehl: " + cmd)
                         except KeyError:
                             alxp(
                                 'Der Unter-Paramaeter --"'
