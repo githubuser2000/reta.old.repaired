@@ -1,0 +1,2 @@
+#!/bin/sh
+vim -S `ls | grep -e '\.vim$' | fzf`
