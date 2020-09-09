@@ -404,6 +404,11 @@ class Program:
                     try:
                         if eq != -1:
                             for oneOfThingsAfterEqSign in cmd[eq + 1 :].split(","):
+                                if oneOfThingsAfterEqSign[0] == '-' and neg ==
+                                '-':
+                                    pass
+                                else:
+                                    pass
                                 result = self.paraDict[
                                     (cmd[:eq], oneOfThingsAfterEqSign)
                                 ]
