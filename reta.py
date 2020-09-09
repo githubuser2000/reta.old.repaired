@@ -372,8 +372,18 @@ class Program:
 
     def showCommandResults(self):
         # self.intoParameterDatatype
+        mainParaCmds: dict = {"zeilen": 0, "spalten": 1, "kombination": 2, "ausgabe": 3}
+        # mainParaCmds2: dict = {
+        #    0: "zeilen",
+        #    1: "spalten",
+        #    2: "kombination",
+        #    3: "ausgabe",
+        # }
+        lastMainCmd: int = -1
         for cmd in self.argv[1:]:
-            if cmd[:2] == "--":
+            if cmd[0] == "-" and cmd[1:] in mainParaCmds.keys():
+                lastMainCmd = mainParaCmds[cmd[1:]]
+            elif cmd[:2] == "--" and lastMainCmd == mainParaCmds["spalten"]:
                 cmd = cmd[2:]
                 # alxp(cmd.find("="))
                 # alxp(cmd[cmd.find("=") + 1 :])
@@ -381,17 +391,26 @@ class Program:
                 eq = cmd.find("=")
                 try:
                     if eq != -1:
-                        alxp((cmd[:eq], cmd[eq + 1 :]))
-                        alxp(self.paraDict[(cmd[:eq], cmd[eq + 1 :])])
+                        result = self.paraDict[(cmd[:eq], cmd[eq + 1 :])]
                     else:
-                        alxp(self.paraDict[(cmd, "")])
+                        result = self.paraDict[(cmd, "")]
                 except KeyError:
                     alxp(
-                        'Der Paramaeter "'
+                        'Der Unter-Paramaeter "'
                         + str(cmd)
                         + '" existiert hier nich als Befehl!'
                     )
+            else:
+                alxp(
+                    'Der Haupt-Paramaeter "'
+                    + str(cmd)
+                    + '" existiert hier nich als Befehl!'
+                )
 
+                # elif arg[1:] in ["debug"]:
+                #    infoLog = True
+                # elif arg[1:] in ["h", "help"] and neg == "":
+                #    self.help()
         # alxp(self.paraDict)
 
     def storeParamtersForColumns(self):
