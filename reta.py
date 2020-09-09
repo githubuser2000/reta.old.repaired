@@ -373,22 +373,28 @@ class Program:
     def showCommandResults(self):
         # self.intoParameterDatatype
         for cmd in self.argv[1:]:
-            alxp(cmd.find("="))
-            alxp(cmd[cmd.find("=") + 1 :])
-            alxp(cmd[: cmd.find("=") + 2])
-            eq = cmd.find("=")
-            try:
-                if eq != -1:
+            if cmd[:2] == "--":
+                cmd = cmd[2:]
+                # alxp(cmd.find("="))
+                # alxp(cmd[cmd.find("=") + 1 :])
+                # alxp(cmd[: cmd.find("=") + 2])
+                eq = cmd.find("=")
+                try:
+                    if eq != -1:
+                        alxp(
+                            self.paraDict[cmd[eq + 1] :],
+                            cmd[: eq + 2],
+                        )
+                    else:
+                        alxp(self.paraDict[(cmd, "")])
+                except KeyError:
                     alxp(
-                        self.paraDict[cmd[eq + 1] :],
-                        cmd[: eq + 2],
+                        'Der Paramaeter "'
+                        + str(cmd)
+                        + '" existiert hier nich als Befehl!'
                     )
-                else:
-                    alxp(self.paraDict[(cmd, "")])
-            except KeyError:
-                alxp("Command " + str(cmd) + " does not exist here.")
 
-        alxp(self.paraDict)
+        # alxp(self.paraDict)
 
     def storeParamtersForColumns(self):
         global puniverseprims
