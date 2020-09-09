@@ -331,9 +331,11 @@ class Program:
         for name in parameterMainNames:
             paraMainDict[name] = parameterNames
         paraDict = {}
-        for name1 in parameterNames:
-            for name2 in parameterMainNames:
+        for name1 in parameterMainNames:
+            for name2 in parameterNames:
                 paraDict[(name1, name2)] = datas
+            else:
+                paraDict[(name1, "")] = datas
         dataDicts: tuple = ({}, {}, {})
         for i, d in enumerate(datas):
             for dd in d:
@@ -368,9 +370,28 @@ class Program:
 
         return self.paraDict, self.dataDict
 
+    def showCommandResults(self):
+        # self.intoParameterDatatype
+        for cmd in self.argv[1:]:
+            alxp(cmd.find("="))
+            alxp(cmd[cmd.find("=") + 1 :])
+            alxp(cmd[: cmd.find("=") + 2])
+            try:
+                if "=" in cmd:
+                    alxp(
+                        self.paraDict[cmd[cmd.find("=") + 1] :],
+                        cmd[: cmd.find("=") + 2],
+                    )
+                else:
+                    alxp(self.paraDict[(cmd, "")])
+            except KeyError:
+                alxp("Command " + str(cmd) + " does not exist here.")
+
+        alxp(self.paraDict)
+
     def storeParamtersForColumns(self):
         global puniverseprims
-        ParametersMain = (
+        Program.ParametersMain = (
             (
                 "religionen",
                 "religion",
@@ -411,7 +432,7 @@ class Program:
         )
         paraNdataMatrix = (
             (
-                ParametersMain[0],
+                Program.ParametersMain[0],
                 (
                     "prophet",
                     "archon",
@@ -420,9 +441,9 @@ class Program:
                 ),
                 {72},
             ),
-            (ParametersMain[0], ("sternpolygon",), {0, 6, 36}),
+            (Program.ParametersMain[0], ("sternpolygon",), {0, 6, 36}),
             (
-                ParametersMain[0],
+                Program.ParametersMain[0],
                 (
                     "babylon",
                     "dertierkreiszeichen",
@@ -430,7 +451,7 @@ class Program:
                 {0, 36},
             ),
             (
-                ParametersMain[0],
+                Program.ParametersMain[0],
                 (
                     "messias",
                     "heptagramm",
@@ -441,7 +462,7 @@ class Program:
                 {7},
             ),
             (
-                ParametersMain[0],
+                Program.ParametersMain[0],
                 (
                     "gleichfoermigespolygon",
                     "gleichförmigespolygon",
@@ -451,7 +472,7 @@ class Program:
                 {16, 37},
             ),
             (
-                ParametersMain[0],
+                Program.ParametersMain[0],
                 (
                     "vertreterhoehererkonzepte",
                     "galaxien",
@@ -468,7 +489,7 @@ class Program:
                 {24},
             ),
             (
-                ParametersMain[1],
+                Program.ParametersMain[1],
                 (
                     "babylon",
                     "tierkreiszeichen",
@@ -476,24 +497,24 @@ class Program:
                 {1, 2},
             ),
             (
-                ParametersMain[1],
+                Program.ParametersMain[1],
                 (
                     "thomas",
                     "thomasevangelium",
                 ),
                 {0, 3},
             ),
-            (ParametersMain[2], (), {4, 21}),
-            (ParametersMain[3], (), {5, 54, 55, 65, 75, 76, 77, 78, 79, 80}),
+            (Program.ParametersMain[2], (), {4, 21}),
+            (Program.ParametersMain[3], (), {5, 54, 55, 65, 75, 76, 77, 78, 79, 80}),
             (
-                ParametersMain[4],
+                Program.ParametersMain[4],
                 ("system",),
                 {
                     69,
                 },
             ),
             (
-                ParametersMain[4],
+                Program.ParametersMain[4],
                 (
                     "realistisch",
                     "funktioniert",
@@ -501,7 +522,7 @@ class Program:
                 {70},
             ),
             (
-                ParametersMain[4],
+                Program.ParametersMain[4],
                 (
                     "erklärung",
                     "erklaerung",
@@ -509,7 +530,7 @@ class Program:
                 {71},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "incel",
                     "incels",
@@ -517,7 +538,7 @@ class Program:
                 {68},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "irrationalezahlendurchwurzelbildung",
                     "ausgangslage",
@@ -525,7 +546,7 @@ class Program:
                 {73},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "dominierendesgeschlecht",
                     "maennlich",
@@ -535,7 +556,7 @@ class Program:
                 {51},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "liebe",
                     "ethik",
@@ -543,7 +564,7 @@ class Program:
                 {8, 9, 28},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "glauben",
                     "erkenntnis",
@@ -552,7 +573,7 @@ class Program:
                 {59},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "angreifbar",
                     "angreifbarkeit",
@@ -560,7 +581,7 @@ class Program:
                 {58, 57},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "motive",
                     "motivation",
@@ -569,7 +590,7 @@ class Program:
                 {10, 18, 42},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "errungenschaften",
                     "ziele",
@@ -578,7 +599,7 @@ class Program:
                 {11},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "erwerben",
                     "erlernen",
@@ -593,7 +614,7 @@ class Program:
                 {12, 47, 27, 13, 32},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "brauchen",
                     "benoetigen",
@@ -603,7 +624,7 @@ class Program:
                 {13, 14},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "krankheit",
                     "krankheiten",
@@ -614,7 +635,7 @@ class Program:
                 {24},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "alpha",
                     "beta",
@@ -624,7 +645,7 @@ class Program:
                 {46},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "anfuehrer",
                     "chef",
@@ -632,7 +653,7 @@ class Program:
                 {29},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "beruf",
                     "berufe",
@@ -640,7 +661,7 @@ class Program:
                 {30},
             ),
             (
-                ParametersMain[5],
+                Program.ParametersMain[5],
                 (
                     "loesungen",
                     "loesung",
@@ -649,9 +670,9 @@ class Program:
                 ),
                 {31},
             ),
-            (ParametersMain[5], ("musik",), {33}),
+            (Program.ParametersMain[5], ("musik",), {33}),
             (
-                ParametersMain[6],
+                Program.ParametersMain[6],
                 (
                     "pro",
                     "dafür",
@@ -660,16 +681,16 @@ class Program:
                 {17, 48},
             ),
             (
-                ParametersMain[6],
+                Program.ParametersMain[6],
                 (
                     "contra",
                     "dagegen",
                 ),
                 {15, 26},
             ),
-            (ParametersMain[7], (), {20, 27}),
+            (Program.ParametersMain[7], (), {20, 27}),
             (
-                ParametersMain[8],
+                Program.ParametersMain[8],
                 (
                     "primzahlen",
                     "vielfache",
@@ -678,7 +699,7 @@ class Program:
                 {19},
             ),
             (
-                ParametersMain[8],
+                Program.ParametersMain[8],
                 (
                     "anwendungdersonnen",
                     "anwendungenfuermonde",
@@ -686,7 +707,7 @@ class Program:
                 {22},
             ),
             (
-                ParametersMain[8],
+                Program.ParametersMain[8],
                 (
                     "zaehlung",
                     "zaehlungen",
@@ -696,7 +717,7 @@ class Program:
                 {25, 45},
             ),
             (
-                ParametersMain[8],
+                Program.ParametersMain[8],
                 (
                     "jura",
                     "gesetzeslehre",
@@ -705,7 +726,7 @@ class Program:
                 {34},
             ),
             (
-                ParametersMain[8],
+                Program.ParametersMain[8],
                 (
                     "vollkommenheit",
                     "geist",
@@ -713,7 +734,7 @@ class Program:
                 {35},
             ),
             (
-                ParametersMain[8],
+                Program.ParametersMain[8],
                 (
                     "gestirn",
                     "mond",
@@ -722,9 +743,9 @@ class Program:
                 ),
                 {64},
             ),
-            (ParametersMain[9], (), {36, 37}),
+            (Program.ParametersMain[9], (), {36, 37}),
             (
-                ParametersMain[10],
+                Program.ParametersMain[10],
                 (),
                 {},
                 {},
@@ -736,7 +757,7 @@ class Program:
                 # - {None, 0, 1},
             ),
             (
-                ParametersMain[11],
+                Program.ParametersMain[11],
                 (
                     "weisheit",
                     "metaweisheit",
@@ -750,7 +771,7 @@ class Program:
                 {(40, 41)},
             ),
             (
-                ParametersMain[11],
+                Program.ParametersMain[11],
                 (
                     "gut",
                     "böse",
@@ -762,7 +783,7 @@ class Program:
                 {(38, 39)},
             ),
             (
-                ParametersMain[11],
+                Program.ParametersMain[11],
                 (
                     "zeit",
                     "raum",
@@ -773,7 +794,7 @@ class Program:
                 {(49, 50)},
             ),
             (
-                ParametersMain[11],
+                Program.ParametersMain[11],
                 (
                     "meinungen",
                     "anderemenschen",
@@ -783,7 +804,7 @@ class Program:
                 {(60, 61)},
             ),
             (
-                ParametersMain[11],
+                Program.ParametersMain[11],
                 (
                     "selbstgerechtigkeit",
                     "selbstgerecht",
@@ -792,7 +813,7 @@ class Program:
                 {(62, 63)},
             ),
             (
-                ParametersMain[11],
+                Program.ParametersMain[11],
                 (
                     "egoismus",
                     "altruismus",
@@ -802,7 +823,7 @@ class Program:
                 {},
                 {(66, 67)},
             ),
-            (ParametersMain[12], ("universum",), {43, 54, 74}),
+            (Program.ParametersMain[12], ("universum",), {43, 54, 74}),
         )
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
@@ -815,7 +836,7 @@ class Program:
                     ),
                 )
             )
-        kombiParaNdataMatrix = {
+        Program.kombiParaNdataMatrix = {
             1: (
                 "tiere",
                 "tier",
@@ -852,7 +873,7 @@ class Program:
             ),
         }
         self.kombiReverseDict: dict = {}
-        for key, value in kombiParaNdataMatrix.items():
+        for key, value in Program.kombiParaNdataMatrix.items():
             self.kombiReverseDict[value[0]] = key
         # alxp(self.kombiReverseDict)
 
@@ -1615,11 +1636,14 @@ class Program:
             spaltenreihenfolgeundnurdiese,
         )
 
-    def __init__(self, argv=[]):
+    def __init__(self, argv=[], testing=False):
         global Tables
+        self.argv = argv
         self.dataDict: tuple = ({}, {}, {})
         self.storeParamtersForColumns()
-        if len(argv) == 0:
+        if testing:
+            infoLog = True
+
             return
         self.allesParameters = 0
         self.tables = Tables()
@@ -1797,7 +1821,9 @@ class Program:
         alxp(
             "bei html und bbcode und breite nict gestetzt noch breite=0 und bildschirmbreite= unendlich setzen!"
         )
-        alxp("alles wahrscheinlich besser durch dicts ersetzen, und zeitmessungen hier und da machen und ausgeben")
+        alxp(
+            "alles wahrscheinlich besser durch dicts ersetzen, und zeitmessungen hier und da machen und ausgeben"
+        )
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )

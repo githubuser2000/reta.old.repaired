@@ -4,6 +4,7 @@ import sys
 
 import reta
 
-retaProgram = reta.Program()
+retaProgram = reta.Program(sys.argv, True)
 reta.infoLog = True
 retaProgram.storeParamtersForColumns()
+retaProgram.showCommandResults()
