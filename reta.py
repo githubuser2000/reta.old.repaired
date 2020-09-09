@@ -1797,6 +1797,7 @@ class Program:
         alxp(
             "bei html und bbcode und breite nict gestetzt noch breite=0 und bildschirmbreite= unendlich setzen!"
         )
+        alxp("alles wahrscheinlich besser durch dicts ersetzen, und zeitmessungen hier und da machen und ausgeben")
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )

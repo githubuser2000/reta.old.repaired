@@ -1,2 +1,3 @@
 #!/bin/sh
+cd ~/myRepos/reta
 vim -S `ls | grep -e '\.vim$' | fzf`
