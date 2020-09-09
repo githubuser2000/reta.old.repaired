@@ -376,11 +376,12 @@ class Program:
             alxp(cmd.find("="))
             alxp(cmd[cmd.find("=") + 1 :])
             alxp(cmd[: cmd.find("=") + 2])
+            eq = cmd.find("=")
             try:
-                if "=" in cmd:
+                if eq != -1:
                     alxp(
-                        self.paraDict[cmd[cmd.find("=") + 1] :],
-                        cmd[: cmd.find("=") + 2],
+                        self.paraDict[cmd[eq + 1] :],
+                        cmd[: eq + 2],
                     )
                 else:
                     alxp(self.paraDict[(cmd, "")])
