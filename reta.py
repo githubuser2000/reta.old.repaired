@@ -401,34 +401,45 @@ class Program:
                     # alxp(cmd[cmd.find("=") + 1 :])
                     # alxp(cmd[: cmd.find("=") + 2])
                     eq = cmd.find("=")
-                    try:
-                        if eq != -1:
-                            for oneOfThingsAfterEqSign in cmd[eq + 1 :].split(","):
-                                if oneOfThingsAfterEqSign[0] == '-' and neg ==
-                                '-':
-                                    oneOfThingsAfterEqSign =
-                                    oneOfThingsAfterEqSign[1:]
-                                    pass
-                                else:
-                                    pass
+                    if eq != -1:
+                        for oneOfThingsAfterEqSign in cmd[eq + 1 :].split(","):
+                            if oneOfThingsAfterEqSign[0] == '-' and neg ==
+                            '-':
+                                oneOfThingsAfterEqSign =
+                                oneOfThingsAfterEqSign[1:]
+                                pass
+                            else:
+                                pass
+                            try:
                                 result = self.paraDict[
                                     (cmd[:eq], oneOfThingsAfterEqSign)
                                 ]
+                            except KeyError:
+                                alxp(
+                                    'Der Unter-Paramaeter --"'
+                                    + cmd[:eq] + '"mit dem Textwert "'+
+                                    oneOfThingsAfterEqSign
+                                    + '" existiert hier nich als Befehl für Haupt-Parameter'
+                                    + " -spalten"
+                                    + " !"
+                                )
+
                         else:
+                        try:
                             if lenb(neg) > 0 and cmd[-1] == "-" and neg == "-":
                                 negresult = True
                             else:
                                 negresult = False
                             result = self.paraDict[(cmd, "")]
-                        alxp(result)
-                    except KeyError:
-                        alxp(
-                            'Der Unter-Paramaeter --"'
-                            + cmd
-                            + '" existiert hier nich als Befehl für Haupt-Parameter'
-                            + " -spalten"
-                            + " !"
-                        )
+                            alxp(result)
+                        except KeyError:
+                            alxp(
+                                'Der Unter-Paramaeter --"'
+                                + cmd
+                                + '" existiert hier nich als Befehl für Haupt-Parameter'
+                                + " -spalten"
+                                + " !"
+                            )
                 else:
                     alxp(
                         "Es muss ein Hauptparameter, bzw. der richtige, gesetzt sein, damit ein"
