@@ -385,6 +385,21 @@ class Program:
         return self.paraDict, self.dataDict
 
     def showCommandResults(self, neg=""):
+        def resultingSpaltenFromTuple(tupl: tuple, neg="") -> tuple:
+            # return (
+            #    paramLines,
+            #    rowsAsNumbers,
+            #    self.__willBeOverwritten_rowsOfcombi,
+            #    spaltenreihenfolgeundnurdiese,
+            #    puniverseprims_only,
+            #    generRows,
+            # )
+            #self.alleSpaltenArtenUndInhaltDict
+            for i, eineSpaltenArt in enumerate(tupl):
+                self.alleSpaltenArtenUndInhaltDict(len(neg),i) = tupl[i]
+                # erstes ist normal, zweites generiertes aus 2 spalten, drittes
+                # ist concatennierte tabelle
+
         # self.intoParameterDatatype
         mainParaCmds: dict = {"zeilen": 0, "spalten": 1, "kombination": 2, "ausgabe": 3}
         # mainParaCmds2: dict = {
@@ -427,9 +442,11 @@ class Program:
                                 yes1 = False
                             if yes1:
                                 try:
-                                    ordinarySpalten |= self.paraDict[
-                                        (cmd[:eq], oneOfThingsAfterEqSign)
-                                    ]
+                                    ordinarySpalten |= {
+                                        self.paraDict[
+                                            (cmd[:eq], oneOfThingsAfterEqSign)
+                                        ],
+                                    }
                                     alxp(cmd[:eq] + "=" + oneOfThingsAfterEqSign)
                                 except KeyError:
                                     alxp(
@@ -449,7 +466,9 @@ class Program:
                             ):
                                 if len(cmd) > 0 and cmd[-1] == "-":
                                     cmd = cmd[:-1]
-                                result = self.paraDict[(cmd, "")]
+                                alxp(self.paraDict[(cmd, "")])
+                                resultingSpaltenFromTuple(self.paraDict[(cmd, "")])
+
                                 alxp("Befehl: " + cmd)
                         except KeyError:
                             alxp(
@@ -484,7 +503,7 @@ class Program:
                         + " -".join(mainParaCmds)
                     )
         alxp(ordinarySpalten)
-        alxp(kombiSpalten)
+        # alxp(kombiSpalten)
 
         # self.kombiReverseDict[valuesInValuess] = key
         # alxp(self.kombiReverseDict)
@@ -985,9 +1004,9 @@ class Program:
                 self.kombiReverseDict[valuesInValuess] = key
         # alxp(self.kombiReverseDict)
 
-        # alxp((self.paraMainDict))
-        # alxp((self.paraDict))
-        # alxp((self.dataDict))
+        alxp((self.paraMainDict))
+        alxp((self.paraDict))
+        alxp((self.dataDict))
 
     def parameters(self, argv, neg="") -> Iterable[Union[set, set, set, list]]:
         """Parameter in der Shell werden hier vorverarbeitet.
@@ -1748,6 +1767,20 @@ class Program:
         global Tables
         self.argv = argv
         self.dataDict: tuple = ({}, {}, {})
+        self.alleSpaltenArtenUndInhaltDict = {
+            # "ordinary": {},
+            # "ordinaryNot": {},
+            # "generated": {},
+            # "generatedNot": {},
+            # "concat1": {},
+            # "concat1Not": {},
+            (0, 0): {},
+            (0, 1): {},
+            (0, 2): {},
+            (1, 0): {},
+            (1, 1): {},
+            (1, 2): {},
+        }
         self.storeParamtersForColumns()
         if testing:
             infoLog = True
