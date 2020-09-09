@@ -394,6 +394,7 @@ class Program:
                         result = self.paraDict[(cmd[:eq], cmd[eq + 1 :])]
                     else:
                         result = self.paraDict[(cmd, "")]
+                    alxp(result)
                 except KeyError:
                     alxp(
                         'Der Unter-Paramaeter "'
