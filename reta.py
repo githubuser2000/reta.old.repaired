@@ -431,11 +431,10 @@ class Program:
 
                     else:
                         try:
-                            if len(neg) > 0 and cmd[-1] == "-" and neg == "-":
-                                negresult = True
-                            else:
-                                negresult = False
-                            result = self.paraDict[(cmd, "")]
+                            if (and cmd[-1] == "-" and neg == "-") != (
+                                len(neg) == 0 and cmd[-1] != "-"
+                            ):
+                                result = self.paraDict[(cmd, "")]
                         except KeyError:
                             alxp(
                                 'Der Unter-Paramaeter --"'

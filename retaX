@@ -8,3 +8,5 @@ retaProgram = reta.Program(sys.argv, True)
 reta.infoLog = True
 retaProgram.storeParamtersForColumns()
 retaProgram.showCommandResults()
+reta.alxp("verdreht: ")
+retaProgram.showCommandResults("-")
