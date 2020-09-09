@@ -325,6 +325,9 @@ class Program:
         """Speichert einen Parameter mit seinem DatenSet
         in 2 Datenstrukturen (die beides kombinieren 2x2)
         Diese werden jedoch nur zurück gegeben und nicht in der Klasse gespeichert.
+        @return: alle Hauptparamter| alle Nebenparamter zu nur einem
+        Hauptparameter ergibt Mengen an Spalten | enthält alle Haup- und
+        Nebenparameter keys sind Spalten der Tabelle
         """
         # alxp(("_", parameterMainNames, parameterNames, datas))
         paraMainDict = {}
@@ -339,11 +342,13 @@ class Program:
         dataDicts: tuple = ({}, {}, {})
         for i, d in enumerate(datas):
             for dd in d:
-                dataDicts[i][dd] = (
-                    parameterMainNames[0] if len(parameterMainNames) > 0 else (),
-                    parameterNames[0] if len(parameterNames) > 0 else (),
-                )
-        # alxp(("ö", paraMainDict, paraDict, dataDicts))
+                for parameterMainName in parameterMainNames:
+                    for parameterName in parameterNames:
+                        dataDicts[i][dd] = (
+                            parameterMainName if len(parameterMainNames) > 0 else (),
+                            parameterNames if len(parameterNames) > 0 else (),
+                        )
+            # alxp(("ö", paraMainDict, paraDict, dataDicts))
         return paraMainDict, paraDict, dataDicts
 
     def mergeParameterDicts(
