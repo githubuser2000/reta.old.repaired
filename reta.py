@@ -406,6 +406,8 @@ class Program:
                             for oneOfThingsAfterEqSign in cmd[eq + 1 :].split(","):
                                 if oneOfThingsAfterEqSign[0] == '-' and neg ==
                                 '-':
+                                    oneOfThingsAfterEqSign =
+                                    oneOfThingsAfterEqSign[1:]
                                     pass
                                 else:
                                     pass
