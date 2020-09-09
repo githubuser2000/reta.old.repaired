@@ -431,7 +431,7 @@ class Program:
 
                     else:
                         try:
-                            if (and cmd[-1] == "-" and neg == "-") != (
+                            if (cmd[-1] == "-" and neg == "-") != (
                                 len(neg) == 0 and cmd[-1] != "-"
                             ):
                                 result = self.paraDict[(cmd, "")]
