@@ -391,16 +391,16 @@ class Program:
                     (len(neg), i)
                 ] |= eineSpaltenArtmitSpaltenNummern
 
-        def spalten_removeDoublesNthenRemoveOneFromAnother(self):
-            for el2Type in enumerate(
-                len(int(self.spaltenArtenKey_SpaltennummernValue / 2))
+        def spalten_removeDoublesNthenRemoveOneFromAnother():
+            for el2Type in range(
+                int(len(self.spaltenArtenKey_SpaltennummernValue) / 2)
             ):
                 self.spaltenArtenKey_SpaltennummernValue[(0, el2Type)] -= (
                     self.spaltenArtenKey_SpaltennummernValue[(0, el2Type)]
                     & self.spaltenArtenKey_SpaltennummernValue[(1, el2Type)]
                 )
-            for el2Type in enumerate(
-                len(int(self.spaltenArtenKey_SpaltennummernValue / 2))
+            for el2Type in range(
+                int(len(self.spaltenArtenKey_SpaltennummernValue) / 2)
             ):
                 self.spaltenArtenKey_SpaltennummernValue[
                     (0, el2Type)
@@ -536,9 +536,10 @@ class Program:
             self.showCommandResults("-")
             alxp("zusammen")
             alxp(self.spaltenArtenKey_SpaltennummernValue)
-            self.spalten_removeDoublesNthenRemoveOneFromAnother()
+            spalten_removeDoublesNthenRemoveOneFromAnother()
             alxp("zusammen2")
             alxp(self.spaltenArtenKey_SpaltennummernValue)
+
     def storeParamtersForColumns(self):
         global puniverseprims
         Program.ParametersMain = (
