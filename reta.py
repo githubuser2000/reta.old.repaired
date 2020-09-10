@@ -489,18 +489,15 @@ class Program:
                 elif lastMainCmd == mainParaCmds["kombination"]:
                     if cmd[:6] == "--was=":
                         for oneKombiSpalte in cmd[6:].split(","):
-                                if (
-                                    len(oneKombiSpalte) > 0
-                                    and oneKombiSpalte[0] == "-"
-                                ):
-                                    oneKombiSpalte = oneKombiSpalte[1:]
-                                    yes1 = True if neg == "-" else False
-                                elif len(neg) == 0:
-                                    yes1 = True
-                                else:
-                                    yes1 = False
-                                if yes1:
-                                    try:
+                            if len(oneKombiSpalte) > 0 and oneKombiSpalte[0] == "-":
+                                oneKombiSpalte = oneKombiSpalte[1:]
+                                yes1 = True if neg == "-" else False
+                            elif len(neg) == 0:
+                                yes1 = True
+                            else:
+                                yes1 = False
+                            if yes1:
+                                try:
                                     resultingSpaltenFromTuple(
                                         (
                                             set(),
@@ -521,7 +518,9 @@ class Program:
                                     )
 
                     else:
-                        alxp('kein Unter-Parameter "--was=" angegeben für Hauptparameter --kombination')
+                        alxp(
+                            'kein Unter-Parameter "--was=" angegeben für Hauptparameter --kombination'
+                        )
                 else:
                     alxp(
                         "Es muss ein Hauptparameter, bzw. der richtige, gesetzt sein, damit ein"
