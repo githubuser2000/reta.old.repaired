@@ -541,6 +541,12 @@ class Program:
             alxp("zusammen2")
             alxp(self.spaltenArtenKey_SpaltennummernValue)
 
+            self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
+                self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["ordinary"]
+            ]
+            alxp("hier")
+            alxp(self.rowsOfcombi)
+
     def storeParamtersForColumns(self):
         global puniverseprims
         Program.ParametersMain = (
@@ -1099,8 +1105,8 @@ class Program:
         for key, value in Program.kombiParaNdataMatrix.items():
             for valuesInValuess in value:
                 self.kombiReverseDict[valuesInValuess] = key
-        # alxp(self.kombiReverseDict)
 
+        # storeParamtersForColumns(
         # alxp((self.paraMainDict))
         # alxp((self.paraDict))
         # alxp((self.dataDict))
@@ -2623,6 +2629,7 @@ class Program:
         if testing:
             self.storeParamtersForColumns()
             infoLog = True
+            self.showCommandResults()
             (
                 self.RowsLen,
                 paramLines,

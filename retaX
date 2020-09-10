@@ -6,6 +6,6 @@ import reta
 
 retaProgram = reta.Program(sys.argv, True)
 reta.infoLog = True
-retaProgram.showCommandResults()
+# retaProgram.showCommandResults()
 # reta.alxp("verdreht: ")
 # retaProgram.showCommandResults("-")
