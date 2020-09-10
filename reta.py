@@ -2344,7 +2344,7 @@ class Program:
         @return: Spaltenanzahl, Zeilen Ja, Zeilen Nein, Religionstabelle, Spalten, weitere Tabelle daneben, spalten weitere Tabelle, weitere Tabelle für wie sql-join, deren spalten
         """
         global folder
-
+        alxp("bla")
         if "Brython" not in sys.version.split():
             place = os.path.join(
                 os.getcwd(),
@@ -2378,6 +2378,7 @@ class Program:
         self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
             self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["ordinary"]
         ]
+        alxp(self.rowsOfcombi)
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
         )
@@ -2593,7 +2594,7 @@ class Program:
         )
 
     def __init__(self, argv=[], testing=False):
-        global Tables
+        global Tables, infoLog
         self.argv = argv
         self.dataDict: tuple = ({}, {}, {}, {})
         self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict = {
@@ -2620,6 +2621,7 @@ class Program:
         self.allesParameters = 0
         self.tables = Tables()
         if testing:
+            self.storeParamtersForColumns()
             infoLog = True
             (
                 self.RowsLen,
