@@ -394,9 +394,11 @@ class Program:
             #    puniverseprims_only,
             #    generRows,
             # )
-            #self.alleSpaltenArtenUndInhaltDict
+            # self.alleSpaltenArtenUndInhaltDict
             for i, eineSpaltenArt in enumerate(tupl):
-                self.alleSpaltenArtenUndInhaltDict(len(neg),i) = tupl[i]
+                pass
+                # self.alleSpaltenArtenUndInhaltDict(len(neg),i) = tupl[i]
+
                 # erstes ist normal, zweites generiertes aus 2 spalten, drittes
                 # ist concatennierte tabelle
 
@@ -631,7 +633,11 @@ class Program:
                 {0, 3},
             ),
             (Program.ParametersMain[2], (), {4, 21}),
-            (Program.ParametersMain[3], (), {5, 54, 55, 65, 75, 76, 77, 78, 79, 80}),
+            (
+                Program.ParametersMain[3],
+                (),
+                {5, 54, 55, 65, 75, 76, 77, 78, 79, 80, 81},
+            ),
             (
                 Program.ParametersMain[4],
                 ("system",),
@@ -1066,7 +1072,7 @@ class Program:
                             (62, 63),
                             (66, 67),
                         }
-                        rowsAsNumbers |= set(range(81)) - {
+                        rowsAsNumbers |= set(range(82)) - {
                             67,
                             66,
                             63,
@@ -1168,7 +1174,7 @@ class Program:
                         "transzendentalien" + neg,
                         "strukturalien" + neg,
                     ]:
-                        rowsAsNumbers |= {5, 54, 55, 65, 75, 76, 77, 78, 79, 80}
+                        rowsAsNumbers |= {5, 54, 55, 65, 75, 76, 77, 78, 79, 80, 81}
                     elif arg[2:13] in ["wirtschaft="]:
                         for thing in arg[(arg.find("=") + 1) :].split(","):
                             if thing in [
@@ -1767,6 +1773,14 @@ class Program:
         global Tables
         self.argv = argv
         self.dataDict: tuple = ({}, {}, {})
+        self.alleSpaltenArtenStr2otherKeyDict = {
+            "ordinary": (0, 0),
+            "ordinaryNot": (0, 1),
+            "generated": (0, 2),
+            "generatedNot": (1, 0),
+            "concat1": (1, 1),
+            "concat1Not": (1, 2),
+        }
         self.alleSpaltenArtenUndInhaltDict = {
             # "ordinary": {},
             # "ordinaryNot": {},
