@@ -2373,14 +2373,6 @@ class Program:
             puniverseprims,
             generRows,
         ) = self.parameterS(argv)
-        alxp("üü")
-        alxp(paramLines)
-        alxp(self.rowsAsNumbers)
-        alxp(self.rowsOfcombi)
-        alxp(spaltenreihenfolgeundnurdiese)
-        alxp(puniverseprims)
-        alxp(generRows)
-        alxp("üü")
         (
             paramLinesNot,
             self.rowsAsNumbersNot,
@@ -2404,6 +2396,16 @@ class Program:
         self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
             self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["kombi1"]
         ]
+        if len(self.rowsOfcombi) > 0:
+            paramLines.add("ka")
+        alxp("üü")
+        alxp(paramLines)
+        alxp(self.rowsAsNumbers)
+        alxp(self.rowsOfcombi)
+        alxp(spaltenreihenfolgeundnurdiese)
+        alxp(puniverseprims)
+        alxp(generRows)
+        alxp("üü")
         alxp(self.rowsOfcombi)
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
