@@ -581,6 +581,7 @@ class Program:
                 "konzepte",
             ),
             ("inkrementieren",),
+            ("alles"),
         )
         paraNdataMatrix = (
             (
@@ -1022,6 +1023,30 @@ class Program:
                 {(66, 67)},
             ),
             (Program.ParametersMain[12], ("universum",), {43, 54, 74}),
+            (
+                Program.ParametersMain[13],
+                (),
+                set(range(82))
+                - {67, 66, 63, 62, 61, 60, 56, 44, 49, 50, 41, 40, 39, 38},
+                {
+                    (40, 41),
+                    (38, 39),
+                    (49, 50),
+                    (60, 61),
+                    (62, 63),
+                    (66, 67),
+                },
+                {
+                    couldBePrimeNumber
+                    if primCreativity(couldBePrimeNumber) == 1
+                    else None
+                    for couldBePrimeNumber in range(2, 100)
+                }
+                - {
+                    None,
+                },
+                set(range(10)),
+            ),
         )
         for parameterEntry in paraNdataMatrix:
             self.mergeParameterDicts(
@@ -2341,7 +2366,7 @@ class Program:
             spaltenreihenfolgeundnurdiese,
             puniverseprims,
             generRows,
-        ) = self.parameters(argv)
+        ) = self.parameterS(argv)
         (
             paramLinesNot,
             self.rowsAsNumbersNot,
