@@ -396,9 +396,9 @@ class Program:
             # )
             # self.spaltenArtenKey_SpaltennummernValue
             for i, eineSpaltenArtmitSpaltenNummern in enumerate(tupl):
-                alxp(type((eineSpaltenArtmitSpaltenNummern)))
-                alxp((self.spaltenArtenKey_SpaltennummernValue[(len(neg), i)]))
-                alxp(type(self.spaltenArtenKey_SpaltennummernValue[(len(neg), i)]))
+                # alxp(type((eineSpaltenArtmitSpaltenNummern)))
+                # alxp((self.spaltenArtenKey_SpaltennummernValue[(len(neg), i)]))
+                # alxp(type(self.spaltenArtenKey_SpaltennummernValue[(len(neg), i)]))
                 self.spaltenArtenKey_SpaltennummernValue[
                     (len(neg), i)
                 ] |= eineSpaltenArtmitSpaltenNummern
@@ -415,8 +415,8 @@ class Program:
         #    3: "ausgabe",
         # }
         lastMainCmd: int = -1
-        kombiSpalten = set()
-        ordinarySpalten = set()
+        # kombiSpalten = set()
+        # ordinarySpalten = set()
         for cmd in self.argv[1:]:
             if cmd[0] == "-" and cmd[1] != "-":
                 if cmd[1:] in mainParaCmds.keys():
@@ -454,7 +454,7 @@ class Program:
                                         ]
                                     )
 
-                                    alxp(cmd[:eq] + "=" + oneOfThingsAfterEqSign)
+                                    # alxp(cmd[:eq] + "=" + oneOfThingsAfterEqSign)
                                 except KeyError:
                                     alxp(
                                         'Der Unter-Paramaeter "--'
@@ -473,10 +473,10 @@ class Program:
                             ):
                                 if len(cmd) > 0 and cmd[-1] == "-":
                                     cmd = cmd[:-1]
-                                alxp(self.paraDict[(cmd, "")])
+                                # alxp(self.paraDict[(cmd, "")])
                                 resultingSpaltenFromTuple(self.paraDict[(cmd, "")])
 
-                                alxp("Befehl: " + cmd)
+                                # Nalxp("Befehl: " + cmd)
                         except KeyError:
                             alxp(
                                 'Der Unter-Paramaeter "--'
@@ -489,18 +489,39 @@ class Program:
                 elif lastMainCmd == mainParaCmds["kombination"]:
                     if cmd[:6] == "--was=":
                         for oneKombiSpalte in cmd[6:].split(","):
-                            try:
-                                kombiSpalten |= {self.kombiReverseDict[oneKombiSpalte]}
-                                pass
-                            except KeyError:
-                                alxp(
-                                    'Die Kombispalte "'
-                                    + oneKombiSpalte
-                                    + '" existiert so nicht als Befehl.'
-                                )
+                                if (
+                                    len(oneKombiSpalte) > 0
+                                    and oneKombiSpalte[0] == "-"
+                                ):
+                                    oneKombiSpalte = oneKombiSpalte[1:]
+                                    yes1 = True if neg == "-" else False
+                                elif len(neg) == 0:
+                                    yes1 = True
+                                else:
+                                    yes1 = False
+                                if yes1:
+                                    try:
+                                    resultingSpaltenFromTuple(
+                                        (
+                                            set(),
+                                            set(),
+                                            set(),
+                                            {
+                                                self.kombiReverseDict[oneKombiSpalte],
+                                            },
+                                        )
+                                    )
+                                    # kombiSpalten |= {self.kombiReverseDict[oneKombiSpalte]}
+                                    pass
+                                except KeyError:
+                                    alxp(
+                                        'Die Kombispalte "'
+                                        + oneKombiSpalte
+                                        + '" existiert so nicht als Befehl.'
+                                    )
 
                     else:
-                        alxp("NEIN")
+                        alxp('kein Unter-Parameter "--was=" angegeben für Hauptparameter --kombination')
                 else:
                     alxp(
                         "Es muss ein Hauptparameter, bzw. der richtige, gesetzt sein, damit ein"
@@ -509,18 +530,23 @@ class Program:
                         + '" ausgeführt werden kann. Hauptparameter sind: -'
                         + " -".join(mainParaCmds)
                     )
-        alxp(ordinarySpalten)
-        # alxp(kombiSpalten)
+        #                    self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict
+        # alxp(ordinarySpalten)
 
-        # self.kombiReverseDict[valuesInValuess] = key
-        # alxp(self.kombiReverseDict)
+        alxp(self.spaltenArtenKey_SpaltennummernValue)
 
-        # self.kombiReverseDict[value[0]] = key
-        # elif arg[1:] in ["debug"]:
-        #    infoLog = True
-        # elif arg[1:] in ["h", "help"] and neg == "":
-        #    self.help()
-        # alxp(self.paraDict)
+    # alxp(kombiSpalten)
+    # alxp(kombiSpalten)
+
+    # self.kombiReverseDict[valuesInValuess] = key
+    # alxp(self.kombiReverseDict)
+
+    # self.kombiReverseDict[value[0]] = key
+    # elif arg[1:] in ["debug"]:
+    #    infoLog = True
+    # elif arg[1:] in ["h", "help"] and neg == "":
+    #    self.help()
+    # alxp(self.paraDict)
 
     def storeParamtersForColumns(self):
         global puniverseprims
@@ -1057,9 +1083,9 @@ class Program:
                 self.kombiReverseDict[valuesInValuess] = key
         # alxp(self.kombiReverseDict)
 
-        alxp((self.paraMainDict))
-        alxp((self.paraDict))
-        alxp((self.dataDict))
+        # alxp((self.paraMainDict))
+        # alxp((self.paraDict))
+        # alxp((self.dataDict))
 
     def parameters(self, argv, neg="") -> Iterable[Union[set, set, set, list]]:
         """Parameter in der Shell werden hier vorverarbeitet.
@@ -1819,28 +1845,26 @@ class Program:
     def __init__(self, argv=[], testing=False):
         global Tables
         self.argv = argv
-        self.dataDict: tuple = ({}, {}, {})
+        self.dataDict: tuple = ({}, {}, {}, {})
         self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict = {
             "ordinary": (0, 0),
-            "ordinaryNot": (0, 1),
-            "generated": (0, 2),
-            "generatedNot": (1, 0),
-            "concat1": (1, 1),
+            "generated1": (0, 1),
+            "concat1": (0, 2),
+            "kombi1": (0, 3),
+            "ordinaryNot": (1, 0),
+            "generate1dNot": (1, 1),
             "concat1Not": (1, 2),
+            "kombi1Not": (1, 3),
         }
         self.spaltenArtenKey_SpaltennummernValue = {
-            # "ordinary": {},
-            # "ordinaryNot": {},
-            # "generated": {},
-            # "generatedNot": {},
-            # "concat1": {},
-            # "concat1Not": {},
             (0, 0): set(),
             (0, 1): set(),
             (0, 2): set(),
+            (0, 3): set(),
             (1, 0): set(),
             (1, 1): set(),
             (1, 2): set(),
+            (1, 3): set(),
         }
         self.storeParamtersForColumns()
         if testing:
