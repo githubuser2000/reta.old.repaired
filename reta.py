@@ -442,10 +442,8 @@ class Program:
                             ):
                                 oneOfThingsAfterEqSign = oneOfThingsAfterEqSign[1:]
                                 yes1 = True if neg == "-" else False
-                            elif len(neg) == 0:
-                                yes1 = True
                             else:
-                                yes1 = False
+                                yes1 = True if len(neg) == 0 else False
                             if yes1:
                                 try:
                                     resultingSpaltenFromTuple(
@@ -492,10 +490,8 @@ class Program:
                             if len(oneKombiSpalte) > 0 and oneKombiSpalte[0] == "-":
                                 oneKombiSpalte = oneKombiSpalte[1:]
                                 yes1 = True if neg == "-" else False
-                            elif len(neg) == 0:
-                                yes1 = True
                             else:
-                                yes1 = False
+                                yes1 = True if len(neg) == 0 else False
                             if yes1:
                                 try:
                                     resultingSpaltenFromTuple(
