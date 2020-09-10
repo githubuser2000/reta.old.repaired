@@ -386,25 +386,25 @@ class Program:
 
     def showCommandResults(self, neg=""):
         def resultingSpaltenFromTuple(tupl: tuple, neg="") -> tuple:
-            # return (
-            #    paramLines,
-            #    rowsAsNumbers,
-            #    self.__willBeOverwritten_rowsOfcombi,
-            #    spaltenreihenfolgeundnurdiese,
-            #    puniverseprims_only,
-            #    generRows,
-            # )
-            # self.spaltenArtenKey_SpaltennummernValue
             for i, eineSpaltenArtmitSpaltenNummern in enumerate(tupl):
-                # alxp(type((eineSpaltenArtmitSpaltenNummern)))
-                # alxp((self.spaltenArtenKey_SpaltennummernValue[(len(neg), i)]))
-                # alxp(type(self.spaltenArtenKey_SpaltennummernValue[(len(neg), i)]))
                 self.spaltenArtenKey_SpaltennummernValue[
                     (len(neg), i)
                 ] |= eineSpaltenArtmitSpaltenNummern
 
-                # erstes ist normal, zweites generiertes aus 2 spalten, drittes
-                # ist concatennierte tabelle
+        def spalten_removeDoublesNthenRemoveOneFromAnother(self):
+            for el2Type in enumerate(
+                len(int(self.spaltenArtenKey_SpaltennummernValue / 2))
+            ):
+                self.spaltenArtenKey_SpaltennummernValue[(0, el2Type)] -= (
+                    self.spaltenArtenKey_SpaltennummernValue[(0, el2Type)]
+                    & self.spaltenArtenKey_SpaltennummernValue[(1, el2Type)]
+                )
+            for el2Type in enumerate(
+                len(int(self.spaltenArtenKey_SpaltennummernValue / 2))
+            ):
+                self.spaltenArtenKey_SpaltennummernValue[
+                    (0, el2Type)
+                ] -= self.spaltenArtenKey_SpaltennummernValue[(1, el2Type)]
 
         # self.intoParameterDatatype
         mainParaCmds: dict = {"zeilen": 0, "spalten": 1, "kombination": 2, "ausgabe": 3}
@@ -449,7 +449,8 @@ class Program:
                                     resultingSpaltenFromTuple(
                                         self.paraDict[
                                             (cmd[:eq], oneOfThingsAfterEqSign)
-                                        ]
+                                        ],
+                                        neg,
                                     )
 
                                     # alxp(cmd[:eq] + "=" + oneOfThingsAfterEqSign)
@@ -472,7 +473,7 @@ class Program:
                                 if len(cmd) > 0 and cmd[-1] == "-":
                                     cmd = cmd[:-1]
                                 # alxp(self.paraDict[(cmd, "")])
-                                resultingSpaltenFromTuple(self.paraDict[(cmd, "")])
+                                resultingSpaltenFromTuple(self.paraDict[(cmd, "")], neg)
 
                                 # Nalxp("Befehl: " + cmd)
                         except KeyError:
@@ -502,7 +503,8 @@ class Program:
                                             {
                                                 self.kombiReverseDict[oneKombiSpalte],
                                             },
-                                        )
+                                        ),
+                                        neg,
                                     )
                                     # kombiSpalten |= {self.kombiReverseDict[oneKombiSpalte]}
                                     pass
@@ -527,22 +529,16 @@ class Program:
                     )
         #                    self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict
         # alxp(ordinarySpalten)
-
+        alxp("einzeln")
+        alxp(neg)
         alxp(self.spaltenArtenKey_SpaltennummernValue)
-
-    # alxp(kombiSpalten)
-    # alxp(kombiSpalten)
-
-    # self.kombiReverseDict[valuesInValuess] = key
-    # alxp(self.kombiReverseDict)
-
-    # self.kombiReverseDict[value[0]] = key
-    # elif arg[1:] in ["debug"]:
-    #    infoLog = True
-    # elif arg[1:] in ["h", "help"] and neg == "":
-    #    self.help()
-    # alxp(self.paraDict)
-
+        if len(neg) == 0:
+            self.showCommandResults("-")
+            alxp("zusammen")
+            alxp(self.spaltenArtenKey_SpaltennummernValue)
+            self.spalten_removeDoublesNthenRemoveOneFromAnother()
+            alxp("zusammen2")
+            alxp(self.spaltenArtenKey_SpaltennummernValue)
     def storeParamtersForColumns(self):
         global puniverseprims
         Program.ParametersMain = (
