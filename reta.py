@@ -2333,6 +2333,134 @@ class Program:
         else:
             print(html)
 
+    def begin(self, argv) -> tuple:
+        """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
+        aller anderen csv dateien
+        Parameter werden in Befehle und Nummernlisten gewandelt
+        csv Dateien werden angehangen an self.relitable
+
+
+        @rtype: tuple(int,set,set,list,set,list,set,list,list)
+        @return: Spaltenanzahl, Zeilen Ja, Zeilen Nein, Religionstabelle, Spalten, weitere Tabelle daneben, spalten weitere Tabelle, weitere Tabelle für wie sql-join, deren spalten
+        """
+        global folder
+
+        if "Brython" not in sys.version.split():
+            place = os.path.join(
+                os.getcwd(),
+                os.path.dirname(__file__),
+                os.path.basename("./religion.csv"),
+            )
+        else:
+            place = "religion.csv"
+        with open(place, mode="r") as csv_file:
+            self.relitable: list = []
+            for i, col in enumerate(csv.reader(csv_file, delimiter=";")):
+                self.relitable += [col]
+                if i == 0:
+                    self.RowsLen = len(col)
+        (
+            paramLines,
+            self.rowsAsNumbers,
+            self.rowsOfcombi,
+            spaltenreihenfolgeundnurdiese,
+            puniverseprims,
+            generRows,
+        ) = self.parameterS(argv)
+        (
+            paramLinesNot,
+            self.rowsAsNumbersNot,
+            self.rowsOfcombiNot,
+            spaltenreihenfolgeundnurdieseNot,
+            puniverseprimsNot,
+            generRowsNot,
+        ) = self.parameters(argv, "-")
+        paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
+            paramLines, paramLinesNot
+        )
+        # puniverseprims, puniverseprimsNot = self.tables.getPrepare.deleteDoublesInSets(
+        #    puniverseprims, puniverseprimsNot
+        # )
+
+        if self.allesParameters != 2:
+            puniverseprimsNot -= puniverseprims
+            generRows -= generRowsNot
+        else:
+            puniverseprims = set()
+            generRows = set()
+        for prims in puniverseprims - puniverseprimsNot:
+            self.tables.primUniversePrimsSet.add(prims)
+        self.tables.generRows = generRows
+        (
+            self.rowsAsNumbers,
+            self.rowsAsNumbersNot,
+        ) = self.tables.getPrepare.deleteDoublesInSets(
+            self.rowsAsNumbers, self.rowsAsNumbersNot
+        )
+        (
+            self.rowsOfcombi,
+            self.rowsOfcombiNot,
+        ) = self.tables.getPrepare.deleteDoublesInSets(
+            self.rowsOfcombi, self.rowsOfcombiNot
+        )
+        self.tables.getPrepare.rowsAsNumbers = self.rowsAsNumbers
+        self.tables.getOut.rowsAsNumbers = self.rowsAsNumbers
+
+        self.relitable, rowsAsNumbers = self.tables.getConcat.readConcatCsv(
+            self.relitable, self.rowsAsNumbers
+        )
+        self.relitable, self.rowsAsNumbers = self.tables.getConcat.concatRowsOfConcepts(
+            self.relitable, self.tables.generRows, self.rowsAsNumbers
+        )
+        (
+            self.relitable,
+            self.rowsAsNumbers,
+        ) = self.tables.getConcat.concatPrimCreativityType(
+            self.relitable, self.rowsAsNumbers
+        )
+        (
+            self.relitable,
+            self.rowsAsNumbers,
+        ) = self.tables.getConcat.concatMondExponzierenLogarithmusTyp(
+            self.relitable, self.rowsAsNumbers
+        )
+        (
+            self.relitable,
+            self.rowsAsNumbers,
+        ) = self.tables.getConcat.concat1RowPrimUniverse2(
+            self.relitable, self.rowsAsNumbers
+        )
+        (
+            self.relitable,
+            self.rowsAsNumbers,
+        ) = self.tables.getConcat.concatLovePolygon(self.relitable, self.rowsAsNumbers)
+
+        if len(self.rowsOfcombi) > 0:
+            (
+                animalsProfessionsTable,
+                self.relitable,
+                kombiTable_Kombis,
+                maintable2subtable_Relation,
+            ) = self.tables.getCombis.readKombiCsv(
+                self.relitable, self.rowsAsNumbers, self.rowsOfcombi
+            )
+        else:
+            animalsProfessionsTable = []
+            kombiTable_Kombis = []
+            maintable2subtable_Relation = []
+        return (
+            self.RowsLen,
+            paramLines,
+            paramLinesNot,
+            self.relitable,
+            self.rowsAsNumbers,
+            animalsProfessionsTable,
+            self.rowsOfcombi,
+            kombiTable_Kombis,
+            maintable2subtable_Relation,
+            spaltenreihenfolgeundnurdiese,
+        )
+
     def start(self, argv) -> tuple:
         """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
         aller anderen csv dateien
@@ -2682,6 +2810,13 @@ class Program:
         )
         alxp(
             "irgendwann weg machen von mehrfachen einbindungen von libs in mehreren dateien"
+        )
+        alxp(
+            """Ich müsste noch etwas aus der Programm Klasse heraus refactoren,
+             in die Tabellen-Klasse - das zu Kombi.csv gehört und überhaupt
+             sollte ich das ganze total anders refactoren und archtitektonisch
+             deutlich aufbessern!
+             """
         )
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
