@@ -405,6 +405,7 @@ class Program:
                 self.spaltenArtenKey_SpaltennummernValue[
                     (0, el2Type)
                 ] -= self.spaltenArtenKey_SpaltennummernValue[(1, el2Type)]
+                self.spaltenArtenKey_SpaltennummernValue.pop[(1, el2Type)]
 
         # self.intoParameterDatatype
         mainParaCmds: dict = {"zeilen": 0, "spalten": 1, "kombination": 2, "ausgabe": 3}
