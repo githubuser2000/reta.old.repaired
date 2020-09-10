@@ -1133,360 +1133,360 @@ class Program:
         generRows = set()
         for arg in argv[1:]:
             if len(arg) > 0 and arg[0] == "-":
+                #                if (
+                #                    len(arg) > 1
+                #                    and arg[1] == "-"
+                #                    and len(self.bigParamaeter) > 0
+                #                    and self.bigParamaeter[-1] == "spalten"
+                #                ):  # unteres Kommando
+                #                    if arg[2:] == "alles" + neg:
+                #                        self.allesParameters += 1
+                #                        paramLines.add("ka")
+                #
+                #                        # puniverseprims = {
+                #                        #    couldBePrimeNumber
+                #                        #    if primCreativity(couldBePrimeNumber) == 1
+                #                        #    else None
+                #                        #    for couldBePrimeNumber in range(2, 100)
+                #                        # } - {
+                #                        #    None,
+                #                        # }
+                #                        self.tables.spalteGestirn = True
+                #                        if len(neg) > 0:
+                #                            self.tables.spalteGestirn = False
+                #                        self.__willBeOverwritten_rowsOfcombi = set(range(10))
+                #                        generRows |= {
+                #                            (40, 41),
+                #                            (38, 39),
+                #                            (49, 50),
+                #                            (60, 61),
+                #                            (62, 63),
+                #                            (66, 67),
+                #                        }
+                #                        rowsAsNumbers |= set(range(82)) - {
+                #                            67,
+                #                            66,
+                #                            63,
+                #                            62,
+                #                            61,
+                #                            60,
+                #                            56,
+                #                            44,
+                #                            49,
+                #                            50,
+                #                            41,
+                #                            40,
+                #                            39,
+                #                            38,
+                #                        }
+                #                    elif arg[2:9] == "breite=":
+                #                        if arg[9:].isdecimal():
+                #                            breite = abs(int(arg[9:]))
+                #                            if breite == 0:
+                #                                shellRowsAmount = 0
+                #                            self.tables.textWidth = breite
+                #                    elif arg[2:10] == "breiten=":
+                #                        self.tables.breitenn = []
+                #                        for breite in arg[10:].split(","):
+                #                            if breite.isdecimal():
+                #                                self.tables.breitenn += [int(breite)]
+                #                    elif arg[2:20] == "keinenummerierung":
+                #                        self.tables.nummeriere = False
+                #                    elif arg[2:13] == "religionen=" or arg[2:11] == "religion=":
+                #                        for religion in (
+                #                            arg[13:].split(",")
+                #                            if arg[2:13] == "religionen="
+                #                            else arg[11:].split(",")
+                #                        ):
+                #                            if religion == neg + "sternpolygon":
+                #                                rowsAsNumbers |= {0, 6, 36}
+                #                            elif religion in [
+                #                                neg + "prophet",
+                #                                neg + "archon",
+                #                                neg + "religionsgründertyp",
+                #                                neg + "religionsgruendertyp",
+                #                            ]:
+                #                                rowsAsNumbers |= {72}
+                #                            elif religion in [
+                #                                neg + "babylon",
+                #                                neg + "dertierkreiszeichen",
+                #                            ]:
+                #                                rowsAsNumbers |= {0, 36}
+                #                            elif religion in [
+                #                                neg + "messias",
+                #                                neg + "heptagramm",
+                #                                neg + "hund",
+                #                                neg + "messiase",
+                #                                neg + "messiasse",
+                #                            ]:
+                #                                rowsAsNumbers |= {7}
+                #                            elif religion in [
+                #                                neg + "gleichfoermigespolygon",
+                #                                neg + "gleichförmigespolygon",
+                #                                neg + "nichtsternpolygon",
+                #                                neg + "polygon",
+                #                            ]:
+                #                                rowsAsNumbers |= {16, 37}
+                #                            elif religion in [
+                #                                neg + "vertreterhoehererkonzepte",
+                #                                neg + "galaxien",
+                #                                neg + "galaxie",
+                #                                neg + "schwarzesonne",
+                #                                neg + "schwarzesonnen",
+                #                                neg + "universum",
+                #                                neg + "universen",
+                #                                neg + "kreis",
+                #                                neg + "kreise",
+                #                                neg + "kugel",
+                #                                neg + "kugeln",
+                #                            ]:
+                #                                rowsAsNumbers.add(23)
+                #                    elif (
+                #                        arg[2:10] == "galaxie="
+                #                        or arg[2:16] == "alteschriften="
+                #                        or arg[2:8] == "kreis="
+                #                        or arg[2:11] == "galaxien="
+                #                        or arg[2:9] == "kreise="
+                #                    ):
+                #                        for thing in arg[(arg.find("=") + 1) :].split(","):
+                #                            if thing in [neg + "babylon", neg + "tierkreiszeichen"]:
+                #                                rowsAsNumbers |= {1, 2}
+                #                            elif thing in [neg + "thomas", neg + "thomasevangelium"]:
+                #                                rowsAsNumbers |= {0, 3}
+                #                    elif arg[2:] in [
+                #                        "groessenordnung" + neg,
+                #                        "strukturgroesse" + neg,
+                #                        "groesse" + neg,
+                #                        "stufe" + neg,
+                #                    ]:
+                #                        rowsAsNumbers |= {4, 21}
+                #                    elif arg[2:] in [
+                #                        "universum" + neg,
+                #                        "transzendentalien" + neg,
+                #                        "strukturalien" + neg,
+                #                    ]:
+                #                        rowsAsNumbers |= {5, 54, 55, 65, 75, 76, 77, 78, 79, 80, 81}
+                #                    elif arg[2:13] in ["wirtschaft="]:
+                #                        for thing in arg[(arg.find("=") + 1) :].split(","):
+                #                            if thing in [
+                #                                neg + "system",
+                #                            ]:
+                #                                rowsAsNumbers |= {69}
+                #                            if thing in [
+                #                                neg + "realistisch",
+                #                                neg + "funktioniert",
+                #                            ]:
+                #                                rowsAsNumbers |= {70}
+                #                            if thing in [
+                #                                neg + "erklärung",
+                #                                neg + "erklaerung",
+                #                            ]:
+                #                                rowsAsNumbers |= {71}
+                #                    elif arg[2:15] in ["menschliches="]:
+                #                        for thing in arg[(arg.find("=") + 1) :].split(","):
+                #                            if thing in [
+                #                                neg + "incel",
+                #                                neg + "incels",
+                #                            ]:
+                #                                rowsAsNumbers |= {68}
+                #                            if thing in [
+                #                                neg + "irrationalezahlendurchwurzelbildung",
+                #                                neg + "ausgangslage",
+                #                            ]:
+                #                                rowsAsNumbers |= {73}
+                #                            if thing in [
+                #                                neg + "dominierendesgeschlecht",
+                #                                neg + "maennlich",
+                #                                neg + "männlich",
+                #                                neg + "weiblich",
+                #                            ]:
+                #                                rowsAsNumbers |= {51}
+                #                            if thing in [neg + "liebe", neg + "ethik"]:
+                #                                rowsAsNumbers |= {8, 9, 28}
+                #                            if thing in [
+                #                                neg + "glauben",
+                #                                neg + "erkenntnis",
+                #                                neg + "glaube",
+                #                            ]:
+                #                                rowsAsNumbers |= {59}
+                #                            elif thing in [
+                #                                neg + "angreifbar",
+                #                                neg + "angreifbarkeit",
+                #                            ]:
+                #                                rowsAsNumbers |= {58, 57}
+                #                            elif thing in [
+                #                                neg + "motive",
+                #                                neg + "motivation",
+                #                                neg + "motiv",
+                #                            ]:
+                #                                rowsAsNumbers |= {10, 18, 42}
+                #                            elif thing in [
+                #                                neg + "errungenschaften",
+                #                                neg + "ziele",
+                #                                neg + "erhalten",
+                #                            ]:
+                #                                rowsAsNumbers.add(11)
+                #                            elif thing in [
+                #                                neg + "erwerben",
+                #                                neg + "erlernen",
+                #                                neg + "lernen",
+                #                                neg + "evolutionaer",
+                #                                neg + "evolutionär",
+                #                                neg + "intelligenz",
+                #                                neg + "kreativität",
+                #                                neg + "kreativitaet",
+                #                                neg + "kreativ",
+                #                            ]:
+                #                                rowsAsNumbers |= {12, 47, 27, 13, 32}
+                #                            elif thing in [
+                #                                neg + "brauchen",
+                #                                neg + "benoetigen",
+                #                                neg + "benötigen",
+                #                                neg + "notwendig",
+                #                            ]:
+                #                                rowsAsNumbers |= {13, 14}
+                #                            elif thing in [
+                #                                neg + "krankheit",
+                #                                neg + "krankheiten",
+                #                                neg + "pathologisch",
+                #                                neg + "pathologie",
+                #                                neg + "psychiatrisch",
+                #                            ]:
+                #                                rowsAsNumbers.add(24)
+                #                            elif thing in [
+                #                                neg + "alpha",
+                #                                neg + "beta",
+                #                                neg + "omega",
+                #                                neg + "sigma",
+                #                            ]:
+                #                                rowsAsNumbers.add(46)
+                #                            elif thing in [neg + "anfuehrer", neg + "chef"]:
+                #                                rowsAsNumbers.add(29)
+                #                            elif thing in [neg + "beruf", neg + "berufe"]:
+                #                                rowsAsNumbers.add(30)
+                #                            elif thing in [
+                #                                neg + "loesungen",
+                #                                neg + "loesung",
+                #                                neg + "lösungen",
+                #                                neg + "lösungen",
+                #                            ]:
+                #                                rowsAsNumbers.add(31)
+                #                            elif thing in [neg + "musik"]:
+                #                                rowsAsNumbers.add(33)
+                #                    elif arg[2:12] == "procontra=" or arg[2:16] == "dagegendafuer=":
+                #                        for thing in arg[(arg.find("=") + 1) :].split(","):
+                #                            if thing in [neg + "pro", neg + "dafeuer"]:
+                #                                rowsAsNumbers |= {17, 48}
+                #                            elif thing in [neg + "contra", neg + "dagegen"]:
+                #                                rowsAsNumbers |= {15, 26}
+                #                    elif arg[2 : 7 + len(neg)] == "licht" + neg:
+                #                        rowsAsNumbers |= {20, 27}
+                #                    elif arg[2:12] == "bedeutung=":
+                #                        for thing in arg[(arg.find("=") + 1) :].split(","):
+                #                            if thing in [
+                #                                neg + "primzahlen",
+                #                                neg + "vielfache",
+                #                                neg + "vielfacher",
+                #                            ]:
+                #                                rowsAsNumbers.add(19)
+                #                            elif thing in [
+                #                                neg + "anwendungdersonnen",
+                #                                neg + "anwendungenfuermonde",
+                #                            ]:
+                #                                rowsAsNumbers.add(22)
+                #                            elif thing in [
+                #                                neg + "zaehlung",
+                #                                neg + "zaehlungen",
+                #                                neg + "zählungen",
+                #                                neg + "zählung",
+                #                            ]:
+                #                                rowsAsNumbers |= {25, 45}
+                #                            elif thing in [
+                #                                neg + "jura",
+                #                                neg + "gesetzeslehre",
+                #                                neg + "recht",
+                #                            ]:
+                #                                rowsAsNumbers.add(34)
+                #                            elif thing in [neg + "vollkommenheit", neg + "geist"]:
+                #                                rowsAsNumbers.add(35)
+                #                            elif thing in [
+                #                                neg + "gestirn",
+                #                                neg + "mond",
+                #                                neg + "sonne",
+                #                                neg + "planet",
+                #                            ]:
+                #                                # self.tables.spalteGestirn = True
+                #                                rowsAsNumbers |= {64}
+                #                    elif arg[2 : 11 + len(neg)] == "symbole" + neg:
+                #                        rowsAsNumbers |= {36, 37}
+                #                    elif arg[2:30] == "primzahlvielfachesuniversum=":
+                #                        # int(value) if (len(neg) == 0) == (value > 1) and value not in (0,1,2) else None
+                #                        puniverseprims_only |= {
+                #                            abs(chosen)
+                #                            if (len(neg) == 0) == (abs(chosen) == chosen)
+                #                            else None
+                #                            for chosen in [
+                #                                int(value) for value in (arg[30:].split(","))
+                #                            ]
+                #                        } - {None, 0, 1}
+                #                        # self.tables.primUniversePrimsSet.add(int(2))
+                #                    elif arg[2:10] == "konzept=" or arg[2:11] == "konzepte=":
+                #                        for word in (
+                #                            arg[10:].split(",")
+                #                            if arg[2:10] == "konzept="
+                #                            else arg[11:].split(",")
+                #                        ):
+                #                            if word in [
+                #                                neg + "weisheit",
+                #                                neg + "metaweisheit",
+                #                                neg + "meta-weisheit",
+                #                                neg + "idiot",
+                #                                neg + "weise",
+                #                                neg + "optimal",
+                #                                neg + "optimum",
+                #                            ]:
+                #                                generRows |= {(40, 41)}
+                #                            elif word in [
+                #                                neg + "gut",
+                #                                neg + "böse",
+                #                                neg + "lieb",
+                #                                neg + "schlecht",
+                #                            ]:
+                #                                generRows |= {(38, 39)}
+                #                                rowsAsNumbers |= {52, 53}
+                #                            elif word in [
+                #                                neg + "zeit",
+                #                                neg + "raum",
+                #                                neg + "zeitlich",
+                #                                neg + "räumlich",
+                #                            ]:
+                #                                generRows |= {(49, 50)}
+                #                            elif word in [
+                #                                neg + "meinungen",
+                #                                neg + "anderemenschen",
+                #                                neg + "ruf",
+                #                            ]:
+                #                                generRows |= {(60, 61)}
+                #                            elif word in [
+                #                                neg + "selbstgerechtigkeit",
+                #                                neg + "selbstgerecht",
+                #                            ]:
+                #                                generRows |= {(62, 63)}
+                #                            elif word in [
+                #                                neg + "egoismus",
+                #                                neg + "altruismus",
+                #                                neg + "egoist",
+                #                                neg + "altruist",
+                #                            ]:
+                #                                generRows |= {(66, 67)}
+                #                    elif arg[2:17] == "inkrementieren=":
+                #                        for word in arg[17:].split(","):
+                #                            if word in [
+                #                                neg + "universum",
+                #                            ]:
+                #                                rowsAsNumbers |= {43, 54, 74}
+                #
                 if (
-                    len(arg) > 1
-                    and arg[1] == "-"
-                    and len(self.bigParamaeter) > 0
-                    and self.bigParamaeter[-1] == "spalten"
-                ):  # unteres Kommando
-                    if arg[2:] == "alles" + neg:
-                        self.allesParameters += 1
-                        paramLines.add("ka")
-
-                        # puniverseprims = {
-                        #    couldBePrimeNumber
-                        #    if primCreativity(couldBePrimeNumber) == 1
-                        #    else None
-                        #    for couldBePrimeNumber in range(2, 100)
-                        # } - {
-                        #    None,
-                        # }
-                        self.tables.spalteGestirn = True
-                        if len(neg) > 0:
-                            self.tables.spalteGestirn = False
-                        self.__willBeOverwritten_rowsOfcombi = set(range(10))
-                        generRows |= {
-                            (40, 41),
-                            (38, 39),
-                            (49, 50),
-                            (60, 61),
-                            (62, 63),
-                            (66, 67),
-                        }
-                        rowsAsNumbers |= set(range(82)) - {
-                            67,
-                            66,
-                            63,
-                            62,
-                            61,
-                            60,
-                            56,
-                            44,
-                            49,
-                            50,
-                            41,
-                            40,
-                            39,
-                            38,
-                        }
-                    elif arg[2:9] == "breite=":
-                        if arg[9:].isdecimal():
-                            breite = abs(int(arg[9:]))
-                            if breite == 0:
-                                shellRowsAmount = 0
-                            self.tables.textWidth = breite
-                    elif arg[2:10] == "breiten=":
-                        self.tables.breitenn = []
-                        for breite in arg[10:].split(","):
-                            if breite.isdecimal():
-                                self.tables.breitenn += [int(breite)]
-                    elif arg[2:20] == "keinenummerierung":
-                        self.tables.nummeriere = False
-                    elif arg[2:13] == "religionen=" or arg[2:11] == "religion=":
-                        for religion in (
-                            arg[13:].split(",")
-                            if arg[2:13] == "religionen="
-                            else arg[11:].split(",")
-                        ):
-                            if religion == neg + "sternpolygon":
-                                rowsAsNumbers |= {0, 6, 36}
-                            elif religion in [
-                                neg + "prophet",
-                                neg + "archon",
-                                neg + "religionsgründertyp",
-                                neg + "religionsgruendertyp",
-                            ]:
-                                rowsAsNumbers |= {72}
-                            elif religion in [
-                                neg + "babylon",
-                                neg + "dertierkreiszeichen",
-                            ]:
-                                rowsAsNumbers |= {0, 36}
-                            elif religion in [
-                                neg + "messias",
-                                neg + "heptagramm",
-                                neg + "hund",
-                                neg + "messiase",
-                                neg + "messiasse",
-                            ]:
-                                rowsAsNumbers |= {7}
-                            elif religion in [
-                                neg + "gleichfoermigespolygon",
-                                neg + "gleichförmigespolygon",
-                                neg + "nichtsternpolygon",
-                                neg + "polygon",
-                            ]:
-                                rowsAsNumbers |= {16, 37}
-                            elif religion in [
-                                neg + "vertreterhoehererkonzepte",
-                                neg + "galaxien",
-                                neg + "galaxie",
-                                neg + "schwarzesonne",
-                                neg + "schwarzesonnen",
-                                neg + "universum",
-                                neg + "universen",
-                                neg + "kreis",
-                                neg + "kreise",
-                                neg + "kugel",
-                                neg + "kugeln",
-                            ]:
-                                rowsAsNumbers.add(23)
-                    elif (
-                        arg[2:10] == "galaxie="
-                        or arg[2:16] == "alteschriften="
-                        or arg[2:8] == "kreis="
-                        or arg[2:11] == "galaxien="
-                        or arg[2:9] == "kreise="
-                    ):
-                        for thing in arg[(arg.find("=") + 1) :].split(","):
-                            if thing in [neg + "babylon", neg + "tierkreiszeichen"]:
-                                rowsAsNumbers |= {1, 2}
-                            elif thing in [neg + "thomas", neg + "thomasevangelium"]:
-                                rowsAsNumbers |= {0, 3}
-                    elif arg[2:] in [
-                        "groessenordnung" + neg,
-                        "strukturgroesse" + neg,
-                        "groesse" + neg,
-                        "stufe" + neg,
-                    ]:
-                        rowsAsNumbers |= {4, 21}
-                    elif arg[2:] in [
-                        "universum" + neg,
-                        "transzendentalien" + neg,
-                        "strukturalien" + neg,
-                    ]:
-                        rowsAsNumbers |= {5, 54, 55, 65, 75, 76, 77, 78, 79, 80, 81}
-                    elif arg[2:13] in ["wirtschaft="]:
-                        for thing in arg[(arg.find("=") + 1) :].split(","):
-                            if thing in [
-                                neg + "system",
-                            ]:
-                                rowsAsNumbers |= {69}
-                            if thing in [
-                                neg + "realistisch",
-                                neg + "funktioniert",
-                            ]:
-                                rowsAsNumbers |= {70}
-                            if thing in [
-                                neg + "erklärung",
-                                neg + "erklaerung",
-                            ]:
-                                rowsAsNumbers |= {71}
-                    elif arg[2:15] in ["menschliches="]:
-                        for thing in arg[(arg.find("=") + 1) :].split(","):
-                            if thing in [
-                                neg + "incel",
-                                neg + "incels",
-                            ]:
-                                rowsAsNumbers |= {68}
-                            if thing in [
-                                neg + "irrationalezahlendurchwurzelbildung",
-                                neg + "ausgangslage",
-                            ]:
-                                rowsAsNumbers |= {73}
-                            if thing in [
-                                neg + "dominierendesgeschlecht",
-                                neg + "maennlich",
-                                neg + "männlich",
-                                neg + "weiblich",
-                            ]:
-                                rowsAsNumbers |= {51}
-                            if thing in [neg + "liebe", neg + "ethik"]:
-                                rowsAsNumbers |= {8, 9, 28}
-                            if thing in [
-                                neg + "glauben",
-                                neg + "erkenntnis",
-                                neg + "glaube",
-                            ]:
-                                rowsAsNumbers |= {59}
-                            elif thing in [
-                                neg + "angreifbar",
-                                neg + "angreifbarkeit",
-                            ]:
-                                rowsAsNumbers |= {58, 57}
-                            elif thing in [
-                                neg + "motive",
-                                neg + "motivation",
-                                neg + "motiv",
-                            ]:
-                                rowsAsNumbers |= {10, 18, 42}
-                            elif thing in [
-                                neg + "errungenschaften",
-                                neg + "ziele",
-                                neg + "erhalten",
-                            ]:
-                                rowsAsNumbers.add(11)
-                            elif thing in [
-                                neg + "erwerben",
-                                neg + "erlernen",
-                                neg + "lernen",
-                                neg + "evolutionaer",
-                                neg + "evolutionär",
-                                neg + "intelligenz",
-                                neg + "kreativität",
-                                neg + "kreativitaet",
-                                neg + "kreativ",
-                            ]:
-                                rowsAsNumbers |= {12, 47, 27, 13, 32}
-                            elif thing in [
-                                neg + "brauchen",
-                                neg + "benoetigen",
-                                neg + "benötigen",
-                                neg + "notwendig",
-                            ]:
-                                rowsAsNumbers |= {13, 14}
-                            elif thing in [
-                                neg + "krankheit",
-                                neg + "krankheiten",
-                                neg + "pathologisch",
-                                neg + "pathologie",
-                                neg + "psychiatrisch",
-                            ]:
-                                rowsAsNumbers.add(24)
-                            elif thing in [
-                                neg + "alpha",
-                                neg + "beta",
-                                neg + "omega",
-                                neg + "sigma",
-                            ]:
-                                rowsAsNumbers.add(46)
-                            elif thing in [neg + "anfuehrer", neg + "chef"]:
-                                rowsAsNumbers.add(29)
-                            elif thing in [neg + "beruf", neg + "berufe"]:
-                                rowsAsNumbers.add(30)
-                            elif thing in [
-                                neg + "loesungen",
-                                neg + "loesung",
-                                neg + "lösungen",
-                                neg + "lösungen",
-                            ]:
-                                rowsAsNumbers.add(31)
-                            elif thing in [neg + "musik"]:
-                                rowsAsNumbers.add(33)
-                    elif arg[2:12] == "procontra=" or arg[2:16] == "dagegendafuer=":
-                        for thing in arg[(arg.find("=") + 1) :].split(","):
-                            if thing in [neg + "pro", neg + "dafeuer"]:
-                                rowsAsNumbers |= {17, 48}
-                            elif thing in [neg + "contra", neg + "dagegen"]:
-                                rowsAsNumbers |= {15, 26}
-                    elif arg[2 : 7 + len(neg)] == "licht" + neg:
-                        rowsAsNumbers |= {20, 27}
-                    elif arg[2:12] == "bedeutung=":
-                        for thing in arg[(arg.find("=") + 1) :].split(","):
-                            if thing in [
-                                neg + "primzahlen",
-                                neg + "vielfache",
-                                neg + "vielfacher",
-                            ]:
-                                rowsAsNumbers.add(19)
-                            elif thing in [
-                                neg + "anwendungdersonnen",
-                                neg + "anwendungenfuermonde",
-                            ]:
-                                rowsAsNumbers.add(22)
-                            elif thing in [
-                                neg + "zaehlung",
-                                neg + "zaehlungen",
-                                neg + "zählungen",
-                                neg + "zählung",
-                            ]:
-                                rowsAsNumbers |= {25, 45}
-                            elif thing in [
-                                neg + "jura",
-                                neg + "gesetzeslehre",
-                                neg + "recht",
-                            ]:
-                                rowsAsNumbers.add(34)
-                            elif thing in [neg + "vollkommenheit", neg + "geist"]:
-                                rowsAsNumbers.add(35)
-                            elif thing in [
-                                neg + "gestirn",
-                                neg + "mond",
-                                neg + "sonne",
-                                neg + "planet",
-                            ]:
-                                # self.tables.spalteGestirn = True
-                                rowsAsNumbers |= {64}
-                    elif arg[2 : 11 + len(neg)] == "symbole" + neg:
-                        rowsAsNumbers |= {36, 37}
-                    elif arg[2:30] == "primzahlvielfachesuniversum=":
-                        # int(value) if (len(neg) == 0) == (value > 1) and value not in (0,1,2) else None
-                        puniverseprims_only |= {
-                            abs(chosen)
-                            if (len(neg) == 0) == (abs(chosen) == chosen)
-                            else None
-                            for chosen in [
-                                int(value) for value in (arg[30:].split(","))
-                            ]
-                        } - {None, 0, 1}
-                        # self.tables.primUniversePrimsSet.add(int(2))
-                    elif arg[2:10] == "konzept=" or arg[2:11] == "konzepte=":
-                        for word in (
-                            arg[10:].split(",")
-                            if arg[2:10] == "konzept="
-                            else arg[11:].split(",")
-                        ):
-                            if word in [
-                                neg + "weisheit",
-                                neg + "metaweisheit",
-                                neg + "meta-weisheit",
-                                neg + "idiot",
-                                neg + "weise",
-                                neg + "optimal",
-                                neg + "optimum",
-                            ]:
-                                generRows |= {(40, 41)}
-                            elif word in [
-                                neg + "gut",
-                                neg + "böse",
-                                neg + "lieb",
-                                neg + "schlecht",
-                            ]:
-                                generRows |= {(38, 39)}
-                                rowsAsNumbers |= {52, 53}
-                            elif word in [
-                                neg + "zeit",
-                                neg + "raum",
-                                neg + "zeitlich",
-                                neg + "räumlich",
-                            ]:
-                                generRows |= {(49, 50)}
-                            elif word in [
-                                neg + "meinungen",
-                                neg + "anderemenschen",
-                                neg + "ruf",
-                            ]:
-                                generRows |= {(60, 61)}
-                            elif word in [
-                                neg + "selbstgerechtigkeit",
-                                neg + "selbstgerecht",
-                            ]:
-                                generRows |= {(62, 63)}
-                            elif word in [
-                                neg + "egoismus",
-                                neg + "altruismus",
-                                neg + "egoist",
-                                neg + "altruist",
-                            ]:
-                                generRows |= {(66, 67)}
-                    elif arg[2:17] == "inkrementieren=":
-                        for word in arg[17:].split(","):
-                            if word in [
-                                neg + "universum",
-                            ]:
-                                rowsAsNumbers |= {43, 54, 74}
-
-                elif (
                     len(arg) > 1
                     and arg[1] == "-"
                     and len(self.bigParamaeter) > 0
@@ -1572,84 +1572,84 @@ class Program:
                                 arg[21:], "z", neg
                             )
                         )
-                elif (
-                    len(arg) > 1
-                    and arg[1] == "-"
-                    and len(self.bigParamaeter) > 0
-                    and self.bigParamaeter[-1] == "kombination"
-                ):  # unteres Kommando
-                    """if arg[2:6] == "und=":
-                        for word in arg[6:].split(","):
-                            if (
-                                word.isdecimal()
-                                or (word[1:].isdecimal() and word[0] == neg)
-                            ) and (
-                                (int(word) > 0 and neg == "")
-                                or (int(word) < 0 and neg != "")
-                            ):
-                                paramLines.add(str(abs(int(word))) + "ku")
-                    elif arg[2:7] == "oder=":
-                        for word in arg[7:].split(","):
-                            if (
-                                word.isdecimal()
-                                or (word[1:].isdecimal() and word[0] == neg)
-                            ) and (
-                                (int(word) > 0 and neg == "")
-                                or (int(word) < 0 and neg != "")
-                            ):
-                                paramLines.add(str(abs(int(word))) + "ko")
-                    elif arg[2:] == "vonangezeigten" + neg:
-                        paramLines.add("ka")"""
-                    if arg[2:6] == "was=":
-                        if neg == "":
-                            paramLines.add("ka")
-                        for thing in arg[(arg.find("=") + 1) :].split(","):
-                            if thing in [
-                                neg + "tiere",
-                                neg + "tier",
-                                neg + "lebewesen",
-                            ]:
-                                self.__willBeOverwritten_rowsOfcombi |= {1}
-                            elif thing in [neg + "berufe", neg + "beruf"]:
-                                self.__willBeOverwritten_rowsOfcombi |= {2}
-                            elif thing in [
-                                neg + "kreativität",
-                                neg + "intelligenz",
-                                neg + "kreativitaet",
-                            ]:
-                                self.__willBeOverwritten_rowsOfcombi |= {3}
-                            elif thing in [neg + "liebe"]:
-                                self.__willBeOverwritten_rowsOfcombi |= {4}
-                            elif thing in [
-                                neg + "transzendenz",
-                                neg + "transzendentalien",
-                                neg + "strukturalien",
-                                neg + "alien",
-                            ]:
-                                self.__willBeOverwritten_rowsOfcombi |= {5}
-                            elif thing in [
-                                neg + "leibnitz",
-                                neg + "primzahlkreuz",
-                            ]:
-                                self.__willBeOverwritten_rowsOfcombi |= {6}
-                            elif thing in [
-                                neg + "männer",
-                                neg + "maenner",
-                                neg + "frauen",
-                            ]:
-                                self.__willBeOverwritten_rowsOfcombi |= {7}
-                            elif thing in [
-                                neg + "evolution",
-                                neg + "erwerben",
-                                neg + "persoenlichkeit",
-                                neg + "persönlichkeit",
-                            ]:
-                                self.__willBeOverwritten_rowsOfcombi |= {8}
-                            elif thing in [
-                                neg + "religion",
-                                neg + "religionen",
-                            ]:
-                                self.__willBeOverwritten_rowsOfcombi |= {9}
+                #                elif (
+                #                    len(arg) > 1
+                #                    and arg[1] == "-"
+                #                    and len(self.bigParamaeter) > 0
+                #                    and self.bigParamaeter[-1] == "kombination"
+                #                ):  # unteres Kommando
+                #                    """if arg[2:6] == "und=":
+                #                        for word in arg[6:].split(","):
+                #                            if (
+                #                                word.isdecimal()
+                #                                or (word[1:].isdecimal() and word[0] == neg)
+                #                            ) and (
+                #                                (int(word) > 0 and neg == "")
+                #                                or (int(word) < 0 and neg != "")
+                #                            ):
+                #                                paramLines.add(str(abs(int(word))) + "ku")
+                #                    elif arg[2:7] == "oder=":
+                #                        for word in arg[7:].split(","):
+                #                            if (
+                #                                word.isdecimal()
+                #                                or (word[1:].isdecimal() and word[0] == neg)
+                #                            ) and (
+                #                                (int(word) > 0 and neg == "")
+                #                                or (int(word) < 0 and neg != "")
+                #                            ):
+                #                                paramLines.add(str(abs(int(word))) + "ko")
+                #                    elif arg[2:] == "vonangezeigten" + neg:
+                #                        paramLines.add("ka")"""
+                #                    if arg[2:6] == "was=":
+                #                        if neg == "":
+                #                            paramLines.add("ka")
+                #                        for thing in arg[(arg.find("=") + 1) :].split(","):
+                #                            if thing in [
+                #                                neg + "tiere",
+                #                                neg + "tier",
+                #                                neg + "lebewesen",
+                #                            ]:
+                #                                self.__willBeOverwritten_rowsOfcombi |= {1}
+                #                            elif thing in [neg + "berufe", neg + "beruf"]:
+                #                                self.__willBeOverwritten_rowsOfcombi |= {2}
+                #                            elif thing in [
+                #                                neg + "kreativität",
+                #                                neg + "intelligenz",
+                #                                neg + "kreativitaet",
+                #                            ]:
+                #                                self.__willBeOverwritten_rowsOfcombi |= {3}
+                #                            elif thing in [neg + "liebe"]:
+                #                                self.__willBeOverwritten_rowsOfcombi |= {4}
+                #                            elif thing in [
+                #                                neg + "transzendenz",
+                #                                neg + "transzendentalien",
+                #                                neg + "strukturalien",
+                #                                neg + "alien",
+                #                            ]:
+                #                                self.__willBeOverwritten_rowsOfcombi |= {5}
+                #                            elif thing in [
+                #                                neg + "leibnitz",
+                #                                neg + "primzahlkreuz",
+                #                            ]:
+                #                                self.__willBeOverwritten_rowsOfcombi |= {6}
+                #                            elif thing in [
+                #                                neg + "männer",
+                #                                neg + "maenner",
+                #                                neg + "frauen",
+                #                            ]:
+                #                                self.__willBeOverwritten_rowsOfcombi |= {7}
+                #                            elif thing in [
+                #                                neg + "evolution",
+                #                                neg + "erwerben",
+                #                                neg + "persoenlichkeit",
+                #                                neg + "persönlichkeit",
+                #                            ]:
+                #                                self.__willBeOverwritten_rowsOfcombi |= {8}
+                #                            elif thing in [
+                #                                neg + "religion",
+                #                                neg + "religionen",
+                #                            ]:
+                #                                self.__willBeOverwritten_rowsOfcombi |= {9}
                 elif (
                     len(arg) > 1
                     and arg[1] == "-"
@@ -2333,7 +2333,7 @@ class Program:
         else:
             print(html)
 
-    def begin(self, argv) -> tuple:
+    def start(self, argv) -> tuple:
         """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
         aller anderen csv dateien
         Parameter werden in Befehle und Nummernlisten gewandelt
@@ -2366,7 +2366,7 @@ class Program:
             spaltenreihenfolgeundnurdiese,
             puniverseprims,
             generRows,
-        ) = self.parameterS(argv)
+        ) = self.parameters(argv)
         (
             paramLinesNot,
             self.rowsAsNumbersNot,
