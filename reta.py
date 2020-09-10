@@ -2373,6 +2373,14 @@ class Program:
             puniverseprims,
             generRows,
         ) = self.parameterS(argv)
+        alxp("üü")
+        alxp(paramLines)
+        alxp(self.rowsAsNumbers)
+        alxp(self.rowsOfcombi)
+        alxp(spaltenreihenfolgeundnurdiese)
+        alxp(puniverseprims)
+        alxp(generRows)
+        alxp("üü")
         (
             paramLinesNot,
             self.rowsAsNumbersNot,
@@ -2381,8 +2389,20 @@ class Program:
             puniverseprimsNot,
             generRowsNot,
         ) = self.parameterS(argv, "-")
-        self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
+        self.rowsAsNumbers = self.spaltenArtenKey_SpaltennummernValue[
             self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["ordinary"]
+        ]
+        # "generated1": (0, 1),
+        # "concat1": (0, 2),
+        # "kombi1": (0, 3),
+        self.generRows = self.spaltenArtenKey_SpaltennummernValue[
+            self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["generated1"]
+        ]
+        self.puniverseprims = self.spaltenArtenKey_SpaltennummernValue[
+            self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["concat1"]
+        ]
+        self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
+            self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["kombi1"]
         ]
         alxp(self.rowsOfcombi)
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
@@ -2505,6 +2525,14 @@ class Program:
             puniverseprims,
             generRows,
         ) = self.parameters(argv)
+        alxp("üü")
+        alxp(paramLines)
+        alxp(self.rowsAsNumbers)
+        alxp(self.rowsOfcombi)
+        alxp(spaltenreihenfolgeundnurdiese)
+        alxp(puniverseprims)
+        alxp(generRows)
+        alxp("üü")
         (
             paramLinesNot,
             self.rowsAsNumbersNot,
