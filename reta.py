@@ -394,10 +394,14 @@ class Program:
             #    puniverseprims_only,
             #    generRows,
             # )
-            # self.alleSpaltenArtenUndInhaltDict
-            for i, eineSpaltenArt in enumerate(tupl):
-                pass
-                # self.alleSpaltenArtenUndInhaltDict(len(neg),i) = tupl[i]
+            # self.spaltenArtenKey_SpaltennummernValue
+            for i, eineSpaltenArtmitSpaltenNummern in enumerate(tupl):
+                alxp(type((eineSpaltenArtmitSpaltenNummern)))
+                alxp((self.spaltenArtenKey_SpaltennummernValue[(len(neg), i)]))
+                alxp(type(self.spaltenArtenKey_SpaltennummernValue[(len(neg), i)]))
+                self.spaltenArtenKey_SpaltennummernValue[
+                    (len(neg), i)
+                ] |= eineSpaltenArtmitSpaltenNummern
 
                 # erstes ist normal, zweites generiertes aus 2 spalten, drittes
                 # ist concatennierte tabelle
@@ -1816,7 +1820,7 @@ class Program:
         global Tables
         self.argv = argv
         self.dataDict: tuple = ({}, {}, {})
-        self.alleSpaltenArtenStr2otherKeyDict = {
+        self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict = {
             "ordinary": (0, 0),
             "ordinaryNot": (0, 1),
             "generated": (0, 2),
@@ -1824,19 +1828,19 @@ class Program:
             "concat1": (1, 1),
             "concat1Not": (1, 2),
         }
-        self.alleSpaltenArtenUndInhaltDict = {
+        self.spaltenArtenKey_SpaltennummernValue = {
             # "ordinary": {},
             # "ordinaryNot": {},
             # "generated": {},
             # "generatedNot": {},
             # "concat1": {},
             # "concat1Not": {},
-            (0, 0): {},
-            (0, 1): {},
-            (0, 2): {},
-            (1, 0): {},
-            (1, 1): {},
-            (1, 2): {},
+            (0, 0): set(),
+            (0, 1): set(),
+            (0, 2): set(),
+            (1, 0): set(),
+            (1, 1): set(),
+            (1, 2): set(),
         }
         self.storeParamtersForColumns()
         if testing:
