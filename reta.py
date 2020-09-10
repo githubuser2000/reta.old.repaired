@@ -635,6 +635,47 @@ class Program:
             (Program.ParametersMain[2], (), {4, 21}),
             (
                 Program.ParametersMain[3],
+                (
+                    "transzendentialien",
+                    "strukturalien",
+                    "alien",
+                    "existenzialien",
+                    "universalien",
+                ),
+                {5, 54, 55},
+            ),
+            (
+                Program.ParametersMain[3],
+                (
+                    "komplex",
+                    "komplexität",
+                    "komplexitaet",
+                    "complexity",
+                    "model",
+                    "abstraktion",
+                ),
+                {65, 75, 77},
+            ),
+            (
+                Program.ParametersMain[3],
+                (
+                    "2",
+                    "zwei",
+                    "gerade",
+                    "ungerade",
+                    "alternierung",
+                    "alternierend",
+                    "zweierstruktur",
+                ),
+                {78, 79, 80},
+            ),
+            (
+                Program.ParametersMain[3],
+                ("4", "vier", "viererstruktur", "viererabfolgen"),
+                {77, 81},
+            ),
+            (
+                Program.ParametersMain[3],
                 (),
                 {5, 54, 55, 65, 75, 76, 77, 78, 79, 80, 81},
             ),
