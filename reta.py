@@ -444,11 +444,12 @@ class Program:
                                 yes1 = False
                             if yes1:
                                 try:
-                                    ordinarySpalten |= {
+                                    resultingSpaltenFromTuple(
                                         self.paraDict[
                                             (cmd[:eq], oneOfThingsAfterEqSign)
-                                        ],
-                                    }
+                                        ]
+                                    )
+
                                     alxp(cmd[:eq] + "=" + oneOfThingsAfterEqSign)
                                 except KeyError:
                                     alxp(
@@ -636,7 +637,8 @@ class Program:
             (
                 Program.ParametersMain[3],
                 (
-                    "transzendentialien",
+                    "transzendentalien",
+                    "transzendentalie",
                     "strukturalien",
                     "alien",
                     "existenzialien",
