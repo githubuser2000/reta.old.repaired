@@ -672,7 +672,7 @@ class Program:
             (
                 Program.ParametersMain[3],
                 ("4", "vier", "viererstruktur", "viererabfolgen"),
-                {77, 81},
+                {76, 77, 81},
             ),
             (
                 Program.ParametersMain[3],
