@@ -2374,7 +2374,10 @@ class Program:
             spaltenreihenfolgeundnurdieseNot,
             puniverseprimsNot,
             generRowsNot,
-        ) = self.parameters(argv, "-")
+        ) = self.parameterS(argv, "-")
+        self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
+            self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["ordinary"]
+        ]
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
         )
