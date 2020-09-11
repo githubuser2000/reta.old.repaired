@@ -318,71 +318,6 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 
 
 class Program:
-    @staticmethod
-    def intoParameterDatatype(
-        parameterMainNames: tuple, parameterNames: tuple, datas: tuple
-    ) -> tuple:
-        """Speichert einen Parameter mit seinem DatenSet
-        in 2 Datenstrukturen (die beides kombinieren 2x2)
-        Diese werden jedoch nur zurück gegeben und nicht in der Klasse gespeichert.
-        @return: alle Hauptparamter| alle Nebenparamter zu nur einem
-        Hauptparameter ergibt Mengen an Spalten | enthält alle Haup- und
-        Nebenparameter keys sind Spalten der Tabelle
-        """
-        # alxp(("_", parameterMainNames, parameterNames, datas))
-        paraMainDict = {}
-        for name in parameterMainNames:
-            paraMainDict[name] = parameterNames
-        paraDict = {}
-        for name1 in parameterMainNames:
-            for name2 in parameterNames:
-                paraDict[(name1, name2)] = datas
-            if len(parameterNames) == 0:
-                paraDict[(name1, "")] = datas
-        dataDicts: tuple = ({}, {}, {})
-        for i, d in enumerate(datas):
-            for dd in d:
-                for parameterMainName in parameterMainNames:
-                    for parameterName in parameterNames:
-                        dataDicts[i][dd] = (
-                            parameterMainName if len(parameterMainNames) > 0 else (),
-                            parameterName if len(parameterNames) > 0 else (),
-                        )
-        # alxp(paraMainDict)
-        # alxp(paraDict)
-        return paraMainDict, paraDict, dataDicts
-
-    def mergeParameterDicts(
-        self, paraMainDict: dict, paraDict: dict, dataDicts: tuple
-    ) -> tuple:
-        """Merged die beiden 2x2 Datenstrukturen und speichert diese
-        in die Klasse und gibt sie dennoch auch mit return zurück
-        @param paraMainDict: Hauptparameter in der Kommandozeile
-        hat als Werte die Nebenparameter und keys sind die Hauptparamter
-        @param paraDict: Nebenparamteter in der Kommandozeile
-        hat als Werte die Spaltennummern dazugehörig
-        @param dataDicts: die beiden Parameter sagen welche Spaltennummern es
-        sein werden
-        @return: Spaltennummer sagt welche Parameter es ingesamt dazu sind | die
-        beiden Parameter sagen, welche Spalten es alle sind."""
-        try:
-            self.paraMainDict = {**self.paraMainDict, **paraMainDict}
-        except AttributeError:
-            self.paraMainDict = paraMainDict
-        try:
-            self.paraDict = {**self.paraDict, **paraDict}
-        except AttributeError:
-            self.paraDict = paraDict
-        for i, dataDict_ in enumerate(dataDicts):
-            for k, v in dataDict_.items():
-                try:
-                    self.dataDict[i][k] |= {v}
-                # except AttributeError or UnboundLocalError:
-                #    self.dataDict[i][k] = {v}
-                except KeyError:
-                    self.dataDict[i][k] = {v}
-
-        return self.paraDict, self.dataDict
 
     def showCommandResults(self, neg=""):
         def resultingSpaltenFromTuple(tupl: tuple, neg="") -> tuple:
@@ -549,6 +484,71 @@ class Program:
 
     def storeParamtersForColumns(self):
         global puniverseprims
+
+        def intoParameterDatatype(
+                parameterMainNames: tuple, parameterNames: tuple, datas: tuple
+        ) -> tuple:
+            """Speichert einen Parameter mit seinem DatenSet
+            in 2 Datenstrukturen (die beides kombinieren 2x2)
+            Diese werden jedoch nur zurück gegeben und nicht in der Klasse gespeichert.
+            @return: alle Hauptparamter| alle Nebenparamter zu nur einem
+            Hauptparameter ergibt Mengen an Spalten | enthält alle Haup- und
+            Nebenparameter keys sind Spalten der Tabelle
+            """
+            # alxp(("_", parameterMainNames, parameterNames, datas))
+            paraMainDict = {}
+            for name in parameterMainNames:
+                paraMainDict[name] = parameterNames
+            paraDict = {}
+            for name1 in parameterMainNames:
+                for name2 in parameterNames:
+                    paraDict[(name1, name2)] = datas
+                if len(parameterNames) == 0:
+                    paraDict[(name1, "")] = datas
+            dataDicts: tuple = ({}, {}, {})
+            for i, d in enumerate(datas):
+                for dd in d:
+                    for parameterMainName in parameterMainNames:
+                        for parameterName in parameterNames:
+                            dataDicts[i][dd] = (
+                                parameterMainName if len(parameterMainNames) > 0 else (),
+                                parameterName if len(parameterNames) > 0 else (),
+                            )
+            # alxp(paraMainDict)
+            # alxp(paraDict)
+            return paraMainDict, paraDict, dataDicts
+
+        def mergeParameterDicts(
+                paraMainDict1: dict, paraDict1: dict, dataDicts1: tuple, paraMainDict2: dict, paraDict2: dict, dataDicts2: tuple
+        ) -> tuple:
+            """Merged die beiden 2x2 Datenstrukturen und speichert diese
+            in die Klasse und gibt sie dennoch auch mit return zurück
+            @param paraMainDict: Hauptparameter in der Kommandozeile
+            hat als Werte die Nebenparameter und keys sind die Hauptparamter
+            @param paraDict: Nebenparamteter in der Kommandozeile
+            hat als Werte die Spaltennummern dazugehörig
+            @param dataDicts: die beiden Parameter sagen welche Spaltennummern es
+            sein werden
+            @return: Spaltennummer sagt welche Parameter es ingesamt dazu sind | die
+            beiden Parameter sagen, welche Spalten es alle sind."""
+            #try:
+            paraMainDict1 = {**paraMainDict1, **paraMainDict2}
+            #except AttributeError:
+            #    pass
+            #try:
+            paraDict1 = {**paraDict1, **paraDict2}
+            #except AttributeError:
+            #    self.paraDict = paraDict
+            for i, dataDict_ in enumerate(dataDicts2):
+                for k, v in dataDict_.items():
+                    try:
+                        dataDicts1[i][k] |= {v}
+                    # except AttributeError or UnboundLocalError:
+                    #    self.dataDict[i][k] = {v}
+                    except KeyError:
+                        dataDicts1[i][k] = {v}
+            return paraDict1, dataDicts1
+
         Program.ParametersMain = (
             (
                 "religionen",
@@ -1054,9 +1054,11 @@ class Program:
                 set(range(10)),
             ),
         )
+        #return paraDict1, dataDict1
+        self.paraMainDict,self.paraDict = {}, {}
         for parameterEntry in paraNdataMatrix:
-            self.mergeParameterDicts(
-                *self.intoParameterDatatype(
+            self.paraDict ,self.dataDict = mergeParameterDicts(self.paraMainDict,self.paraDict,self.dataDict,
+                *intoParameterDatatype(
                     parameterEntry[0],
                     parameterEntry[1],
                     tuple(
