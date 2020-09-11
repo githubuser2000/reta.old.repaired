@@ -341,6 +341,15 @@ class Program:
                 ] -= self.spaltenArtenKey_SpaltennummernValue[(1, el2Type)]
                 self.spaltenArtenKey_SpaltennummernValue.pop((1, el2Type))
 
+        def notNormalParameters(parameter, parametervalue, tables):
+            if parameter == "bedeutung" and parametervalue in [
+                "gestirn",
+                "mond",
+                "sonne",
+                "planet",
+            ]:
+                tables.spalteGestirn = True
+
         # self.intoParameterDatatype
         mainParaCmds: dict = {"zeilen": 0, "spalten": 1, "kombination": 2, "ausgabe": 3}
         # mainParaCmds2: dict = {
@@ -381,6 +390,11 @@ class Program:
                                 yes1 = True if len(neg) == 0 else False
                             if yes1:
                                 try:
+                                    notNormalParameters(
+                                        cmd[:eq],
+                                        oneOfThingsAfterEqSign,
+                                        self.tables,
+                                    )
                                     resultingSpaltenFromTuple(
                                         self.paraDict[
                                             (cmd[:eq], oneOfThingsAfterEqSign)
@@ -408,7 +422,9 @@ class Program:
                                 if len(cmd) > 0 and cmd[-1] == "-":
                                     cmd = cmd[:-1]
                                 # alxp(self.paraDict[(cmd, "")])
-                                resultingSpaltenFromTuple(self.paraDict[(cmd, "")], neg)
+                                resultingSpaltenFromTuple(
+                                    self.paraDict[(cmd, neg)], neg
+                                )
 
                                 # Nalxp("Befehl: " + cmd)
                         except KeyError:
