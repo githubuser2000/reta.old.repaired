@@ -2632,12 +2632,14 @@ class Program:
     def __init__(self, argv=[], testing=False):
         global Tables, infoLog
         self.argv = argv
-        self.dataDict: tuple = ({}, {}, {}, {})
-
-        self.storeParamtersForColumns()
         self.allesParameters = 0
         self.tables = Tables()
+        self.workflowEverything(argv, testing)
+
+    def workflowEverything(self, argv, testing):
+        global infoLog
         if testing:
+            self.dataDict: tuple = ({}, {}, {}, {})
             self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict = {
                 "ordinary": (0, 0),
                 "generated1": (0, 1),
@@ -2700,98 +2702,8 @@ class Program:
             self.rowsAsNumbers,
         )
         if len(self.rowsOfcombi) > 0:
-            """alle  Schritte für kombi:
-            1. lesen: KombiTable und relation, was von kombitable zu haupt gehört
-                      und matrix mit zellen sind zahlen der kombinationen
-                      d.h. 3 Sachen sind das Ergebnis
-            2. prepare: die Zeilen, die infrage kommen für Kombi, d.h.:
-                                    key = haupttabellenzeilennummer
-                                    value = kombitabellenzeilennummer
-            3. Zeilenumbruch machen, wie es bei der Haupt+Anzeige-Tabelle auch gemacht wurde
-               prepare4out
-            4. Vorbereiten des Joinens beider Tabellen direkt hier rein programmiert
-               (Müsste ich unbedingt mal refactoren!)
-            5. joinen
-               Wenn ich hier jetzt alles joine, und aber nicht mehrere Zellen mache pro Kombitablezeile,
-               d.h. nicht genauso viele Zeilen wie es der Kombitablezeilen entspricht,
-               d.h. ich mache nur eine Zeile, in der ich alle kombitableteilen nur konkatteniere,
-               dann ist das Ergebnis Mist in der Ausagbe, weil der Zeilenumbruch noch mal gemacht werden müsste,
-               der jedoch bereits schon gemacht wurde.
-               Der musste aber vorher gemacht werden, denn wenn man ihn jetzt machen würde,
-               dann müsste man das eigentlich WIEDER mit der ganzen Tabelle tun!
-               Also etwa alles völlig umprogrammieren?
-            6. noch mal nur das ausgeben lassen, das nur ausgegeben werden soll
-            7. letztendliche Ausagebe von allem!!
-            """
-            ChosenKombiLines = self.tables.getCombis.prepare_kombi(
-                finallyDisplayLines,
-                animalsProfessionsTable,
-                paramLines,
-                finallyDisplayLines,
-                kombiTable_Kombis,
-            )
-            (
-                finallyDisplayLines_kombi,
-                newTable_kombi_1,
-                lineLen_kombi_1,
-                animalsProfessionsTable,
-                old2newTableAnimalsProfessions,
-            ) = self.tables.getPrepare.prepare4out(
-                set(),
-                set(),
-                animalsProfessionsTable,
-                self.rowsOfcombi,
-                self.tables.getCombis.sumOfAllCombiRowsAmount,
-            )
-            KombiTables = []
-            for key, value in ChosenKombiLines.items():
-                """Zeilennummern der kombi, die hinten dran kommen sollen
-                     an die Haupt- und Anzeigetabelle
-                     key = haupttabellenzeilennummer
-                g    value = kombitabellenzeilennummer
-                """
-                Tables = {}
-                for kombiLineNumber in value:
-                    """
-                    alle kombitabellenzeilennummern hier durchiterieren
-                    pro haupttabellenzeilennummer (diese umschließende Schleife)
-
-                    into = eine neue Tabelle mit nur erlaubten Zeilen, gemacht
-                    aus der Tabelle von der kombi.csv, die schon mit Zeilenumbrüchen
-                    usw. vorbereitet wurde.
-                    """
-
-                    into = self.tables.tableReducedInLinesByTypeSet(
-                        newTable_kombi_1, {kombiLineNumber}
-                    )
-                    """into = self.tables.tableReducedInLinesByTypeSet(
-                        animalsProfessionsTable, {kombiLineNumber}
-                    )"""
-                    if len(into) > 0:
-                        if key in Tables:
-                            """Ergibt Matrix:
-                            KombigesamttabelleMitZeilenumbruchVorbereitung[kombi.csv Zeilenummer][nur die relevanten Spaltens ihre erste Spalte ]
-                            d.h. das ist aus kombi.csv die erste Spalte mit den Kombinationszahlen
-                            die hier zugeordnet zu den kombi.csv zeilennummern gespeichert werden,
-                            d.h. nicht den haupt+ausgabezeilen
-                            """
-                            Tables[key] += [into[0]]
-                        else:
-                            Tables[key] = [into[0]]
-                    # cliOut({0,kombiLineNumber}, oneTable, 2, rowsRange_kombi_1)
-                    """ Liste aus Tabellen: eine Untertabelle = was in Haupttabellenzeilennummer rein soll aus der Kombitabelle
-                    Zusammen ist das die Matrix der Kombis, die an die Haupt+Anzeige Tabelle deneben ran soll
-                """
-                KombiTables += [Tables]
-
-            newTable = self.tables.getCombis.tableJoin(
-                newTable,
-                KombiTables,
-                maintable2subtable_Relation,
-                old2newTable,
-                self.rowsOfcombi,
-            )
-
+            newTable = self.combiWholeWorkflow(animalsProfessionsTable, finallyDisplayLines, kombiTable_Kombis,
+                                               maintable2subtable_Relation, newTable, old2newTable, paramLines)
         # rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
         # spaltenreihenfolgeundnurdiese
         newTable = self.tables.getOut.onlyThatColumns(
@@ -2887,6 +2799,61 @@ class Program:
         # alxp(
         #    "1. Ich muss noch Tabelleninhalte ins Programm bringen, die schon in der Tabelle stecken"
         # )
+
+    def combiWholeWorkflow(self, animalsProfessionsTable, finallyDisplayLines, kombiTable_Kombis,
+                           maintable2subtable_Relation, newTable, old2newTable, paramLines):
+        """alle  Schritte für kombi:
+                1. lesen: KombiTable und relation, was von kombitable zu haupt gehört
+                          und matrix mit zellen sind zahlen der kombinationen
+                          d.h. 3 Sachen sind das Ergebnis
+                2. prepare: die Zeilen, die infrage kommen für Kombi, d.h.:
+                                        key = haupttabellenzeilennummer
+                                        value = kombitabellenzeilennummer
+                3. Zeilenumbruch machen, wie es bei der Haupt+Anzeige-Tabelle auch gemacht wurde
+                   prepare4out
+                4. Vorbereiten des Joinens beider Tabellen direkt hier rein programmiert
+                   (Müsste ich unbedingt mal refactoren!)
+                5. joinen
+                   Wenn ich hier jetzt alles joine, und aber nicht mehrere Zellen mache pro Kombitablezeile,
+                   d.h. nicht genauso viele Zeilen wie es der Kombitablezeilen entspricht,
+                   d.h. ich mache nur eine Zeile, in der ich alle kombitableteilen nur konkatteniere,
+                   dann ist das Ergebnis Mist in der Ausagbe, weil der Zeilenumbruch noch mal gemacht werden müsste,
+                   der jedoch bereits schon gemacht wurde.
+                   Der musste aber vorher gemacht werden, denn wenn man ihn jetzt machen würde,
+                   dann müsste man das eigentlich WIEDER mit der ganzen Tabelle tun!
+                   Also etwa alles völlig umprogrammieren?
+                6. noch mal nur das ausgeben lassen, das nur ausgegeben werden soll
+                7. letztendliche Ausagebe von allem!!
+                """
+        ChosenKombiLines = self.tables.getCombis.prepare_kombi(
+            finallyDisplayLines,
+            animalsProfessionsTable,
+            paramLines,
+            finallyDisplayLines,
+            kombiTable_Kombis,
+        )
+        (
+            finallyDisplayLines_kombi,
+            newTable_kombi_1,
+            lineLen_kombi_1,
+            animalsProfessionsTable,
+            old2newTableAnimalsProfessions,
+        ) = self.tables.getPrepare.prepare4out(
+            set(),
+            set(),
+            animalsProfessionsTable,
+            self.rowsOfcombi,
+            self.tables.getCombis.sumOfAllCombiRowsAmount,
+        )
+        KombiTables = self.tables.getCombis.prepareTableJoin(ChosenKombiLines, newTable_kombi_1)
+        newTable = self.tables.getCombis.tableJoin(
+            newTable,
+            KombiTables,
+            maintable2subtable_Relation,
+            old2newTable,
+            self.rowsOfcombi,
+        )
+        return newTable
 
 
 #        alxp(
