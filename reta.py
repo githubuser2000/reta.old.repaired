@@ -2394,6 +2394,31 @@ class Program:
             puniverseprimsNot,
             generRowsNot,
         ) = self.parametersToCommandsAndNumbers(argv, "-")
+        self.dataDict: tuple = ({}, {}, {}, {})
+        self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict = {
+            "ordinary": (0, 0),
+            "generated1": (0, 1),
+            "concat1": (0, 2),
+            "kombi1": (0, 3),
+            "ordinaryNot": (1, 0),
+            "generate1dNot": (1, 1),
+            "concat1Not": (1, 2),
+            "kombi1Not": (1, 3),
+        }
+        self.spaltenArtenKey_SpaltennummernValue = {
+            (0, 0): set(),
+            (0, 1): set(),
+            (0, 2): set(),
+            (0, 3): set(),
+            (1, 0): set(),
+            (1, 1): set(),
+            (1, 2): set(),
+            (1, 3): set(),
+        }
+        self.storeParamtersForColumns()
+        self.produceAllSpaltenNumbers()
+        infoLog = True
+
         # "generated1": (0, 1),
         # "concat1": (0, 2),
         # "kombi1": (0, 3),
@@ -2651,30 +2676,6 @@ class Program:
     def workflowEverything(self, argv, testing):
         global infoLog
         if testing:
-            self.dataDict: tuple = ({}, {}, {}, {})
-            self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict = {
-                "ordinary": (0, 0),
-                "generated1": (0, 1),
-                "concat1": (0, 2),
-                "kombi1": (0, 3),
-                "ordinaryNot": (1, 0),
-                "generate1dNot": (1, 1),
-                "concat1Not": (1, 2),
-                "kombi1Not": (1, 3),
-            }
-            self.spaltenArtenKey_SpaltennummernValue = {
-                (0, 0): set(),
-                (0, 1): set(),
-                (0, 2): set(),
-                (0, 3): set(),
-                (1, 0): set(),
-                (1, 1): set(),
-                (1, 2): set(),
-                (1, 3): set(),
-            }
-            self.storeParamtersForColumns()
-            infoLog = True
-            self.produceAllSpaltenNumbers()
             (
                 self.RowsLen,
                 paramLines,
