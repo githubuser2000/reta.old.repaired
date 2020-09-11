@@ -318,8 +318,7 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 
 
 class Program:
-
-    def showCommandResults(self, neg=""):
+    def produceAllSpaltenNumbers(self, neg=""):
         def resultingSpaltenFromTuple(tupl: tuple, neg="") -> tuple:
             for i, eineSpaltenArtmitSpaltenNummern in enumerate(tupl):
                 self.spaltenArtenKey_SpaltennummernValue[
@@ -469,7 +468,7 @@ class Program:
         alxp(neg)
         alxp(self.spaltenArtenKey_SpaltennummernValue)
         if len(neg) == 0:
-            self.showCommandResults("-")
+            self.produceAllSpaltenNumbers("-")
             alxp("zusammen")
             alxp(self.spaltenArtenKey_SpaltennummernValue)
             spalten_removeDoublesNthenRemoveOneFromAnother()
@@ -486,7 +485,7 @@ class Program:
         global puniverseprims
 
         def intoParameterDatatype(
-                parameterMainNames: tuple, parameterNames: tuple, datas: tuple
+            parameterMainNames: tuple, parameterNames: tuple, datas: tuple
         ) -> tuple:
             """Speichert einen Parameter mit seinem DatenSet
             in 2 Datenstrukturen (die beides kombinieren 2x2)
@@ -511,7 +510,9 @@ class Program:
                     for parameterMainName in parameterMainNames:
                         for parameterName in parameterNames:
                             dataDicts[i][dd] = (
-                                parameterMainName if len(parameterMainNames) > 0 else (),
+                                parameterMainName
+                                if len(parameterMainNames) > 0
+                                else (),
                                 parameterName if len(parameterNames) > 0 else (),
                             )
             # alxp(paraMainDict)
@@ -519,7 +520,12 @@ class Program:
             return paraMainDict, paraDict, dataDicts
 
         def mergeParameterDicts(
-                paraMainDict1: dict, paraDict1: dict, dataDicts1: tuple, paraMainDict2: dict, paraDict2: dict, dataDicts2: tuple
+            paraMainDict1: dict,
+            paraDict1: dict,
+            dataDicts1: tuple,
+            paraMainDict2: dict,
+            paraDict2: dict,
+            dataDicts2: tuple,
         ) -> tuple:
             """Merged die beiden 2x2 Datenstrukturen und speichert diese
             in die Klasse und gibt sie dennoch auch mit return zurück
@@ -531,13 +537,13 @@ class Program:
             sein werden
             @return: Spaltennummer sagt welche Parameter es ingesamt dazu sind | die
             beiden Parameter sagen, welche Spalten es alle sind."""
-            #try:
+            # try:
             paraMainDict1 = {**paraMainDict1, **paraMainDict2}
-            #except AttributeError:
+            # except AttributeError:
             #    pass
-            #try:
+            # try:
             paraDict1 = {**paraDict1, **paraDict2}
-            #except AttributeError:
+            # except AttributeError:
             #    self.paraDict = paraDict
             for i, dataDict_ in enumerate(dataDicts2):
                 for k, v in dataDict_.items():
@@ -1054,10 +1060,13 @@ class Program:
                 set(range(10)),
             ),
         )
-        #return paraDict1, dataDict1
-        self.paraMainDict,self.paraDict = {}, {}
+        # return paraDict1, dataDict1
+        self.paraMainDict, self.paraDict = {}, {}
         for parameterEntry in paraNdataMatrix:
-            self.paraDict ,self.dataDict = mergeParameterDicts(self.paraMainDict,self.paraDict,self.dataDict,
+            self.paraDict, self.dataDict = mergeParameterDicts(
+                self.paraMainDict,
+                self.paraDict,
+                self.dataDict,
                 *intoParameterDatatype(
                     parameterEntry[0],
                     parameterEntry[1],
@@ -2341,7 +2350,7 @@ class Program:
         else:
             print(html)
 
-    def begin(self, argv) -> tuple:
+    def bringAllImportantBeginThings(self, argv) -> tuple:
         """Einlesen der ersten Tabelle "religion.csv" zu self.relitable
         aller anderen csv dateien
         Parameter werden in Befehle und Nummernlisten gewandelt
@@ -2664,7 +2673,7 @@ class Program:
             }
             self.storeParamtersForColumns()
             infoLog = True
-            self.showCommandResults()
+            self.produceAllSpaltenNumbers()
             (
                 self.RowsLen,
                 paramLines,
@@ -2676,7 +2685,7 @@ class Program:
                 kombiTable_Kombis,
                 maintable2subtable_Relation,
                 spaltenreihenfolgeundnurdiese,
-            ) = self.begin(argv)
+            ) = self.bringAllImportantBeginThings(argv)
         else:
             (
                 self.RowsLen,
@@ -2704,8 +2713,15 @@ class Program:
             self.rowsAsNumbers,
         )
         if len(self.rowsOfcombi) > 0:
-            newTable = self.combiWholeWorkflow(animalsProfessionsTable, finallyDisplayLines, kombiTable_Kombis,
-                                               maintable2subtable_Relation, newTable, old2newTable, paramLines)
+            newTable = self.combiTableWorkflow(
+                animalsProfessionsTable,
+                finallyDisplayLines,
+                kombiTable_Kombis,
+                maintable2subtable_Relation,
+                newTable,
+                old2newTable,
+                paramLines,
+            )
         # rowAmounts = self.tables.getOut.oneTableToMany(newTable, True, rowsRange)
         # spaltenreihenfolgeundnurdiese
         newTable = self.tables.getOut.onlyThatColumns(
@@ -2802,31 +2818,39 @@ class Program:
         #    "1. Ich muss noch Tabelleninhalte ins Programm bringen, die schon in der Tabelle stecken"
         # )
 
-    def combiWholeWorkflow(self, animalsProfessionsTable, finallyDisplayLines, kombiTable_Kombis,
-                           maintable2subtable_Relation, newTable, old2newTable, paramLines):
+    def combiTableWorkflow(
+        self,
+        animalsProfessionsTable,
+        finallyDisplayLines,
+        kombiTable_Kombis,
+        maintable2subtable_Relation,
+        newTable,
+        old2newTable,
+        paramLines,
+    ):
         """alle  Schritte für kombi:
-                1. lesen: KombiTable und relation, was von kombitable zu haupt gehört
-                          und matrix mit zellen sind zahlen der kombinationen
-                          d.h. 3 Sachen sind das Ergebnis
-                2. prepare: die Zeilen, die infrage kommen für Kombi, d.h.:
-                                        key = haupttabellenzeilennummer
-                                        value = kombitabellenzeilennummer
-                3. Zeilenumbruch machen, wie es bei der Haupt+Anzeige-Tabelle auch gemacht wurde
-                   prepare4out
-                4. Vorbereiten des Joinens beider Tabellen direkt hier rein programmiert
-                   (Müsste ich unbedingt mal refactoren!)
-                5. joinen
-                   Wenn ich hier jetzt alles joine, und aber nicht mehrere Zellen mache pro Kombitablezeile,
-                   d.h. nicht genauso viele Zeilen wie es der Kombitablezeilen entspricht,
-                   d.h. ich mache nur eine Zeile, in der ich alle kombitableteilen nur konkatteniere,
-                   dann ist das Ergebnis Mist in der Ausagbe, weil der Zeilenumbruch noch mal gemacht werden müsste,
-                   der jedoch bereits schon gemacht wurde.
-                   Der musste aber vorher gemacht werden, denn wenn man ihn jetzt machen würde,
-                   dann müsste man das eigentlich WIEDER mit der ganzen Tabelle tun!
-                   Also etwa alles völlig umprogrammieren?
-                6. noch mal nur das ausgeben lassen, das nur ausgegeben werden soll
-                7. letztendliche Ausagebe von allem!!
-                """
+        1. lesen: KombiTable und relation, was von kombitable zu haupt gehört
+                  und matrix mit zellen sind zahlen der kombinationen
+                  d.h. 3 Sachen sind das Ergebnis
+        2. prepare: die Zeilen, die infrage kommen für Kombi, d.h.:
+                                key = haupttabellenzeilennummer
+                                value = kombitabellenzeilennummer
+        3. Zeilenumbruch machen, wie es bei der Haupt+Anzeige-Tabelle auch gemacht wurde
+           prepare4out
+        4. Vorbereiten des Joinens beider Tabellen direkt hier rein programmiert
+           (Müsste ich unbedingt mal refactoren!)
+        5. joinen
+           Wenn ich hier jetzt alles joine, und aber nicht mehrere Zellen mache pro Kombitablezeile,
+           d.h. nicht genauso viele Zeilen wie es der Kombitablezeilen entspricht,
+           d.h. ich mache nur eine Zeile, in der ich alle kombitableteilen nur konkatteniere,
+           dann ist das Ergebnis Mist in der Ausagbe, weil der Zeilenumbruch noch mal gemacht werden müsste,
+           der jedoch bereits schon gemacht wurde.
+           Der musste aber vorher gemacht werden, denn wenn man ihn jetzt machen würde,
+           dann müsste man das eigentlich WIEDER mit der ganzen Tabelle tun!
+           Also etwa alles völlig umprogrammieren?
+        6. noch mal nur das ausgeben lassen, das nur ausgegeben werden soll
+        7. letztendliche Ausagebe von allem!!
+        """
         ChosenKombiLines = self.tables.getCombis.prepare_kombi(
             finallyDisplayLines,
             animalsProfessionsTable,
@@ -2847,7 +2871,9 @@ class Program:
             self.rowsOfcombi,
             self.tables.getCombis.sumOfAllCombiRowsAmount,
         )
-        KombiTables = self.tables.getCombis.prepareTableJoin(ChosenKombiLines, newTable_kombi_1)
+        KombiTables = self.tables.getCombis.prepareTableJoin(
+            ChosenKombiLines, newTable_kombi_1
+        )
         newTable = self.tables.getCombis.tableJoin(
             newTable,
             KombiTables,
@@ -2902,7 +2928,7 @@ Ich bilde den Ablauf wider:
     1. init
         da rasselt alles durch bis alles ausgegeben wird
             dieses durchrasseln sollte ich in eine Extra Methode verlagern
-            begin() bzw. start() sollte ich adäquat umbenenenn.
+            bringAllImportantBeginThings() bzw. start() sollte ich adäquat umbenenenn.
                 das durchrasselnde sollte ich aufplitten in module
         das ganze refactoring mache ich mit pycharm
         was ich für Parameter programmiert habe, müsste ich auch ins Richtige
