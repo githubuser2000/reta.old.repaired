@@ -1122,7 +1122,9 @@ class Program:
         # alxp((self.paraDict))
         # alxp((self.dataDict))
 
-    def parameterS(self, argv, neg="") -> Iterable[Union[set, set, set, list]]:
+    def parametersToCommandsAndNumbers(
+        self, argv, neg=""
+    ) -> Iterable[Union[set, set, set, list]]:
         """Parameter in der Shell werden hier vorverarbeitet.
         Die Paraemter führen dazu, dass Variablen gesetzt werden, z.B.
         eine Menge die als Befehl kodiert, welche Zeilen und eine die kodiert
@@ -1707,7 +1709,7 @@ class Program:
                     elif arg[1:] in ["debug"]:
                         infoLog = True
                     elif arg[1:] in ["h", "help"] and neg == "":
-                        self.help()
+                        self.helpPage()
         if not self.tables.getOut.oneTable:
             self.tables.textWidth = (
                 self.tables.textWidth
@@ -2308,7 +2310,7 @@ class Program:
                     elif arg[1:] in ["debug"]:
                         infoLog = True
                     elif arg[1:] in ["h", "help"] and neg == "":
-                        self.help()
+                        self.helpPage()
         if not self.tables.getOut.oneTable:
             self.tables.textWidth = (
                 self.tables.textWidth
@@ -2324,7 +2326,7 @@ class Program:
             generRows,
         )
 
-    def help(self):
+    def helpPage(self):
         global folder
         if "Brython" not in sys.version.split():
             place = os.path.join(
@@ -2383,7 +2385,7 @@ class Program:
             spaltenreihenfolgeundnurdiese,
             puniverseprims,
             generRows,
-        ) = self.parameterS(argv)
+        ) = self.parametersToCommandsAndNumbers(argv)
         (
             paramLinesNot,
             self.rowsAsNumbersNot,
@@ -2391,7 +2393,7 @@ class Program:
             spaltenreihenfolgeundnurdieseNot,
             puniverseprimsNot,
             generRowsNot,
-        ) = self.parameterS(argv, "-")
+        ) = self.parametersToCommandsAndNumbers(argv, "-")
         self.rowsAsNumbers = self.spaltenArtenKey_SpaltennummernValue[
             self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["ordinary"]
         ]
