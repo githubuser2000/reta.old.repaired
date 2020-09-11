@@ -2921,3 +2921,21 @@ if __name__ == "__main__":
 # Durch Unit-Tests lässt sich das Testen automatisieren
 # import unittest
 # from tribool import Tribool libs: nose und pytest
+
+
+"""
+Irgendwie muss ich mir jetzt überlegen, wie ich das jetzt alles umgestalte und
+architektonisch schöner mache
+Ganze klar, die eine Stelle gehört in die ganz andere Klasse.
+Aber auch so müsste ich es mal anders umbauen.
+
+Ich bilde den Ablauf wider:
+    1. init
+        da rasselt alles durch bis alles ausgegeben wird
+            dieses durchrasseln sollte ich in eine Extra Methode verlagern
+            begin() bzw. start() sollte ich adäquat umbenenenn.
+                das durchrasselnde sollte ich aufplitten in module
+        das ganze refactoring mache ich mit pycharm
+        was ich für Parameter programmiert habe, müsste ich auch ins Richtige
+        rein verschieben mit pycharm
+"""
