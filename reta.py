@@ -16,7 +16,7 @@ from typing import Iterable, Union
 import bbcode
 
 from tableHandling import (OutputSyntax, Tables, alxp, bbCodeSyntax, csvSyntax,
-                           htmlSyntax, markdownSyntax)
+                           htmlSyntax, markdownSyntax, primCreativity)
 
 if "Brython" not in sys.version.split():
     import html2text
@@ -320,11 +320,19 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 
 class Program:
     def produceAllSpaltenNumbers(self, neg=""):
-        def resultingSpaltenFromTuple(tupl: tuple, neg="") -> tuple:
+        def resultingSpaltenFromTuple(tupl: tuple, neg, paraValue) -> tuple:
             for i, eineSpaltenArtmitSpaltenNummern in enumerate(tupl):
-                self.spaltenArtenKey_SpaltennummernValue[
-                    (len(neg), i)
-                ] |= eineSpaltenArtmitSpaltenNummern
+                alxp("oo")
+                alxp(i)
+                if i == 2:
+                    self.spaltenArtenKey_SpaltennummernValue[
+                        (len(neg), 2)
+                    ] |= eineSpaltenArtmitSpaltenNummern[0](paraValue)
+                else:
+                    self.spaltenArtenKey_SpaltennummernValue[
+                        (len(neg), i)
+                    ] |= eineSpaltenArtmitSpaltenNummern
+            self.spaltenArtenKey_SpaltennummernValue
 
         def spalten_removeDoublesNthenRemoveOneFromAnother():
             for el2Type in range(
@@ -396,11 +404,13 @@ class Program:
                                         oneOfThingsAfterEqSign,
                                         self.tables,
                                     )
+                                    alxp("uuuu")
                                     resultingSpaltenFromTuple(
                                         self.paraDict[
                                             (cmd[:eq], oneOfThingsAfterEqSign)
                                         ],
                                         neg,
+                                        oneOfThingsAfterEqSign,
                                     )
 
                                     # alxp(cmd[:eq] + "=" + oneOfThingsAfterEqSign)
@@ -492,11 +502,11 @@ class Program:
             alxp("zusammen2")
             alxp(self.spaltenArtenKey_SpaltennummernValue)
 
-            self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
-                self.spaltenTypeNaming.ordinary
-            ]
-            alxp("hier")
-            alxp(self.rowsOfcombi)
+            # self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
+            #     self.spaltenTypeNaming.ordinary
+            # ]
+            # alxp("hier")
+            # alxp(self.rowsOfcombi)
 
     def storeParamtersForColumns(self):
         global puniverseprims
@@ -974,15 +984,26 @@ class Program:
             (Program.ParametersMain[9], (), {36, 37}),
             (
                 Program.ParametersMain[10],
-                (),
-                {},
-                {},
-                puniverseprims
-                # {
-                #    abs(chosen) if (len(chosen) == chosen) else None
-                #    for chosen in [int(value) for value in (arg[30:].split(",",))]
-                # }
-                # - {None, 0, 1},
+                str(
+                    set(
+                        (
+                            num if primCreativity(num) == 1 else None
+                            for num in range(2, 24)
+                        )
+                    )
+                    - {None}
+                ),
+                set(),
+                set(),
+                (
+                    lambda paraValues: {
+                        abs(int(chosen))
+                        if chosen.isdecimal() and primCreativity(abs(int(chosen))) == 1
+                        else None
+                        for chosen in [value for value in (paraValues.split(","))]
+                    }
+                    - {None, 0, 1},
+                ),
             ),
             (
                 Program.ParametersMain[11],
@@ -995,7 +1016,7 @@ class Program:
                     "optimal",
                     "optimum",
                 ),
-                {},
+                set(),
                 {(40, 41)},
             ),
             (
@@ -1018,7 +1039,7 @@ class Program:
                     "zeitlich",
                     "räumlich",
                 ),
-                {},
+                set(),
                 {(49, 50)},
             ),
             (
@@ -1028,7 +1049,7 @@ class Program:
                     "anderemenschen",
                     "ruf",
                 ),
-                {},
+                set(),
                 {(60, 61)},
             ),
             (
@@ -1037,7 +1058,7 @@ class Program:
                     "selbstgerechtigkeit",
                     "selbstgerecht",
                 ),
-                {},
+                set(),
                 {(62, 63)},
             ),
             (
@@ -1048,7 +1069,7 @@ class Program:
                     "egoist",
                     "altruist",
                 ),
-                {},
+                set(),
                 {(66, 67)},
             ),
             (Program.ParametersMain[12], ("universum",), {43, 54, 74}),
