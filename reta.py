@@ -320,7 +320,7 @@ def isPrimMultiple(isIt: int, multiples1: list, dontReturnList=True):
 
 class Program:
     def produceAllSpaltenNumbers(self, neg=""):
-        def resultingSpaltenFromTuple(tupl: tuple, neg, paraValue) -> tuple:
+        def resultingSpaltenFromTuple(tupl: tuple, neg, paraValue=None) -> tuple:
             for i, eineSpaltenArtmitSpaltenNummern in enumerate(tupl):
                 alxp("oo")
                 alxp(i)
@@ -2421,16 +2421,16 @@ class Program:
             self.rowsAsNumbers,
             self.rowsOfcombi,
             spaltenreihenfolgeundnurdiese,
-            puniverseprims,
-            generRows,
+            self.puniverseprims,
+            self.generRows,
         ) = self.parametersToCommandsAndNumbers(argv)
         (
             paramLinesNot,
             self.rowsAsNumbersNot,
             self.rowsOfcombiNot,
             spaltenreihenfolgeundnurdieseNot,
-            puniverseprimsNot,
-            generRowsNot,
+            self.puniverseprimsNot,
+            self.generRowsNot,
         ) = self.parametersToCommandsAndNumbers(argv, "-")
         self.dataDict: tuple = ({}, {}, {}, {})
         self.spaltenTypeNaming: namedtuple = namedtuple(
@@ -2463,7 +2463,6 @@ class Program:
         }
         self.storeParamtersForColumns()
         self.produceAllSpaltenNumbers()
-        infoLog = True
 
         # "generated1": (0, 1),
         # "concat1": (0, 2),
@@ -2473,25 +2472,25 @@ class Program:
         # alxp(self.rowsAsNumbers)
         # alxp(self.rowsOfcombi)
         # alxp(spaltenreihenfolgeundnurdiese)
-        # alxp(puniverseprims)
-        # alxp(generRows)
+        # alxp(self.puniverseprims)
+        # alxp(self.generRows)
         # alxp("üü")
         # alxp(self.rowsOfcombi)
         paramLines, paramLinesNot = self.tables.getPrepare.deleteDoublesInSets(
             paramLines, paramLinesNot
         )
-        # puniverseprims, puniverseprimsNot = self.tables.getPrepare.deleteDoublesInSets(
-        #    puniverseprims, puniverseprimsNot
+        # self.puniverseprims, self.puniverseprimsNot = self.tables.getPrepare.deleteDoublesInSets(
+        #    self.puniverseprims, self.puniverseprimsNot
         # )
 
-        if self.allesParameters != 2:
-            puniverseprimsNot -= puniverseprims
-            generRows -= generRowsNot
-        else:
-            puniverseprims = set()
-            generRows = set()
-        for prims in puniverseprims - puniverseprimsNot:
-            self.tables.primUniversePrimsSet.add(prims)
+        # if self.allesParameters != 2:
+        #     self.puniverseprimsNot -= self.puniverseprims
+        #     self.generRows -= self.generRowsNot
+        # else:
+        #     self.puniverseprims = set()
+        #     self.generRows = set()
+        # for prims in self.puniverseprims - self.puniverseprimsNot:
+        #     self.tables.primUniversePrimsSet.add(prims)
         # (
         #    self.rowsAsNumbers,
         #    self.rowsAsNumbersNot,
@@ -2515,9 +2514,23 @@ class Program:
         self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
             self.spaltenTypeNaming.kombi1
         ]
+        for prims in self.puniverseprims:
+            self.tables.primUniversePrimsSet.add(prims)
+
+        alxp("üü")
+        alxp(paramLines)
+        alxp(self.rowsAsNumbers)
+        alxp(self.rowsOfcombi)
+        alxp(spaltenreihenfolgeundnurdiese)
+        alxp(self.puniverseprims)
+        alxp(self.generRows)
+        alxp("üü")
+
+        alxp("§")
+        alxp(self.puniverseprims)
         if len(self.rowsOfcombi) > 0:
             paramLines.add("ka")
-        self.tables.generRows = generRows
+        self.tables.generRows = self.generRows
         self.tables.getPrepare.rowsAsNumbers = self.rowsAsNumbers
         self.tables.getOut.rowsAsNumbers = self.rowsAsNumbers
 
