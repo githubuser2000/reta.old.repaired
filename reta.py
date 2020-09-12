@@ -7,6 +7,7 @@ import os
 import pprint
 import re
 import sys
+from collections import namedtuple
 from copy import copy, deepcopy
 from enum import Enum
 # from collections.abc import Iterable
@@ -492,7 +493,7 @@ class Program:
             alxp(self.spaltenArtenKey_SpaltennummernValue)
 
             self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
-                self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["ordinary"]
+                self.spaltenTypeNaming.ordinary
             ]
             alxp("hier")
             alxp(self.rowsOfcombi)
@@ -2411,16 +2412,24 @@ class Program:
             generRowsNot,
         ) = self.parametersToCommandsAndNumbers(argv, "-")
         self.dataDict: tuple = ({}, {}, {}, {})
-        self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict = {
-            "ordinary": (0, 0),
-            "generated1": (0, 1),
-            "concat1": (0, 2),
-            "kombi1": (0, 3),
-            "ordinaryNot": (1, 0),
-            "generate1dNot": (1, 1),
-            "concat1Not": (1, 2),
-            "kombi1Not": (1, 3),
-        }
+        self.spaltenTypeNaming: namedtuple = namedtuple(
+            "SpaltenTyp",
+            "ordinary generated1 concat1 kombi1 ordinaryNot generate1dNot concat1Not kombi1Not",
+        )
+        self.spaltenTypeNaming = self.spaltenTypeNaming(
+            (0, 0), (0, 1), (0, 2), (0, 3), (1, 0), (1, 1), (1, 2), (1, 3)
+        )
+
+        # self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict = {
+        #    "ordinary": (0, 0),
+        #    "generated1": (0, 1),
+        #    "concat1": (0, 2),
+        #    "kombi1": (0, 3),
+        #    "ordinaryNot": (1, 0),
+        #    "generate1dNot": (1, 1),
+        #    "concat1Not": (1, 2),
+        #    "kombi1Not": (1, 3),
+        # }
         self.spaltenArtenKey_SpaltennummernValue = {
             (0, 0): set(),
             (0, 1): set(),
@@ -2474,16 +2483,16 @@ class Program:
         # ) = self.tables.getPrepare.deleteDoublesInSets(
         #    self.rowsOfcombi, self.rowsOfcombiNot
         self.rowsAsNumbers = self.spaltenArtenKey_SpaltennummernValue[
-            self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["ordinary"]
+            self.spaltenTypeNaming.ordinary
         ]
         self.generRows = self.spaltenArtenKey_SpaltennummernValue[
-            self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["generated1"]
+            self.spaltenTypeNaming.generated1
         ]
         self.puniverseprims = self.spaltenArtenKey_SpaltennummernValue[
-            self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["concat1"]
+            self.spaltenTypeNaming.concat1
         ]
         self.rowsOfcombi = self.spaltenArtenKey_SpaltennummernValue[
-            self.spaltenArtenNameKey_SpaltenArtenTupleVal_4Key4otherDict["kombi1"]
+            self.spaltenTypeNaming.kombi1
         ]
         if len(self.rowsOfcombi) > 0:
             paramLines.add("ka")
