@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import csv
-import io
 import math
-import os
-import pprint
 import re
 import sys
 from collections import namedtuple
@@ -13,108 +10,15 @@ from enum import Enum
 # from collections.abc import Iterable
 from typing import Iterable, Union
 
-import bbcode
-
+from center import (alxp, bbcode, cliout, html2text, infoLog, os, output,
+                    shellRowsAmount)
 from tableHandling import (OutputSyntax, Tables, alxp, bbCodeSyntax, csvSyntax,
                            htmlSyntax, markdownSyntax, primCreativity)
-
-if "Brython" not in sys.version.split():
-    import html2text
-    import pyphen
-    from hyphen import Hyphenator
-    from textwrap2 import fill
-
-    h_de = Hyphenator("de_DE")
-    dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenumbruch
-
-    ColumnsRowsAmount, shellRowsAmountStr = (
-        os.popen("stty size", "r").read().split()
-    )  # Wie viele Zeilen und Spalten hat die Shell ?
-else:
-    ColumnsRowsAmount, shellRowsAmountStr = "50", "50"
-pp = pprint.PrettyPrinter(indent=4)
-shellRowsAmount: int = int(shellRowsAmountStr)
-infoLog = False
-originalLinesRange = range(1028)  # Maximale Zeilenanzahl
-output = True
 
 parser = bbcode.Parser()
 parser.add_simple_formatter("hr", "<hr />", standalone=True)
 parser.add_simple_formatter("sub", "<sub>%(value)s</sub>")
 parser.add_simple_formatter("sup", "<sup>%(value)s</sup>")
-
-
-class Wraptype(Enum):
-    pyphen = 1
-    pyhyphen = 2
-    nohyphen = 3
-
-
-wrappingType: Wraptype = Wraptype.pyhyphen
-# wrappingType: Wraptype = Wraptype.nohyphen
-# wrappingType: Wraptype = Wraptype.pyphen
-
-
-def chunks(lst, n):
-    """Yield successive n-sized chunks from lst."""
-    for i in range(0, len(lst), n):
-        yield lst[i : i + n]
-
-
-def splitMoreIfNotSmall(textList: list, lenToBe: int) -> tuple:
-    newList: list = []
-    neededToBeDoneAtAll = False
-    lenToBe -= 0
-    for k, text in enumerate(textList):
-        if len(text) > lenToBe:
-            neededToBeDoneAtAll = True
-    if neededToBeDoneAtAll:
-        for k, text in enumerate(textList):
-            if len(text) > lenToBe:
-                newList += list(chunks(text, lenToBe))
-            else:
-                newList += [text]
-    if neededToBeDoneAtAll:
-        return tuple(newList)
-    else:
-        return tuple(textList)
-
-
-def alxwrap(text: str, len_: int):
-    global wrappingType
-    """ Ich könnte hier beschleunigen, indem ich funktionszeiger verwende,
-    anstelle jedes mal hier ein if durch gehen zu lassen
-    """
-    try:
-        fill
-    except NameError:
-        return (text,)
-    if "Brython" in sys.version.split():
-        return (text,)
-    try:
-        return (
-            dic.wrap(text, len_)
-            if wrappingType == Wraptype.pypheni and len_ != 0
-            else (
-                splitMoreIfNotSmall(
-                    fill(text, width=len_, use_hyphenator=h_de).split("\n"), len_
-                )
-                if wrappingType == Wraptype.pyhyphen and len_ != 0
-                else (text,)
-            )
-        )
-    except:
-        return (
-            dic.wrap(text, len_)
-            if wrappingType == Wraptype.pyhyphen and len_ != 0
-            else (
-                splitMoreIfNotSmall(
-                    fill(text, width=len_, use_hyphenator=h_de).split("\n"), len_
-                )
-                if wrappingType == Wraptype.pyphen and len_ != 0
-                else (text,)
-            )
-        )
 
 
 def render_color(tag_name, value, options, parent, context):
@@ -124,22 +28,6 @@ def render_color(tag_name, value, options, parent, context):
 # print(os.path.dirname(__file__))
 for color in ("red", "blue", "green", "yellow", "black", "white"):
     parser.add_formatter(color, render_color)
-
-
-def alxp(text):
-    global output
-    """Für mich, damit ich mal alle prints ausschalten kann zum vorführen,
-    wenn ich noch beim Entwicklen war."""
-    if infoLog and output:
-        if type(text) is str:
-            print(text)
-        else:
-            pp.pprint(text)
-
-
-def cliout(text):
-    if output:
-        print(text)
 
 
 # puniverseprims = {

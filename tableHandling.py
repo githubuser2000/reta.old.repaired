@@ -1,39 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import csv
-import io
+# import io
 import math
-import os
-import pprint
-import re
-import sys
+# import os
+# import pprint
+# import re
+# import sys
 from copy import copy, deepcopy
 from enum import Enum
 # from collections.abc import Iterable
 from typing import Iterable, Union
 
-import bbcode
+from center import alxp, bbcode, cliout, infoLog, os, output, shellRowsAmount
 
-if "Brython" not in sys.version.split():
-    import html2text
-    import pyphen
-    from hyphen import Hyphenator
-    from textwrap2 import fill
-
-    h_de = Hyphenator("de_DE")
-    dic = pyphen.Pyphen(lang="de_DE")  # Bibliothek für Worteilumbruch bei Zeilenumbruch
-
-    ColumnsRowsAmount, shellRowsAmountStr = (
-        os.popen("stty size", "r").read().split()
-    )  # Wie viele Zeilen und Spalten hat die Shell ?
-else:
-    ColumnsRowsAmount, shellRowsAmountStr = "50", "50"
-pp = pprint.PrettyPrinter(indent=4)
-shellRowsAmount: int = int(shellRowsAmountStr)
-infoLog = True
 originalLinesRange = range(1028)  # Maximale Zeilenanzahl
-output = True
-
 parser = bbcode.Parser()
 parser.add_simple_formatter("hr", "<hr />", standalone=True)
 parser.add_simple_formatter("sub", "<sub>%(value)s</sub>")
@@ -239,22 +220,6 @@ def render_color(tag_name, value, options, parent, context):
 # print(os.path.dirname(__file__))
 for color in ("red", "blue", "green", "yellow", "black", "white"):
     parser.add_formatter(color, render_color)
-
-
-def alxp(text):
-    global output
-    """Für mich, damit ich mal alle prints ausschalten kann zum vorführen,
-    wenn ich noch beim Entwicklen war."""
-    if infoLog and output:
-        if type(text) is str:
-            print(text)
-        else:
-            pp.pprint(text)
-
-
-def cliout(text):
-    if output:
-        print(text)
 
 
 class Tables:
