@@ -2818,6 +2818,9 @@ class Program:
              deutlich aufbessern!
              """
         )
+        alxp(
+            "nicht nur nur alle monde anzeigen, auch nur alle sonnen anzeigen, obwohl das schon mit -monde geht!"
+        )
         #        alxp(
         #            "Überprüfung aller Funktionen nach Umprogrammierung wegen Brython!kombiTable_Kombis"
         #        )
